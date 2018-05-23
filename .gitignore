@@ -1,0 +1,9 @@
+*
+!.gitignore
+!/etc/
+/etc/*
+!/etc/apt/
+/etc/apt/*
+!/etc/apt/sources*
+!/etc/apt/sources*/
+!/etc/apt/sources*/*
