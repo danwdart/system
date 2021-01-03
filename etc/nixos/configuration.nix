@@ -11,7 +11,7 @@
       ./cachix.nix
     ];
 
-  trustedUsers = [ "root" "dwd" ];
+  nix.trustedUsers = [ "root" "dwd" ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -58,7 +58,8 @@
 
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget vim
+    wget
+    vim
     firefox
   ];
 
