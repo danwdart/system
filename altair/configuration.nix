@@ -25,6 +25,8 @@
 
   virtualisation.docker.enable = true;
   virtualisation.anbox.enable = true;
+#   virtualisation.lxc.enable = true;
+#   virtualisation.lxd.enable = true;
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -47,10 +49,23 @@
 
   services.xserver.layout = "gb";
 
+  services.grocy.enable = true;
+  services.grocy.hostName = "altair";
+  services.grocy.nginx.enableSSL = false;
+  services.grocy.settings.calendar.firstDayOfWeek = 1;
+  services.grocy.settings.currency = "GBP";
+  services.grocy.settings.culture = "en_GB";
+
+  # security.acme.email = "acme@dandart.co.uk";
+  # security.acme.acceptTerms = true;
+
   # services.miredo.enable = true;
 
   nixpkgs.config.allowUnfree = true;
   programs.steam.enable = true;
+
+  programs.adb.enable = true;
+  programs.wireshark.enable = true;
 
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
@@ -66,13 +81,14 @@
 
   users.users.dwd = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "networkmanager" "kvm" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" "networkmanager" "kvm" "adbusers" "wireshark"]; # Enable ‘sudo’ for the user.
   };
 
   # $ nix search
   environment.systemPackages = with pkgs; [
     a2jmidid
-    chirp
+    ark
+    chirp 
     discord
     element-desktop
     firefox
@@ -85,16 +101,21 @@
     networkmanager
     nixpkgs-fmt
     nmap
+    OVMF
+    plasma5.plasma-browser-integration
     qemu
     qjackctl
     slack
     spotify
     steam
+    thunderbird
     vim
+    virglrenderer
     virt-manager
     virt-viewer
     vscode
     wget
+    win-qemu
     wsjtx
     xcodebuild
     xorg.xf86videointel
