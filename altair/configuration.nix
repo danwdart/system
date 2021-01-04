@@ -25,8 +25,8 @@
 
   virtualisation.docker.enable = true;
   virtualisation.anbox.enable = true;
-#   virtualisation.lxc.enable = true;
-#   virtualisation.lxd.enable = true;
+  #   virtualisation.lxc.enable = true;
+  #   virtualisation.lxd.enable = true;
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -81,14 +81,14 @@
 
   users.users.dwd = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "networkmanager" "kvm" "adbusers" "wireshark"]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" "networkmanager" "kvm" "adbusers" "wireshark" ]; # Enable ‘sudo’ for the user.
   };
 
   # $ nix search
   environment.systemPackages = with pkgs; [
     a2jmidid
     ark
-    chirp 
+    chirp
     discord
     element-desktop
     firefox
@@ -118,6 +118,7 @@
     win-qemu
     wsjtx
     xcodebuild
+    xorg.xev
     xorg.xf86videointel
   ];
 
