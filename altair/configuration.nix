@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./cachix.nix
     ];
@@ -16,18 +17,20 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "altair"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/London";
 
   virtualisation.docker.enable = true;
+  virtualisation.anbox.enable = true;
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.interfaces.enp0s3.useDHCP = true;
+  # networking.interfaces.enp0s3.useDHCP = true;
 
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -41,11 +44,21 @@
   services.xserver.enable = true;
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
-  
+
   services.xserver.layout = "gb";
-  
+
+  # services.miredo.enable = true;
+
+  nixpkgs.config.allowUnfree = true;
+  programs.steam.enable = true;
+
+  hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
+  hardware.pulseaudio.support32Bit = true;
+
   # services.xserver.xkbOptions = "eurosign:e";
-  # services.printing.enable = true;
+  services.printing.enable = true;
+
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
@@ -53,14 +66,38 @@
 
   users.users.dwd = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" "networkmanager" "kvm" ]; # Enable ‘sudo’ for the user.
   };
 
-  # $ nix search wget
+  # $ nix search
   environment.systemPackages = with pkgs; [
-    wget
-    vim
+    a2jmidid
+    chirp
+    discord
+    element-desktop
     firefox
+    fldigi
+    git
+    jack_rack
+    kdeApplications.kalarm
+    libsForQt5.phonon
+    libsForQt5.phonon-backend-gstreamer
+    networkmanager
+    nixpkgs-fmt
+    nmap
+    qemu
+    qjackctl
+    slack
+    spotify
+    steam
+    vim
+    virt-manager
+    virt-viewer
+    vscode
+    wget
+    wsjtx
+    xcodebuild
+    xorg.xf86videointel
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -73,7 +110,7 @@
 
   services.openssh.enable = true;
 
-  networking.firewall.allowedTCPPorts = [ 22 8080 ];
+  networking.firewall.allowedTCPPorts = [ 22 80 8080 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
@@ -87,4 +124,3 @@
   system.stateVersion = "20.09"; # Did you read the comment?
 
 }
-

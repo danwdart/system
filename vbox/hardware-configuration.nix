@@ -12,16 +12,18 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/sda2";
+    {
+      device = "/dev/sda2";
       fsType = "btrfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/9413-D7B9";
+    {
+      device = "/dev/disk/by-uuid/9413-D7B9";
       fsType = "vfat";
     };
 
-  swapDevices = [ { device = "/swap"; } ];
+  swapDevices = [{ device = "/swap"; }];
 
   virtualisation.virtualbox.guest.enable = true;
 }

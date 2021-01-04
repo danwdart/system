@@ -1,8 +1,0 @@
-*
-!.gitignore
-!/etc/
-/etc/*
-!/etc/nixos/
-!/etc/nixos/*
-!/etc/nixos/cachix
-!/etc/nixos/cachix/*
