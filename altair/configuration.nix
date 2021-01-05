@@ -14,8 +14,13 @@
 
   nix.trustedUsers = [ "root" "dwd" ];
 
+  nix.gc.automatic = true;
+  nix.gc.options = "--delete-older-than 8d";
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # boot.kernelPackages = pkgs.linuxPackages_5_9;
 
   networking.hostName = "altair"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -24,9 +29,13 @@
   time.timeZone = "Europe/London";
 
   virtualisation.docker.enable = true;
-  virtualisation.anbox.enable = true;
-  #   virtualisation.lxc.enable = true;
-  #   virtualisation.lxd.enable = true;
+  virtualisation.docker.autoPrune.enable = true;
+  # virtualisation.anbox.enable = true;
+
+  # virtualisation.virtualbox.host.enable = true;
+  # virtualisation.virtualbox.host.enableExtensionPack = true;
+  # virtualisation.lxc.enable = true;
+  # virtualisation.lxd.enable = true;
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -42,6 +51,8 @@
     font = "Lat2-Terminus16";
     # keyMap = "gb";
   };
+
+  boot.plymouth.enable = true;
 
   services.xserver.enable = true;
   services.xserver.displayManager.sddm.enable = true;
@@ -81,19 +92,21 @@
 
   users.users.dwd = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "networkmanager" "kvm" "adbusers" "wireshark" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" "networkmanager" "kvm" "adbusers" "wireshark" "vboxusers" ]; # Enable ‘sudo’ for the user.
   };
 
   # $ nix search
   environment.systemPackages = with pkgs; [
     a2jmidid
     ark
+    cachix
     chirp
     discord
     element-desktop
     firefox
     fldigi
     git
+    htop
     jack_rack
     kdeApplications.kalarm
     libsForQt5.phonon
