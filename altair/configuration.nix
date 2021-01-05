@@ -30,6 +30,11 @@
 
   virtualisation.docker.enable = true;
   virtualisation.docker.autoPrune.enable = true;
+
+  virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd.onBoot = "start";
+  virtualisation.libvirtd.qemuOvmf = true;
+  virtualisation.libvirtd.onShutdown = "suspend";
   # virtualisation.anbox.enable = true;
 
   # virtualisation.virtualbox.host.enable = true;
@@ -92,7 +97,16 @@
 
   users.users.dwd = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "networkmanager" "kvm" "adbusers" "wireshark" "vboxusers" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "docker"
+      "networkmanager"
+      "kvm"
+      "adbusers"
+      "wireshark"
+      "vboxusers"
+      "libvirtd"
+    ];
   };
 
   # $ nix search
@@ -124,7 +138,9 @@
     thunderbird
     vim
     virglrenderer
+    # virtinst
     virt-manager
+    # virt-manager-qt
     virt-viewer
     vscode
     wget
