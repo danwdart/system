@@ -96,6 +96,8 @@
   # services.xserver.libinput.enable = true;
 
   users.users.dwd = {
+    createHome = true;
+    description = "Dan Dart";
     isNormalUser = true;
     extraGroups = [
       "wheel"
@@ -119,29 +121,47 @@
     element-desktop
     firefox
     fldigi
-    git
+    get_iplayer
+    gitAndTools.gh
+    gitAndTools.gitFull
+    gitAndTools.git-hub
     htop
+    iotop
     jack_rack
+    jnettop
     kdeApplications.kalarm
     libsForQt5.phonon
     libsForQt5.phonon-backend-gstreamer
+    lshw
+    metasploit
+    ncspot
     networkmanager
     nixpkgs-fmt
     nmap
     OVMF
+    pciutils
     plasma5.plasma-browser-integration
     qemu
     qjackctl
+    rclone
+    rclone-browser
     slack
+    socat
     spotify
+    spotify-tui
+    spotifywm
     steam
+    tartube
     thunderbird
+    tvheadend
+    usbutils
     vim
     virglrenderer
     # virtinst
     virt-manager
     # virt-manager-qt
     virt-viewer
+    vlc
     vscode
     wget
     win-qemu
@@ -149,6 +169,8 @@
     xcodebuild
     xorg.xev
     xorg.xf86videointel
+    yoshimi
+    youtube-dl
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
