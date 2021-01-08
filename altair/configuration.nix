@@ -119,6 +119,7 @@
     chirp
     discord
     element-desktop
+    file
     firefox
     fldigi
     get_iplayer
@@ -139,10 +140,12 @@
     nixpkgs-fmt
     nmap
     OVMF
+    p7zip
     pciutils
     plasma5.plasma-browser-integration
     qemu
     qjackctl
+    qsstv
     rclone
     rclone-browser
     slack
@@ -154,6 +157,7 @@
     tartube
     thunderbird
     tvheadend
+    unzip
     usbutils
     vim
     virglrenderer
