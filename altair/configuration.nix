@@ -72,6 +72,21 @@
   services.grocy.settings.currency = "GBP";
   services.grocy.settings.culture = "en_GB";
 
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_10;
+    enableTCPIP = true;
+    authentication = pkgs.lib.mkOverride 10 ''
+      local all all trust
+      host all all ::1/128 trust
+    '';
+    initialScript = pkgs.writeText "backend-initScript" ''
+      CREATE ROLE msf WITH LOGIN PASSWORD 'msf' CREATEDB;
+      CREATE DATABASE msf;
+      GRANT ALL PRIVILEGES ON DATABASE msf TO msf;
+    '';
+  };
+
   # security.acme.email = "acme@dandart.co.uk";
   # security.acme.acceptTerms = true;
 
@@ -118,19 +133,28 @@
     cachix
     chirp
     discord
+    dosbox
+    efibootmgr
     element-desktop
+    f3
     file
     firefox
     fldigi
     get_iplayer
+    gimp
     gitAndTools.gh
     gitAndTools.gitFull
     gitAndTools.git-hub
+    hdparm
     htop
     iotop
+    inetutils
+    inkscape
     jack_rack
     jnettop
     kdeApplications.kalarm
+    ktorrent
+    libguestfs-with-appliance
     libsForQt5.phonon
     libsForQt5.phonon-backend-gstreamer
     lshw
@@ -143,11 +167,13 @@
     p7zip
     pciutils
     plasma5.plasma-browser-integration
+    protontricks
     qemu
     qjackctl
     qsstv
     rclone
     rclone-browser
+    rdesktop
     slack
     socat
     spotify
@@ -156,6 +182,7 @@
     steam
     tartube
     thunderbird
+    tightvnc
     tvheadend
     unzip
     usbutils
@@ -169,6 +196,11 @@
     vscode
     wget
     win-qemu
+    winePackages.fonts
+    winePackages.staging
+    winetricks
+    wineWowPackages.staging
+    wineWowPackages.fonts
     wsjtx
     xcodebuild
     xorg.xev
