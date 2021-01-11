@@ -135,6 +135,7 @@
     chirp
     clementine
     clementineUnfree
+    direnv
     discord
     dosbox
     efibootmgr
@@ -159,6 +160,7 @@
     jnettop
     kdeApplications.gwenview
     kdeApplications.kalarm
+    kdeApplications.okular
     ktorrent
     libguestfs-with-appliance
     libsForQt5.phonon
@@ -167,6 +169,7 @@
     metasploit
     ncspot
     networkmanager
+    nix-direnv
     nixpkgs-fmt
     nmap
     OVMF
@@ -220,6 +223,14 @@
     yoshimi
     youtube-dl
   ];
+
+  nix.extraOptions = ''
+    keep-outputs = true
+    keep-derivations = true
+  '';
+  environment.pathsToLink = [
+    "/share/nix-direnv"
+  ];  
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
