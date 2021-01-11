@@ -143,6 +143,7 @@
     efivar
     element-desktop
     f3
+    ffmpeg-full
     file
     firefox
     fldigi
@@ -167,6 +168,7 @@
     libsForQt5.phonon-backend-gstreamer
     lshw
     metasploit
+    mplayer
     ncspot
     networkmanager
     nix-direnv
