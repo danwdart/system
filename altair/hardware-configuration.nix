@@ -18,6 +18,10 @@
     {
       device = "/dev/disk/by-uuid/39fbc4f6-3693-4c8f-9c86-0e6f2120b968";
       fsType = "btrfs";
+      options = [
+        "subvol=/"
+        "noatime"
+      ];
     };
 
   fileSystems."/boot" =

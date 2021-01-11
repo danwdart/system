@@ -129,12 +129,17 @@
   # $ nix search
   environment.systemPackages = with pkgs; [
     a2jmidid
+    ardour
     ark
     cachix
     chirp
+    clementine
+    clementineUnfree
     discord
     dosbox
     efibootmgr
+    efitools
+    efivar
     element-desktop
     f3
     file
@@ -152,6 +157,7 @@
     inkscape
     jack_rack
     jnettop
+    kdeApplications.gwenview
     kdeApplications.kalarm
     ktorrent
     libguestfs-with-appliance
@@ -171,9 +177,11 @@
     qemu
     qjackctl
     qsstv
+    qsynth
     rclone
     rclone-browser
     rdesktop
+    sbsigntool
     slack
     socat
     spotify
@@ -184,6 +192,10 @@
     thunderbird
     tightvnc
     tvheadend
+    uefi-firmware-parser
+    uefitool
+    uefitoolPackages.new-engine
+    uefitoolPackages.old-engine
     unzip
     usbutils
     vim
