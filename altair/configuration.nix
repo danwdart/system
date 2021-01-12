@@ -152,6 +152,7 @@
     gitAndTools.gh
     gitAndTools.gitFull
     gitAndTools.git-hub
+    gptfdisk
     hdparm
     htop
     iotop
@@ -243,6 +244,22 @@
   };
 
   services.openssh.enable = true;
+  
+  services.xrdp.enable = true;
+  services.xrdp.defaultWindowManager = "startkde-x11";
+
+  services.avahi.enable = true;
+  services.avahi.wideArea = true;
+  services.avahi.ipv6 = true;
+  services.avahi.nssmdns = true;
+  # services.avahi.domainName = "jolharg.com"
+  services.avahi.publish.enable = true;
+  # services.avahi.browseDomains = [ "jolharg.com" ];
+  services.avahi.publish.hinfo = true;
+  services.avahi.publish.domain = true;
+  # services.avahi.publish.addresses = true;
+  services.avahi.publish.userServices = true;
+  services.avahi.publish.workstation = true;
 
   networking.firewall.allowedTCPPorts = [ 22 80 8080 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
