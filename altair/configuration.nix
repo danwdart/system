@@ -137,6 +137,7 @@
     clementineUnfree
     direnv
     discord
+    docker-compose
     dosbox
     efibootmgr
     efitools
@@ -152,6 +153,7 @@
     gitAndTools.gh
     gitAndTools.gitFull
     gitAndTools.git-hub
+    gitAndTools.hub
     gptfdisk
     hdparm
     htop
@@ -244,9 +246,9 @@
   };
 
   services.openssh.enable = true;
-  
+
   services.xrdp.enable = true;
-  services.xrdp.defaultWindowManager = "startkde-x11";
+  services.xrdp.defaultWindowManager = "startplasma-x11";
 
   services.avahi.enable = true;
   services.avahi.wideArea = true;
@@ -261,7 +263,7 @@
   services.avahi.publish.userServices = true;
   services.avahi.publish.workstation = true;
 
-  networking.firewall.allowedTCPPorts = [ 22 80 8080 ];
+  networking.firewall.allowedTCPPorts = [ 22 80 5900 8080 3389 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
