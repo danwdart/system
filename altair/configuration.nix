@@ -154,6 +154,7 @@
     gitAndTools.gitFull
     gitAndTools.git-hub
     gitAndTools.hub
+    git-crypt
     gptfdisk
     hdparm
     htop
@@ -172,6 +173,7 @@
     lshw
     metasploit
     mplayer
+    mtools
     ncspot
     networkmanager
     nix-direnv
@@ -186,6 +188,7 @@
     qjackctl
     qsstv
     qsynth
+    quakespasm
     rclone
     rclone-browser
     rdesktop
