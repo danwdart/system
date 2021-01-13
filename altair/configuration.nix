@@ -155,6 +155,7 @@
     gitAndTools.git-hub
     gitAndTools.hub
     git-crypt
+    git-lfs
     gptfdisk
     hdparm
     htop
