@@ -135,6 +135,7 @@
     chirp
     clementine
     clementineUnfree
+    code-server
     direnv
     discord
     docker-compose
@@ -172,6 +173,7 @@
     libsForQt5.phonon
     libsForQt5.phonon-backend-gstreamer
     lshw
+    lynis
     metasploit
     mplayer
     mtools
