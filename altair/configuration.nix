@@ -4,7 +4,190 @@
 
 { config, pkgs, ... }:
 
-{
+let
+  unstable = import <unstable> {};
+
+  audioCreationPackages = with pkgs; [
+    a2jmidid
+    ardour
+    jack_rack
+    qjackctl
+    qsynth
+    yoshimi
+  ];
+
+  backupPackages = with pkgs; [
+    rclone
+    rclone-browser
+  ];
+
+  bootPackages = with pkgs; [
+    unstable.beefi
+    efibootmgr
+    efitools
+    efivar
+    gptfdisk
+    sbsigntool
+    uefi-firmware-parser
+    uefitool
+    uefitoolPackages.new-engine
+    uefitoolPackages.old-engine
+  ];
+
+  browserPackages = with pkgs; [
+    firefox
+  ];
+
+  codePackages = with pkgs; [
+    code-server
+    docker-compose
+    gitAndTools.gh
+    gitAndTools.gitFull
+    gitAndTools.git-hub
+    gitAndTools.hub
+    git-crypt
+    git-lfs
+    vim
+    vscode # insiders?
+    xcodebuild
+  ];
+
+  emailPackages = with pkgs; [
+    thunderbird
+  ];
+
+  emuPackages = with pkgs; [
+    dosbox
+    mtools
+    protontricks
+    winePackages.fonts
+    winePackages.staging
+    winetricks
+    wineWowPackages.staging
+    wineWowPackages.fonts
+  ];
+
+  games = with pkgs; [
+    quakespasm
+    steam
+  ];
+
+  graphicsPackages = with pkgs; [
+    blender
+    gimp
+    inkscape
+  ];
+
+  hamRadioPackages = with pkgs; [
+    chirp
+    fldigi
+    qsstv
+    unstable.soundmodem
+    wsjtx
+  ];
+
+  kdePackages = with pkgs; [
+    ark
+    kdeApplications.gwenview
+    kdeApplications.kalarm
+    kdeApplications.okular
+    ktorrent
+    libsForQt5.phonon
+    libsForQt5.phonon-backend-gstreamer
+    plasma5.plasma-browser-integration
+  ];
+
+  mediaPlayingPackages = with pkgs; [
+    clementine
+    clementineUnfree
+    ffmpeg-full
+    mplayer
+    ncspot
+    spotify
+    spotify-tui
+    spotifywm
+    vlc
+  ];
+
+  mediaRippingPackages = with pkgs; [
+    get_iplayer
+    tartube
+    tvheadend
+    youtube-dl
+  ];
+
+  nixSpecificPackages = with pkgs; [
+    cachix
+    direnv
+    nix-direnv
+    nixpkgs-fmt
+  ];
+
+  officePackages = with pkgs; [
+    libreoffice-fresh
+  ];
+
+  remotePackages = with pkgs; [
+    rdesktop
+    tightvnc
+  ];
+
+  securityPackages = with pkgs; [
+    chkrootkit
+    lynis
+    metasploit
+    nmap
+    ossec
+    # rkhunter
+    # tripwire
+  ];
+
+  socialPackages = with pkgs; [
+    discord
+    element-desktop
+    skype
+    # slack
+  ];
+
+  systemPackages = with pkgs; [
+    file
+    f3
+    hdparm
+    htop
+    iotop
+    inetutils
+    jnettop
+    lshw
+    networkmanager
+    p7zip
+    pciutils
+    # unstable.rpi-imager
+    socat
+    unzip
+    usbutils
+    wget
+    xorg.xev
+    xorg.xf86videointel
+  ];
+
+  videoCreationPackages = with pkgs; [
+    cinelerra
+    kdeApplications.kdenlive
+  ];
+  
+  virtPackages = with pkgs; [
+    libguestfs-with-appliance
+    OVMF
+    qemu
+    virglrenderer
+    # virtinst
+    virt-manager
+    # virt-manager-qt
+    virt-viewer
+    win-qemu
+  ];
+
+in {
   imports =
     [
       # Include the results of the hardware scan.
@@ -127,122 +310,29 @@
   };
 
   # $ nix search
-  environment.systemPackages = with pkgs; [
-    a2jmidid
-    ardour
-    ark
-    blender
-    cachix
-    chirp
-    chkrootkit
-    cinelerra
-    clementine
-    clementineUnfree
-    code-server
-    direnv
-    discord
-    docker-compose
-    dosbox
-    efibootmgr
-    efitools
-    efivar
-    element-desktop
-    f3
-    ffmpeg-full
-    file
-    firefox
-    fldigi
-    get_iplayer
-    gimp
-    gitAndTools.gh
-    gitAndTools.gitFull
-    gitAndTools.git-hub
-    gitAndTools.hub
-    git-crypt
-    git-lfs
-    gptfdisk
-    hdparm
-    htop
-    iotop
-    inetutils
-    inkscape
-    jack_rack
-    jnettop
-    kdeApplications.gwenview
-    kdeApplications.kalarm
-    kdeApplications.kdenlive
-    kdeApplications.okular
-    ktorrent
-    libguestfs-with-appliance
-    libreoffice-fresh
-    libsForQt5.phonon
-    libsForQt5.phonon-backend-gstreamer
-    lshw
-    lynis
-    metasploit
-    mplayer
-    mtools
-    ncspot
-    networkmanager
-    nix-direnv
-    nixpkgs-fmt
-    nmap
-    ossec
-    OVMF
-    p7zip
-    pciutils
-    plasma5.plasma-browser-integration
-    protontricks
-    qemu
-    qjackctl
-    qsstv
-    qsynth
-    quakespasm
-    rclone
-    rclone-browser
-    rdesktop
-    # rkhunter
-    sbsigntool
-    skype
-    slack
-    socat
-    spotify
-    spotify-tui
-    spotifywm
-    steam
-    tartube
-    thunderbird
-    tightvnc
-    # tripwire
-    tvheadend
-    uefi-firmware-parser
-    uefitool
-    uefitoolPackages.new-engine
-    uefitoolPackages.old-engine
-    unzip
-    usbutils
-    vim
-    virglrenderer
-    # virtinst
-    virt-manager
-    # virt-manager-qt
-    virt-viewer
-    vlc
-    vscode
-    wget
-    win-qemu
-    winePackages.fonts
-    winePackages.staging
-    winetricks
-    wineWowPackages.staging
-    wineWowPackages.fonts
-    wsjtx
-    xcodebuild
-    xorg.xev
-    xorg.xf86videointel
-    yoshimi
-    youtube-dl
-  ];
+  environment.systemPackages = with pkgs; []
+    ++ audioCreationPackages
+    ++ backupPackages
+    ++ bootPackages
+    ++ browserPackages
+    ++ codePackages
+    ++ emailPackages
+    ++ emuPackages
+    ++ games
+    ++ graphicsPackages
+    ++ hamRadioPackages
+    ++ kdePackages
+    ++ mediaPlayingPackages
+    ++ mediaRippingPackages
+    ++ nixSpecificPackages
+    ++ officePackages
+    ++ remotePackages
+    ++ securityPackages
+    ++ socialPackages
+    ++ systemPackages
+    ++ videoCreationPackages
+    ++ virtPackages
+  ;
 
   nix.extraOptions = ''
     keep-outputs = true
