@@ -3,191 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-
-let
-  unstable = import <unstable> {};
-
-  audioCreationPackages = with pkgs; [
-    a2jmidid
-    ardour
-    jack_rack
-    qjackctl
-    qsynth
-    yoshimi
-  ];
-
-  backupPackages = with pkgs; [
-    rclone
-    rclone-browser
-  ];
-
-  bootPackages = with pkgs; [
-    unstable.beefi
-    efibootmgr
-    efitools
-    efivar
-    gptfdisk
-    sbsigntool
-    uefi-firmware-parser
-    uefitool
-    uefitoolPackages.new-engine
-    uefitoolPackages.old-engine
-  ];
-
-  browserPackages = with pkgs; [
-    firefox
-  ];
-
-  codePackages = with pkgs; [
-    code-server
-    docker-compose
-    gitAndTools.gh
-    gitAndTools.gitFull
-    gitAndTools.git-hub
-    gitAndTools.hub
-    git-crypt
-    git-lfs
-    vim
-    vscode # insiders?
-    xcodebuild
-  ];
-
-  emailPackages = with pkgs; [
-    thunderbird
-  ];
-
-  emuPackages = with pkgs; [
-    dosbox
-    mtools
-    protontricks
-    winePackages.fonts
-    winePackages.staging
-    winetricks
-    wineWowPackages.staging
-    wineWowPackages.fonts
-  ];
-
-  games = with pkgs; [
-    quakespasm
-    steam
-  ];
-
-  graphicsPackages = with pkgs; [
-    blender
-    gimp
-    inkscape
-  ];
-
-  hamRadioPackages = with pkgs; [
-    chirp
-    fldigi
-    qsstv
-    unstable.soundmodem
-    wsjtx
-  ];
-
-  kdePackages = with pkgs; [
-    ark
-    kdeApplications.gwenview
-    kdeApplications.kalarm
-    kdeApplications.okular
-    ktorrent
-    libsForQt5.phonon
-    libsForQt5.phonon-backend-gstreamer
-    plasma5.plasma-browser-integration
-  ];
-
-  mediaPlayingPackages = with pkgs; [
-    clementine
-    clementineUnfree
-    ffmpeg-full
-    mplayer
-    ncspot
-    spotify
-    spotify-tui
-    spotifywm
-    vlc
-  ];
-
-  mediaRippingPackages = with pkgs; [
-    get_iplayer
-    tartube
-    tvheadend
-    youtube-dl
-  ];
-
-  nixSpecificPackages = with pkgs; [
-    cachix
-    direnv
-    nix-direnv
-    nixpkgs-fmt
-  ];
-
-  officePackages = with pkgs; [
-    libreoffice-fresh
-  ];
-
-  remotePackages = with pkgs; [
-    rdesktop
-    tightvnc
-  ];
-
-  securityPackages = with pkgs; [
-    chkrootkit
-    lynis
-    metasploit
-    nmap
-    ossec
-    # rkhunter
-    # tripwire
-  ];
-
-  socialPackages = with pkgs; [
-    discord
-    element-desktop
-    skype
-    # slack
-  ];
-
-  systemPackages = with pkgs; [
-    file
-    f3
-    hdparm
-    htop
-    iotop
-    inetutils
-    jnettop
-    lshw
-    networkmanager
-    p7zip
-    pciutils
-    # unstable.rpi-imager
-    socat
-    unzip
-    usbutils
-    wget
-    xorg.xev
-    xorg.xf86videointel
-  ];
-
-  videoCreationPackages = with pkgs; [
-    cinelerra
-    kdeApplications.kdenlive
-  ];
-  
-  virtPackages = with pkgs; [
-    libguestfs-with-appliance
-    OVMF
-    qemu
-    virglrenderer
-    # virtinst
-    virt-manager
-    # virt-manager-qt
-    virt-viewer
-    win-qemu
-  ];
-
-in {
+{
   imports =
     [
       # Include the results of the hardware scan.
@@ -310,28 +126,29 @@ in {
   };
 
   # $ nix search
-  environment.systemPackages = with pkgs; []
-    ++ audioCreationPackages
-    ++ backupPackages
-    ++ bootPackages
-    ++ browserPackages
-    ++ codePackages
-    ++ emailPackages
-    ++ emuPackages
-    ++ games
-    ++ graphicsPackages
-    ++ hamRadioPackages
-    ++ kdePackages
-    ++ mediaPlayingPackages
-    ++ mediaRippingPackages
-    ++ nixSpecificPackages
-    ++ officePackages
-    ++ remotePackages
-    ++ securityPackages
-    ++ socialPackages
-    ++ systemPackages
-    ++ videoCreationPackages
-    ++ virtPackages
+  # TODO categories path?
+  environment.systemPackages = []
+    ++ import ./categories/audio.nix pkgs
+    ++ import ./categories/backup.nix pkgs
+    ++ import ./categories/boot.nix pkgs
+    ++ import ./categories/browser.nix pkgs
+    ++ import ./categories/code.nix pkgs
+    ++ import ./categories/email.nix pkgs
+    ++ import ./categories/emu.nix pkgs
+    ++ import ./categories/games.nix pkgs
+    ++ import ./categories/graphics.nix pkgs
+    ++ import ./categories/hamradio.nix pkgs
+    ++ import ./categories/kde.nix pkgs
+    ++ import ./categories/media-playing.nix pkgs
+    ++ import ./categories/media-ripping.nix pkgs
+    ++ import ./categories/nix.nix pkgs
+    ++ import ./categories/office.nix pkgs
+    ++ import ./categories/remote.nix pkgs
+    ++ import ./categories/security.nix pkgs
+    ++ import ./categories/social.nix pkgs
+    ++ import ./categories/system.nix pkgs
+    ++ import ./categories/video-creation.nix pkgs
+    ++ import ./categories/virt.nix pkgs
   ;
 
   nix.extraOptions = ''
