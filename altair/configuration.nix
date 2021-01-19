@@ -131,8 +131,10 @@
     a2jmidid
     ardour
     ark
+    blender
     cachix
     chirp
+    cinelerra
     clementine
     clementineUnfree
     code-server
@@ -167,6 +169,7 @@
     jnettop
     kdeApplications.gwenview
     kdeApplications.kalarm
+    kdeApplications.kdenlive
     kdeApplications.okular
     ktorrent
     libguestfs-with-appliance
@@ -196,6 +199,7 @@
     rclone-browser
     rdesktop
     sbsigntool
+    skype
     slack
     socat
     spotify
