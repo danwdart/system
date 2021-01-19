@@ -134,6 +134,7 @@
     blender
     cachix
     chirp
+    chkrootkit
     cinelerra
     clementine
     clementineUnfree
@@ -173,6 +174,7 @@
     kdeApplications.okular
     ktorrent
     libguestfs-with-appliance
+    libreoffice-fresh
     libsForQt5.phonon
     libsForQt5.phonon-backend-gstreamer
     lshw
@@ -185,6 +187,7 @@
     nix-direnv
     nixpkgs-fmt
     nmap
+    ossec
     OVMF
     p7zip
     pciutils
@@ -198,6 +201,7 @@
     rclone
     rclone-browser
     rdesktop
+    # rkhunter
     sbsigntool
     skype
     slack
@@ -209,6 +213,7 @@
     tartube
     thunderbird
     tightvnc
+    # tripwire
     tvheadend
     uefi-firmware-parser
     uefitool
