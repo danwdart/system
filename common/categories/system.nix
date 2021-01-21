@@ -1,5 +1,7 @@
 { pkgs, ... }:
-with pkgs; [
+let
+    unstable = import <unstable> {};
+in with pkgs; [
     etcher
     file
     f3
@@ -15,7 +17,7 @@ with pkgs; [
     networkmanager
     p7zip
     pciutils
-    # unstable.rpi-imager
+    unstable.rpi-imager
     socat
     unzip
     usbutils
