@@ -1,5 +1,6 @@
 { pkgs, ... }:
 with pkgs; [
+    android-studio
     code-server
     docker-compose
     gitAndTools.gh
@@ -10,5 +11,6 @@ with pkgs; [
     git-lfs
     vim
     vscode # insiders?
+    x11docker
     xcodebuild
 ]

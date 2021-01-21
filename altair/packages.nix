@@ -7,10 +7,12 @@
     ++ import ./categories/code.nix pkgs
     ++ import ./categories/email.nix pkgs
     ++ import ./categories/emu.nix pkgs
+    ++ import ./categories/encryption.nix pkgs
     ++ import ./categories/games.nix pkgs
     ++ import ./categories/graphics.nix pkgs
     ++ import ./categories/hamradio.nix pkgs
     ++ import ./categories/kde.nix pkgs
+    ++ import ./categories/mapping.nix pkgs
     ++ import ./categories/media-playing.nix pkgs
     ++ import ./categories/media-ripping.nix pkgs
     ++ import ./categories/nix.nix pkgs
