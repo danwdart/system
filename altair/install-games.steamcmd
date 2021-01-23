@@ -1,0 +1,40 @@
+// Heretic SSR
+app_update 2390
+
+// Hexen
+app_update 2360
+
+// Hexen DDC
+app_update 2370
+
+// Hexen 2
+app_update 9060
+
+// Quake
+app_update 2310
+
+// Scourge of Armagon
+app_update 9040
+
+// Dissolution of Eternity
+app_update 9030
+
+// Quake 2
+app_update 2320
+
+// Ground Zero
+app_update 2340
+
+// The Reckoning
+app_update 2330
+
+// Quake 3
+app_update 2200
+
+// Team Arena
+app_update 2350
+
+// Doom 3 BFG
+app_update 208200
+
+exit
