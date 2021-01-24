@@ -3,6 +3,7 @@ with pkgs; [
     ark
     kdeApplications.gwenview
     kdeApplications.kalarm
+    kdeApplications.kdeconnect-kde
     kdeApplications.okular
     ktorrent
     libsForQt5.phonon

@@ -10,6 +10,7 @@ with pkgs;
     gst_all_1.gst-plugins-ugly
     hydrogen
     jack_rack
+    polyphone
     qjackctl
     qsynth
     yoshimi

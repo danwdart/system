@@ -1,0 +1,40 @@
+// Heretic SSR
+app_uninstall -complete 2390
+
+// Hexen
+app_uninstall -complete 2360
+
+// Hexen DDC
+app_uninstall -complete 2370
+
+// Hexen 2
+app_uninstall -complete 9060
+
+// Quake
+app_uninstall -complete 2310
+
+// Scourge of Armagon
+app_uninstall -complete 9040
+
+// Dissolution of Eternity
+app_uninstall -complete 9030
+
+// Quake 2
+app_uninstall -complete 2320
+
+// Ground Zero
+app_uninstall -complete 2340
+
+// The Reckoning
+app_uninstall -complete 2330
+
+// Quake 3
+app_uninstall -complete 2200
+
+// Team Arena
+app_uninstall -complete 2350
+
+// Doom 3 BFG
+app_uninstall -complete 208200
+
+exit

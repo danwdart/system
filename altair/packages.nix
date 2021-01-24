@@ -15,9 +15,10 @@
     ++ import ./categories/mapping.nix pkgs
     ++ import ./categories/media-playing.nix pkgs
     ++ import ./categories/media-ripping.nix pkgs
+    ++ import ./categories/networking.nix pkgs
     ++ import ./categories/nix.nix pkgs
     ++ import ./categories/office.nix pkgs
-    ++ import ./categories/remote.nix pkgs
+    ++ import ./categories/phone.nix pkgs
     ++ import ./categories/security.nix pkgs
     ++ import ./categories/social.nix pkgs
     ++ import ./categories/system.nix pkgs
