@@ -1,5 +1,6 @@
 { pkgs, ... }:
 []
+    ++ import ./categories/astronomy.nix pkgs
     ++ import ./categories/audio.nix pkgs
     ++ import ./categories/backup.nix pkgs
     ++ import ./categories/boot.nix pkgs
