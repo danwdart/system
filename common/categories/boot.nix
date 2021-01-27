@@ -6,7 +6,6 @@ in with pkgs; [
     efibootmgr
     efitools
     efivar
-    gptfdisk
     sbsigntool
     uefi-firmware-parser
     uefitool

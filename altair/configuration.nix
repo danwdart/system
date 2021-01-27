@@ -91,21 +91,43 @@
 
   # services.miredo.enable = true;
 
+  services.pipewire.enable = true;
+
   nixpkgs.config.allowUnfree = true;
   programs.steam.enable = true;
 
   programs.adb.enable = true;
   programs.wireshark.enable = true;
 
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
   hardware.pulseaudio.support32Bit = true;
+  hardware.pulseaudio.zeroconf.discovery.enable = true;
+  hardware.pulseaudio.zeroconf.publish.enable = true;
+  hardware.pulseaudio.tcp.anonymousClients.allowedIpRanges = [
+    "127.0.0.1"
+    "192.168.1.0/24"
+  ];
 
   # services.xserver.xkbOptions = "eurosign:e";
   services.printing.enable = true;
 
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  services.samba.enable = true;
+  services.samba.nsswins = true;
+  services.samba.enableNmbd = true;
+  services.samba.enableWinbindd = true;
+
+  #services.samba.shares = {
+  #  public = {
+  #    path = "/srv/public";
+  #    "read only" = true;
+  #    browseable = "yes";
+  #    "guest ok" = "yes";
+  #    comment = "Public samba share.";
+  #  };
+  #};
 
   # services.xserver.libinput.enable = true;
 
@@ -146,6 +168,7 @@
   };
 
   services.openssh.enable = true;
+  services.openssh.openFirewall = true;
 
   services.xrdp.enable = true;
   services.xrdp.defaultWindowManager = "startplasma-x11";
@@ -163,8 +186,12 @@
   services.avahi.publish.userServices = true;
   services.avahi.publish.workstation = true;
 
-  networking.firewall.allowedTCPPorts = [ 22 80 5900 8080 3389 ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  services.fail2ban.enable = true;
+
+  networking.firewall.allowedTCPPorts = [ 22 80 139 445 3389 5900 8080 ];
+  networking.firewall.allowedUDPPorts = [ 137 138 ];
+  networking.firewall.pingLimit = "--limit 1/minute --limit-burst 5";
+  networking.firewall.checkReversePath = true;
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 

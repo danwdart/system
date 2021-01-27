@@ -6,6 +6,8 @@ in with pkgs; [
     file
     f3
     glances
+    gparted
+    gptfdisk
     hdparm
     htop
     iotop
@@ -16,9 +18,11 @@ in with pkgs; [
     ncdu
     networkmanager
     p7zip
+    partition-manager
     pciutils
     unstable.rpi-imager
     socat
+    unetbootin
     unzip
     usbutils
     wget
