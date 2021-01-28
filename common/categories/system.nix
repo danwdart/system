@@ -15,17 +15,25 @@ in with pkgs; [
     jnettop
     lm_sensors
     lshw
+    multibootusb
     ncdu
     networkmanager
     p7zip
+    pam_usb
     partition-manager
     pciutils
+    rpiboot-unstable
     unstable.rpi-imager
+    sixpair
     socat
+    u3-tool
     unetbootin
     unzip
+    usbguard
     usbutils
     wget
+    winusb
+    woeusb
     xcruiser
     xorg.xev
     xorg.xf86videointel
