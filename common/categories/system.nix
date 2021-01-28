@@ -19,7 +19,6 @@ in with pkgs; [
     ncdu
     networkmanager
     p7zip
-    pam_usb
     partition-manager
     pciutils
     rpiboot-unstable

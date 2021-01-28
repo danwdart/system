@@ -5,6 +5,7 @@ with pkgs; [
     metasploit
     nmap
     ossec
+    pam_usb
     # rkhunter
     # tripwire
 ]

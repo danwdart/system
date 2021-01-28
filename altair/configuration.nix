@@ -89,6 +89,10 @@
   # security.acme.email = "acme@dandart.co.uk";
   # security.acme.acceptTerms = true;
 
+  services.udisks2.enable = true;
+  
+  security.pam.usb.enable = true;
+
   # services.miredo.enable = true;
 
   services.pipewire.enable = true;
