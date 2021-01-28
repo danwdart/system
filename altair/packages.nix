@@ -12,6 +12,7 @@
     ++ import ./categories/games.nix pkgs
     ++ import ./categories/graphics.nix pkgs
     ++ import ./categories/hamradio.nix pkgs
+    ++ import ./categories/health.nix pkgs
     ++ import ./categories/kde.nix pkgs
     ++ import ./categories/mapping.nix pkgs
     ++ import ./categories/media-playing.nix pkgs
