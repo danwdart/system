@@ -2,6 +2,8 @@
 let
     unstable = import <unstable> {};
 in with pkgs; [
+    cdrkit
+    cdrtools
     etcher
     file
     f3
