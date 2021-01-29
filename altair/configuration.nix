@@ -19,6 +19,11 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.kernel.sysctl = {
+    "kernel.sysrq" = 1;
+    "vm.swappiness" = 0;
+  };
+
   # boot.kernelPackages = pkgs.linuxPackages_5_9;
 
   networking.hostName = "altair"; # Define your hostname.
