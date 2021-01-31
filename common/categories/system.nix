@@ -4,6 +4,7 @@ let
 in with pkgs; [
     cdrkit
     cdrtools
+    cmatrix
     etcher
     file
     f3
