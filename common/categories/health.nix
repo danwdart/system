@@ -1,4 +1,4 @@
 { pkgs, ... }:
 with pkgs; [
-    sleepyhead
+    sleepyhead # no desktop icon
 ]

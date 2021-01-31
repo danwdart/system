@@ -1,6 +1,6 @@
 { pkgs, ... }:
 with pkgs; [
     blender
-    gimp
+    gimp # no desktop icon
     inkscape
 ]

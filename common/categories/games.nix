@@ -9,25 +9,25 @@ with pkgs; [
     mgba
     mupen64plus # no desktop icon
     nethack-qt # no desktop icon
-    nexuiz
-    openarena
+    nexuiz # no desktop icon
+    openarena # no desktop icon
     # padman?
     pcsx2
     pcsxr
-    quake3e
-    quakespasm
+    quake3e # no desktop icon
+    quakespasm # no desktop icon
     redeclipse
-    sauerbraten
+    sauerbraten # no desktop icon
     snes9x-gtk
-    speed_dreams
+    speed_dreams # no desktop icon
     steam
     steamcmd
     stuntrally
-    torcs
+    torcs # no desktop icon
     # tremulous - broken
-    trigger
-    urbanterror
+    trigger # no desktop icon
+    urbanterror # no desktop icon
     # warsow - can't download
-    yquake2
+    yquake2 # no desktop icon
     zsnes
 ]
