@@ -9,5 +9,6 @@ with pkgs; [
     mnemonicode
     ofono-phonesim
     statserial
+    # wammu - does not exist
     zssh
 ]

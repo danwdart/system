@@ -1,14 +1,14 @@
 { pkgs, ... }:
 with pkgs; [
-    armagetronad
+    armagetronad # no desktop icon
     bsdgames
     dolphinEmu
     extremetuxracer
     # hexen 2?
-    ioquake3
+    ioquake3 # no desktop icon
     mgba
-    mupen64plus
-    nethack-qt
+    mupen64plus # no desktop icon
+    nethack-qt # no desktop icon
     nexuiz
     openarena
     # padman?

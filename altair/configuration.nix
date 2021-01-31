@@ -24,7 +24,9 @@
     "vm.swappiness" = 0;
   };
 
-  # boot.kernelPackages = pkgs.linuxPackages_5_9;
+  xdg.menus.enable = true;
+
+  boot.kernelPackages = pkgs.linuxPackages_5_9;
 
   networking.hostName = "altair"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.

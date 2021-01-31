@@ -1,5 +1,5 @@
 { pkgs, ... }:
 with pkgs;
 [
-    avogadro
+    avogadro # no desktop icon
 ]

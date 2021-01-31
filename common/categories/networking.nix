@@ -1,7 +1,7 @@
 { pkgs, ... }:
 with pkgs; [
     ipfs
-    putty
+    putty # no desktop icon
     rdesktop
     scrcpy
     tightvnc

@@ -17,7 +17,7 @@ in with pkgs; [
     jnettop
     lm_sensors
     lshw
-    multibootusb
+    multibootusb # broken GUI
     ncdu
     networkmanager
     p7zip
@@ -35,7 +35,7 @@ in with pkgs; [
     wget
     winusb
     woeusb
-    xcruiser
+    xcruiser # no desktop icon
     xorg.xev
     xorg.xf86videointel
 ]

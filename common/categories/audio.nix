@@ -5,7 +5,7 @@ with pkgs;
     AMB-plugins
     ardour
     autotalent
-    bristol
+    bristol # no desktop icon
     caps
     csa
     faust2ladspa
@@ -20,7 +20,7 @@ with pkgs;
     kapitonov-plugins-pack
     nova-filters
     plugin-torture
-    polyphone
+    polyphone # no desktop icon
     qjackctl
     qsynth
     rosegarden

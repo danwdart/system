@@ -7,6 +7,6 @@ with pkgs; [
     # virtinst
     virt-manager
     # virt-manager-qt
-    virt-viewer
+    virt-viewer # no desktop icon
     win-qemu
 ]
