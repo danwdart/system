@@ -4,6 +4,7 @@ with pkgs;
     a2jmidid
     ardour
     bristol
+    fluidsynth
     gst_all_1.gst-plugins-base
     gst_all_1.gst-plugins-good
     gst_all_1.gst-plugins-bad
@@ -13,5 +14,8 @@ with pkgs;
     polyphone
     qjackctl
     qsynth
+    rosegarden
+    soundfont-fluid
+    x42-gmsynth
     yoshimi
 ]
