@@ -112,6 +112,7 @@
 
   sound.enable = true;
   hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.tcp.enable = true;
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
   hardware.pulseaudio.support32Bit = true;
@@ -199,7 +200,7 @@
 
   services.fail2ban.enable = true;
 
-  networking.firewall.allowedTCPPorts = [ 22 80 139 445 3389 5900 8080 ];
+  networking.firewall.allowedTCPPorts = [ 22 80 139 445 3389 4713 5900 8080 ];
   networking.firewall.allowedUDPPorts = [ 137 138 ];
   networking.firewall.pingLimit = "--limit 1/minute --limit-burst 5";
   networking.firewall.checkReversePath = true;
