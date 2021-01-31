@@ -2,15 +2,24 @@
 with pkgs;
 [
     a2jmidid
+    AMB-plugins
     ardour
+    autotalent
     bristol
+    caps
+    csa
+    faust2ladspa
     fluidsynth
     gst_all_1.gst-plugins-base
     gst_all_1.gst-plugins-good
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-ugly
     hydrogen
+    ingen
     jack_rack
+    kapitonov-plugins-pack
+    nova-filters
+    plugin-torture
     polyphone
     qjackctl
     qsynth
@@ -18,4 +27,5 @@ with pkgs;
     soundfont-fluid
     x42-gmsynth
     yoshimi
+    zam-plugins
 ]
