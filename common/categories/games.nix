@@ -28,6 +28,7 @@ with pkgs; [
     trigger # no desktop icon
     urbanterror # no desktop icon
     # warsow - can't download
+    xonotic
     yquake2 # no desktop icon
     zsnes
 ]
