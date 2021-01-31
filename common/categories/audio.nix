@@ -4,6 +4,7 @@ with pkgs;
     a2jmidid
     AMB-plugins
     ardour
+    audacity
     autotalent
     bristol # no desktop icon
     caps
