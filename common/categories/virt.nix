@@ -2,6 +2,8 @@
 with pkgs; [
     libguestfs-with-appliance
     OVMF
+    OVMF-CSM
+    OVMF-secureBoot
     qemu
     virglrenderer
     # virtinst
