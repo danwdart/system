@@ -5,6 +5,7 @@ in with pkgs; [
     cdrkit
     cdrtools
     cmatrix
+    enhanced-ctorrent
     etcher
     file
     f3
