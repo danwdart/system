@@ -9,6 +9,7 @@ with pkgs; [
     gitAndTools.hub
     git-crypt
     git-lfs
+    postman
     vim
     vscode # insiders?
     x11docker
