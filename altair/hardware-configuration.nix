@@ -30,7 +30,10 @@
       fsType = "vfat";
     };
 
-  swapDevices = [{ device = "/swap"; }];
+  swapDevices = [
+    { device = "/swap"; }
+    { device = "/swap2"; }
+  ];
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "userspace";
 }
