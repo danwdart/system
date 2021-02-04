@@ -3,7 +3,9 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-{
+let
+  unstable = import <unstable> {};
+in {
   imports =
     [
       # Include the results of the hardware scan.
@@ -26,7 +28,7 @@
 
   xdg.menus.enable = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_5_9;
+  boot.kernelPackages = pkgs.linuxPackages_5_10;
 
   networking.hostName = "altair"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -68,6 +70,7 @@
   services.xserver.enable = true;
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
+  services.xserver.videoDrivers = [ "amdgpu" ];
 
   services.xserver.layout = "gb";
 
@@ -113,8 +116,10 @@
   sound.enable = true;
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.tcp.enable = true;
+  hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
-  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
+  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva unstable.pkgsi686Linux.amdvlk ];
+  hardware.opengl.extraPackages = with pkgs; [ amdvlk rocm-opencl-icd rocm-opencl-runtime ];
   hardware.pulseaudio.support32Bit = true;
   hardware.pulseaudio.zeroconf.discovery.enable = true;
   hardware.pulseaudio.zeroconf.publish.enable = true;
