@@ -1,6 +1,6 @@
 { pkgs, ... }:
 with pkgs; [
-    android-studio
+    androidStudioPackages.canary
     code-server
     docker-compose
     gitAndTools.gh
