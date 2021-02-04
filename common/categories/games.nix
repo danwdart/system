@@ -27,6 +27,7 @@ with pkgs; [
     # tremulous - broken
     trigger # no desktop icon
     urbanterror # no desktop icon
+    vkquake
     # warsow - can't download
     xonotic
     yquake2 # no desktop icon
