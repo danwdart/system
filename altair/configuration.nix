@@ -26,6 +26,10 @@ in {
     "vm.swappiness" = 0;
   };
 
+  systemd.tmpfiles.rules = [
+    "w /sys/devices/system/cpu/cpufreq/boost - - - - 0"
+  ];
+
   xdg.menus.enable = true;
 
   boot.kernelPackages = pkgs.linuxPackages_5_10;
