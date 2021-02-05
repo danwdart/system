@@ -1,6 +1,6 @@
 { pkgs, ... }:
 with pkgs; [
-    androidStudioPackages.canary
+    # androidStudioPackages.canary # bwrap: Can't find source path /System: No such file or directory, see https://github.com/NixOS/nixpkgs/issues/112045
     code-server
     docker-compose
     gitAndTools.gh
