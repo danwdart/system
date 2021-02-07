@@ -1,5 +1,5 @@
 { pkgs, ... }:
 with pkgs; [
-    cinelerra
+    # cinelerra # keeps compiling
     kdeApplications.kdenlive
 ]
