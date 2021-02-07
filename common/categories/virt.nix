@@ -1,6 +1,6 @@
 { pkgs, ... }:
 with pkgs; [
-    libguestfs-with-appliance
+    # libguestfs-with-appliance # keeps compiling
     OVMF
     OVMF-CSM
     OVMF-secureBoot
