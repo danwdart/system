@@ -6,6 +6,8 @@ with pkgs; [
     extremetuxracer
     # hexen 2?
     ioquake3 # no desktop icon
+    lbreakout2
+    ltris
     mgba
     mupen64plus # no desktop icon
     nethack-qt # no desktop icon
@@ -23,6 +25,8 @@ with pkgs; [
     steam
     steamcmd
     stuntrally
+    superTux
+    superTuxKart
     torcs # no desktop icon
     # tremulous - broken
     trigger # no desktop icon
