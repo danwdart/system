@@ -22,6 +22,7 @@ in with pkgs; [
     multibootusb # broken GUI
     ncdu
     networkmanager
+    opencorsairlink
     p7zip
     partition-manager
     pciutils
