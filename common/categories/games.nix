@@ -12,14 +12,14 @@ with pkgs; [
     nexuiz # no desktop icon
     openarena # no desktop icon
     # padman?
-    pcsx2
+    # pcsx2 # keeps recompiling
     pcsxr
     quake3e # no desktop icon
     quakespasm # no desktop icon
     redeclipse
     sauerbraten # no desktop icon
     snes9x-gtk
-    speed_dreams # no desktop icon
+    # speed_dreams # no desktop icon # keeps compiling
     steam
     steamcmd
     stuntrally
