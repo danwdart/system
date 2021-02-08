@@ -4,6 +4,7 @@ with pkgs; [
     bsdgames
     dolphinEmu
     extremetuxracer
+    frozen-bubble # check for dtop
     # hexen 2?
     ioquake3 # no desktop icon
     lbreakout2
