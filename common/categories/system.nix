@@ -2,6 +2,8 @@
 let
     unstable = import <unstable> {};
 in with pkgs; [
+    bluez-alsa
+    bluez-tools
     cdrkit
     cdrtools
     cmatrix
@@ -13,6 +15,7 @@ in with pkgs; [
     gparted
     gptfdisk
     hdparm
+    hidapi
     htop
     iotop
     inetutils
@@ -22,6 +25,8 @@ in with pkgs; [
     multibootusb # broken GUI
     ncdu
     networkmanager
+    obexfs
+    obexftp
     opencorsairlink
     p7zip
     partition-manager
