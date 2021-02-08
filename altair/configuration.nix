@@ -77,7 +77,7 @@ in {
   services.xserver.enable = true;
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.videoDrivers = [ "amdgpu" ];
+  # services.xserver.videoDrivers = [ "amdgpu" ];
 
   services.xserver.layout = "gb";
 
@@ -134,6 +134,10 @@ in {
     "127.0.0.1"
     "192.168.1.0/24"
   ];
+  hardware.pulseaudio.extraModules = with pkgs; [ pulseaudio-modules-bt ];
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
 
   # services.xserver.xkbOptions = "eurosign:e";
   services.printing.enable = true;
