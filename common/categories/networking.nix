@@ -5,4 +5,5 @@ with pkgs; [
     rdesktop
     scrcpy
     tightvnc
+    torbrowser
 ]
