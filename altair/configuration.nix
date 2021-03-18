@@ -5,12 +5,16 @@
 { config, pkgs, ... }:
 let
   unstable = import <unstable> {};
+  home-manager = builtins.fetchTarball {
+    url = "https://github.com/nix-community/home-manager/archive/release-20.09.tar.gz";
+  };
 in {
   imports =
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./cachix.nix
+      "${home-manager}/nixos"
     ];
 
   nix.binaryCaches = [
@@ -168,9 +172,21 @@ in {
 
   # services.xserver.libinput.enable = true;
 
+  # Don't allow mutation of users outside of the config.
+  users.mutableUsers = false;
+
+  # Set a root password, consider using
+  # initialHashedPassword instead.
+  #
+  # To generate a hash to put in initialHashedPassword
+  # you can do this:
+  # $ nix-shell --run 'mkpasswd -m SHA-512 -s' -p mkpasswd
+  users.users.root.initialHashedPassword = "$6$8RZ1PPxKU6h$dNHnIWiq.h8s.7SpMW14FzK9bJwg1f6Mt.972/2Fij4zPrhR0X4m3JTNPtGAyeMKZk3I8x/Xro.vJolwVvwd9.";
+
   users.users.dwd = {
     createHome = true;
     description = "Dan Dart";
+    initialHashedPassword = "$6$EDn9CboEV/$ESAQifZD0wiVkYf1MuyLqs.hP7mvelpoPnSGEI7CmwuUifi090PT6FQqHsdhlZSXSlqrT9EH.mIfUvxPCA5q.1";
     isNormalUser = true;
     extraGroups = [
       "wheel"
@@ -184,8 +200,9 @@ in {
     ];
   };
 
+  home-manager.users.dwd = import ./users/dwd/home.nix pkgs;
+
   # $ nix search
-  # TODO categories path?
   environment.systemPackages = import ./packages.nix pkgs;
 
   nix.extraOptions = ''
@@ -204,8 +221,11 @@ in {
     enableSSHSupport = true;
   };
 
-  services.openssh.enable = true;
-  services.openssh.openFirewall = true;
+  services.openssh = {
+    enable = true;
+    openFirewall = true;
+    banner = "Connection established to altair. Unauthorised connections are logged.";
+  };
 
   services.xrdp.enable = true;
   services.xrdp.defaultWindowManager = "startplasma-x11";

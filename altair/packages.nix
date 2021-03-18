@@ -6,7 +6,7 @@
     ++ import ./categories/boot.nix pkgs
     ++ import ./categories/browser.nix pkgs
     ++ import ./categories/code.nix pkgs
-    ++ import ./categories/commissions.nix pkgs
+    # ++ import ./categories/commissions.nix pkgs
     ++ import ./categories/email.nix pkgs
     ++ import ./categories/emu.nix pkgs
     ++ import ./categories/encryption.nix pkgs
