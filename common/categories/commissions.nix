@@ -1,1 +1,1 @@
-{ pkgs, ... }: [] ++ import ./commissions/usaycompare.nix pkgs
+{ pkgs, ... }: [] pkgs
