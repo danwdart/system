@@ -26,6 +26,7 @@ with pkgs;
     qsynth
     rosegarden
     soundfont-fluid
+    tuxguitar
     x42-gmsynth
     yoshimi
     zam-plugins
