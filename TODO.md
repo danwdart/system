@@ -1,21 +1,6 @@
 To keep
-    /var/lib
-        /var/lib/docker
-        /var/lib/grocy
-        /var/lib/postgresql
-        /var/lib/NetworkManager?
-        /var/lib/acme
-        /var/lib/bluetooth
-
-    /etc/nixos?
-
-    /etc/NetworkManager/system-connections
-    /etc/ssh
     /etc/docker/key.json?
-
     /etc/machine-id
-
-    fix /scaling_governor
 
 To Nixify
     Thunderbird config & emails?
