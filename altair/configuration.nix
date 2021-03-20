@@ -48,7 +48,7 @@ in {
 
   xdg.menus.enable = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_5_10;
+  boot.kernelPackages = unstable.linuxPackages_latest;
 
   networking.hostName = "altair"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -128,6 +128,7 @@ in {
   services.pipewire.enable = true;
 
   nixpkgs.config.allowUnfree = true;
+
   programs.steam.enable = true;
 
   programs.adb.enable = true;

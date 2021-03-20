@@ -1,5 +1,11 @@
 { pkgs, ... }:
-with pkgs; [
+let
+    unstable = import <unstable> {
+        config = {
+            allowUnfree = true;
+        };
+    };
+in with pkgs; [
     androidStudioPackages.canary
     code-server
     docker-compose
@@ -10,7 +16,7 @@ with pkgs; [
     git-crypt
     git-lfs
     vim
-    vscode # insiders?
+    unstable.vscode # insiders?
     x11docker
     xcodebuild
 ]
