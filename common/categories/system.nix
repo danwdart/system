@@ -27,7 +27,7 @@ in with pkgs; [
     networkmanager
     obexfs
     obexftp
-    opencorsairlink
+    unstable.opencorsairlink
     p7zip
     partition-manager
     pciutils

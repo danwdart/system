@@ -15,6 +15,16 @@ nixpkgs.config = {
     # allowBroken = true;
 };
 
+programs.bash = {
+    shellAliases = {
+        ukbbs = "ztelnet ukbbs.zapto.org";
+        fenric = "ztelnet fenric.muppetwhore.net";
+        tardis = "ztelnet bbs.cortex-media.info";
+        nostromo = "ztelnet nostromo.synchro.net";
+        scn = "ztelnet scn.org";
+    };
+};
+
 programs.direnv = {
     enable = true;
     enableBashIntegration = true;
