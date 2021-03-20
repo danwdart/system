@@ -16,10 +16,59 @@
 
   fileSystems."/" =
     {
+      device = "tmpfs";
+      fsType = "tmpfs";
+      options = [
+        "size=2G"
+      ];
+    };
+
+  fileSystems."/nix" =
+    {
       device = "/dev/disk/by-uuid/39fbc4f6-3693-4c8f-9c86-0e6f2120b968";
       fsType = "btrfs";
       options = [
-        "subvol=/"
+        "subvol=/nix"
+        "noatime"
+      ];
+    };
+  
+  fileSystems."/etc/ssh" =
+    {
+      device = "/dev/disk/by-uuid/39fbc4f6-3693-4c8f-9c86-0e6f2120b968";
+      fsType = "btrfs";
+      options = [
+        "subvol=/etc/ssh"
+        "noatime"
+      ];
+    };
+
+  fileSystems."/etc/NetworkManager" =
+    {
+      device = "/dev/disk/by-uuid/39fbc4f6-3693-4c8f-9c86-0e6f2120b968";
+      fsType = "btrfs";
+      options = [
+        "subvol=/etc/NetworkManager"
+        "noatime"
+      ];
+    };
+  
+  fileSystems."/var/lib" =
+    {
+      device = "/dev/disk/by-uuid/39fbc4f6-3693-4c8f-9c86-0e6f2120b968";
+      fsType = "btrfs";
+      options = [
+        "subvol=/var/lib"
+        "noatime"
+      ];
+    };
+
+  fileSystems."/home" =
+    {
+      device = "/dev/disk/by-uuid/39fbc4f6-3693-4c8f-9c86-0e6f2120b968";
+      fsType = "btrfs";
+      options = [
+        "subvol=/home"
         "noatime"
       ];
     };
@@ -31,8 +80,6 @@
     };
 
   swapDevices = [
-    { device = "/swap"; }
-    { device = "/swap2"; }
   ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "userspace";
