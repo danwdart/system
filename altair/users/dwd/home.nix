@@ -26,7 +26,6 @@ programs.bash = {
 };
 
 programs.direnv = {
-    enable = true;
     enableBashIntegration = true;
     enableNixDirenvIntegration = true;
 };
@@ -57,13 +56,11 @@ programs.irssi.networks = {
 };
 
 programs.git = {
-    enable = true;
     userName = "Dan Dart";
     userEmail = "git@dandart.co.uk";
 };
 
 programs.vim = {
-    enable = true;
     plugins = with pkgs.vimPlugins; [
     fugitive
     gundo
@@ -84,7 +81,6 @@ programs.vim = {
 };
 
 programs.vscode = {
-    enable = true;
     # extensions = []
     #haskell = {
     #  enable = true;
@@ -99,7 +95,6 @@ programs.vscode = {
 };
 
 services.gpg-agent = {
-    enable = true;
     defaultCacheTtl = 1800;
     enableSshSupport = true;
 };
