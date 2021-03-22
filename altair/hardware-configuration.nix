@@ -97,7 +97,7 @@
     }
   ];
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "userspace";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 
   services.btrfs.autoScrub.enable = true;
 }
