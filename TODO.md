@@ -3,6 +3,7 @@ To keep
     /etc/machine-id
 
 To Nixify
+    Repos like code and VMs
     Thunderbird config & emails?
     Android emulator config & phones?
     Steam data
@@ -10,12 +11,12 @@ To Nixify
     Calibre, DeDRM for ebooks
     Backup configs
     Firefox + extensions - if not managed by Moz
+    Games downloaded
     Wine programs?
     VSCode exts
     Code repos
     GEarth Login
     Podcasts OPML or GPodder
-    vim config
     Emulation files
     Pubkeys + Privkeys?
     Game configs
@@ -50,4 +51,3 @@ To keep
 
 To KILL
     Downloads
-
