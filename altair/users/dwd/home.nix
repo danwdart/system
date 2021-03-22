@@ -360,11 +360,13 @@
 
   # services.code-server.enable = true;
 
-  home.activation = {
-    myActivationAction = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      $DRY_RUN_CMD git clone --recurse-submodules $VERBOSE_ARG git@github.com:danwdart/code.git ${builtins.toPath ./code}
-    '';
-  };
+  # clone code!
+  
+  # home.activation = {
+  #   myActivationAction = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  #     $DRY_RUN_CMD git clone --recurse-submodules $VERBOSE_ARG git@github.com:danwdart/code.git ${builtins.toPath ./code}
+  #   '';
+  # };
 
   programs.home-manager = {
     path = "";
