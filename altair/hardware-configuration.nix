@@ -19,7 +19,7 @@
       device = "tmpfs";
       fsType = "tmpfs";
       options = [
-        "size=4G"
+        "size=2G"
       ];
     };
 
