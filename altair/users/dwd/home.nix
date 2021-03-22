@@ -369,6 +369,8 @@
   #   '';
   # };
 
+  # TODO: XCompose, keys
+
   programs.home-manager = {
     path = "";
   };
