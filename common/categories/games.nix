@@ -25,10 +25,11 @@ with pkgs; [
     # speed_dreams # no desktop icon # keeps compiling
     steam
     steamcmd
+    steam-run-native
     stuntrally
     superTux
     superTuxKart
-    torcs # no desktop icon
+    # torcs # no desktop icon
     # tremulous - broken
     trigger # no desktop icon
     urbanterror # no desktop icon
