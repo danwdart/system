@@ -102,7 +102,7 @@ in {
   };
   
   services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.videoDrivers = [ "amdgpu" ];
+  # services.xserver.videoDrivers = [ "amdgpu" ];
 
   services.xserver.layout = "gb";
 
