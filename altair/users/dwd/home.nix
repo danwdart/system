@@ -47,6 +47,18 @@
   programs.ssh = {
     enable = true;
     matchBlocks = {
+      dev = {
+        hostname = "localhost";
+        user = "root";
+        port = 2222;
+        localForwards = [
+          {
+            bind.port = 4455;
+            host.address = "localhost";
+            host.port = 445;
+          }
+        ];
+      };
       imac = {
         hostname = "192.168.1.100";
       };
