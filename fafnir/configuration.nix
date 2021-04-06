@@ -11,5 +11,5 @@
       ./configuration-common.nix
     ];
 
-  networking.hostName = "altair";
+  networking.hostName = "fafnir";
 }

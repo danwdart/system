@@ -19,8 +19,8 @@ with pkgs; [
     pcsxr
     quake3e # no desktop icon
     quakespasm # no desktop icon
-    redeclipse
-    sauerbraten # no desktop icon
+    #redeclipse
+    #sauerbraten # no desktop icon
     snes9x-gtk
     # speed_dreams # no desktop icon # keeps compiling
     steam
@@ -35,7 +35,7 @@ with pkgs; [
     urbanterror # no desktop icon
     vkquake
     # warsow - can't download
-    xonotic
+    #xonotic
     yquake2 # no desktop icon
     zsnes
 ]
