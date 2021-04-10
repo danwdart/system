@@ -1,19 +1,20 @@
 { pkgs, ... }:
-with pkgs; [
+let
+    unstable = import <unstable> {};
+in with pkgs; [
     armagetronad # no desktop icon
     bsdgames
     dolphinEmu
     extremetuxracer
     frozen-bubble # check for dtop
-    # hexen 2?
     ioquake3 # no desktop icon
     lbreakout2
     ltris
     mgba
     mupen64plus # no desktop icon
     nethack-qt # no desktop icon
-    nexuiz # no desktop icon
-    openarena # no desktop icon
+    # nexuiz # no desktop icon # BIG
+    # openarena # no desktop icon # BIG
     # padman?
     # pcsx2 # keeps recompiling
     pcsxr
@@ -26,16 +27,17 @@ with pkgs; [
     steam
     steamcmd
     steam-run-native
-    stuntrally
-    superTux
-    superTuxKart
+    #stuntrally # BIG
+    #superTux # Bigish
+    #superTuxKart # BIG
     # torcs # no desktop icon
     # tremulous - broken
-    trigger # no desktop icon
-    urbanterror # no desktop icon
+    #trigger # no desktop icon
+    # unstable.uhexen2 - soon
+    # urbanterror # no desktop icon # nBIG
     vkquake
     # warsow - can't download
-    #xonotic
+    #xonotic # keeps compiling
     yquake2 # no desktop icon
     zsnes
 ]

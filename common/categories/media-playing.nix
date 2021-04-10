@@ -1,12 +1,11 @@
 { pkgs, ... }:
 with pkgs; [
-    clementine
-    clementineUnfree
+    # clementine
+    # clementineUnfree # needs building?
     ffmpeg-full
     mplayer
     ncspot
     spotify
-    spotify-tui
     spotifywm
     vlc
 ]

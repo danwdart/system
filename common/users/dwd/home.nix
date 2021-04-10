@@ -1,4 +1,10 @@
-{ pkgs, ... }: {
+{ pkgs, ... }: 
+let unstable = import <unstable> {
+        config = {
+            allowUnfree = true;
+        };
+    };
+in {
   # man home-configuration.nix
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -337,17 +343,19 @@
   };
 
   programs.vscode = {
-    # extensions = []
+    enable = true;
+    package = unstable.vscode;
+    extensions = [];
+    # needs repo
     #haskell = {
     #  enable = true;
-    #hie = {
-    #  enable = true;
+      # needs repo
+      #hie = {
+      #  enable = true;
+      #};
     #};
-    #};
-    # userSettings = 
-
-    # keybindings = 
-
+    userSettings = {};
+    keybindings = [];
   };
 
   services.gpg-agent = {

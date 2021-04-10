@@ -6,7 +6,7 @@ let
         };
     };
 in with pkgs; [
-    androidStudioPackages.canary
+    # androidStudioPackages.canary # platform-tools? fastboot?
     code-server
     docker-compose
     gitAndTools.gh
@@ -18,5 +18,5 @@ in with pkgs; [
     vim
     unstable.vscode # insiders?
     x11docker
-    xcodebuild
+    # xcodebuild
 ]
