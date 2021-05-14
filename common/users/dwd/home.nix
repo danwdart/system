@@ -37,6 +37,15 @@ in {
     text = "";
   };
 
+  home.file.xcompose = {
+    target = ".XCompose";
+    text = ''
+      include "%L"
+
+      <Multi_key> <l> <l> : "λ"
+    '';
+  };
+
   # overlays go here
   nixpkgs.config = import ./nixpkgs-config.nix;
 
