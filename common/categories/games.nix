@@ -17,7 +17,7 @@ in with pkgs; [
     # openarena # no desktop icon # BIG
     # padman?
     # pcsx2 # keeps recompiling
-    pcsxr
+    # pcsxr # depends on insecure ffmpeg
     quake3e # no desktop icon
     quakespasm # no desktop icon
     #redeclipse
