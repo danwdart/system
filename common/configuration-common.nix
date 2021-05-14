@@ -85,6 +85,22 @@ in {
 
   boot.plymouth.enable = true;
 
+  services.cron = {
+    enable = true;
+    systemCronJobs = [
+      # see https://www.freebsd.org/cgi/man.cgi?crontab%285%29 for special:
+      #@weekly @monthly @yearly @annually @hourly @daily @reboot 
+      #m h d m w
+      # Every half hour
+      "*/30 * * * *    dwd    nix-channel --update"
+      "*/30 * * * *    root    nix-channel --update"
+      # Every hour
+      "0    * * * *    root    nixos-rebuild switch -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix && nix-store --optimise"
+      # Every week
+      "0 0 * * 0    root    nix-collect-garbage -d && nix-store --gc && nix-store --delete"
+    ];
+  };
+
   services.xserver.enable = true;
   services.xserver.displayManager = {
     sddm = {
@@ -103,6 +119,9 @@ in {
   # services.xserver.videoDrivers = [ "amdgpu" ];
 
   services.xserver.layout = "gb";
+  services.xserver.xkbOptions = "terminate:ctrl_alt_bksp,caps:escape,compose:ralt";
+  services.xserver.xkbModel = "latitude";
+  console.useXkbConfig = true;
 
   services.grocy.enable = true;
   services.grocy.hostName = "altair";
@@ -163,7 +182,30 @@ in {
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
-  # services.xserver.xkbOptions = "eurosign:e";
+  services.postfix = {
+    enable = true;
+    domain = "jolharg.com";
+    rootAlias = "dwd";
+    # [smtp.gmail.com]:587    username@gmail.com:password -> sasl_passwd
+    config = {
+      smtp_sasl_auth_enable = true;
+      smtp_sasl_security_options = "noanonymous";
+      smtp_use_tls = true;
+      smtp_sasl_password_maps = "hash:/home/dwd/code/mine/nix/system/fafnir/private/sasl_passwd";
+    };
+    relayHost = "smtp.gmail.com";
+    relayPort = 587;
+    relayDomains = [
+      "dandart.co.uk"
+      "fafnir.jolharg.com"
+      "jolharg,com"
+    ];
+    setSendmail = true;
+    virtual = ''
+      @fafnir dan@dandart.co.uk
+    '';
+  };
+
   services.printing.enable = true;
 
   services.samba.enable = true;
@@ -181,7 +223,7 @@ in {
   #  };
   #};
 
-  # services.xserver.libinput.enable = true;
+  services.xserver.libinput.enable = true;
 
   # Don't allow mutation of users outside of the config.
   users.mutableUsers = false;
@@ -235,7 +277,7 @@ in {
   services.openssh = {
     enable = true;
     openFirewall = true;
-    banner = "Connection established to altair. Unauthorised connections are logged.";
+    banner = "Connection established to altair. Unauthorised connections are logged.\n";
   };
 
   services.xrdp.enable = true;
