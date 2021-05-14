@@ -96,7 +96,7 @@
   swapDevices = [
     {
       device = "/swap/swap"; # remember to touch & chattr +C
-      size = 16 * 1024;
+      size = 4 * 1024;
     }
   ];
 
