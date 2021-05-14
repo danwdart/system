@@ -198,7 +198,7 @@ in {
     relayDomains = [
       "dandart.co.uk"
       "fafnir.jolharg.com"
-      "jolharg,com"
+      "jolharg.com"
     ];
     setSendmail = true;
     virtual = ''
