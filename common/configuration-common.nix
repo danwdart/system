@@ -150,7 +150,8 @@ in {
 
   services.udisks2.enable = true;
   
-  security.pam.usb.enable = true;
+  # security.pam.usb.enable = true;
+  # TODO pam phone fingerprint?
 
   # services.miredo.enable = true;
 
@@ -191,6 +192,7 @@ in {
       smtp_sasl_auth_enable = true;
       smtp_sasl_security_options = "noanonymous";
       smtp_use_tls = true;
+      # postmap this!
       smtp_sasl_password_maps = "hash:/home/dwd/code/mine/nix/system/fafnir/private/sasl_passwd";
     };
     relayHost = "smtp.gmail.com";
