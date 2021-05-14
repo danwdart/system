@@ -2,7 +2,7 @@
 with pkgs; [
     # clementine
     # clementineUnfree # needs building?
-    ffmpeg-full
+    #ffmpeg-full #insecure for now
     mplayer
     ncspot
     spotify
