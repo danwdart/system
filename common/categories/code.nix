@@ -7,7 +7,7 @@ let
     };
 in with pkgs; [
     # androidStudioPackages.canary # platform-tools? fastboot?
-    code-server
+    # code-server # unneeded
     docker-compose
     gitAndTools.gh
     gitAndTools.gitFull
