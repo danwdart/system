@@ -1,5 +1,7 @@
 { pkgs, ... }:
-with pkgs; [
+let
+    unstable = import <unstable> {};
+in with pkgs; [
     atinout
     calls
     gammu
@@ -8,6 +10,7 @@ with pkgs; [
     minicom
     mnemonicode
     ofono-phonesim
+    unstable.androidenv.androidPkgs_9_0.platform-tools
     statserial
     # wammu - does not exist
     zssh
