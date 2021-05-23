@@ -92,12 +92,12 @@ in {
       #@weekly @monthly @yearly @annually @hourly @daily @reboot 
       #m h d m w
       # Every half hour
-      "*/30 * * * *    dwd    nix-channel --update"
-      "*/30 * * * *    root    nix-channel --update"
+      "*/30 * * * *    dwd    . /etc/profile; nix-channel --update"
+      "*/30 * * * *    root    . /etc/profile; nix-channel --update"
       # Every hour
-      "0    * * * *    root    nixos-rebuild switch -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix && nix-store --optimise"
+      "0    * * * *    root    . /etc/profile; nixos-rebuild switch -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix && nix-store --optimise"
       # Every week
-      "0 0 * * 0    root    nix-collect-garbage -d && nix-store --gc && nix-store --delete"
+      "0 0 * * 0    root    . /etc/profile; nix-collect-garbage -d && nix-store --gc && nix-store --delete"
     ];
   };
 
@@ -205,6 +205,7 @@ in {
     setSendmail = true;
     virtual = ''
       @fafnir dan@dandart.co.uk
+      @fafnir.jolharg.com dan@dandart.co.uk
     '';
   };
 
@@ -302,8 +303,17 @@ in {
 
   networking.firewall.allowedTCPPorts = [ 22 80 139 445 3389 4713 5900 8080 ];
   networking.firewall.allowedUDPPorts = [ 137 138 ];
+  networking.firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+  networking.firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
+
   networking.firewall.pingLimit = "--limit 1/minute --limit-burst 5";
   networking.firewall.checkReversePath = true;
+
+  # networking.firewall.extraCommands = ''
+  #   iptables -A nixos-fw -p tcp --source 192.0.2.0/24 --dport 1714:1764 -j nixos-fw-accept
+  #   iptables -A nixos-fw -p udp --source 192.0.2.0/24 --dport 1714:1764 -j nixos-fw-accept
+  # '';
+
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
