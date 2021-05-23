@@ -8,9 +8,9 @@ in with pkgs; [
     extremetuxracer
     frozen-bubble # check for dtop
     ioquake3 # no desktop icon
-    lbreakout2
+    # lbreakout2
     ltris
-    mgba
+    # mgba
     mupen64plus # no desktop icon
     nethack-qt # no desktop icon
     # nexuiz # no desktop icon # BIG
