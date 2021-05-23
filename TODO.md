@@ -1,7 +1,3 @@
-To keep
-    /etc/docker/key.json?
-    /etc/machine-id
-
 To Nixify
     Repos like code and VMs
     Thunderbird config & emails?
@@ -13,8 +9,6 @@ To Nixify
     Firefox + extensions - if not managed by Moz
     Games downloaded
     Wine programs?
-    VSCode exts
-    Code repos
     GEarth Login
     Podcasts OPML or GPodder
     Emulation files
@@ -27,8 +21,7 @@ To Nixify
     Dosbox config if applicable
     KDE config
     ~/.config/autostart
-    ~/.config/kdeconnect keys    
-    ghci config
+    ~/.config/kdeconnect keys
     gpredict
     gh / hub
     dolphin
