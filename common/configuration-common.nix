@@ -87,18 +87,27 @@ in {
 
   services.cron = {
     enable = true;
+    mailto = "cron@dandart.co.uk";
     systemCronJobs = [
       # see https://www.freebsd.org/cgi/man.cgi?crontab%285%29 for special:
       #@weekly @monthly @yearly @annually @hourly @daily @reboot 
       #m h d m w
       # Every half hour
-      "*/30 * * * *    dwd    . /etc/profile; nix-channel --update"
-      "*/30 * * * *    root    . /etc/profile; nix-channel --update"
-      # Every hour
-      "0    * * * *    root    . /etc/profile; nixos-rebuild switch -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix && nix-store --optimise"
+      "*/30 * * * *    dwd     . /etc/profile; ERR=$(nix-channel --update) || echo $ERR"
+      "*/30 * * * *    root    . /etc/profile; ERR=$(nix-channel --update) || echo $ERR"
+      # Every two hours
+      "0    * * * *    root    . /etc/profile; ERR=$(nixos-rebuild switch -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix) || echo $ERR"
+      # Every six hours
+      "*/6  * * * *    root    . /etc/profile; ERR=$(nix-store --optimise) || echo $ERR"
       # Every week
-      "0 0 * * 0    root    . /etc/profile; nix-collect-garbage -d && nix-store --gc && nix-store --delete"
+      "0    0 * * 0    root    . /etc/profile; ERR=$(nix-collect-garbage -d && nix-store --gc && nix-store --delete) || echo $ERR"
     ];
+  };
+
+  services.logcheck = {
+    enable = true;
+    level = "paranoid";
+    mailTo = "logcheck@dandart.co.uk";
   };
 
   services.xserver.enable = true;
