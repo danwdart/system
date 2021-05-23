@@ -49,7 +49,7 @@ in {
   # overlays go here
   nixpkgs.config = import ./nixpkgs-config.nix;
 
-  # todo more xdg
+  # todo more xdg?
   xdg.enable = true;
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
 
@@ -92,7 +92,6 @@ in {
   };
 
   programs.bash = {
-    # bin path
     enable = true;
     shellAliases = {
       ukbbs = "ztelnet ukbbs.zapto.org";
@@ -104,14 +103,12 @@ in {
   };
 
   programs.direnv = {
-    # todo fix
     enable = true;
     enableBashIntegration = true;
     enableNixDirenvIntegration = true;
   };
 
   programs.irssi = {
-    # todo system binary
     enable = true;
     networks = {
       freenode = {
@@ -129,7 +126,6 @@ in {
   };
 
   programs.git = {
-    # todo system binary
     enable = true;
     userName = "Dan Dart";
     userEmail = "git@dandart.co.uk";
@@ -139,15 +135,15 @@ in {
   };
 
   programs.vim = {
-    # todo system binary
     enable = true;
     # nix-env -f '<nixpkgs>' -qaP -A vimPlugins
     plugins = with pkgs.vimPlugins; [
+      onedark-vim
       fugitive
       gundo
       nerdtree
+      haskell-vim
       # node
-      onedark-vim
       polyglot
       taglist
       vim-unimpaired
@@ -354,7 +350,87 @@ in {
   programs.vscode = {
     enable = true;
     package = unstable.vscode;
-    extensions = [];
+    extensions = with unstable.vscode-extensions; [
+      justusadam.language-haskell
+      bbenoist.Nix
+      brettm12345.nixfmt-vscode
+      jock.svg
+      haskell.haskell
+    # https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/misc/vscode-extensions/update_installed_exts.sh
+    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      {
+        name = "vscode-direnv";
+        publisher = "rubymaniac";
+        version = "0.0.2";
+        sha256 = "1gml41bc77qlydnvk1rkaiv95rwprzqgj895kxllqy4ps8ly6nsd";
+      }
+      {
+        name = "haskell-formatter-vscode-extension";
+        publisher = "sergey-kintsel";
+        version = "0.0.2";
+        sha256 = "15mbk2ayvyswaqcr79jr9zwhfsx1nz5invgsw4naxma0m81cw33m";
+      }
+      {
+        name = "haskell-ghcid";
+        publisher = "ndmitchell";
+        version = "0.3.1";
+        sha256 = "1rivzlk32x7vq84ri426nhd6a4nv3h7zp7xcsq31d0kp8bqczvi9";
+      }
+      {
+        name = "haskell-linter";
+        publisher = "hoovercj";
+        version = "0.0.6";
+        sha256 = "0fb71cbjx1pyrjhi5ak29wj23b874b5hqjbh68njs61vkr3jlf1j";
+      }
+      {
+        name = "hlint";
+        publisher = "lunaryorn";
+        version = "0.5.1";
+        sha256 = "01s9iabnk1d9496f91q7wn3p0njzf7rr8rkkcparhj2ls1jmca6p";
+      }
+      {
+        name = "nix";
+        publisher = "martinring";
+        version = "0.0.1";
+        sha256 = "1vac56lc2j3q9d34jlw2m7pa59qybi3qam7b91y2xnakmsprrqdk";
+      }
+      {
+        name = "nix-env-selector";
+        publisher = "arrterian";
+        version = "1.0.7";
+        sha256 = "0mralimyzhyp4x9q98x3ck64ifbjqdp8cxcami7clvdvkmf8hxhf";
+      }
+      {
+        name = "nix-ide";
+        publisher = "jnoortheen";
+        version = "0.1.12";
+        sha256 = "1wkc5mvxv7snrpd0py6x83aci05b9fb9v4w9pl9d1hyaszqbfnif";
+      }
+      {
+        name = "nixpkgs-fmt";
+        publisher = "B4dM4n";
+        version = "0.0.1";
+        sha256 = "1gvjqy54myss4w1x55lnyj2l887xcnxc141df85ikmw1gr9s8gdz";
+      }
+      {
+        name = "remote-ssh-nightly";
+        publisher = "ms-vscode-remote";
+        version = "2021.5.15300";
+        sha256 = "13lq0zjxv24v6v0hkinf5bc73wnxbab1mhdr67i3qb8pd4kgpkcj";
+      }
+      {
+        name = "remote-ssh-edit-nightly";
+        publisher = "ms-vscode-remote";
+        version = "2021.5.29700";
+        sha256 = "0l8w5p24jn1lldr82yvrq2lsxizjyqm3pz87x03bdajngj8hvmzg";
+      }
+      {
+        name = "stylish-haskell";
+        publisher = "vigoo";
+        version = "0.0.10";
+        sha256 = "1zkvcan7zmgkg3cbzw6qfrs3772i0dwhnywx1cgwhy39g1l62r0q";
+      }
+    ];
     # needs repo
     #haskell = {
     #  enable = true;
@@ -382,8 +458,6 @@ in {
   #     $DRY_RUN_CMD git clone --recurse-submodules $VERBOSE_ARG git@github.com:danwdart/VMs.git ${builtins.toPath ./VMs}
   #   '';
   # };
-
-  # TODO: XCompose, keys
 
   programs.home-manager = {
     path = "";
