@@ -1,5 +1,6 @@
 { pkgs, ... }:
 with pkgs; [
+    doctl # run doctl auth init before use
     ipfs
     irssi
     mailutils
