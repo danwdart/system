@@ -93,13 +93,33 @@ in {
 
   programs.bash = {
     enable = true;
+    enableVteIntegration = true;
+    historyControl = [
+      "ignoredups"
+      "ignorespace"
+    ];
+    historyIgnore = [
+      "cd"
+      "ls"
+      "exit"
+      "logout"
+    ];
     shellAliases = {
       ukbbs = "ztelnet ukbbs.zapto.org";
       fenric = "ztelnet fenric.muppetwhore.net";
       tardis = "ztelnet bbs.cortex-media.info";
       nostromo = "ztelnet nostromo.synchro.net";
       scn = "ztelnet scn.org";
+      ll = "ls -l";
+      ".." = "cd ..";
     };
+    initExtra = ''
+      source <(doctl completion bash)
+      ddate
+      fortune -s
+      echo Greetings, Professor Falken.
+    '';
+    # screenfetch
   };
 
   programs.direnv = {
