@@ -36,21 +36,87 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.kernel.sysctl = {
+    # all magic sysrq keys
     "kernel.sysrq" = 1;
+    # try not to use swap
     "vm.swappiness" = 0;
   };
 
+  #boot.binfmt.emulatedSystems = [
+    # "wasm32-wasi"
+  #  "wasm64-wasi"
+  #  "x86_64-windows"
+    # "i686-windows"
+    # "i686-linux"
+    # "mips64-linux"
+    # "mips64el-linux"
+    # "sparc64-linux"
+    # "aarch64_be-linux"
+  #  "aarch64-linux"
+  #  "powerpc64-linux"
+  #  "riscv64-linux"
+  #];
+
   systemd.tmpfiles.rules = [
-    "w /sys/devices/system/cpu/cpufreq/boost - - - - 0"
+  # only on big evil desktop
+  #  "w /sys/devices/system/cpu/cpufreq/boost - - - - 0"
   ];
 
-  xdg.menus.enable = true;
 
   boot.kernelPackages = unstable.linuxPackages_latest;
 
-  networking.hostName = "fafnir"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "fafnir"; # Define your hostname.
+    # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    nameservers = [
+      # if using DoH/DoT proxy
+      # "127.0.0.1" "::1"
+      # opennic, giving http://grep.geek etc
+      # "194.36.144.87" "94.247.43.254" "2a03:4000:4d:c92:88c0:96ff:fec6:b9d" "2a00:f826:8:1::254"
+      # also opennic
+      # "95.217.229.211" "165.22.224.164" "2a01:4f9:4b:39ea::301" "2604:a880:cad:d0::d9a:f001"
+      # adguard
+      "94.140.14.14" "94.140.15.15" "2a10:50c0::ad1:ff" "2a10:50c0::ad2:ff"
+      # quad9
+      # "9.9.9.9" "149.112.112.112" "2620:fe::fe" "2620:fe::9"
+    ];
+    # resolvconf.enable = false;
+    networkmanager = {
+      enable = true;
+  #    dns = "
+      #insertNameservers = [
+      # extra stuff only
+      #];
+    };
+  };
+
+  #services.dnscrypt-proxy2 = {
+  #  enable = true;
+  #  settings = {
+  #    ipv6_servers = true;
+  #    require_dnssec = true;
+  #    sources.public-resolvers = {
+  #      urls = [
+  #        "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
+  #        "https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md"
+  #      ];
+  #      cache_file = "/var/lib/dnscrypt-proxy2/public-resolvers.md";
+  #      minisign_key = "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
+  #    };
+  #    # You can choose a specific set of servers from https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
+  #    server_names = [
+  #      # doh: https://dns.adguard.com/dns-query dot: dns.adguard.com
+  #      # adguard-dns-doh
+  #      "sdns://AgMAAAAAAAAADzE3Ni4xMDMuMTMwLjEzMCCsFdIhxY-VWoedpSrEKWAhaBEVj-8L-p_FJl6wMpPufg9kbnMuYWRndWFyZC5jb20KL2Rucy1xdWVyeQ"
+  #      # ahadns-doh-nl
+  #      "sdns://AgMAAAAAAAAACTUuMi43NS43NaAyhv9lpl-vMghe6hOIw3OLp-N4c8kGzOPEootMwqWJiKBETr1nu4P4gHs5Iek4rJF4uIK9UKrbESMfBEz18I33ziDMEGDTnIMptitvvH0NbfkwmGm5gefmOS1c2PpAj02A5hFkb2gubmwuYWhhZG5zLm5ldAovZG5zLXF1ZXJ5"
+  #    ];
+  #  };
+  #};
+
+  #systemd.services.dnscrypt-proxy2.serviceConfig = {
+  #  StateDirectory = "dnscrypt-proxy2";
+  #};
 
   time.timeZone = "Europe/London";
 
@@ -87,7 +153,7 @@ in {
 
   services.cron = {
     enable = true;
-    mailto = "cron@dandart.co.uk";
+    # mailto = "cron@dandart.co.uk";
     systemCronJobs = [
       # see https://www.freebsd.org/cgi/man.cgi?crontab%285%29 for special:
       #@weekly @monthly @yearly @annually @hourly @daily @reboot 
@@ -101,18 +167,18 @@ in {
       "0     0,2,4,6,8,18,20,22 * * 1,2,3,4,5 root    . /etc/profile; nix-channel --update; nixos-rebuild switch -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix"
       # Every six hours at weekends
       "0     */6                * * 0,6       root    . /etc/profile; nix-store --optimise"
-      # Almost every six hours on weekdays
+      # Every six hours except midday on weekdays
       "0     0,6,18             * * 1,2,3,4,5 root    . /etc/profile; nix-store --optimise"
       # Every Sunday at midnight
       "0     0                  * * 0         root    . /etc/profile; nix-collect-garbage -d && nix-store --gc && nix-store --delete"
     ];
   };
 
-  services.logcheck = {
-    enable = true;
-    level = "paranoid";
-    mailTo = "logcheck@dandart.co.uk";
-  };
+  #services.logcheck = {
+  #  enable = true;
+  #  level = "paranoid";
+  #  mailTo = "logcheck@dandart.co.uk";
+  #};
 
   services.xserver.enable = true;
   services.xserver.displayManager = {
@@ -131,13 +197,31 @@ in {
   services.xserver.desktopManager.plasma5.enable = true;
   # services.xserver.videoDrivers = [ "amdgpu" ];
 
+  #services.xserver.windowManager.xmonad = {
+  #  enable = true;
+  #  enableContribAndExtras = true;
+  #  config = pkgs.writeText "xmonad.hs" ''
+  #    import XMonad
+  #    main = xmonad defaultConfig
+  #        { terminal    = "urxvt"
+  #        , modMask     = mod4Mask
+  #        , borderWidth = 3
+  #        }
+  #  '';
+  #  extraPackages = haskellPackages: [
+  #    haskellPackages.xmonad-contrib
+  #    haskellPackages.monad-logger
+  #  ];
+  #  haskellPackages = unstable.haskell.packages.ghc901;
+  #};
+  
   services.xserver.layout = "gb";
   services.xserver.xkbOptions = "terminate:ctrl_alt_bksp,caps:escape,compose:ralt";
   services.xserver.xkbModel = "latitude";
   console.useXkbConfig = true;
 
   services.grocy.enable = true;
-  services.grocy.hostName = "altair";
+  services.grocy.hostName = "fafnir.dandart.co.uk";
   services.grocy.nginx.enableSSL = false;
   services.grocy.settings.calendar.firstDayOfWeek = 1;
   services.grocy.settings.currency = "GBP";
@@ -158,8 +242,8 @@ in {
     '';
   };
 
-  # security.acme.email = "acme@dandart.co.uk";
-  # security.acme.acceptTerms = true;
+  security.acme.email = "acme@dandart.co.uk";
+  security.acme.acceptTerms = true;
 
   services.udisks2.enable = true;
   
@@ -274,12 +358,36 @@ in {
   # $ nix search
   environment.systemPackages = import ./packages.nix pkgs;
 
+  # TODO Extra desktop files
+  # bristol
+  # polyphone
+  # tuxguitar
+  # /share/games/armagetronad/desktop/armagetronad.desktop
+  # ioquake3
+  # /share/applications/mupen64plus.desktop
+  # nethack-qt
+  # nexuiz
+  # openarena
+  # quake3e
+  # quakespasm
+  # sauerbraten
+  # speed_dreams
+  # torcs
+  # trigger
+  # urbanterror
+  # vkquake
+  # yquake2
+  # soundmodem
+  # sleepyhead
+  # putty
+
   nix.extraOptions = ''
     keep-outputs = true
     keep-derivations = true
   '';
   environment.pathsToLink = [
     "/share/nix-direnv"
+    "/share/applications"
   ];  
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -314,18 +422,22 @@ in {
 
   services.fail2ban.enable = true;
 
-  networking.firewall.allowedTCPPorts = [ 22 80 139 445 3389 4713 5900 8080 ];
-  networking.firewall.allowedUDPPorts = [ 137 138 ];
-  networking.firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
-  networking.firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
+  networking.firewall.allowedTCPPorts = [ 22 80 443 ];
+  # networking.firewall.allowedUDPPorts = [];
+  # networking.firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+  # networking.firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
 
   networking.firewall.pingLimit = "--limit 1/minute --limit-burst 5";
   networking.firewall.checkReversePath = true;
 
-  # networking.firewall.extraCommands = ''
-  #   iptables -A nixos-fw -p tcp --source 192.0.2.0/24 --dport 1714:1764 -j nixos-fw-accept
-  #   iptables -A nixos-fw -p udp --source 192.0.2.0/24 --dport 1714:1764 -j nixos-fw-accept
-  # '';
+  # KDE Connect, PulseAudio and Samba - only from LANs
+  networking.firewall.extraCommands = ''
+    iptables -A nixos-fw -p tcp --source 192.168.0.0/16 --dport 1714:1764 -j nixos-fw-accept
+    iptables -A nixos-fw -p tcp --source 192.168.0.0/16 -m multiport --dports 139,445 -j nixos-fw-accept
+    iptables -A nixos-fw -p tcp --source 192.168.0.0/16 --dport 4713 -j nixos-fw-accept
+    iptables -A nixos-fw -p udp --source 192.168.0.0/16 --dport 1714:1764 -j nixos-fw-accept
+    iptables -A nixos-fw -p udp --source 192.168.0.0/16 -m multiport --dports 137,138 -j nixos-fw-accept
+  '';
 
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
