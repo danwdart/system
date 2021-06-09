@@ -8,6 +8,6 @@ in with pkgs; [
     gpredict
     minimodem
     qsstv
-    unstable.soundmodem # no desktop icon for config
+    unstable.soundmodem # no desktop icon, needs config
     wsjtx
 ]

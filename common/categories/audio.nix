@@ -1,7 +1,7 @@
 { pkgs, ... }:
 with pkgs;
 [
-    a2jmidid
+    a2jmidid # CLI
     AMB-plugins
     ardour
     audacity
@@ -26,7 +26,7 @@ with pkgs;
     qsynth
     rosegarden
     soundfont-fluid
-    tuxguitar
+    tuxguitar # no desktop icon
     x42-gmsynth
     yoshimi
     zam-plugins

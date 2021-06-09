@@ -24,7 +24,7 @@ in with pkgs; [
     lshw
     multibootusb # broken GUI
     ncdu
-    networkmanager
+    networkmanager # possibly unneeded
     obexfs
     obexftp
     unstable.opencorsairlink

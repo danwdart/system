@@ -2,7 +2,7 @@
 with pkgs; [
     blender
     darktable
-    gimp # no desktop icon
+    gimp
     inkscape
     rawtherapee
 ]

@@ -9,6 +9,6 @@ with pkgs; [
     # virtinst
     virt-manager
     # virt-manager-qt
-    virt-viewer # no desktop icon
+    virt-viewer # desktop icon: "Remote Viewer"
     win-qemu
 ]

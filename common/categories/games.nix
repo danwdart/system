@@ -35,7 +35,7 @@ in with pkgs; [
     #trigger # no desktop icon
     # unstable.uhexen2 - soon
     # urbanterror # no desktop icon # nBIG
-    vkquake
+    vkquake # no desktop icon but needs dir
     # warsow - can't download
     #xonotic # keeps compiling
     yquake2 # no desktop icon
