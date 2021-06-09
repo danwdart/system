@@ -5,5 +5,5 @@ with pkgs; [
     skype
     slack
     teams
-    zoom-us
+    # zoom-us
 ]
