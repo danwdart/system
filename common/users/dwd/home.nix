@@ -483,6 +483,33 @@ in {
     path = "";
   };
 
+  #xsession.windowManager.xmonad = {
+  #  enable = true;
+  #  enableContribAndExtras = true;
+  #  config = pkgs.writeText "xmonad.hs" ''
+  #    import XMonad
+  #    main = xmonad defaultConfig
+  #        { terminal    = "urxvt"
+  #        , modMask     = mod4Mask
+  #        , borderWidth = 3
+  #        }
+  #  '';
+  #  extraPackages = haskellPackages: [
+  #    haskellPackages.xmonad-contrib
+  #    haskellPackages.monad-logger
+  #  ];
+  #  haskellPackages = unstable.haskell.packages.ghc901;
+  #};
+
+  #xsession.windowManager.command =
+  #  let
+  #    xmonad = pkgs.xmonad-with-packages.override {
+  #      packages = self: [ self.xmonad-contrib self.taffybar ];
+  #    };
+  #  in
+  #    "${xmonad}/bin/xmonad";
+
+
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
