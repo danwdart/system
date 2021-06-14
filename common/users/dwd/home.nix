@@ -1,10 +1,15 @@
-{ pkgs, ... }: 
+{ config, lib, pkgs, ... }: 
 let unstable = import <unstable> {
         config = {
             allowUnfree = true;
         };
     };
+    impermanence = builtins.fetchTarball {
+      url =
+        "https://github.com/nix-community/impermanence/archive/master.tar.gz";
+    };
 in {
+  imports = [ "${impermanence}/home-manager.nix" ];
   # man home-configuration.nix
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -15,6 +20,69 @@ in {
   home.homeDirectory = "/home/dwd";
 
   home.packages = [ ];
+
+  home.persistence."/persist/home/dwd/" = {
+    # TODO ensure DeDRM
+    # directories - tries to bind mount?
+    directories = [
+      "Android"
+      "Calibre Library"
+      "code"
+      "Desktop"
+      "Documents"
+      "Downloads"
+      "from"
+      "games"
+      "Music"
+      "Pictures"
+      "radioimages"
+      "Templates"
+      "Videos"
+      "VMs"
+      ".android"
+      ".armagetronad"
+      ".config/autostart"
+      ".config/cachix"
+      ".config/calibre" 
+      ".config/discord"
+      ".config/doctl"
+      ".config/dolphin-emu"
+      ".config/Element"
+      ".config/gh"
+      ".config/Gpredict"
+      ".config/htop"
+      ".config/kdeconnect"
+      ".config/spotify"
+      ".dosbox"
+      ".frozen-bubble"
+      ".ghc"
+      ".gnupg"
+      ".googleearth"
+      ".kde"
+      ".lgames"
+      ".local/share/direnv"
+      ".local/share/dolphin-emu"
+      ".local/share/kwalletd"
+      ".local/share/Steam"
+      ".local/share/ktorrent"
+      ".mozilla"
+      ".pcsxr"
+      ".quakespasm"
+      ".serverless"
+      ".ssh"
+      ".steam"
+      ".thunderbird"
+      ".vkquake"
+      ".wine"
+    ];
+    files = [
+      ".yq2"
+      ".bash_history"
+      ".config/dolphinrc"
+      ".serverlessrc"
+    ];
+    allowOther = true;
+  };
 
   home.file.ghci = {
     target = ".ghci";
@@ -472,12 +540,17 @@ in {
 
   # clone code!
 
-  # home.activation = {
-  #   myActivationAction = lib.hm.dag.entryAfter ["writeBoundary"] ''
-  #     $DRY_RUN_CMD git clone --recurse-submodules $VERBOSE_ARG git@github.com:danwdart/code.git ${builtins.toPath ./code}
-  #     $DRY_RUN_CMD git clone --recurse-submodules $VERBOSE_ARG git@github.com:danwdart/VMs.git ${builtins.toPath ./VMs}
-  #   '';
-  # };
+  #home.activation = {
+    # Everything here must be idempotent
+    # TODO balooctl manage a config file instead?
+    # TODO these require github auth/keyq1
+    #myActivationAction = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    #  $DRY_RUN_CMD balooctl $VERBOSE_ARG disable
+    #  $DRY_RUN_CMD git clone --recurse-submodules $VERBOSE_ARG git@github.com:danwdart/code.git ${builtins.toPath ./code}
+    #  $DRY_RUN_CMD git clone --recurse-submodules $VERBOSE_ARG git@github.com:danwdart/VMs.git ${builtins.toPath ./VMs}
+    #'';
+    # TODO backup and restore
+  #};
 
   programs.home-manager = {
     path = "";

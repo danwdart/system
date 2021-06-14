@@ -71,12 +71,12 @@
       ];
     };
 
-  fileSystems."/home" =
+  fileSystems."/persist" =
     {
       device = "/dev/sda3";
       fsType = "btrfs";
       options = [
-        "subvol=/home"
+        "subvol=/persist"
         "noatime"
       ];
     };
