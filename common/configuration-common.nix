@@ -261,6 +261,8 @@ in {
   programs.adb.enable = true;
   programs.wireshark.enable = true;
 
+  programs.fuse.userAllowOther = true;
+
   sound.enable = true;
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.tcp.enable = true;
