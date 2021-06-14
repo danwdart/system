@@ -22,7 +22,7 @@ in with pkgs; [
     jnettop
     lm_sensors
     lshw
-    multibootusb # broken GUI
+    # multibootusb # broken GUI, also broken
     ncdu
     networkmanager # possibly unneeded
     obexfs
