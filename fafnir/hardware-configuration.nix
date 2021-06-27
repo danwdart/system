@@ -96,10 +96,10 @@
   swapDevices = [
     {
       device = "/swap/swap"; # remember to touch & chattr +C
-      size = 4 * 1024;
+      size = 16 * 1024;
     }
   ];
 
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 }
