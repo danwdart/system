@@ -38,6 +38,8 @@ in {
       "radioimages"
       "Templates"
       "Videos"
+      # TODO remove
+      "VirtualBox VMs"
       "VMs"
       ".android"
       ".armagetronad"
@@ -52,7 +54,10 @@ in {
       ".config/Gpredict"
       ".config/htop"
       ".config/kdeconnect"
+      ".config/rclone"
       ".config/spotify"
+      # TODO move?
+      ".config/Slack"
       ".dosbox"
       ".frozen-bubble"
       ".ghc"
@@ -72,13 +77,20 @@ in {
       ".ssh"
       ".steam"
       ".thunderbird"
+      # TODO relocate
+      ".vagrant.d"
       ".vkquake"
       ".wine"
+      ".yq2"
     ];
     files = [
-      ".yq2"
       ".bash_history"
       ".config/dolphinrc"
+      ".config/kdeglobals"
+      ".config/mimeapps.list"
+      ".config/plasma-org.kde.plasma.desktop-appletsrc"
+      ".config/plasmarc"
+      ".config/plasmashellrc"
       ".serverlessrc"
     ];
     allowOther = true;
@@ -125,6 +137,23 @@ in {
   xdg.configFile."nix/nix.conf".text = ''
     substituters = https://cache.nixos.org https://websites.cachix.org https://nixcache.reflex-frp.org https://nixcache.webghc.org
     trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= websites.cachix.org-1:YMPYgEeWohlGq/0wDvWLVSRoNcBS1jIOmku6Djv7zcM= ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI= hydra.webghc.org-1:knW30Yb8EXYxmUZKEl0Vc6t2BDjAUQ5kfC1BKJ9qEG8=
+  '';
+
+  # Disable search indexing
+  xdg.configFile."baloofilerc".text = ''
+    [Basic Settings]
+    Indexing-Enabled=false
+
+    [General]
+    dbVersion=2
+    exclude filters=*~,*.part,*.o,*.la,*.lo,*.loT,*.moc,moc_*.cpp,qrc_*.cpp,ui_*.h,cmake_install.cmake,CMakeCache.txt,CTestTestfile.cmake,libtool,config.status,confdefs.h,autom4te,conftest,confstat,Makefile.am,*.gcode,.ninja_deps,.ninja_log,build.ninja,*.csproj,*.m4,*.rej,*.gmo,*.pc,*.omf,*.aux,*.tmp,*.po,*.vm*,*.nvram,*.rcore,*.swp,*.swap,lzo,litmain.sh,*.orig,.histfile.*,.xsession-errors*,*.map,*.so,*.a,*.db,*.qrc,*.ini,*.init,*.img,*.vdi,*.vbox*,vbox.log,*.qcow2,*.vmdk,*.vhd,*.vhdx,*.sql,*.sql.gz,*.ytdl,*.class,*.pyc,*.pyo,*.elc,*.qmlc,*.jsc,*.fastq,*.fq,*.gb,*.fasta,*.fna,*.gbff,*.faa,po,CVS,.svn,.git,_darcs,.bzr,.hg,CMakeFiles,CMakeTmp,CMakeTmpQmake,.moc,.obj,.pch,.uic,.npm,.yarn,.yarn-cache,__pycache__,node_modules,node_packages,nbproject,core-dumps,lost+found
+    exclude filters version=8
+  '';
+
+  # Set wallet to already be set up
+  xdg.configFile."kwalletrc".text = ''
+    [Wallet]
+    First Use=false
   '';
 
   programs.ssh = {
@@ -193,7 +222,9 @@ in {
   programs.direnv = {
     enable = true;
     enableBashIntegration = true;
-    enableNixDirenvIntegration = true;
+    nix-direnv = {
+      enable = true;
+    };
   };
 
   programs.irssi = {
