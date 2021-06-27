@@ -6,7 +6,7 @@
 let
   unstable = import <unstable> {};
   home-manager = builtins.fetchTarball {
-    url = "https://github.com/nix-community/home-manager/archive/release-20.09.tar.gz";
+    url = "https://github.com/nix-community/home-manager/archive/master.tar.gz";
   };
 in {
   imports =
@@ -33,6 +33,8 @@ in {
   nix.gc.options = "--delete-older-than 8d";
 
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.memtest86.enable = true;
+  
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.kernel.sysctl = {
@@ -129,8 +131,8 @@ in {
   virtualisation.libvirtd.onShutdown = "suspend";
   # virtualisation.anbox.enable = true;
 
-  # virtualisation.virtualbox.host.enable = true;
-  # virtualisation.virtualbox.host.enableExtensionPack = true;
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
   # virtualisation.lxc.enable = true;
   # virtualisation.lxd.enable = true;
 
@@ -406,8 +408,8 @@ in {
     banner = "Connection established to altair. Unauthorised connections are logged.\n";
   };
 
-  services.xrdp.enable = true;
-  services.xrdp.defaultWindowManager = "startplasma-x11";
+  #services.xrdp.enable = true;
+  #services.xrdp.defaultWindowManager = "startplasma-x11";
 
   services.avahi.enable = true;
   services.avahi.wideArea = true;
