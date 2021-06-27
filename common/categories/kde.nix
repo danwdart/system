@@ -2,7 +2,7 @@
 with pkgs; [
     ark
     gwenview
-    # deGear.kalarm
+    # kdeGear.kalarm
     kdeconnect
     okular
     ktorrent
