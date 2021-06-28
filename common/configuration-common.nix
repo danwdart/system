@@ -161,8 +161,8 @@ in {
       #@weekly @monthly @yearly @annually @hourly @daily @reboot 
       #m     h d m w
       # Every half hour on the quarter hour
-      "15,45 *                  * * *         dwd     . /etc/profile; ERR=$(nix-channel --update) || echo $ERR"
-      "15,45 *                  * * *         root    . /etc/profile; ERR=$(nix-channel --update) || echo $ERR"
+      "15,45 *                  * * *         dwd     . /etc/profile; ERR=$(nix-channel --update 2>&1) || echo $ERR"
+      "15,45 *                  * * *         root    . /etc/profile; ERR=$(nix-channel --update 2>&1) || echo $ERR"
       # Every two hours at weekends
       "0     */2                * * 0,6       root    . /etc/profile; nix-channel --update; nixos-rebuild switch -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix"
       # Every two hours at non-working hours on weekdays
@@ -441,6 +441,11 @@ in {
     iptables -A nixos-fw -p tcp --source 192.168.0.0/16 --dport 4713 -j nixos-fw-accept
     iptables -A nixos-fw -p udp --source 192.168.0.0/16 --dport 1714:1764 -j nixos-fw-accept
     iptables -A nixos-fw -p udp --source 192.168.0.0/16 -m multiport --dports 137,138 -j nixos-fw-accept
+  '';
+
+  networking.extraHosts = ''
+    192.168.15.18  api.timetrack.local
+    192.168.15.18  mail.timetrack.local
   '';
 
   # Or disable the firewall altogether.
