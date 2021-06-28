@@ -58,6 +58,7 @@ in {
       ".config/spotify"
       # TODO move?
       ".config/Slack"
+      ".config/VirtualBox"
       ".dosbox"
       ".frozen-bubble"
       ".ghc"
