@@ -6,7 +6,7 @@
 let
   unstable = import <unstable> {};
   home-manager = builtins.fetchTarball {
-    url = "https://github.com/nix-community/home-manager/archive/master.tar.gz";
+    url = "https://github.com/nix-community/home-manager/archive/release-21.05.tar.gz";
   };
 in {
   imports =
