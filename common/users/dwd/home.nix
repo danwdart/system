@@ -92,6 +92,7 @@ in {
       ".config/plasma-org.kde.plasma.desktop-appletsrc"
       ".config/plasmarc"
       ".config/plasmashellrc"
+      ".local/share/user-places.xbel"
       ".serverlessrc"
     ];
     allowOther = true;
@@ -181,6 +182,9 @@ in {
       };
       sn = {
         hostname = "synchro.net";
+      };
+      tilde = {
+        hostname = "tilde.club";
       };
       we = {
         hostname = "warensemble.com";
