@@ -222,31 +222,6 @@ in {
   services.xserver.xkbModel = "latitude";
   console.useXkbConfig = true;
 
-  services.grocy.enable = true;
-  services.grocy.hostName = "fafnir.dandart.co.uk";
-  services.grocy.nginx.enableSSL = false;
-  services.grocy.settings.calendar.firstDayOfWeek = 1;
-  services.grocy.settings.currency = "GBP";
-  services.grocy.settings.culture = "en_GB";
-
-  services.postgresql = {
-    enable = true;
-    package = pkgs.postgresql_10;
-    enableTCPIP = true;
-    authentication = pkgs.lib.mkOverride 10 ''
-      local all all trust
-      host all all ::1/128 trust
-    '';
-    initialScript = pkgs.writeText "backend-initScript" ''
-      CREATE ROLE msf WITH LOGIN PASSWORD 'msf' CREATEDB;
-      CREATE DATABASE msf;
-      GRANT ALL PRIVILEGES ON DATABASE msf TO msf;
-    '';
-  };
-
-  security.acme.email = "acme@dandart.co.uk";
-  security.acme.acceptTerms = true;
-
   services.udisks2.enable = true;
   
   # security.pam.usb.enable = true;
@@ -258,74 +233,17 @@ in {
 
   nixpkgs.config.allowUnfree = true;
 
-  programs.steam.enable = true;
-
-  programs.adb.enable = true;
   programs.wireshark.enable = true;
 
   programs.fuse.userAllowOther = true;
 
   sound.enable = true;
   hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.tcp.enable = true;
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
-  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva unstable.pkgsi686Linux.amdvlk ];
-  hardware.opengl.extraPackages = with pkgs; [ amdvlk rocm-opencl-icd rocm-opencl-runtime ];
   hardware.pulseaudio.support32Bit = true;
-  hardware.pulseaudio.zeroconf.discovery.enable = true;
-  hardware.pulseaudio.zeroconf.publish.enable = true;
-  hardware.pulseaudio.tcp.anonymousClients.allowedIpRanges = [
-    "127.0.0.1"
-    "192.168.1.0/24"
-  ];
-  hardware.pulseaudio.extraModules = with pkgs; [ pulseaudio-modules-bt ];
-
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
-
-  services.postfix = {
-    enable = true;
-    domain = "jolharg.com";
-    rootAlias = "dwd";
-    # [smtp.gmail.com]:587    username@gmail.com:password -> sasl_passwd
-    config = {
-      smtp_sasl_auth_enable = true;
-      smtp_sasl_security_options = "noanonymous";
-      smtp_use_tls = true;
-      # postmap this!
-      smtp_sasl_password_maps = "hash:/home/dwd/code/mine/nix/system/fafnir/private/sasl_passwd";
-    };
-    relayHost = "smtp.gmail.com";
-    relayPort = 587;
-    relayDomains = [
-      "dandart.co.uk"
-      "fafnir.jolharg.com"
-      "jolharg.com"
-    ];
-    setSendmail = true;
-    virtual = ''
-      @fafnir dan@dandart.co.uk
-      @fafnir.jolharg.com dan@dandart.co.uk
-    '';
-  };
-
-  services.printing.enable = true;
-
-  services.samba.enable = true;
-  services.samba.nsswins = true;
-  services.samba.enableNmbd = true;
-  services.samba.enableWinbindd = true;
-
-  #services.samba.shares = {
-  #  public = {
-  #    path = "/srv/public";
-  #    "read only" = true;
-  #    browseable = "yes";
-  #    "guest ok" = "yes";
-  #    comment = "Public samba share.";
-  #  };
-  #};
 
   services.xserver.libinput.enable = true;
 
@@ -350,7 +268,6 @@ in {
       "docker"
       "networkmanager"
       "kvm"
-      "adbusers"
       "wireshark"
       "vboxusers"
       "libvirtd"
@@ -361,29 +278,6 @@ in {
 
   # $ nix search
   environment.systemPackages = import ./packages.nix pkgs;
-
-  # TODO Extra desktop files
-  # bristol
-  # polyphone
-  # tuxguitar
-  # /share/games/armagetronad/desktop/armagetronad.desktop
-  # ioquake3
-  # /share/applications/mupen64plus.desktop
-  # nethack-qt
-  # nexuiz
-  # openarena
-  # quake3e
-  # quakespasm
-  # sauerbraten
-  # speed_dreams
-  # torcs
-  # trigger
-  # urbanterror
-  # vkquake
-  # yquake2
-  # soundmodem
-  # sleepyhead
-  # putty
 
   nix.extraOptions = ''
     keep-outputs = true
@@ -405,51 +299,15 @@ in {
   services.openssh = {
     enable = true;
     openFirewall = true;
-    banner = "Connection established to altair. Unauthorised connections are logged.\n";
+    banner = "Connection established to rescue. Unauthorised connections are logged.\n";
   };
-
-  #services.xrdp.enable = true;
-  #services.xrdp.defaultWindowManager = "startplasma-x11";
-
-  services.avahi.enable = true;
-  services.avahi.wideArea = true;
-  services.avahi.ipv6 = true;
-  services.avahi.nssmdns = true;
-  # services.avahi.domainName = "jolharg.com"
-  services.avahi.publish.enable = true;
-  # services.avahi.browseDomains = [ "jolharg.com" ];
-  services.avahi.publish.hinfo = true;
-  services.avahi.publish.domain = true;
-  # services.avahi.publish.addresses = true;
-  services.avahi.publish.userServices = true;
-  services.avahi.publish.workstation = true;
 
   services.fail2ban.enable = true;
 
-  networking.firewall.allowedTCPPorts = [ 22 80 443 ];
-  # networking.firewall.allowedUDPPorts = [];
-  # networking.firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
-  # networking.firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
-
+  networking.hostName = "rescue";
+  networking.firewall.allowedTCPPorts = [ 22 ];
   networking.firewall.pingLimit = "--limit 1/minute --limit-burst 5";
   networking.firewall.checkReversePath = true;
-
-  # KDE Connect, PulseAudio and Samba - only from LANs
-  networking.firewall.extraCommands = ''
-    iptables -A nixos-fw -p tcp --source 192.168.0.0/16 --dport 1714:1764 -j nixos-fw-accept
-    iptables -A nixos-fw -p tcp --source 192.168.0.0/16 -m multiport --dports 139,445 -j nixos-fw-accept
-    iptables -A nixos-fw -p tcp --source 192.168.0.0/16 --dport 4713 -j nixos-fw-accept
-    iptables -A nixos-fw -p udp --source 192.168.0.0/16 --dport 1714:1764 -j nixos-fw-accept
-    iptables -A nixos-fw -p udp --source 192.168.0.0/16 -m multiport --dports 137,138 -j nixos-fw-accept
-  '';
-
-  networking.extraHosts = ''
-    192.168.15.18  api.timetrack.local
-    192.168.15.18  mail.timetrack.local
-  '';
-
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

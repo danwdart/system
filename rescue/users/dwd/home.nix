@@ -4,12 +4,7 @@ let unstable = import <unstable> {
             allowUnfree = true;
         };
     };
-    impermanence = builtins.fetchTarball {
-      url =
-        "https://github.com/nix-community/impermanence/archive/master.tar.gz";
-    };
 in {
-  imports = [ "${impermanence}/home-manager.nix" ];
   # man home-configuration.nix
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -20,94 +15,6 @@ in {
   home.homeDirectory = "/home/dwd";
 
   home.packages = [ ];
-
-  home.persistence."/persist/home/dwd/" = {
-    # TODO ensure DeDRM
-    # directories - tries to bind mount?
-    directories = [
-      "Android"
-      "Calibre Library"
-      "code"
-      "Desktop"
-      "Documents"
-      "Downloads"
-      "from"
-      "games"
-      "Music"
-      "Pictures"
-      "radioimages"
-      "Templates"
-      "Videos"
-      # TODO remove
-      "VirtualBox VMs"
-      "VMs"
-      ".android"
-      ".armagetronad"
-      ".config/autostart"
-      ".config/cachix"
-      ".config/calibre" 
-      ".config/discord"
-      ".config/doctl"
-      ".config/dolphin-emu"
-      ".config/Element"
-      ".config/gh"
-      ".config/Gpredict"
-      ".config/htop"
-      ".config/kdeconnect"
-      ".config/rclone"
-      ".config/spotify"
-      # TODO move?
-      ".config/Slack"
-      ".config/VirtualBox"
-      ".dosbox"
-      ".frozen-bubble"
-      ".ghc"
-      ".gnupg"
-      ".googleearth"
-      ".kde"
-      ".lgames"
-      ".local/share/direnv"
-      ".local/share/dolphin-emu"
-      ".local/share/kwalletd"
-      ".local/share/Steam"
-      ".local/share/ktorrent"
-      ".mozilla"
-      ".pcsxr"
-      ".quakespasm"
-      ".serverless"
-      ".ssh"
-      ".steam"
-      ".thunderbird"
-      # TODO relocate
-      ".vagrant.d"
-      ".vkquake"
-      ".wine"
-      ".yq2"
-    ];
-    files = [
-      ".bash_history"
-      ".config/dolphinrc"
-      ".config/kdeglobals"
-      ".config/mimeapps.list"
-      ".config/plasma-org.kde.plasma.desktop-appletsrc"
-      ".config/plasmarc"
-      ".config/plasmashellrc"
-      ".local/share/user-places.xbel"
-      ".serverlessrc"
-    ];
-    allowOther = true;
-  };
-
-  home.file.ghci = {
-    target = ".ghci";
-    text = ''
-      :set +m
-      :set prompt "\ESC[38;5;208m\STXλ>\ESC[m\STX "
-      :set prompt-cont " | "
-      :def hoogle \x -> return $ ":!hoogle \"" ++ x ++ "\""
-      :def doc \x -> return $ ":!hoogle --info \"" ++ x ++ "\""
-    '';
-  };
 
   home.file.vimBackup = {
     target = ".vim/backup/.keep";
@@ -572,53 +479,10 @@ in {
     enableSshSupport = true;
   };
 
-  # services.code-server.enable = true;
-
-  # clone code!
-
-  #home.activation = {
-    # Everything here must be idempotent
-    # TODO balooctl manage a config file instead?
-    # TODO these require github auth/keyq1
-    #myActivationAction = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    #  $DRY_RUN_CMD balooctl $VERBOSE_ARG disable
-    #  $DRY_RUN_CMD git clone --recurse-submodules $VERBOSE_ARG git@github.com:danwdart/code.git ${builtins.toPath ./code}
-    #  $DRY_RUN_CMD git clone --recurse-submodules $VERBOSE_ARG git@github.com:danwdart/VMs.git ${builtins.toPath ./VMs}
-    #'';
-    # TODO backup and restore
-  #};
-
   programs.home-manager = {
     path = "";
   };
-
-  #xsession.windowManager.xmonad = {
-  #  enable = true;
-  #  enableContribAndExtras = true;
-  #  config = pkgs.writeText "xmonad.hs" ''
-  #    import XMonad
-  #    main = xmonad defaultConfig
-  #        { terminal    = "urxvt"
-  #        , modMask     = mod4Mask
-  #        , borderWidth = 3
-  #        }
-  #  '';
-  #  extraPackages = haskellPackages: [
-  #    haskellPackages.xmonad-contrib
-  #    haskellPackages.monad-logger
-  #  ];
-  #  haskellPackages = unstable.haskell.packages.ghc901;
-  #};
-
-  #xsession.windowManager.command =
-  #  let
-  #    xmonad = pkgs.xmonad-with-packages.override {
-  #      packages = self: [ self.xmonad-contrib self.taffybar ];
-  #    };
-  #  in
-  #    "${xmonad}/bin/xmonad";
-
-
+  
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
