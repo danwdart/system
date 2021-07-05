@@ -11,7 +11,6 @@ let
 in {
   imports =
     [
-      ./cachix.nix
       "${home-manager}/nixos"
     ];
 
@@ -44,81 +43,18 @@ in {
     "vm.swappiness" = 0;
   };
 
-  #boot.binfmt.emulatedSystems = [
-    # "wasm32-wasi"
-  #  "wasm64-wasi"
-  #  "x86_64-windows"
-    # "i686-windows"
-    # "i686-linux"
-    # "mips64-linux"
-    # "mips64el-linux"
-    # "sparc64-linux"
-    # "aarch64_be-linux"
-  #  "aarch64-linux"
-  #  "powerpc64-linux"
-  #  "riscv64-linux"
-  #];
-
-  systemd.tmpfiles.rules = [
-  # only on big evil desktop
-  #  "w /sys/devices/system/cpu/cpufreq/boost - - - - 0"
-  ];
-
-
   boot.kernelPackages = unstable.linuxPackages_latest;
 
   networking = {
     hostName = "fafnir"; # Define your hostname.
     # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
     nameservers = [
-      # if using DoH/DoT proxy
-      # "127.0.0.1" "::1"
-      # opennic, giving http://grep.geek etc
-      # "194.36.144.87" "94.247.43.254" "2a03:4000:4d:c92:88c0:96ff:fec6:b9d" "2a00:f826:8:1::254"
-      # also opennic
-      # "95.217.229.211" "165.22.224.164" "2a01:4f9:4b:39ea::301" "2604:a880:cad:d0::d9a:f001"
-      # adguard
       "94.140.14.14" "94.140.15.15" "2a10:50c0::ad1:ff" "2a10:50c0::ad2:ff"
-      # quad9
-      # "9.9.9.9" "149.112.112.112" "2620:fe::fe" "2620:fe::9"
     ];
-    # resolvconf.enable = false;
     networkmanager = {
       enable = true;
-  #    dns = "
-      #insertNameservers = [
-      # extra stuff only
-      #];
     };
   };
-
-  #services.dnscrypt-proxy2 = {
-  #  enable = true;
-  #  settings = {
-  #    ipv6_servers = true;
-  #    require_dnssec = true;
-  #    sources.public-resolvers = {
-  #      urls = [
-  #        "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
-  #        "https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md"
-  #      ];
-  #      cache_file = "/var/lib/dnscrypt-proxy2/public-resolvers.md";
-  #      minisign_key = "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
-  #    };
-  #    # You can choose a specific set of servers from https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
-  #    server_names = [
-  #      # doh: https://dns.adguard.com/dns-query dot: dns.adguard.com
-  #      # adguard-dns-doh
-  #      "sdns://AgMAAAAAAAAADzE3Ni4xMDMuMTMwLjEzMCCsFdIhxY-VWoedpSrEKWAhaBEVj-8L-p_FJl6wMpPufg9kbnMuYWRndWFyZC5jb20KL2Rucy1xdWVyeQ"
-  #      # ahadns-doh-nl
-  #      "sdns://AgMAAAAAAAAACTUuMi43NS43NaAyhv9lpl-vMghe6hOIw3OLp-N4c8kGzOPEootMwqWJiKBETr1nu4P4gHs5Iek4rJF4uIK9UKrbESMfBEz18I33ziDMEGDTnIMptitvvH0NbfkwmGm5gefmOS1c2PpAj02A5hFkb2gubmwuYWhhZG5zLm5ldAovZG5zLXF1ZXJ5"
-  #    ];
-  #  };
-  #};
-
-  #systemd.services.dnscrypt-proxy2.serviceConfig = {
-  #  StateDirectory = "dnscrypt-proxy2";
-  #};
 
   time.timeZone = "Europe/London";
 
@@ -129,21 +65,15 @@ in {
   virtualisation.libvirtd.onBoot = "start";
   virtualisation.libvirtd.qemuOvmf = true;
   virtualisation.libvirtd.onShutdown = "suspend";
-  # virtualisation.anbox.enable = true;
 
   virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.host.enableExtensionPack = true;
-  # virtualisation.lxc.enable = true;
-  # virtualisation.lxd.enable = true;
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
+# The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
   # networking.interfaces.enp0s3.useDHCP = true;
-
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   i18n.defaultLocale = "en_GB.UTF-8";
   console = {
@@ -164,9 +94,9 @@ in {
       "15,45 *                  * * *         dwd     . /etc/profile; ERR=$(nix-channel --update 2>&1) || echo $ERR"
       "15,45 *                  * * *         root    . /etc/profile; ERR=$(nix-channel --update 2>&1) || echo $ERR"
       # Every two hours at weekends
-      "0     */2                * * 0,6       root    . /etc/profile; nix-channel --update; nixos-rebuild switch -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix"
+      "0     */2                * * 0,6       root    . /etc/profile; nix-channel --update; nixos-rebuild switch"
       # Every two hours at non-working hours on weekdays
-      "0     0,2,4,6,8,18,20,22 * * 1,2,3,4,5 root    . /etc/profile; nix-channel --update; nixos-rebuild switch -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix"
+      "0     0,2,4,6,8,18,20,22 * * 1,2,3,4,5 root    . /etc/profile; nix-channel --update; nixos-rebuild switch"
       # Every six hours at weekends
       "0     */6                * * 0,6       root    . /etc/profile; nix-store --optimise"
       # Every six hours except midday on weekdays
@@ -175,12 +105,6 @@ in {
       "0     0                  * * 0         root    . /etc/profile; nix-collect-garbage -d && nix-store --gc && nix-store --delete"
     ];
   };
-
-  #services.logcheck = {
-  #  enable = true;
-  #  level = "paranoid";
-  #  mailTo = "logcheck@dandart.co.uk";
-  #};
 
   services.xserver.enable = true;
   services.xserver.displayManager = {
@@ -197,26 +121,7 @@ in {
   };
   
   services.xserver.desktopManager.plasma5.enable = true;
-  # services.xserver.videoDrivers = [ "amdgpu" ];
 
-  #services.xserver.windowManager.xmonad = {
-  #  enable = true;
-  #  enableContribAndExtras = true;
-  #  config = pkgs.writeText "xmonad.hs" ''
-  #    import XMonad
-  #    main = xmonad defaultConfig
-  #        { terminal    = "urxvt"
-  #        , modMask     = mod4Mask
-  #        , borderWidth = 3
-  #        }
-  #  '';
-  #  extraPackages = haskellPackages: [
-  #    haskellPackages.xmonad-contrib
-  #    haskellPackages.monad-logger
-  #  ];
-  #  haskellPackages = unstable.haskell.packages.ghc901;
-  #};
-  
   services.xserver.layout = "gb";
   services.xserver.xkbOptions = "terminate:ctrl_alt_bksp,caps:escape,compose:ralt";
   services.xserver.xkbModel = "latitude";
@@ -224,11 +129,6 @@ in {
 
   services.udisks2.enable = true;
   
-  # security.pam.usb.enable = true;
-  # TODO pam phone fingerprint?
-
-  # services.miredo.enable = true;
-
   services.pipewire.enable = true;
 
   nixpkgs.config.allowUnfree = true;
@@ -304,7 +204,6 @@ in {
 
   services.fail2ban.enable = true;
 
-  networking.hostName = "rescue";
   networking.firewall.allowedTCPPorts = [ 22 ];
   networking.firewall.pingLimit = "--limit 1/minute --limit-burst 5";
   networking.firewall.checkReversePath = true;
