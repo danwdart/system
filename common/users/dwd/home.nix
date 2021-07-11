@@ -24,6 +24,7 @@ in {
   home.persistence."/persist/home/dwd/" = {
     # TODO ensure DeDRM
     # directories - tries to bind mount?
+    # neededForBoot or something?
     directories = [
       "Android"
       "Calibre Library"
