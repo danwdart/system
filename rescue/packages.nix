@@ -13,6 +13,5 @@
     ++ import ./categories/nix.nix pkgs
     ++ import ./categories/office.nix pkgs
     ++ import ./categories/security.nix pkgs
-    ++ import ./categories/social.nix pkgs
     ++ import ./categories/system.nix pkgs
     ++ import ./categories/virt.nix pkgs
