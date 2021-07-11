@@ -161,18 +161,18 @@ in {
       #@weekly @monthly @yearly @annually @hourly @daily @reboot 
       #m     h d m w
       # Every half hour on the quarter hour
-      "15,45 *                  * * *         dwd     . /etc/profile; ERR=$(nix-channel --update 2>&1) || echo $ERR"
-      "15,45 *                  * * *         root    . /etc/profile; ERR=$(nix-channel --update 2>&1) || echo $ERR"
+      "15,45 *                  * * *         dwd     . /etc/profile; ERR=$(nice -n19 nix-channel --update 2>&1) || echo $ERR"
+      "15,45 *                  * * *         root    . /etc/profile; ERR=$(nice -n19 nix-channel --update 2>&1) || echo $ERR"
       # Every two hours at weekends
-      "0     */2                * * 0,6       root    . /etc/profile; nix-channel --update; nixos-rebuild switch -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix"
+      "0     */2                * * 0,6       root    . /etc/profile; nice -n19 nix-channel --update; nice -n19 nixos-rebuild switch -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix"
       # Every two hours at non-working hours on weekdays
-      "0     0,2,4,6,8,18,20,22 * * 1,2,3,4,5 root    . /etc/profile; nix-channel --update; nixos-rebuild switch -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix"
+      "0     0,2,4,6,8,18,20,22 * * 1,2,3,4,5 root    . /etc/profile; nice -n19 nix-channel --update; nice -n19 nixos-rebuild switch -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix"
       # Every six hours at weekends
-      "0     */6                * * 0,6       root    . /etc/profile; nix-store --optimise"
+      "0     */6                * * 0,6       root    . /etc/profile; nice -n19 nix-store --optimise"
       # Every six hours except midday on weekdays
-      "0     0,6,18             * * 1,2,3,4,5 root    . /etc/profile; nix-store --optimise"
+      "0     0,6,18             * * 1,2,3,4,5 root    . /etc/profile; nice -n19 nix-store --optimise"
       # Every Sunday at midnight
-      "0     0                  * * 0         root    . /etc/profile; nix-collect-garbage -d && nix-store --gc && nix-store --delete"
+      "0     0                  * * 0         root    . /etc/profile; nice -n19 nix-collect-garbage -d && nice -n19 nix-store --gc && nice -n19 nix-store --delete"
     ];
   };
 
