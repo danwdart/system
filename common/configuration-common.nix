@@ -164,9 +164,10 @@ in {
       "15,45 *                  * * *         dwd     . /etc/profile; ERR=$(nice -n19 nix-channel --update 2>&1) || echo $ERR"
       "15,45 *                  * * *         root    . /etc/profile; ERR=$(nice -n19 nix-channel --update 2>&1) || echo $ERR"
       # Every two hours at weekends
-      "0     */2                * * 0,6       root    . /etc/profile; nice -n19 nix-channel --update; nice -n19 nixos-rebuild switch -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix"
+      # needs sudo for some env??
+      "0     */2                * * 0,6       root    . /etc/profile; nice -n19 nix-channel --update; nice -n19 sudo nixos-rebuild switch --fast -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix"
       # Every two hours at non-working hours on weekdays
-      "0     0,2,4,6,8,18,20,22 * * 1,2,3,4,5 root    . /etc/profile; nice -n19 nix-channel --update; nice -n19 nixos-rebuild switch -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix"
+      "0     0,2,4,6,8,18,20,22 * * 1,2,3,4,5 root    . /etc/profile; nice -n19 nix-channel --update; nice -n19 sudo nixos-rebuild switch --fast -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix"
       # Every six hours at weekends
       "0     */6                * * 0,6       root    . /etc/profile; nice -n19 nix-store --optimise"
       # Every six hours except midday on weekdays
