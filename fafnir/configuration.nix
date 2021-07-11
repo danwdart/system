@@ -3,10 +3,14 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-{
+let impermanence = builtins.fetchTarball {
+      url =
+        "https://github.com/nix-community/impermanence/archive/master.tar.gz";
+    };
+in {
   imports =
     [
-      # Include the results of the hardware scan.
+      "${impermanence}/nixos.nix"
       ./hardware-configuration.nix
       ./configuration-common.nix
     ];
