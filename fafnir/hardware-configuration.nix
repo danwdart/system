@@ -23,7 +23,7 @@
     };
 
   fileSystems."/nix" =
-    { device = "/dev/sda3";
+    { device = "/dev/disk/by-uuid/9b7beb2f-1f4d-49e7-990d-1dab4f611fa7";
       fsType = "btrfs";
       options = [
         "subvol=/nix"
@@ -36,14 +36,9 @@
       fsType = "vfat";
     };
 
-  # fileSystems."/boot" =
-  #   { device = "/dev/disk/by-uuid/8651-F5D8";
-  #     fsType = "vfat";
-  #   };
-
   fileSystems."/etc/ssh" =
     {
-      device = "/dev/sda3";
+      device = "/dev/disk/by-uuid/9b7beb2f-1f4d-49e7-990d-1dab4f611fa7";
       fsType = "btrfs";
       options = [
         "subvol=/etc/ssh"
@@ -53,7 +48,7 @@
 
   fileSystems."/etc/NetworkManager" =
     {
-      device = "/dev/sda3";
+      device = "/dev/disk/by-uuid/9b7beb2f-1f4d-49e7-990d-1dab4f611fa7";
       fsType = "btrfs";
       options = [
         "subvol=/etc/NetworkManager"
@@ -63,7 +58,7 @@
   
   fileSystems."/var/lib" =
     {
-      device = "/dev/sda3";
+      device = "/dev/disk/by-uuid/9b7beb2f-1f4d-49e7-990d-1dab4f611fa7";
       fsType = "btrfs";
       options = [
         "subvol=/var/lib"
@@ -73,7 +68,7 @@
 
   fileSystems."/persist" =
     {
-      device = "/dev/sda3";
+      device = "/dev/disk/by-uuid/9b7beb2f-1f4d-49e7-990d-1dab4f611fa7";
       fsType = "btrfs";
       options = [
         "subvol=/persist"
@@ -83,7 +78,7 @@
 
   fileSystems."/swap" =
     {
-      device = "/dev/sda3";
+      device = "/dev/disk/by-uuid/9b7beb2f-1f4d-49e7-990d-1dab4f611fa7";
       fsType = "btrfs";
       options = [
         "subvol=/swap"
@@ -91,7 +86,23 @@
         "noatime"
       ];
     };
+     
+  #environment.persistence."/persist-no-backup" = {
+  #  directories = [
+  #    "/nix"
+  #  ];
+  #  files = [
+  #  ];
+  #};
 
+  #environment.persistence."/persist" = {
+  #  directories = [
+  #    "/etc/ssh"
+  #    "/etc/NetworkManager"
+  #  ];
+  #  files = [
+  #  ];
+  #};
   
   swapDevices = [
     {
