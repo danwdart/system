@@ -5,7 +5,6 @@ with pkgs; [
     john
     thc-hydra
     lynis
-    metasploit
     nmap
     openssl # the CLI client
     # ossec - not yet integrated into systemd
