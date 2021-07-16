@@ -37,13 +37,13 @@ in {
       "Music"
       "Pictures"
       "radioimages"
-      "Templates"
+      "Templates" # Really? I don't even use that. But should I? There's no harm...
       "Videos"
-      # TODO remove
-      "VirtualBox VMs"
+      "VirtualBox VMs" # TODO remove
       "VMs"
       ".android"
       ".armagetronad"
+      ".cache/spotify" # Keep me logged in
       ".config/autostart"
       ".config/cachix"
       ".config/calibre" 
@@ -56,10 +56,9 @@ in {
       ".config/htop"
       ".config/kdeconnect"
       ".config/rclone"
-      ".config/spotify"
-      # TODO move?
+      ".config/spotify" # cache as well?
       ".config/Slack"
-      ".config/VirtualBox"
+      ".config/VirtualBox" # TODO move?
       ".dosbox"
       ".frozen-bubble"
       ".ghc"
@@ -79,8 +78,7 @@ in {
       ".ssh"
       ".steam"
       ".thunderbird"
-      # TODO relocate
-      ".vagrant.d"
+      ".vagrant.d" # TODO relocate
       ".vkquake"
       ".wine"
       ".yq2"
