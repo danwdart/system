@@ -67,7 +67,9 @@ in {
   virtualisation.libvirtd.onShutdown = "suspend";
 
   virtualisation.virtualbox.host.enable = true;
-  virtualisation.virtualbox.host.enableExtensionPack = true;
+
+  # causes constant rebuilds
+  # virtualisation.virtualbox.host.enableExtensionPack = true;
 
 # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
