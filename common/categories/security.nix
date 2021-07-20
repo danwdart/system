@@ -1,6 +1,7 @@
 { pkgs, ... }:
 with pkgs; [
     aircrack-ng
+    binwalk
     chkrootkit
     john
     thc-hydra
@@ -12,5 +13,6 @@ with pkgs; [
     # pam_usb - already an option
     pyrit
     # rkhunter - not yet available
+    tcpdump
     # tripwire - not yet available - unsure if any point?
 ]
