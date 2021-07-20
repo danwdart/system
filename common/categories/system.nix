@@ -17,7 +17,6 @@ in with pkgs; [
     hdparm
     hidapi
     htop
-    iotop
     inetutils
     jnettop
     lm_sensors
@@ -29,7 +28,6 @@ in with pkgs; [
     obexftp
     unstable.opencorsairlink
     p7zip
-    partition-manager
     pciutils
     rpiboot-unstable
     unstable.rpi-imager
@@ -38,7 +36,6 @@ in with pkgs; [
     u3-tool
     unetbootin
     unzip
-    usbguard
     usbutils
     wget
     winusb
