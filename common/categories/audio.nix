@@ -8,6 +8,7 @@ with pkgs;
     autotalent
     bristol # no desktop icon
     caps
+    clementine
     csa
     faust2ladspa
     fluidsynth
@@ -20,6 +21,7 @@ with pkgs;
     jack_rack
     kapitonov-plugins-pack
     nova-filters
+    pavucontrol
     plugin-torture
     polyphone # no desktop icon
     qjackctl
