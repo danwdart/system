@@ -3,9 +3,10 @@ with pkgs; [
     aircrack-ng
     binwalk
     chkrootkit
+    hexedit
     john
-    thc-hydra
     lynis
+    masscan
     metasploit
     nmap
     openssl # the CLI client
@@ -14,5 +15,6 @@ with pkgs; [
     pyrit
     # rkhunter - not yet available
     tcpdump
+    thc-hydra
     # tripwire - not yet available - unsure if any point?
 ]
