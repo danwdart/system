@@ -334,9 +334,16 @@ in {
 
   services.pipewire = {
     enable = true;
-    /*jack = {
+    jack = {
       enable = true;
-    };*/
+    };
+    alsa = {
+      enable = true;
+      support32Bit = true;
+    };
+    pulse = {
+      enable = true;
+    };
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -355,7 +362,8 @@ in {
   sound.enable = true;
 
   hardware.pulseaudio = {
-    enable = true;
+    enable = false;
+    /*
     extraModules = with pkgs; [
       pulseaudio-modules-bt
     ];
@@ -378,6 +386,7 @@ in {
         enable = true;
       };
     };
+    */
   };
 
   hardware.opengl.driSupport = true;
@@ -397,6 +406,7 @@ in {
   };
   */
 
+  /*
   services.jack = {
     jackd = {
       enable = true;
@@ -408,8 +418,8 @@ in {
     loopback = {
       enable = true;
     };
-    */
   };
+  */
 
   services.postfix = {
     enable = true;
@@ -564,16 +574,17 @@ in {
 
   # KDE Connect, PulseAudio and Samba - only from LANs
   networking.firewall.extraCommands = ''
-    iptables -A nixos-fw -p tcp --source 192.168.0.0/16 --dport 1714:1764 -j nixos-fw-accept
-    iptables -A nixos-fw -p tcp --source 192.168.0.0/16 -m multiport --dports 139,445 -j nixos-fw-accept
-    iptables -A nixos-fw -p tcp --source 192.168.0.0/16 --dport 4713 -j nixos-fw-accept
-    iptables -A nixos-fw -p udp --source 192.168.0.0/16 --dport 1714:1764 -j nixos-fw-accept
-    iptables -A nixos-fw -p udp --source 192.168.0.0/16 -m multiport --dports 137,138 -j nixos-fw-accept
+    iptables -A nixos-fw -p tcp --source 192.168.1.0/24 --dport 1714:1764 -j nixos-fw-accept
+    iptables -A nixos-fw -p tcp --source 192.168.1.0/24 -m multiport --dports 139,445 -j nixos-fw-accept
+    iptables -A nixos-fw -p tcp --source 192.168.1.0/24 --dport 4713 -j nixos-fw-accept
+    iptables -A nixos-fw -p udp --source 192.168.1.0/24 --dport 1714:1764 -j nixos-fw-accept
+    iptables -A nixos-fw -p udp --source 192.168.1.0/24 -m multiport --dports 137,138 -j nixos-fw-accept
   '';
 
   networking.extraHosts = ''
     192.168.15.18  api.timetrack.local
     192.168.15.18  mail.timetrack.local
+    192.168.28.2   wordpress.timetrack.local
   '';
 
   # Or disable the firewall altogether.
