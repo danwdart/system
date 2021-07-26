@@ -65,7 +65,7 @@ in {
   ];
 
 
-  boot.kernelPackages = unstable.linuxPackages_latest;
+  boot.kernelPackages = unstable.linuxPackages_latest_hardened;
 
   networking = {
     hostName = "fafnir"; # Define your hostname.
@@ -309,11 +309,11 @@ in {
   services.usbguard = {
     enable = true;
     rules = ''
-      allow id 1d6b:0002 serial "0000:00:1d.0" name "EHCI Host Controller" hash "WHBTxNaEoMGNSNc31KpFNSAeFF4HbLMQgSBqORlC6S8=" parent-hash "jW2YTPWRLeQOE7Q8I2f0pdN13zFYXVQGQoNmr1gDZgg=" with-interface 09:00:00 with-connect-type ""
-      allow id 1d6b:0002 serial "0000:00:14.0" name "xHCI Host Controller" hash "jEP/6WzviqdJ5VSeTUY8PatCNBKeaREvo2OqdplND/o=" parent-hash "rV9bfLq7c2eA4tYjVjwO4bxhm+y6GgZpl9J60L0fBkY=" with-interface 09:00:00 with-connect-type ""
-      allow id 1d6b:0003 serial "0000:00:14.0" name "xHCI Host Controller" hash "3Wo3XWDgen1hD5xM3PSNl3P98kLp1RUTgGQ5HSxtf8k=" parent-hash "rV9bfLq7c2eA4tYjVjwO4bxhm+y6GgZpl9J60L0fBkY=" with-interface 09:00:00 with-connect-type ""
-      allow id 8087:8000 serial "" name "" hash "XzcoqtfAn5qKbaJc8BOrBSChiNLXTB5vdJF8EZzSTh0=" parent-hash "WHBTxNaEoMGNSNc31KpFNSAeFF4HbLMQgSBqORlC6S8=" via-port "1-1" with-interface 09:00:00 with-connect-type "hardwired"
+      allow id 05e3:0751 serial "" name "USB Storage" hash "zNR+zUn0ym93v361FlHUH5YzvYcQ1nwBk0nBEyXdjY4=" parent-hash "jEP/6WzviqdJ5VSeTUY8PatCNBKeaREvo2OqdplND/o=" via-port "1-2" with-interface 08:06:50 with-connect-type "hotplug"
+      allow id 0781:5591 serial "0101b5ecc211969e2c12ee6e6e5730b58832c11e902c2571e46a275cad20b07320a10000000000000000000043dc4ab0ff8020009155810758a9034a" name "Ultra USB 3.0" hash "xFHgMXQUcJJSS6TxZL8PVMMLGDsf8rvqzboMmXhtH6w=" parent-hash "3Wo3XWDgen1hD5xM3PSNl3P98kLp1RUTgGQ5HSxtf8k=" with-interface 08:06:50 with-connect-type "hotplug"
+      allow id 0781:5591 serial "0101a3a1bd12a29caf8bd4705afbcbfa278699b37f4b10cf7b9215d34d844a08924b00000000000000000000a09f3a0200085c0091558107192b58cd" name " SanDisk 3.2Gen1" hash "5kLhE8xj8KpQAG8lKjYJYIvjArkJ7iVi3P2ryhlumJU=" parent-hash "3Wo3XWDgen1hD5xM3PSNl3P98kLp1RUTgGQ5HSxtf8k=" with-interface 08:06:50 with-connect-type "hotplug"
       allow id 0c45:64d2 serial "" name "Laptop_Integrated_Webcam_HD" hash "+EPKhUw6LCRVih2jQLOe5QI4dZHmvMa/9uWKv1g4owU=" parent-hash "jEP/6WzviqdJ5VSeTUY8PatCNBKeaREvo2OqdplND/o=" via-port "2-4" with-interface { 0e:01:00 0e:02:00 0e:02:00 0e:02:00 0e:02:00 0e:02:00 0e:02:00 0e:02:00 } with-connect-type "not used"
+      allow id 0c45:64d2 serial "" name "Laptop_Integrated_Webcam_HD" hash "+EPKhUw6LCRVih2jQLOe5QI4dZHmvMa/9uWKv1g4owU=" parent-hash "jEP/6WzviqdJ5VSeTUY8PatCNBKeaREvo2OqdplND/o=" via-port "1-4" with-interface { 0e:01:00 0e:02:00 0e:02:00 0e:02:00 0e:02:00 0e:02:00 0e:02:00 0e:02:00 } with-connect-type "not used"
       allow id 18d1:4ee0 serial "8ATY0QUK9" name "Pixel 3 XL" hash "46w3coEEveCfew0wik86FPe/yQgBn59EXzrYR+li2+0=" parent-hash "jEP/6WzviqdJ5VSeTUY8PatCNBKeaREvo2OqdplND/o=" via-port "2-6" with-interface ff:42:03 with-connect-type "hotplug"
       allow id 18d1:4ee0 serial "8ATY0QUK9" name "Pixel 3 XL" hash "6QLGwrm+Ly9JJ+AVliTOm+QFSN1aJuKU2YScJ+vhm10=" parent-hash "jEP/6WzviqdJ5VSeTUY8PatCNBKeaREvo2OqdplND/o=" via-port "2-6" with-interface ff:42:03 with-connect-type "hotplug"
       allow id 18d1:4ee2 serial "8ATY0QUK9" name "Pixel 3 XL" hash "UznFYOH5t2TfOzJqZ35Bvl7JfpqdpDJdH+Un/GxogFE=" parent-hash "jEP/6WzviqdJ5VSeTUY8PatCNBKeaREvo2OqdplND/o=" via-port "2-6" with-interface { 06:01:01 ff:42:01 } with-connect-type "hotplug"
@@ -322,8 +322,11 @@ in {
       allow id 18d1:4ee7 serial "8ATY0QUK9" name "Pixel 3 XL" hash "a4oZ0vbjJfvLqnfHHD97BGTj0B43pWf5dV2r2vEPkto=" parent-hash "jEP/6WzviqdJ5VSeTUY8PatCNBKeaREvo2OqdplND/o=" with-interface ff:42:01 with-connect-type "hotplug"
       allow id 18d1:4ee9 serial "8ATY0QUK9" name "Pixel 3 XL" hash "P++KXp8CcUZMBz67E+48qyRWy6bBHKfAsVeUKaBEifA=" parent-hash "jEP/6WzviqdJ5VSeTUY8PatCNBKeaREvo2OqdplND/o=" via-port "2-6" with-interface { 01:01:00 01:03:00 ff:42:01 } with-connect-type "hotplug"
       allow id 18d1:d001 serial "8ATY0QUK9" name "Pixel 3 XL" hash "sM6oMhHpLUngY3ww/79EzrdD2v/oGeSadT3/0ZoP6Lo=" parent-hash "jEP/6WzviqdJ5VSeTUY8PatCNBKeaREvo2OqdplND/o=" via-port "2-6" with-interface ff:42:01 with-connect-type "hotplug"
-      allow id 0781:5591 serial "0101b5ecc211969e2c12ee6e6e5730b58832c11e902c2571e46a275cad20b07320a10000000000000000000043dc4ab0ff8020009155810758a9034a" name "Ultra USB 3.0" hash "xFHgMXQUcJJSS6TxZL8PVMMLGDsf8rvqzboMmXhtH6w=" parent-hash "3Wo3XWDgen1hD5xM3PSNl3P98kLp1RUTgGQ5HSxtf8k=" with-interface 08:06:50 with-connect-type "hotplug"
-      allow id 0781:5591 serial "0101a3a1bd12a29caf8bd4705afbcbfa278699b37f4b10cf7b9215d34d844a08924b00000000000000000000a09f3a0200085c0091558107192b58cd" name " SanDisk 3.2Gen1" hash "5kLhE8xj8KpQAG8lKjYJYIvjArkJ7iVi3P2ryhlumJU=" parent-hash "3Wo3XWDgen1hD5xM3PSNl3P98kLp1RUTgGQ5HSxtf8k=" with-interface 08:06:50 with-connect-type "hotplug"
+      allow id 1d6b:0002 serial "0000:00:1d.0" name "EHCI Host Controller" hash "WHBTxNaEoMGNSNc31KpFNSAeFF4HbLMQgSBqORlC6S8=" parent-hash "jW2YTPWRLeQOE7Q8I2f0pdN13zFYXVQGQoNmr1gDZgg=" with-interface 09:00:00 with-connect-type ""
+      allow id 1d6b:0002 serial "0000:00:14.0" name "xHCI Host Controller" hash "jEP/6WzviqdJ5VSeTUY8PatCNBKeaREvo2OqdplND/o=" parent-hash "rV9bfLq7c2eA4tYjVjwO4bxhm+y6GgZpl9J60L0fBkY=" with-interface 09:00:00 with-connect-type ""
+      allow id 1d6b:0003 serial "0000:00:14.0" name "xHCI Host Controller" hash "3Wo3XWDgen1hD5xM3PSNl3P98kLp1RUTgGQ5HSxtf8k=" parent-hash "rV9bfLq7c2eA4tYjVjwO4bxhm+y6GgZpl9J60L0fBkY=" with-interface 09:00:00 with-connect-type ""
+      allow id 8087:8000 serial "" name "" hash "XzcoqtfAn5qKbaJc8BOrBSChiNLXTB5vdJF8EZzSTh0=" parent-hash "WHBTxNaEoMGNSNc31KpFNSAeFF4HbLMQgSBqORlC6S8=" via-port "1-1" with-interface 09:00:00 with-connect-type "hardwired"
+      allow id 8087:8000 serial "" name "" hash "XzcoqtfAn5qKbaJc8BOrBSChiNLXTB5vdJF8EZzSTh0=" parent-hash "WHBTxNaEoMGNSNc31KpFNSAeFF4HbLMQgSBqORlC6S8=" via-port "2-1" with-interface 09:00:00 with-connect-type "hardwired"
     '';
   };
   
