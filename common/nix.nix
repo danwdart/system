@@ -1,5 +1,7 @@
 {...}:
 {
+  autoOptimiseStore = true;
+
   binaryCaches = [
     "https://cache.nixos.org"
     "https://nixcache.reflex-frp.org"
@@ -21,4 +23,14 @@
     keep-outputs = true
     keep-derivations = true
   '';
+
+  optimise = {
+    automatic = true;
+  };
+
+  systemFeatures = [
+     "kvm"
+     "big-parallel"
+     "gccarch-haswell"
+  ];
 }
