@@ -1,0 +1,4 @@
+{...}:
+{
+  config.allowUnfree = true;
+}

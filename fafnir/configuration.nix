@@ -7,13 +7,16 @@ let impermanence = builtins.fetchTarball {
       url =
         "https://github.com/nix-community/impermanence/archive/master.tar.gz";
     };
+    hostName = "fafnir";
 in {
   imports =
     [
       "${impermanence}/nixos.nix"
       ./hardware-configuration.nix
-      ./configuration-common.nix
+      ../common/configuration-common.nix
     ];
 
-  networking.hostName = "fafnir";
+  networking.hostName = hostName;
+
+  services.openssh.banner = "Connection established to ${hostName}. Unauthorised connections are logged.\n";
 }

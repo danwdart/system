@@ -1,0 +1,4 @@
+{...}:
+{
+  timeZone = "Europe/London";
+}

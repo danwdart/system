@@ -5,4 +5,6 @@
       ./hardware-configuration.nix
       ./configuration-common.nix
     ];
+
+  networking.hostName = "rescue";
 }
