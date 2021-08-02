@@ -20,6 +20,7 @@ in {
   console = import ./console.nix {};
   environment = import ./environment.nix {pkgs = pkgs;};
   hardware = import ./hardware.nix {pkgs = pkgs; unstable = unstable;};
+  i18n = import ./i18n.nix {};
   networking = import ./networking.nix {};
   nix = import ./nix.nix {};
   nixpkgs = import ./nixpkgs.nix {};
