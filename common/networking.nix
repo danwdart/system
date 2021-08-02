@@ -19,7 +19,7 @@
   networkmanager = {
     enable = true;
     # packages = 
-#    dns = "
+    #    dns = "
     #insertNameservers = [
     # extra stuff only
     #];
@@ -34,22 +34,27 @@
   # proxy.default = "http://user:password@proxy:port/";
   # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  firewall.allowedTCPPorts = [ 22 80 443 ];
-  # firewall.allowedUDPPorts = [];
-  # firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
-  # firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
+  firewall = {
+    # Or disable the firewall altogether.
+    # enable = false;
+    enable = true;
+    allowedTCPPorts = [ 22 80 443 ];
+    # allowedUDPPorts = [];
+    # allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+    # allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
 
-  firewall.pingLimit = "--limit 1/minute --limit-burst 5";
-  firewall.checkReversePath = true;
+    pingLimit = "--limit 1/minute --limit-burst 5";
+    checkReversePath = true;
 
-  # KDE Connect, PulseAudio and Samba - only from LANs
-  firewall.extraCommands = ''
-    iptables -A nixos-fw -p tcp --source 192.168.1.0/24 --dport 1714:1764 -j nixos-fw-accept
-    iptables -A nixos-fw -p tcp --source 192.168.1.0/24 -m multiport --dports 139,445 -j nixos-fw-accept
-    iptables -A nixos-fw -p tcp --source 192.168.1.0/24 --dport 4713 -j nixos-fw-accept
-    iptables -A nixos-fw -p udp --source 192.168.1.0/24 --dport 1714:1764 -j nixos-fw-accept
-    iptables -A nixos-fw -p udp --source 192.168.1.0/24 -m multiport --dports 137,138 -j nixos-fw-accept
-  '';
+    # KDE Connect, PulseAudio and Samba - only from LANs
+    extraCommands = ''
+      iptables -A nixos-fw -p tcp --source 192.168.1.0/24 --dport 1714:1764 -j nixos-fw-accept
+      iptables -A nixos-fw -p tcp --source 192.168.1.0/24 -m multiport --dports 139,445 -j nixos-fw-accept
+      iptables -A nixos-fw -p tcp --source 192.168.1.0/24 --dport 4713 -j nixos-fw-accept
+      iptables -A nixos-fw -p udp --source 192.168.1.0/24 --dport 1714:1764 -j nixos-fw-accept
+      iptables -A nixos-fw -p udp --source 192.168.1.0/24 -m multiport --dports 137,138 -j nixos-fw-accept
+    '';
+  };
 
   extraHosts = ''
     192.168.15.18  api.timetrack.local
@@ -57,7 +62,4 @@
     192.168.28.2   wordpress.timetrack.local
     127.0.0.1      fafnir.dandart.co.uk
   '';
-
-  # Or disable the firewall altogether.
-  # firewall.enable = false;
 }
