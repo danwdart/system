@@ -13,6 +13,7 @@
     ++ import ./categories/encryption.nix pkgs
     ++ import ./categories/fun.nix pkgs
     ++ import ./categories/games.nix pkgs
+    ++ import ./categories/genealogy.nix pkgs
     ++ import ./categories/graphics.nix pkgs
     ++ import ./categories/hamradio.nix pkgs
     ++ import ./categories/health.nix pkgs
