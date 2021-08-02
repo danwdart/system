@@ -55,6 +55,7 @@ in {
       ".config/Gpredict"
       ".config/htop"
       ".config/kdeconnect"
+      ".config/Microsoft/Microsoft Teams"
       ".config/Nextcloud"
       ".config/rclone"
       ".config/spotify" # cache as well?
