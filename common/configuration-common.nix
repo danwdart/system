@@ -4,8 +4,16 @@
 
 { config, pkgs, lib, ... }:
 let
-  nixpkgs = import <nixpkgs> {};
-  unstable = import <unstable> {};
+  nixpkgs = import <nixpkgs> {
+    config = {
+      allowUnfree = true;
+    };
+  };
+  unstable = import <unstable> {
+    config = {
+      allowUnfree = true;
+    };
+  };
   home-manager = builtins.fetchTarball {
     url = "https://github.com/nix-community/home-manager/archive/release-21.05.tar.gz";
   };
@@ -18,7 +26,7 @@ in {
 
   boot = import ./boot.nix {};
   console = import ./console.nix {};
-  environment = import ./environment.nix {pkgs = pkgs; config = config; lib = lib;};
+  environment = import ./environment.nix {pkgs = pkgs; unstable = unstable; config = config; lib = lib;};
   hardware = import ./hardware.nix {pkgs = pkgs; unstable = unstable;};
   i18n = import ./i18n.nix {};
   networking = import ./networking.nix {};
@@ -33,7 +41,7 @@ in {
   users = import ./users.nix {};
   virtualisation = import ./virtualisation.nix {};
   
-  home-manager.users.dwd = import ./users/dwd/home.nix pkgs;
+  home-manager.users.dwd = import ./users/dwd/home.nix {pkgs = pkgs; unstable = unstable;};
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

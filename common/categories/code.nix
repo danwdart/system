@@ -1,11 +1,5 @@
-{ pkgs, ... }:
-let
-    unstable = import <unstable> {
-        config = {
-            allowUnfree = true;
-        };
-    };
-in with pkgs; [
+{ pkgs, unstable, ... }:
+with pkgs; [
     # androidStudioPackages.canary # platform-tools? fastboot?
     # code-server # unneeded
     docker-compose

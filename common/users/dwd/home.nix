@@ -1,10 +1,5 @@
-{ config, lib, pkgs, ... }: 
-let unstable = import <unstable> {
-        config = {
-            allowUnfree = true;
-        };
-    };
-    impermanence = builtins.fetchTarball {
+{ unstable, pkgs, ... }: 
+let impermanence = builtins.fetchTarball {
       url =
         "https://github.com/nix-community/impermanence/archive/master.tar.gz";
     };
