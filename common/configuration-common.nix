@@ -31,6 +31,8 @@ in {
   time = import ./time.nix {};
   users = import ./users.nix {};
   virtualisation = import ./virtualisation.nix {};
+  
+  home-manager.users.dwd = import ./users/dwd/home.nix pkgs;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
