@@ -18,7 +18,7 @@ in {
 
   boot = import ./boot.nix {};
   console = import ./console.nix {};
-  environment = import ./environment.nix {pkgs = pkgs;};
+  environment = import ./environment.nix {pkgs = pkgs; config = config; lib = lib;};
   hardware = import ./hardware.nix {pkgs = pkgs; unstable = unstable;};
   i18n = import ./i18n.nix {};
   networking = import ./networking.nix {};
