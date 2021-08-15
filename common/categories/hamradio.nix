@@ -3,7 +3,7 @@ let
     unstable = import <unstable> {};
 in with pkgs; [
     chirp
-    direwolf
+    # direwolf # compilation issues?
     fldigi
     gpredict
     minimodem
