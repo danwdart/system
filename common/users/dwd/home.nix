@@ -138,21 +138,23 @@ in {
   '';
 
   # Disable search indexing
-  xdg.configFile."baloofilerc".text = ''
-    [Basic Settings]
-    Indexing-Enabled=false
-
-    [General]
-    dbVersion=2
-    exclude filters=*~,*.part,*.o,*.la,*.lo,*.loT,*.moc,moc_*.cpp,qrc_*.cpp,ui_*.h,cmake_install.cmake,CMakeCache.txt,CTestTestfile.cmake,libtool,config.status,confdefs.h,autom4te,conftest,confstat,Makefile.am,*.gcode,.ninja_deps,.ninja_log,build.ninja,*.csproj,*.m4,*.rej,*.gmo,*.pc,*.omf,*.aux,*.tmp,*.po,*.vm*,*.nvram,*.rcore,*.swp,*.swap,lzo,litmain.sh,*.orig,.histfile.*,.xsession-errors*,*.map,*.so,*.a,*.db,*.qrc,*.ini,*.init,*.img,*.vdi,*.vbox*,vbox.log,*.qcow2,*.vmdk,*.vhd,*.vhdx,*.sql,*.sql.gz,*.ytdl,*.class,*.pyc,*.pyo,*.elc,*.qmlc,*.jsc,*.fastq,*.fq,*.gb,*.fasta,*.fna,*.gbff,*.faa,po,CVS,.svn,.git,_darcs,.bzr,.hg,CMakeFiles,CMakeTmp,CMakeTmpQmake,.moc,.obj,.pch,.uic,.npm,.yarn,.yarn-cache,__pycache__,node_modules,node_packages,nbproject,core-dumps,lost+found
-    exclude filters version=8
-  '';
+  xdg.configFile."baloofilerc".text = pkgs.lib.generators.toINI {} {
+    "Basic Settings" = {
+      "Indexing-Enabled" = false;
+    };
+    General = {
+      dbVersion = 2;
+      "exclude filters" = "*~,*.part,*.o,*.la,*.lo,*.loT,*.moc,moc_*.cpp,qrc_*.cpp,ui_*.h,cmake_install.cmake,CMakeCache.txt,CTestTestfile.cmake,libtool,config.status,confdefs.h,autom4te,conftest,confstat,Makefile.am,*.gcode,.ninja_deps,.ninja_log,build.ninja,*.csproj,*.m4,*.rej,*.gmo,*.pc,*.omf,*.aux,*.tmp,*.po,*.vm*,*.nvram,*.rcore,*.swp,*.swap,lzo,litmain.sh,*.orig,.histfile.*,.xsession-errors*,*.map,*.so,*.a,*.db,*.qrc,*.ini,*.init,*.img,*.vdi,*.vbox*,vbox.log,*.qcow2,*.vmdk,*.vhd,*.vhdx,*.sql,*.sql.gz,*.ytdl,*.class,*.pyc,*.pyo,*.elc,*.qmlc,*.jsc,*.fastq,*.fq,*.gb,*.fasta,*.fna,*.gbff,*.faa,po,CVS,.svn,.git,_darcs,.bzr,.hg,CMakeFiles,CMakeTmp,CMakeTmpQmake,.moc,.obj,.pch,.uic,.npm,.yarn,.yarn-cache,__pycache__,node_modules,node_packages,nbproject,core-dumps,lost+found";
+      "exclude filters version" = 8;
+    };
+  };
 
   # Set wallet to already be set up
-  xdg.configFile."kwalletrc".text = ''
-    [Wallet]
-    First Use=false
-  '';
+  xdg.configFile."kwalletrc".text = pkgs.lib.generators.toINI {} {
+    Wallet = {
+      "First Use" = false;
+    };
+  };
 
   programs.ssh = {
     enable = true;
@@ -472,7 +474,8 @@ in {
     package = unstable.vscode;
     extensions = with unstable.vscode-extensions; [
       justusadam.language-haskell
-      bbenoist.Nix
+      # This is broken for some reason?
+      # bbenoist.Nix
       brettm12345.nixfmt-vscode
       jock.svg
       haskell.haskell
