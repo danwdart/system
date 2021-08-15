@@ -17,6 +17,7 @@ in with pkgs; [
     hdparm
     hidapi
     htop
+    i7z
     inetutils
     jnettop
     lm_sensors
