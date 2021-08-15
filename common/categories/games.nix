@@ -22,7 +22,7 @@ in with pkgs; [
     quakespasm # no desktop icon
     #redeclipse
     #sauerbraten # no desktop icon
-    snes9x-gtk
+    # snes9x-gtk # has to compile now?
     # speed_dreams # no desktop icon # keeps compiling
     steam
     steamcmd
