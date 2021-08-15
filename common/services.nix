@@ -13,9 +13,9 @@
       "15,45 *                  * * *         root    . /etc/profile; ERR=$(nice -n19 nix-channel --update 2>&1) || echo $ERR"
       # Every two hours at weekends
       # needs sudo for some env??
-      "0     */2                * * 0,6       root    . /etc/profile; ERR=$(nice -n19 nix-channel --update 2>&1; nice -n19 sudo nixos-rebuild switch --fast -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix 2>&1) || echo $ERR"
+      "0     */2                * * 0,6       root    . /etc/profile; ERR=$(nice -n19 nix-channel --update 2>&1; nice -n19 sudo nixos-rebuild switch --fast --upgrade-all -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix 2>&1) || echo $ERR"
       # Every two hours at non-working hours on weekdays
-      "0     0,2,4,6,8,18,20,22 * * 1,2,3,4,5 root    . /etc/profile; ERR=$(nice -n19 nix-channel --update 2>&1; nice -n19 sudo nixos-rebuild switch --fast -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix 2>&1) || echo $ERR"
+      "0     0,2,4,6,8,18,20,22 * * 1,2,3,4,5 root    . /etc/profile; ERR=$(nice -n19 nix-channel --update 2>&1; nice -n19 sudo nixos-rebuild switch --fast --upgrade-all -I nixos-config=/home/dwd/code/mine/nix/system/fafnir/configuration.nix 2>&1) || echo $ERR"
       # Every six hours at weekends
       "0     */6                * * 0,6       root    . /etc/profile; ERR=$(nice -n19 nix-store --optimise 2>&1) || echo $ERR"
       # Every six hours except midday on weekdays
@@ -223,4 +223,6 @@
   avahi.publish.workstation = true;
 
   fail2ban.enable = true;
+
+  ntopng.enable = true;
 }
