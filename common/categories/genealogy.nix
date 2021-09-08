@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-let
-    unstable = import <unstable> {};
-in with unstable; [
+{ unstable, ... }:
+with unstable; [
     gramps
 ]

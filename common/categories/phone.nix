@@ -1,7 +1,5 @@
-{ pkgs, ... }:
-let
-    unstable = import <unstable> {};
-in with pkgs; [
+{ pkgs, unstable, ... }:
+with pkgs; [
     atinout
     calls
     gammu # CLI, needs wammu but doesn't exist

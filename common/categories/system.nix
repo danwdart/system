@@ -1,7 +1,5 @@
-{ pkgs, ... }:
-let
-    unstable = import <unstable> {};
-in with pkgs; [
+{ pkgs, unstable, ... }:
+with pkgs; [
     bluez-alsa
     bluez-tools
     cdrkit
