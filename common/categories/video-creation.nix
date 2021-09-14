@@ -2,4 +2,5 @@
 with pkgs; [
     # cinelerra # keeps compiling
     kdenlive
+    simplescreenrecorder
 ]
