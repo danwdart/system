@@ -172,7 +172,7 @@ in {
         ];
       };
       imac = {
-        hostname = "192.168.1.100";
+        hostname = "192.168.1.184";
       };
       windows = {
         hostname = "192.168.1.113";
