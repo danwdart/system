@@ -14,6 +14,11 @@ let
       allowUnfree = true;
     };
   };
+  master = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz") {
+    config = {
+      allowUnfree = true;
+    };
+  };
   home-manager = builtins.fetchTarball {
     url = "https://github.com/nix-community/home-manager/archive/release-21.05.tar.gz";
   };
@@ -24,7 +29,7 @@ in {
       ./cachix.nix
     ];
 
-  boot = import ./boot.nix {};
+  boot = import ./boot.nix {pkgs = pkgs; unstable = unstable; master = master;};
   console = import ./console.nix {};
   environment = import ./environment.nix {pkgs = pkgs; unstable = unstable; config = config; lib = lib;};
   hardware = import ./hardware.nix {pkgs = pkgs; unstable = unstable;};
