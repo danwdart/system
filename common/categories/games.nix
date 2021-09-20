@@ -4,7 +4,7 @@ with pkgs; [
     bsdgames
     dolphinEmu
     extremetuxracer
-    frozen-bubble # check for dtop
+    frozen-bubble
     ioquake3 # no desktop icon
     # lbreakout2
     ltris
