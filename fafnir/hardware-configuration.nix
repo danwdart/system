@@ -25,7 +25,7 @@ let
     device = "tmpfs";
     fsType = "tmpfs";
     options = [
-      "size=2G"
+      "size=4G"
     ];
   };
 in
