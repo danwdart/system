@@ -6,6 +6,6 @@ with pkgs; [
     #unstable.winePackages.fonts
     #unstable.winePackages.staging
     # unstable.winetricks # depend on correct version
-    unstable.wineWowPackages.fonts
-    unstable.wineWowPackages.staging
+    #unstable.wineWowPackages.fonts
+    #unstable.wineWowPackages.staging
 ]
