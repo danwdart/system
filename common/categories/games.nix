@@ -5,6 +5,7 @@ with pkgs; [
     dolphinEmu
     extremetuxracer
     frozen-bubble
+    hhexen
     ioquake3 # no desktop icon
     # lbreakout2
     ltris
@@ -31,7 +32,7 @@ with pkgs; [
     # torcs # no desktop icon
     # tremulous - broken
     #trigger # no desktop icon
-    # unstable.uhexen2 - soon
+    uhexen2
     # urbanterror # no desktop icon # nBIG
     vkquake # no desktop icon but needs dir
     # warsow - can't download
