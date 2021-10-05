@@ -196,20 +196,24 @@
   #xrdp.enable = true;
   #xrdp.defaultWindowManager = "startplasma-x11";
 
-  avahi.enable = true;
-  avahi.wideArea = true;
-  avahi.ipv6 = true;
-  avahi.nssmdns = true;
-  # avahi.domainName = "jolharg.com"
-  avahi.publish.enable = true;
-  # avahi.browseDomains = [ "jolharg.com" ];
-  avahi.publish.hinfo = true;
-  avahi.publish.domain = true;
-  # avahi.publish.addresses = true;
-  avahi.publish.userServices = true;
-  avahi.publish.workstation = true;
+  avahi = {
+    enable = true;
+    wideArea = true;
+    ipv6 = true;
+    nssmdns = true;
+    # domainName = "jolharg.com"
+    publish = {
+      enable = true;
+      # browseDomains = [ "jolharg.com" ];
+      hinfo = true;
+      domain = true;
+      # addresses = true;
+      userServices = true;
+      workstation = true;
+    };
+  };
 
   fail2ban.enable = true;
 
-  ntopng.enable = true;
+  # ntopng.enable = true;
 }
