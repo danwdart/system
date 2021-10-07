@@ -5,17 +5,22 @@
     ++ import ./categories/astronomy.nix pkgs
     ++ import ./categories/audio.nix pkgs
     ++ import ./categories/backup.nix pkgs
+    ++ import ./categories/backup-gui.nix pkgs
     ++ import ./categories/boot.nix {pkgs = pkgs; unstable = unstable;}
     ++ import ./categories/browser.nix pkgs
     ++ import ./categories/code.nix {pkgs = pkgs; unstable = unstable;}
+    ++ import ./categories/code-gui.nix {pkgs = pkgs; unstable = unstable;}
     ++ import ./categories/email.nix pkgs
     ++ import ./categories/emu.nix {pkgs = pkgs; unstable = unstable;}
+    ++ import ./categories/emu-gui.nix {pkgs = pkgs; unstable = unstable;}
     ++ import ./categories/encryption.nix pkgs
     ++ import ./categories/fun.nix pkgs
     ++ import ./categories/games.nix {pkgs = pkgs; unstable = unstable;}
+    ++ import ./categories/games-gui.nix {pkgs = pkgs; unstable = unstable;}
     ++ import ./categories/genealogy.nix {pkgs = pkgs; unstable = unstable;}
     ++ import ./categories/graphics.nix pkgs
     ++ import ./categories/hamradio.nix {pkgs = pkgs; unstable = unstable;}
+    ++ import ./categories/hamradio-gui.nix {pkgs = pkgs; unstable = unstable;}
     ++ import ./categories/health.nix pkgs
     ++ import ./categories/kde.nix pkgs
     ++ import ./categories/mapping.nix {unstable = unstable;}

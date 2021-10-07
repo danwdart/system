@@ -1,7 +1,6 @@
 { pkgs, unstable, ... }:
 with pkgs; [
     dosbox
-    mtools
     protontricks
     #unstable.winePackages.fonts
     #unstable.winePackages.staging

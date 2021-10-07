@@ -1,4 +1,0 @@
-{ unstable, ... }:
-with unstable; [
-    # googleearth
-]

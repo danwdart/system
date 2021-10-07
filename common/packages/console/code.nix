@@ -10,7 +10,5 @@ with pkgs; [
     git-crypt
     git-lfs
     vim
-    unstable.vscode # insiders?
-    x11docker
     # xcodebuild
 ]

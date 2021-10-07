@@ -1,7 +1,6 @@
 { pkgs, unstable, ... }:
 with pkgs; [
-    armagetronad # no desktop icon
-    bsdgames
+    armagetronad # no desktop icon=
     dolphinEmu
     extremetuxracer
     frozen-bubble
