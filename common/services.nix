@@ -108,12 +108,16 @@
   xserver.xkbOptions = "terminate:ctrl_alt_bksp,caps:escape,compose:ralt";
   xserver.xkbModel = "latitude";
   
-  grocy.enable = true;
-  grocy.hostName = "fafnir.dandart.co.uk";
-  grocy.nginx.enableSSL = false;
-  grocy.settings.calendar.firstDayOfWeek = 1;
-  grocy.settings.currency = "GBP";
-  grocy.settings.culture = "en_GB";
+  grocy = {
+    enable = false;
+    hostName = "fafnir.dandart.co.uk";
+    nginx = {
+      enableSSL = false;
+    };
+    settings.calendar.firstDayOfWeek = 1;
+    settings.currency = "GBP";
+    settings.culture = "en_GB";
+  };
 
   postgresql = {
     enable = true;
