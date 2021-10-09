@@ -206,9 +206,12 @@ in {
     ];
     shellAliases = {
       ukbbs = "ztelnet ukbbs.zapto.org";
-      fenric = "ztelnet fenric.muppetwhore.net";
-      tardis = "ztelnet bbs.cortex-media.info";
+      # Currently these are down
+      # fenric = "ztelnet fenric.muppetwhore.net"; # ?
+      # tardis = "ztelnet bbs.cortex-media.info"; # ?
       nostromo = "ztelnet nostromo.synchro.net";
+      # Magnum: 01484 320007
+      # Mystic: 0208 3633637
       scn = "ztelnet scn.org";
       ll = "ls -l";
       ".." = "cd ..";
