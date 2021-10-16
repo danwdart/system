@@ -31,6 +31,7 @@ in {
       "games"
       "Music"
       "Pictures"
+      "qsstv"
       "radioimages"
       "Templates" # Really? I don't even use that. But should I? There's no harm...
       "Videos"
@@ -52,11 +53,14 @@ in {
       ".config/kdeconnect"
       ".config/Microsoft/Microsoft Teams"
       ".config/Nextcloud"
+      ".config/ON4QZ"
       ".config/rclone"
       ".config/spotify" # cache as well?
       ".config/Slack"
       ".config/VirtualBox" # TODO move?
       ".dosbox"
+      ".fldigi"
+      ".flrig"
       ".frozen-bubble"
       ".ghc"
       ".gnupg"
@@ -68,6 +72,7 @@ in {
       ".local/share/kwalletd"
       ".local/share/Steam"
       ".local/share/ktorrent"
+      ".local/share/WSJT-X"
       ".mozilla"
       ".pcsxr"
       ".quakespasm"
