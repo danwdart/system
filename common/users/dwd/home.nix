@@ -89,6 +89,7 @@ in {
       ".bash_history"
       ".config/dolphinrc"
       ".config/kdeglobals"
+      ".config/ktorrentrc"
       ".config/mimeapps.list"
       ".config/plasma-org.kde.plasma.desktop-appletsrc"
       ".config/plasmarc"
