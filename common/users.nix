@@ -18,6 +18,7 @@
     isNormalUser = true;
     extraGroups = [
       "adbusers"
+      "dialout"
       "docker"
       "jackaudio"
       "kvm"
