@@ -1,7 +1,7 @@
 { pkgs, unstable, ... }:
 with pkgs; [
-    calls
+    #calls
     # gnokii - broken
-    ofono-phonesim
+    #ofono-phonesim
     # wammu - does not exist
 ]
