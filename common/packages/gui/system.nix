@@ -1,12 +1,12 @@
 { pkgs, unstable, ... }:
 with pkgs; [
-    etcher
+    #etcher
     gparted
-    unstable.rpi-imager
-    unetbootin
-    winusb
-    woeusb
-    xcruiser # no desktop icon
-    xorg.xev
+    #unstable.rpi-imager
+    #unetbootin
+    #winusb
+    #woeusb
+    #xcruiser # no desktop icon
+    #xorg.xev
     xorg.xf86videointel
 ]
