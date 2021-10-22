@@ -2,7 +2,7 @@
 with pkgs; [
     discord
     element-desktop
-    skype
+    #skype
     slack
     teams
     # zoom-us
