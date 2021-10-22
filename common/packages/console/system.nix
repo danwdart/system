@@ -30,6 +30,7 @@ with pkgs; [
     sixpair
     socat
     u3-tool
+    unrar
     unzip
     usbutils
     wget
