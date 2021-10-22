@@ -1,6 +1,7 @@
 { pkgs, unstable, ... }:
 with pkgs; [
     chirp
+    cqrlog
     # direwolf # compilation issues?
     fldigi
     flrig
@@ -8,4 +9,5 @@ with pkgs; [
     qsstv
     unstable.soundmodem # no desktop icon, needs config
     wsjtx
+    xlog
 ]
