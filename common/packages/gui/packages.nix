@@ -1,4 +1,4 @@
-{ pkgs, unstable, ... }:
+{ pkgs, unstable, master, ... }:
 # Any defaults/must-haves go here
 []
 # Any categorical apps go here
@@ -10,7 +10,7 @@
     ++ import ./chemistry.nix {pkgs = pkgs; unstable = unstable;}
     ++ import ./code.nix {pkgs = pkgs; unstable = unstable;}
     ++ import ./email.nix pkgs
-    ++ import ./emu.nix {pkgs = pkgs; unstable = unstable;}
+    ++ import ./emu.nix {pkgs = pkgs; unstable = unstable; master = master;}
     ++ import ./encryption.nix pkgs
     ++ import ./games.nix {pkgs = pkgs; unstable = unstable;}
     ++ import ./genealogy.nix {pkgs = pkgs; unstable = unstable;}
