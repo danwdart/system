@@ -78,7 +78,7 @@ in {
       ".quakespasm"
       ".serverless"
       ".ssh"
-      ".steam"
+      # ".steam" # TODO copy/link, don't mount
       ".thunderbird"
       ".vagrant.d" # TODO relocate
       ".vkquake"
@@ -94,6 +94,7 @@ in {
       ".config/plasma-org.kde.plasma.desktop-appletsrc"
       ".config/plasmarc"
       ".config/plasmashellrc"
+      ".config/WSJT-X.ini"
       ".local/share/user-places.xbel"
       ".serverlessrc"
     ];
