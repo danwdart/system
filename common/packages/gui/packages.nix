@@ -15,7 +15,7 @@
     ++ import ./games.nix {pkgs = pkgs; unstable = unstable;}
     ++ import ./genealogy.nix {pkgs = pkgs; unstable = unstable;}
     ++ import ./graphics.nix pkgs
-    ++ import ./hamradio.nix {pkgs = pkgs; unstable = unstable;}
+    ++ import ./hamradio.nix {pkgs = pkgs; unstable = unstable; master = master;}
     ++ import ./health.nix pkgs
     ++ import ./kde.nix pkgs
     ++ import ./media-playing.nix pkgs
