@@ -1,14 +1,15 @@
 { pkgs, unstable, master, ... }:
-with pkgs; [
+with master; [
     chirp
     cqrlog
     # direwolf # compilation issues?
     fldigi
     flrig
-    master.freedv
+    freedv
     gpredict
     qsstv
-    unstable.soundmodem # no desktop icon, needs config
+    tqsl
+    soundmodem # no desktop icon, needs config
     wsjtx
     xlog
 ]
