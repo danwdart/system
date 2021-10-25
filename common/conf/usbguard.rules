@@ -8,6 +8,7 @@ allow id 0781:5591 serial "0101a3a1bd12a29caf8bd4705afbcbfa278699b37f4b10cf7b921
 allow id 0781:5591 serial "0101b5ecc211969e2c12ee6e6e5730b58832c11e902c2571e46a275cad20b07320a10000000000000000000043dc4ab0ff8020009155810758a9034a" name "Ultra USB 3.0" hash "7IjN0ckCzCfUq/sbclbj0DxjshfVEc2elz5gDggP5N0="
 allow id 093a:2510 serial "" name "USB Optical Mouse" hash "38qZyBW+xRzXbM1YywhPJ8ds+QbGGYs21YGIfMhpItg="
 allow id 0c45:64d2 serial "" name "Laptop_Integrated_Webcam_HD" hash "+EPKhUw6LCRVih2jQLOe5QI4dZHmvMa/9uWKv1g4owU="
+allow id 0d8c:0014 serial "" name "USB Audio Device" hash "IYXoabHAVD12OVJkIjMTfuO0GtOgSncmn5xFu3+2JYo="
 allow id 0d8c:013c serial "" name "USB PnP Sound Device" hash "pOXp7gdkn91Gi9u3AxR04vMDUnb2uz0ZUV49FKzrWTA="
 allow id 13fd:0840 serial "4D374743394C463337313520" name "External" hash "mKvhbgtGH7el4yavf32EtTQC3nnAdDX5p0lhZLBVOKs="
 allow id 18d1:4ee0 serial "8ATY0QUK9" name "Pixel 3 XL" hash "46w3coEEveCfew0wik86FPe/yQgBn59EXzrYR+li2+0="
