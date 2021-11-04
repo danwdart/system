@@ -34,4 +34,5 @@ with pkgs; [
     unzip
     usbutils
     wget
+    wirelesstools
 ]
