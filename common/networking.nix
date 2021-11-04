@@ -45,14 +45,14 @@
 
     pingLimit = "--limit 1/minute --limit-burst 5";
     checkReversePath = true;
+    logReversePathDrops = true;
+    logRefusedConnections = true;
 
-    # KDE Connect, PulseAudio and Samba - only from LANs
+    # Allow private IP ranges
     extraCommands = ''
-      iptables -A nixos-fw -p tcp --source 192.168.1.0/24 --dport 1714:1764 -j nixos-fw-accept
-      iptables -A nixos-fw -p tcp --source 192.168.1.0/24 -m multiport --dports 139,445 -j nixos-fw-accept
-      iptables -A nixos-fw -p tcp --source 192.168.1.0/24 --dport 4713 -j nixos-fw-accept
-      iptables -A nixos-fw -p udp --source 192.168.1.0/24 --dport 1714:1764 -j nixos-fw-accept
-      iptables -A nixos-fw -p udp --source 192.168.1.0/24 -m multiport --dports 137,138 -j nixos-fw-accept
+      iptables -A nixos-fw -p tcp --source 10.0.0.0/8 -j nixos-fw-accept
+      iptables -A nixos-fw -p tcp --source 172.16.0.0/12 -j nixos-fw-accept
+      iptables -A nixos-fw -p tcp --source 192.168.0.0/16 -j nixos-fw-accept
     '';
   };
 
