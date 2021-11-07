@@ -4,6 +4,7 @@ with pkgs; [
     # dolphinEmu
     # extremetuxracer
     # frozen-bubble
+    golly
     hhexen
     ioquake3 # no desktop icon
     # lbreakout2
