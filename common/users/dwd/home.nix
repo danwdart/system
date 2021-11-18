@@ -53,7 +53,8 @@ in {
       ".config/kdeconnect"
       ".config/Microsoft/Microsoft Teams"
       ".config/Nextcloud"
-      ".config/ON4QZ"
+      ".config/ON4QZ" # qsstv
+      ".config/PCSX2"
       ".config/rclone"
       ".config/spotify" # cache as well?
       ".config/Slack"
@@ -94,6 +95,7 @@ in {
       ".config/plasma-org.kde.plasma.desktop-appletsrc"
       ".config/plasmarc"
       ".config/plasmashellrc"
+      ".config/powermanagementprofilesrc"
       ".config/WSJT-X.ini"
       ".local/share/user-places.xbel"
       ".serverlessrc"
