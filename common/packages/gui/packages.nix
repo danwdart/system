@@ -12,7 +12,7 @@
     ++ import ./email.nix pkgs
     ++ import ./emu.nix {pkgs = pkgs; unstable = unstable; master = master;}
     ++ import ./encryption.nix pkgs
-    ++ import ./games.nix {pkgs = pkgs; unstable = unstable;}
+    ++ import ./games.nix {pkgs = pkgs; unstable = unstable; master = master;}
     ++ import ./genealogy.nix {pkgs = pkgs; unstable = unstable;}
     ++ import ./graphics.nix pkgs
     ++ import ./hamradio.nix {pkgs = pkgs; unstable = unstable; master = master;}
