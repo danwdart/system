@@ -8,6 +8,7 @@ with pkgs; [
     ktorrent
     libsForQt5.phonon
     libsForQt5.phonon-backend-gstreamer
+    libsForQt5.yakuake
     # plasma5.plasma-browser-integration
     qdirstat
 ]
