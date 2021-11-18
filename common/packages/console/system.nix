@@ -21,6 +21,7 @@ with pkgs; [
     # multibootusb # broken GUI, also broken
     ncdu
     networkmanager # possibly unneeded
+    ntfs3g
     obexfs
     obexftp
     unstable.opencorsairlink
