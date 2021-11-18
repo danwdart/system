@@ -1,7 +1,7 @@
-{ pkgs, unstable, ... }:
+{ pkgs, unstable, master, ... }:
 with pkgs; [
     armagetronad # no desktop icon
-    # dolphinEmu
+    master.dolphinEmu
     # extremetuxracer
     # frozen-bubble
     golly
@@ -15,8 +15,6 @@ with pkgs; [
     # nexuiz # no desktop icon # BIG
     # openarena # no desktop icon # BIG
     # padman?
-    # pcsx2 # keeps recompiling
-    # pcsxr # depends on insecure ffmpeg
     quake3e # no desktop icon
     quakespasm # no desktop icon
     # redeclipse
