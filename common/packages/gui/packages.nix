@@ -20,7 +20,7 @@
     ++ import ./kde.nix pkgs
     ++ import ./media-playing.nix pkgs
     ++ import ./media-ripping.nix pkgs
-    ++ import ./networking.nix pkgs
+    ++ import ./networking.nix {pkgs = pkgs; unstable = unstable; master = master;}
     ++ import ./office.nix pkgs
     ++ import ./phone.nix {pkgs = pkgs; unstable = unstable;}
     ++ import ./social.nix pkgs
