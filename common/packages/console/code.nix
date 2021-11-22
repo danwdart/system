@@ -1,7 +1,7 @@
 { pkgs, unstable, ... }:
 with pkgs; [
     # androidStudioPackages.canary # platform-tools? fastboot?
-    # code-server # unneeded
+    code-server # unneeded
     docker-compose
     gitAndTools.gh
     gitAndTools.gitFull
@@ -9,6 +9,6 @@ with pkgs; [
     gitAndTools.hub
     git-crypt
     git-lfs
-    vim
+    vim # plugins?
     # xcodebuild
 ]
