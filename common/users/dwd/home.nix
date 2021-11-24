@@ -495,7 +495,7 @@ in {
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       {
         name = "vscode-direnv";
-        publisher = "rubymaniac";
+        publisher = "Rubymaniac";
         version = "0.0.2";
         sha256 = "1gml41bc77qlydnvk1rkaiv95rwprzqgj895kxllqy4ps8ly6nsd";
       }
@@ -504,6 +504,24 @@ in {
         publisher = "sergey-kintsel";
         version = "0.0.2";
         sha256 = "15mbk2ayvyswaqcr79jr9zwhfsx1nz5invgsw4naxma0m81cw33m";
+      }
+      {
+        name = "vscode-ghc-simple";
+        publisher = "dramforever";
+        version = "0.2.3";
+        sha256 = "1pd7p4xdvcgmp8m9aymw0ymja1qxvds7ikgm4jil7ffnzl17n6kp";
+      }
+      {
+        name = "phoityne-vscode";
+        publisher = "phoityne";
+        version = "0.0.27";
+        sha256 = "0xhywyf1cd942nh7y5kgjg3407v1k4wxy73x4r97h29sr3gv5sbg";
+      }
+      {
+        name = "Nix";
+        publisher = "bbenoist";
+        version = "1.0.1";
+        sha256 = "0zd0n9f5z1f0ckzfjr38xw2zzmcxg1gjrava7yahg5cvdcw6l35b";
       }
       {
         name = "haskell-ghcid";
