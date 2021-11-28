@@ -18,8 +18,12 @@
 
   trustedUsers = [ "root" "dwd" ];
 
-  gc.automatic = true;
-  gc.options = "-d";
+  gc = {
+    automatic = false; # true
+    options = "-d";
+    dates = "weekly"; # "03:15"
+    persistent = false; # like anacron
+  };
 
   extraOptions = ''
     keep-outputs = true
