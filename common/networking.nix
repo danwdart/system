@@ -59,7 +59,6 @@
   extraHosts = ''
     192.168.15.18  api.timezap.local
     192.168.15.18  mail.timezap.local
-    192.168.28.2   wordpress.timezap.local
     127.0.0.1      fafnir.dandart.co.uk
   '';
 }
