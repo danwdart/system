@@ -6,4 +6,5 @@ with pkgs; [
     master.scrcpy
     # tightvnc # no gui without config # banned as insecure with no replacement suggested
     tor-browser-bundle-bin
+    wireshark
 ]
