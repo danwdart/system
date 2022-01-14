@@ -9,7 +9,7 @@
   libvirtd.onShutdown = "suspend";
   # anbox.enable = true;
 
-  virtualbox.host.enable = true;
+  # virtualbox.host.enable = true;
   
   # makes it recompile a lot
   # virtualbox.host.enableExtensionPack = true;
