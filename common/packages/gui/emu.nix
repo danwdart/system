@@ -1,9 +1,15 @@
 { pkgs, master, ... }:
 with pkgs; [
+    desmume
     dosbox
+    # epsxe # insecure openssl
+    higan
+    melonDS
     pcsx2 # keeps recompiling
     # pcsxr # depends on insecure ffmpeg
     #protontricks
+    rpcs3
+    ruffle
     #unstable.winePackages.fonts
     # master.winePackages.staging
     # unstable.winetricks # depend on correct version

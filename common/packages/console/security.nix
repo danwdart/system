@@ -12,6 +12,7 @@ with pkgs; [
     openssl # the CLI client
     # ossec - not yet integrated into systemd
     pyrit
+    # sslstrip - not yet available
     # rkhunter - not yet available
     sshuttle
     tcpdump
