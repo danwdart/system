@@ -2,6 +2,7 @@
 with pkgs; [
     desmume
     dosbox
+    citra
     # epsxe # insecure openssl
     higan
     melonDS
@@ -18,4 +19,5 @@ with pkgs; [
     wiiload
     wiimms-iso-tools
     wiiuse
+    # master.yuzu
 ]
