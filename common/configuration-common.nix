@@ -20,7 +20,7 @@ let
     };
   };
   home-manager = builtins.fetchTarball {
-    url = "https://github.com/nix-community/home-manager/archive/release-21.05.tar.gz";
+    url = "https://github.com/nix-community/home-manager/archive/release-21.11.tar.gz";
   };
 in {
   imports =
@@ -38,7 +38,7 @@ in {
   nix = import ./nix.nix {};
   nixpkgs = import ./nixpkgs.nix {};
   programs = import ./programs.nix {};
-  security = import ./security.nix {};
+  security = import ./security.nix {pkgs = pkgs;};
   services = import ./services.nix {pkgs = pkgs;};
   sound = import ./sound.nix {};
   system = import ./system.nix {};
