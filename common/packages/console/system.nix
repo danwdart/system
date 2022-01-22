@@ -19,6 +19,7 @@ with pkgs; [
     lm_sensors
     lshw
     lsof
+    unstable.mono # 6.12.0.122 only in >= 21.11
     # multibootusb # broken GUI, also broken
     ncdu
     networkmanager # possibly unneeded
