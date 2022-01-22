@@ -11,7 +11,6 @@ with pkgs; [
     gitAndTools.hub
     git-crypt
     git-lfs
-    shellinabox
     vim # plugins?
     # xcodebuild
 ]
