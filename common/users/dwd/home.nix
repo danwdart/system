@@ -46,6 +46,11 @@ in {
     '';
   };
 
+  home.file.face = {
+    target = ".face";
+    source = /home/dwd/Pictures/me/me.jpg;
+  };
+
   # overlays go here
   nixpkgs.config = import ./nixpkgs-config.nix;
 
