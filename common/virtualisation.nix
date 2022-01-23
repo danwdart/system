@@ -5,7 +5,7 @@
 
   libvirtd.enable = true;
   libvirtd.onBoot = "start";
-  libvirtd.qemuOvmf = true;
+  libvirtd.qemu.ovmf.enable = true;
   libvirtd.onShutdown = "suspend";
   # anbox.enable = true;
 
