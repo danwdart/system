@@ -148,10 +148,10 @@ in {
     };
     initExtra = ''
       source <(doctl completion bash)
-      ddate
-      fortune -s
-      echo Greetings, Professor Falken.
+      fortune -s goedel
     '';
+    # ddate
+    # echo Greetings, Professor Falken.
     # screenfetch
   };
 
