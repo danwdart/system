@@ -11,7 +11,7 @@ with pkgs; [
     # ltris
     # mgba
     # mupen64plus # no desktop icon
-    # nethack-qt # no desktop icon
+    nethack-qt # no desktop icon
     # nexuiz # no desktop icon # BIG
     # openarena # no desktop icon # BIG
     # padman?
