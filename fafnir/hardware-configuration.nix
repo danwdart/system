@@ -92,6 +92,7 @@ in
       "/home/dwd/.config/Insomnia"
       "/home/dwd/.config/kdeconnect"
       "/home/dwd/.config/Microsoft/Microsoft Teams"
+      "/home/dwd/.config/nethack"
       "/home/dwd/.config/Nextcloud"
       "/home/dwd/.config/ON4QZ" # qsstv
       "/home/dwd/.config/PCSX2"
