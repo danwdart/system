@@ -29,6 +29,7 @@ in {
     unzip
     wget
     youtube-dl
+    yt-dlp
     zssh
   ];
   home.file.ghci = {
