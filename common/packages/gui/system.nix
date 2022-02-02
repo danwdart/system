@@ -1,8 +1,8 @@
-{ pkgs, unstable, ... }:
+pkgs:
 with pkgs; [
     #etcher
     gparted
-    #unstable.rpi-imager
+    #rpi-imager
     #unetbootin
     #winusb
     #woeusb

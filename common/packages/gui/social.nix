@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+pkgs:
 with pkgs; [
     discord
     element-desktop

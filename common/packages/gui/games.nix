@@ -1,7 +1,7 @@
-{ pkgs, unstable, master, ... }:
+pkgs:
 with pkgs; [
     armagetronad # no desktop icon
-    master.dolphinEmu
+    dolphinEmu
     # extremetuxracer
     # frozen-bubble
     golly

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+pkgs:
 with pkgs; [
     autossh
     bind # host, nslookup etc

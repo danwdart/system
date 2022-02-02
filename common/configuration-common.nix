@@ -1,24 +1,17 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
+# man 5 configuration.nix
+# nixos-help
 { config, pkgs, lib, ... }:
 let
-  nixpkgs = import <nixpkgs> {
-    config = {
-      allowUnfree = true;
-    };
-  };
   unstable = import <unstable> {
     config = {
       allowUnfree = true;
     };
   };
-  master = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz") {
-    config = {
-      allowUnfree = true;
-    };
-  };
+  #master = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz") {
+  #  config = {
+  #    allowUnfree = true;
+  #  };
+  #};
   home-manager = builtins.fetchTarball {
     url = "https://github.com/nix-community/home-manager/archive/release-21.11.tar.gz";
   };
@@ -29,17 +22,17 @@ in {
       ./cachix.nix
     ];
 
-  boot = import ./boot.nix {pkgs = pkgs; unstable = unstable; master = master;};
+  boot = import ./boot.nix pkgs;
   console = import ./console.nix {};
-  environment = import ./environment.nix {pkgs = pkgs; unstable = unstable; master = master; config = config; lib = lib;};
-  hardware = import ./hardware.nix {pkgs = pkgs; unstable = unstable;};
+  environment = import ./environment.nix {pkgs = pkgs; unstable = unstable; config = config; lib = lib;};
+  hardware = import ./hardware.nix pkgs;
   i18n = import ./i18n.nix {};
   networking = import ./networking.nix {};
   nix = import ./nix.nix {};
   nixpkgs = import ./nixpkgs.nix {};
   programs = import ./programs.nix {};
-  security = import ./security.nix {pkgs = pkgs;};
-  services = import ./services.nix {pkgs = pkgs;};
+  security = import ./security.nix pkgs;
+  services = import ./services.nix pkgs;
   sound = import ./sound.nix {};
   system = import ./system.nix {};
   systemd = import ./systemd.nix {};
@@ -47,7 +40,7 @@ in {
   users = import ./users.nix {};
   virtualisation = import ./virtualisation.nix {};
   
-  home-manager.users.dwd = import ./users/dwd/home.nix {pkgs = pkgs; unstable = unstable;};
+  home-manager.users.dwd = import ./users/dwd/home.nix pkgs;
 
   # todo move
 

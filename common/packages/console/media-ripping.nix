@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+pkgs:
 with pkgs; [
     get_iplayer
     python38Packages.internetarchive # ia binary

@@ -1,9 +1,9 @@
-{ pkgs, unstable, ... }:
+pkgs:
 with pkgs; [
     cool-retro-term
-    unstable.androidStudioPackages.canary
-    unstable.android-tools
+    androidStudioPackages.canary
+    android-tools
     kate
-    unstable.vscode # insiders?
+    vscode # insiders?
     x11docker
 ]

@@ -1,4 +1,4 @@
-{ unstable, ... }:
+pkgs:
 {
   loader.systemd-boot.enable = true;
   loader.systemd-boot.memtest86.enable = true;
@@ -17,7 +17,6 @@
 
   # linuxPackages_latest
   
-  # unstable.linuxPackages_latest_hardened
   # master.linuxPackages_5_13_hardened
 
   # https://liquorix.net/
@@ -33,7 +32,7 @@
   # https://github.com/zen-kernel/zen-kernel
   # linuxPackages_zen
 
-  kernelPackages = unstable.linuxPackages_latest_hardened;
+  kernelPackages = pkgs.linuxPackages_5_15_hardened;
 
   plymouth.enable = true;
 }

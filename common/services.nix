@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+pkgs:
 {
   cron = {
     # enable = true;
@@ -101,7 +101,7 @@
   #    haskellPackages.xmonad-contrib
   #    haskellPackages.monad-logger
   #  ];
-  #  haskellPackages = unstable.haskell.packages.ghc921;
+  #  haskellPackages = pkgs.haskell.packages.ghc921;
   #};
   
   xserver.layout = "gb";

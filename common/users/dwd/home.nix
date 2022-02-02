@@ -1,4 +1,4 @@
-{ unstable, pkgs, ... }: 
+pkgs: 
 let impermanence = builtins.fetchTarball {
       url =
         "https://github.com/nix-community/impermanence/archive/master.tar.gz";
@@ -401,8 +401,8 @@ in {
 
   programs.vscode = {
     enable = true;
-    package = unstable.vscode;
-    extensions = with unstable.vscode-extensions; [
+    package = pkgs.vscode;
+    extensions = with pkgs.vscode-extensions; [
       justusadam.language-haskell
       # This is broken for some reason?
       # bbenoist.Nix
@@ -554,7 +554,7 @@ in {
   #    haskellPackages.xmonad-contrib
   #    haskellPackages.monad-logger
   #  ];
-  #  haskellPackages = unstable.haskell.packages.ghc901;
+  #  haskellPackages = pkgs.haskell.packages.ghc901;
   #};
 
   #xsession.windowManager.command =

@@ -1,6 +1,6 @@
-{ pkgs, unstable, ... }:
+pkgs:
 with pkgs; [
-    unstable.beefi
+    # beefi
     efibootmgr
     efitools
     efivar

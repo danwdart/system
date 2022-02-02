@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+pkgs:
 with pkgs;
 [
     a2jmidid # CLI

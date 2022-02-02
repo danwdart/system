@@ -25,7 +25,7 @@ let
     device = "tmpfs";
     fsType = "tmpfs";
     options = [
-      "size=4G"
+      "size=16G"
     ];
   };
 in
@@ -78,10 +78,12 @@ in
       "/home/dwd/VMs"
       "/home/dwd/.android"
       "/home/dwd/.armagetronad"
+      "/home/dwd/.cache/nix" # Stop having to keep redownloading tarballs and search indices
       "/home/dwd/.cache/spotify" # Keep me logged in
       "/home/dwd/.config/autostart"
       "/home/dwd/.config/cachix"
       "/home/dwd/.config/calibre" 
+      "/home/dwd/.config/Code/Backups" # Unsaved open files and workspaces
       "/home/dwd/.config/discord"
       "/home/dwd/.config/doctl"
       "/home/dwd/.config/dolphin-emu"
@@ -129,9 +131,12 @@ in
       "/home/dwd/.vkquake"
       "/home/dwd/.wine"
       "/home/dwd/.yq2"
+      "/root/.cache/nix" # for when rebuilding the system
     ];
     files = [
       "/home/dwd/.bash_history"
+      "/home/dwd/.config/Code/storage.json" # Open files and workspaces
+      "/home/dwd/.config/Code/User/globalStorage/state.vscdb" # Current state
       "/home/dwd/.config/dolphinrc"
       "/home/dwd/.config/kdeglobals"
       "/home/dwd/.config/ktorrentrc"

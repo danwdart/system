@@ -1,4 +1,4 @@
-{ pkgs, unstable, master, ... }:
+{ pkgs, unstable, ... }:
 # Any defaults/must-haves go here
 []
 # Any categorical apps go here
@@ -7,22 +7,22 @@
     ++ import ./audio.nix pkgs
     ++ import ./backup.nix pkgs
     ++ import ./browser.nix pkgs
-    ++ import ./chemistry.nix {pkgs = pkgs; unstable = unstable;}
-    ++ import ./code.nix {pkgs = pkgs; unstable = unstable;}
+    ++ import ./chemistry.nix pkgs
+    ++ import ./code.nix pkgs
     ++ import ./email.nix pkgs
-    ++ import ./emu.nix {pkgs = pkgs; unstable = unstable; master = master;}
+    ++ import ./emu.nix {pkgs = pkgs; unstable = unstable; }
     ++ import ./encryption.nix pkgs
-    ++ import ./games.nix {pkgs = pkgs; unstable = unstable; master = master;}
-    ++ import ./genealogy.nix {pkgs = pkgs; unstable = unstable;}
+    ++ import ./games.nix pkgs
+    ++ import ./genealogy.nix pkgs
     ++ import ./graphics.nix pkgs
-    ++ import ./hamradio.nix {pkgs = pkgs; unstable = unstable; master = master;}
+    ++ import ./hamradio.nix pkgs
     ++ import ./health.nix pkgs
     ++ import ./kde.nix pkgs
     ++ import ./media-playing.nix pkgs
     ++ import ./media-ripping.nix pkgs
-    ++ import ./networking.nix {pkgs = pkgs; unstable = unstable; master = master;}
+    ++ import ./networking.nix {pkgs = pkgs; unstable = unstable; }
     ++ import ./office.nix pkgs
-    ++ import ./phone.nix {pkgs = pkgs; unstable = unstable;}
+    ++ import ./phone.nix pkgs
     ++ import ./social.nix pkgs
-    ++ import ./system.nix {pkgs = pkgs; unstable = unstable;}
+    ++ import ./system.nix pkgs
     ++ import ./video-creation.nix pkgs

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+pkgs:
 with pkgs; [
     # clementine
     # clementineUnfree # needs building?

@@ -1,5 +1,5 @@
-{ pkgs, unstable, master, ... }:
-with master; [
+pkgs:
+with pkgs; [
     chirp
     cqrlog
     # direwolf # compilation issues?
