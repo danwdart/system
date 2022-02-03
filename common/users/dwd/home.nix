@@ -133,9 +133,8 @@ in {
     ];
     shellAliases = {
       ukbbs = "ztelnet ukbbs.zapto.org";
-      # Currently these are down
-      # fenric = "ztelnet fenric.muppetwhore.net"; # ?
-      # tardis = "ztelnet bbs.cortex-media.info"; # ?
+      fenric = "ztelnet fenric.muppetwhore.net";
+      tardis = "ztelnet bbs.cortex-media.info";
       nostromo = "ztelnet nostromo.synchro.net";
       # Magnum: 01484 320007
       # Mystic: 0208 3633637
@@ -145,9 +144,9 @@ in {
     };
     initExtra = ''
       source <(doctl completion bash)
-      fortune -s goedel
     '';
     # ddate
+    # fortune -s goedel
     # echo Greetings, Professor Falken.
     # screenfetch
   };
@@ -181,6 +180,10 @@ in {
     enable = true;
     userName = "Dan Dart";
     userEmail = "git@dandart.co.uk";
+    extraConfig = ''
+      [pull]
+        rebase = false
+    '';
     # signingkey = 39A8DF97
     # gpgsign = true
     # crypt stuff

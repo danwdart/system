@@ -148,9 +148,9 @@ in {
     };
     initExtra = ''
       source <(doctl completion bash)
-      fortune -s goedel
     '';
     # ddate
+    # fortune -s goedel
     # echo Greetings, Professor Falken.
     # screenfetch
   };
@@ -181,6 +181,10 @@ in {
     enable = true;
     userName = "Dan Dart";
     userEmail = "git@dandart.co.uk";
+    extraConfig = ''
+      [pull]
+        rebase = false
+    '';
     # signingkey = 39A8DF97
     # gpgsign = true
     # crypt stuff
