@@ -5,6 +5,7 @@ with pkgs; [
     citra
     # epsxe # insecure openssl
     higan
+    retroarchFull
     melonDS
     pcsx2 # keeps recompiling
     # pcsxr # depends on insecure ffmpeg
