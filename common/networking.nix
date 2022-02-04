@@ -38,7 +38,7 @@
     # Or disable the firewall altogether.
     # enable = false;
     enable = true;
-    allowedTCPPorts = [ 22 80 443 ];
+    # allowedTCPPorts = [ 22 80 443 ];
     # allowedUDPPorts = [];
     # allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
     # allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
@@ -48,17 +48,31 @@
     logReversePathDrops = true;
     logRefusedConnections = true;
 
-    # Allow private IP ranges
     extraCommands = ''
-      iptables -A nixos-fw -p tcp --source 10.0.0.0/8 -j nixos-fw-accept
-      iptables -A nixos-fw -p tcp --source 172.16.0.0/12 -j nixos-fw-accept
-      iptables -A nixos-fw -p tcp --source 192.168.0.0/16 -j nixos-fw-accept
+      iptables-nft -P INPUT DROP
+      iptables-nft -P FORWARD DROP
+      iptables-nft -P OUTPUT DROP
+      iptables-nft -A OUTPUT -p tcp --dport 443 -j ACCEPT
+      iptables-nft -A OUTPUT -p tcp --dport 22 -j ACCEPT
+      iptables-nft -A OUTPUT -p tcp --dport 23 -d 193.33.179.54 -j ACCEPT # tardis
+      iptables-nft -A OUTPUT -p tcp --dport 23 -d 90.200.169.16 -j ACCEPT # ukbbs
+      iptables-nft -A OUTPUT -p tcp --dport 23 -d 45.36.114.180 -j ACCEPT # fenric
+      iptables-nft -A OUTPUT -p tcp --dport 23 -d 81.147.120.6 -j ACCEPT # nostromo
+      iptables-nft -A OUTPUT -p tcp --dport 23 -d 66.212.64.194 -j ACCEPT # scn
+      iptables-nft -A OUTPUT -p udp --dport 53 -j ACCEPT
+      iptables-nft -A OUTPUT -p udp --dport 67 -j ACCEPT
+      iptables-nft -A nixos-fw -p tcp -s 172.16.0.0/12 --dport 3306 -j nixos-fw-accept
     '';
+
+    # Allow private IP ranges
+    # extraCommands = ''
+    # '';
+    # iptables -A nixos-fw -p tcp --source 10.0.0.0/8 -j nixos-fw-accept
+    # iptables -A nixos-fw -p tcp --source 172.16.0.0/12 -j nixos-fw-accept
+    # iptables -A nixos-fw -p tcp --source 192.168.0.0/16 -j nixos-fw-accept
   };
 
   extraHosts = ''
-    192.168.15.18  api.timezap.local
-    192.168.15.18  mail.timezap.local
     127.0.0.1      fafnir.dandart.co.uk
   '';
 }
