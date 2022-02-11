@@ -19,10 +19,10 @@
   trustedUsers = [ "root" "dwd" ];
 
   gc = {
-    automatic = false; # true
+    automatic = true; # true
     options = "-d";
     dates = "weekly"; # "03:15"
-    persistent = false; # like anacron
+    persistent = true; # like anacron
   };
 
   extraOptions = ''
