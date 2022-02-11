@@ -1,5 +1,10 @@
-{...}:
-{
+{lib, ...}:
+with builtins;
+with lib;
+let
+  telnetServers = import ./servers/telnet.nix;
+  allowTelnet = ip: "iptables-nft -A OUTPUT -p tcp --dport 23 -d ${ip} -j ACCEPT";
+in {
   # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   nameservers = [
     # if using DoH/DoT proxy
@@ -47,23 +52,18 @@
     checkReversePath = true;
     logReversePathDrops = true;
     logRefusedConnections = true;
-
     extraCommands = ''
       iptables-nft -P INPUT DROP
       iptables-nft -P FORWARD DROP
       iptables-nft -P OUTPUT DROP
       iptables-nft -A OUTPUT -p tcp --dport 443 -j ACCEPT
       iptables-nft -A OUTPUT -p tcp --dport 22 -j ACCEPT
-      iptables-nft -A OUTPUT -p tcp --dport 23 -d 193.33.179.54 -j ACCEPT # tardis
-      iptables-nft -A OUTPUT -p tcp --dport 23 -d 90.200.169.16 -j ACCEPT # ukbbs
-      iptables-nft -A OUTPUT -p tcp --dport 23 -d 45.36.114.180 -j ACCEPT # fenric
-      iptables-nft -A OUTPUT -p tcp --dport 23 -d 81.147.120.6 -j ACCEPT # nostromo
-      iptables-nft -A OUTPUT -p tcp --dport 23 -d 66.212.64.194 -j ACCEPT # scn
       iptables-nft -A OUTPUT -p udp --dport 53 -j ACCEPT
       iptables-nft -A OUTPUT -p udp --dport 67 -j ACCEPT
-      iptables-nft -A nixos-fw -p tcp -s 172.16.0.0/12 --dport 3306 -j nixos-fw-accept
-    '';
-
+      iptables-nft -A OUTPUT -p udp --dport 19302:19309 -j ACCEPT # Google Meet
+      iptables-nft -A nixos-fw -p tcp -s 172.16.0.0/12 --dport 3306 -j nixos-fw-accept # Dev MySQL
+    '' +
+      (lib.strings.concatStringsSep "\n" (map allowTelnet (attrValues telnetServers)));
     # Allow private IP ranges
     # extraCommands = ''
     # '';

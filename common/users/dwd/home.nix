@@ -1,8 +1,10 @@
-pkgs: 
+pkgs:
+with pkgs.lib;
 let impermanence = builtins.fetchTarball {
       url =
         "https://github.com/nix-community/impermanence/archive/master.tar.gz";
     };
+    telnetServers = import ../../servers/telnet.nix;
 in {
   imports = [ "${impermanence}/home-manager.nix" ];
   # man home-configuration.nix
@@ -131,17 +133,12 @@ in {
       "exit"
       "logout"
     ];
-    shellAliases = {
-      ukbbs = "ztelnet ukbbs.zapto.org";
-      fenric = "ztelnet fenric.muppetwhore.net";
-      tardis = "ztelnet bbs.cortex-media.info";
-      nostromo = "ztelnet nostromo.synchro.net";
-      # Magnum: 01484 320007
-      # Mystic: 0208 3633637
-      scn = "ztelnet scn.org";
-      ll = "ls -l";
-      ".." = "cd ..";
-    };
+    shellAliases = recursiveUpdate
+      (attrsets.mapAttrs (name: value: "ztelnet ${value}") telnetServers)
+      {
+        ll = "ls -l";
+        ".." = "cd ..";
+      };
     initExtra = ''
       source <(doctl completion bash)
     '';
@@ -171,6 +168,17 @@ in {
         };
         channels = {
           nixos.autoJoin = true;
+        };
+      };
+      megworld = {
+        nick = "dwd";
+        server = {
+          address = "irc.megworld.co.uk";
+          port = 6697;
+          autoConnect = true;
+        };
+        channels = {
+          megworld.autoJoin = true;
         };
       };
     };
