@@ -1,7 +1,10 @@
 { pkgs, unstable, ... }:
 with pkgs; [
+    beekeeper-studio # for work, TODO split out?
+    dbeaver # for work, TODO split out?
     etherape
     insomnia
+    # mysql-workbench # for work, TODO split out? # error: pynacl-1.4.0 not supported for interpreter python2.7
     nextcloud-client
     postman
     putty # no desktop icon
