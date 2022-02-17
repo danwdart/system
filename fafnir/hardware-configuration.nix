@@ -78,6 +78,7 @@ in
       "/home/dwd/VMs"
       "/home/dwd/.android"
       "/home/dwd/.armagetronad"
+      "/home/dwd/.azure" # for work, TODO split out?
       "/home/dwd/.cache/nix" # Stop having to keep redownloading tarballs and search indices
       "/home/dwd/.cache/spotify" # Keep me logged in
       "/home/dwd/.config/autostart"
