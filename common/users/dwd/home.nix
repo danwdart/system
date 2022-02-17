@@ -88,25 +88,6 @@ in {
   programs.ssh = {
     enable = true;
     matchBlocks = {
-      dev = {
-        hostname = "localhost";
-        user = "root";
-        port = 2222;
-        localForwards = [
-          {
-            bind.port = 4455;
-            host.address = "localhost";
-            host.port = 445;
-          }
-        ];
-      };
-      imac = {
-        hostname = "192.168.1.184";
-      };
-      windows = {
-        hostname = "192.168.1.113";
-        user = "micro";
-      };
       sn = {
         hostname = "synchro.net";
       };
@@ -118,6 +99,9 @@ in {
         user = "dandart";
       };
     };
+    includes = [
+      "/home/dwd/code/commissions/roqqett/Data/sshconfig"
+    ];
   };
 
   programs.bash = {
@@ -141,6 +125,17 @@ in {
       };
     initExtra = ''
       source <(doctl completion bash)
+      echo Welcome to $(uname -n).
+      echo NixOS version: $(nixos-version)
+      # echo Nix version: $(nix --version | awk '{print $3}')
+      echo OS: $(uname -o)
+      echo Kernel: $(uname -sr)
+      echo CPU: $(cat /proc/cpuinfo | grep "model name" | head -n1 | cut -d ':' -f 2), architecture: $(uname -m)
+      echo RAM: $(free -h | head -n2 | tail -n1 | awk '{print $7}')B available of $(free -h | head -n2 | tail -n1 | awk '{print $2}')B 
+      echo Swap: $(free -h | head -n3 | tail -n1 | awk '{print $4}')B free of $(free -h | head -n3 | tail -n1 | awk '{print $2}')B 
+      echo Disk usage:
+      df -h / /nix
+      echo Have fun!
     '';
     # ddate
     # fortune -s goedel
