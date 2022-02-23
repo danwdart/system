@@ -1,12 +1,7 @@
 pkgs:
 with pkgs.lib;
-let impermanence = builtins.fetchTarball {
-      url =
-        "https://github.com/nix-community/impermanence/archive/master.tar.gz";
-    };
-    telnetServers = import ../../servers/telnet.nix;
+let telnetServers = import ../../servers/telnet.nix;
 in {
-  imports = [ "${impermanence}/home-manager.nix" ];
   # man home-configuration.nix
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
