@@ -52,27 +52,18 @@ in {
     checkReversePath = true;
     logReversePathDrops = true;
     logRefusedConnections = true;
-    extraCommands = ''
-      iptables-nft -P INPUT DROP
-      iptables-nft -P FORWARD DROP
-      iptables-nft -P OUTPUT DROP
-      iptables-nft -A OUTPUT -p tcp --dport 443 -j ACCEPT
-      iptables-nft -A OUTPUT -p tcp --dport 22 -j ACCEPT
-      iptables-nft -A OUTPUT -p udp --dport 53 -j ACCEPT
-      iptables-nft -A OUTPUT -p udp --dport 67 -j ACCEPT
-      iptables-nft -A OUTPUT -p udp --dport 19302:19309 -j ACCEPT # Google Meet
-      iptables-nft -A nixos-fw -p tcp -s 172.16.0.0/12 --dport 3306 -j nixos-fw-accept # Dev MySQL
-    '' +
+    # TODO to nftables
+    extraCommands = builtins.readFile "/home/dwd/code/mine/nix/system/common/conf/iptables.sh" +
       (lib.strings.concatStringsSep "\n" (map allowTelnet (attrValues telnetServers)));
     # Allow private IP ranges
     # extraCommands = ''
     # '';
-    # iptables -A nixos-fw -p tcp --source 10.0.0.0/8 -j nixos-fw-accept
-    # iptables -A nixos-fw -p tcp --source 172.16.0.0/12 -j nixos-fw-accept
-    # iptables -A nixos-fw -p tcp --source 192.168.0.0/16 -j nixos-fw-accept
+    # iptables-nft -A INPUT -p tcp -s 10.0.0.0/8 -j ACCEPT
+    # iptables-nft -A INPUT -p tcp -s 172.16.0.0/12 -j ACCEPT
+    # iptables-nft -A INPUT -p tcp -s 192.168.0.0/16 -j ACCEPT
   };
 
   extraHosts = ''
-    127.0.0.1      fafnir.dandart.co.uk
+    127.0.0.1      fafnir.dandart.co.uk grocy.dandart.co.uk nextcloud.dandart.co.uk
   '';
 }
