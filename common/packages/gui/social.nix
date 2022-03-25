@@ -4,6 +4,5 @@ with pkgs; [
     element-desktop
     skype
     slack
-    teams
     zoom-us
 ]
