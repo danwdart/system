@@ -1,6 +1,8 @@
 allow id 0403:6001 serial "" name "USB <-> Serial" hash "tyx9qLC6f1d6iP2r50GwIOk7+ecr0ilDrMTFyKGK9V8="
 allow id 045e:02ea serial "3032363030343237393036363336" name "Controller" hash "ZDxa4Tr+9jjw63yo3XSVwOGX6+ytaiwGkMd+CRR/jVQ="
 allow id 054c:0268 serial "" name "PLAYSTATION(R)3 Controller" hash "K9zBxVwO/eS6XiXh8/tmz2YlX3mFlIv1yFjCdStcUsk="
+allow id 057e:2000 serial "XKJ70043999289" name "Nintendo Switch" hash "SmPo30EvWvNo35NkW+C5dC3p7o96YXsdDnTX0ngpyXE=" 
+allow id 057e:201d serial "XKJ70043999289" name "Nintendo Switch" hash "2byAQJMtbVsgJa4dy1ie2wB0X38JZcwReYHHh+vGq2U="
 allow id 05e3:0751 serial "" name "USB Storage" hash "zNR+zUn0ym93v361FlHUH5YzvYcQ1nwBk0nBEyXdjY4="
 allow id 0644:0000 serial "" name "TEACV0.0" hash "1b0sPCLzQdXiX+4yFR9qLc60isfwL528XeeV/SkXduE="
 allow id 067b:2303 serial "" name "USB-Serial Controller" hash "M1FZd2YYLUDOG0oT2FxeFwJdYzOrmwfdvT6lYc3mk3k="
@@ -40,3 +42,4 @@ allow id 1d6b:0003 serial "0000:00:14.0" name "xHCI Host Controller" hash "3Wo3X
 allow id 534d:0021 serial "" name "AV TO USB2.0" hash "r/t54EA9hQrTM22AyNowaX/7AwZP15/PRIbMGNTEp7Y="
 allow id 8087:07dc serial "" name "" hash "fjU6XNd4y5XwgDL9Jillv35ogtJYUi483qhA1gkeZy0="
 allow id 8087:8000 serial "" name "" hash "XzcoqtfAn5qKbaJc8BOrBSChiNLXTB5vdJF8EZzSTh0="
+
