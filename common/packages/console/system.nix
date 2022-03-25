@@ -32,6 +32,7 @@ with pkgs; [
     rpiboot
     sixpair
     socat
+    testdisk
     u3-tool
     unrar
     unzip
