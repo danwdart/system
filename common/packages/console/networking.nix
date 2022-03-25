@@ -10,10 +10,10 @@ with pkgs; [
     iodine
     irssi
     mailutils
+    nixops
     openvpn
     python39Packages.mitmproxy
     ngrok
     # proxytunnel # insecure openssl
     slirp4netns
-    tunnelto # like ngrok?
 ]
