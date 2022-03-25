@@ -25,4 +25,5 @@
     ++ import ./phone.nix pkgs
     ++ import ./social.nix pkgs
     ++ import ./system.nix pkgs
+    ++ import ./toys.nix pkgs
     ++ import ./video-creation.nix pkgs
