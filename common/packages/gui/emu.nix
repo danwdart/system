@@ -15,6 +15,9 @@ with pkgs; [
     # winePackages.fonts
     # master.winePackages.staging
     # winetricks # depend on correct version
+    (unstable.winetricks.override {
+        wine = unstable.wineWowPackages.staging;
+    })
     unstable.wineWowPackages.fonts # stable = 6.2, unstable = 7
     # master.wineWowPackages.staging # takes forever to compile
     unstable.wineWowPackages.staging # stable = 6.2, unstable = 7
