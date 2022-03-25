@@ -1,5 +1,11 @@
 pkgs:
-{
+let
+  # needs /persist, see: https://github.com/nix-community/impermanence/issues/87
+  rootDir = "/persist/home/dwd/code/mine/nix/system";
+  hostname = "fafnir";
+  hostDir = "${rootDir}/${hostname}";
+  privateDir = "${hostDir}/private";
+in {
   cron = {
     # enable = true;
     # Will only show in outbox if enabled
@@ -10,6 +16,14 @@ pkgs:
       #m     h d m w
       # Every Sunday at midnight
     ];
+  };
+
+  earlyoom = {
+    enable = true;
+    enableNotifications = true;
+    freeSwapThreshold = 5;
+    freeMemThreshold = 5;
+    # useKernelOOMKiller = false;
   };
 
   freenet = {
@@ -101,45 +115,130 @@ pkgs:
   #    haskellPackages.xmonad-contrib
   #    haskellPackages.monad-logger
   #  ];
-  #  haskellPackages = pkgs.haskell.packages.ghc921;
+  #  haskellPackages = pkgs.haskell.packages.ghc922;
   #};
   
   xserver.layout = "gb";
   xserver.xkbOptions = "terminate:ctrl_alt_bksp,caps:escape,compose:ralt";
   xserver.xkbModel = "latitude";
-  
-  grocy = {
-    enable = false;
-    hostName = "fafnir.dandart.co.uk";
-    nginx = {
-      enableSSL = false;
+
+  nginx = {
+    enable = true;
+    # enableReload = true;
+    defaultListenAddresses = [
+      "127.0.0.1"
+      "192.168.1.101"
+    ];
+    statusPage = true;
+    recommendedProxySettings = true;
+    # sso = {};
+    virtualHosts = {
+      "localhost" = {
+        serverAliases = [
+          "192.168.1.101"
+        ];
+        root = "${hostDir}/private_html";
+      };
+      "79.78.147.142" = {
+        root = "${hostDir}/public_html";
+      };
+      "home.dandart.co.uk" = {
+        default = true;
+        onlySSL = true;
+        enableACME = true;
+        # useACMEHost = ""; # security.acme.certs
+        root = "${hostDir}/public_html";
+      };
+      "nextcloud.dandart.co.uk" = {
+#        # http3 = true;
+        onlySSL = true;
+        enableACME = true;
+      };
+      "roqqett.dandart.co.uk" = {
+        # http3 = true;
+        onlySSL = true;
+        enableACME = true;
+        serverAliases = [];
+        locations = {
+          "/" = {
+            proxyPass = "http://localhost:5000/";
+            proxyWebsockets = true;
+          };
+        };
+      };
     };
-    settings.calendar.firstDayOfWeek = 1;
-    settings.currency = "GBP";
-    settings.culture = "en_GB";
+  };
+ 
+  grocy = {
+    enable = true;
+    hostName = "grocy.dandart.co.uk";
+    nginx = {
+      enableSSL = true;
+    };
+    settings = {
+      calendar = {
+        firstDayOfWeek = 1;
+      };
+      currency = "GBP";
+      culture = "en_GB";
+    };
   };
 
-  postgresql = {
+  plex = {
     enable = true;
-    package = pkgs.postgresql_10;
+    package = pkgs.plex;
+    openFirewall = true;
+  };
+
+  nextcloud = {
+    enable = true;
+    package = pkgs.nextcloud23;
+    https = true;
+    hostName = "nextcloud.dandart.co.uk";
+    webfinger = true;
+    config = {
+      dbtype = "pgsql";
+      dbhost = "localhost";
+      dbname = "nextcloud";
+      dbuser = "nextcloud";
+      dbpassFile = "${privateDir}/nextcloud/dbpass";
+      adminuser = "root";
+      adminpassFile = "${privateDir}/nextcloud/adminpass";
+      defaultPhoneRegion = "GB";
+      overwriteProtocol = "https";
+    };
+    autoUpdateApps = {
+      enable = true;
+    };
+  };
+
+  postgresql = let
+    nextcloudPassword = builtins.readFile "${privateDir}/nextcloud/dbpass";
+    msfPassword = builtins.readFile "${privateDir}/msf/dbpass";
+  in {
+    enable = true;
+    package = pkgs.postgresql_14;
     enableTCPIP = true;
     authentication = pkgs.lib.mkOverride 10 ''
       local all all trust
       host all all ::1/128 trust
     '';
     initialScript = pkgs.writeText "backend-initScript" ''
-      CREATE ROLE msf WITH LOGIN PASSWORD 'msf' CREATEDB;
+      CREATE ROLE msf WITH LOGIN PASSWORD '${msfPassword}' CREATEDB;
       CREATE DATABASE msf;
       GRANT ALL PRIVILEGES ON DATABASE msf TO msf;
+      CREATE ROLE nextcloud WITH LOGIN PASSWORD '${nextcloudPassword}' CREATEDB;
+      CREATE DATABASE nextcloud;
+      GRANT ALL PRIVILEGES ON DATABASE nextcloud TO nextcloud;
     '';
   };
 
   udisks2.enable = true;
 
-  usbguard = {
-    enable = true;
-    rules = builtins.readFile ./conf/usbguard.rules;
-  };
+  #usbguard = {
+  #  enable = true;
+  #  rules = builtins.readFile ./conf/usbguard.rules;
+  #};
 
   # miredo.enable = true;
 
@@ -167,7 +266,7 @@ pkgs:
       smtp_sasl_security_options = "noanonymous";
       smtp_use_tls = true;
       # postmap this!
-      smtp_sasl_password_maps = "hash:/home/dwd/code/mine/nix/system/fafnir/private/sasl_passwd";
+      smtp_sasl_password_maps = "hash:${privateDir}/sasl_passwd";
     };
     relayHost = "smtp.gmail.com";
     relayPort = 587;
