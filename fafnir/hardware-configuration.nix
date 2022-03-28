@@ -6,7 +6,7 @@ let
   device = uuid: "/dev/disk/by-uuid/${uuid}";
   btrfsDevice = device "9b7beb2f-1f4d-49e7-990d-1dab4f611fa7";
   bootDevice = device "860D-1A99";
-  swapDevice = device "55f0c8d9-20d2-4af1-a586-25e8a97847e4";
+  # swapDevice = device "55f0c8d9-20d2-4af1-a586-25e8a97847e4";
   btrfsMount = subvol: {
     device = btrfsDevice;
     fsType = "btrfs";
@@ -50,9 +50,9 @@ in
   };
 
   swapDevices = [
-    {
-      device = swapDevice;
-    }
+    # {
+      # device = swapDevice;
+    # }
   ];
 
   environment.persistence."/persist" = {
