@@ -168,7 +168,10 @@ $IPT -A OUTPUT -p udp -s $HOME_IP --sport 7881 -j ACCEPT
 $IPT -A OUTPUT -p udp -s $HOME_IP --sport 8881 -j ACCEPT
 
 # irc
-$IPT -A OUTPUT -p tcp -s $HOME_IP --sport 6697 -j ACCEPT
+$IPT -A OUTPUT -p tcp -s $HOME_IP --dport 6697 -j ACCEPT
+
+# whois
+$IPT -A OUTPUT -p tcp -s $HOME_IP --dport 43 -j ACCEPT
 
 # lo
 $IPT -A OUTPUT -s $LOCAL_8 -d $LOCAL_8 -o lo -j ACCEPT
