@@ -135,6 +135,7 @@ in {
     virtualHosts = {
       "localhost" = {
         serverAliases = [
+          "127.0.0.1"
           "192.168.1.101"
         ];
         root = "${hostDir}/private_html";
@@ -162,6 +163,61 @@ in {
         locations = {
           "/" = {
             proxyPass = "http://localhost:5000/";
+            proxyWebsockets = true;
+          };
+        };
+      };
+      "dev.dandart.co.uk" = {
+        onlySSL = true;
+        enableACME = true;
+        serverAliases = [];
+        locations = {
+          "/" = {
+            root = "/persist/home/dwd/code/mine/haskell/websites/.sites/dandart";
+            proxyWebsockets = true;
+          };
+        };
+      };
+      "dev.jolharg.com" = {
+        onlySSL = true;
+        enableACME = true;
+        serverAliases = [];
+        locations = {
+          "/" = {
+            root = "/persist/home/dwd/code/mine/haskell/websites/.sites/jolharg";
+            proxyWebsockets = true;
+          };
+        };
+      };
+      "dev.madhackerreviews.com" = {
+        onlySSL = true;
+        enableACME = true;
+        serverAliases = [];
+        locations = {
+          "/" = {
+            root = "/persist/home/dwd/code/mine/haskell/websites/.sites/madhacker";
+            proxyWebsockets = true;
+          };
+        };
+      };
+      "dev.m0ori.com" = {
+        onlySSL = true;
+        enableACME = true;
+        serverAliases = [];
+        locations = {
+          "/" = {
+            root = "/persist/home/dwd/code/mine/haskell/websites/.sites/m0ori";
+            proxyWebsockets = true;
+          };
+        };
+      };
+      "dev.blog.dandart.co.uk" = {
+        onlySSL = true;
+        enableACME = true;
+        serverAliases = [];
+        locations = {
+          "/" = {
+            root = "/persist/home/dwd/code/mine/haskell/websites/.sites/blog";
             proxyWebsockets = true;
           };
         };
