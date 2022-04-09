@@ -55,6 +55,14 @@ in
     # }
   ];
 
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    numDevices = 1;
+    swapDevices = 1;
+    memoryPercent = 50;
+  };
+
   environment.persistence."/persist" = {
     directories = [
       "/etc/ssh"
@@ -149,7 +157,9 @@ in
       "/home/dwd/.config/powermanagementprofilesrc"
       "/home/dwd/.config/WSJT-X.ini"
       "/home/dwd/.local/share/user-places.xbel"
+      "/home/dwd/.nix-channels"
       "/home/dwd/.serverlessrc"
+      # "/root/.nix-channels" # keeps dying
     ];
   };
 
