@@ -7,7 +7,7 @@ let
   privateDir = "${hostDir}/private";
 in {
   cron = {
-    # enable = true;
+    enable = true;
     # Will only show in outbox if enabled
     # mailto = "cron@dandart.co.uk";
     systemCronJobs = [
@@ -15,6 +15,8 @@ in {
       #@weekly @monthly @yearly @annually @hourly @daily @reboot 
       #m     h d m w
       # Every Sunday at midnight
+      "0 * * * * dwd  nix-channel --update"
+      "0 * * * * root nix-channel --update"
     ];
   };
 
@@ -160,15 +162,21 @@ in {
         onlySSL = true;
         enableACME = true;
         serverAliases = [];
+        extraConfig = ''
+          error_page 502 /502.html;
+        '';
         locations = {
           "/" = {
             proxyPass = "http://localhost:5000/";
             proxyWebsockets = true;
           };
+          "/502.html" = {
+            root = "${hostDir}/roqqett_html";
+          };
         };
       };
       "dev.dandart.co.uk" = {
-        onlySSL = true;
+        # onlySSL = true;
         enableACME = true;
         serverAliases = [];
         locations = {
@@ -179,7 +187,7 @@ in {
         };
       };
       "dev.jolharg.com" = {
-        onlySSL = true;
+        # onlySSL = true;
         enableACME = true;
         serverAliases = [];
         locations = {
@@ -190,7 +198,7 @@ in {
         };
       };
       "dev.madhackerreviews.com" = {
-        onlySSL = true;
+        # onlySSL = true;
         enableACME = true;
         serverAliases = [];
         locations = {
@@ -201,7 +209,7 @@ in {
         };
       };
       "dev.m0ori.com" = {
-        onlySSL = true;
+        # onlySSL = true;
         enableACME = true;
         serverAliases = [];
         locations = {
@@ -212,7 +220,7 @@ in {
         };
       };
       "dev.blog.dandart.co.uk" = {
-        onlySSL = true;
+        # onlySSL = true;
         enableACME = true;
         serverAliases = [];
         locations = {
