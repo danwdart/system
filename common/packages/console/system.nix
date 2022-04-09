@@ -37,6 +37,7 @@ with pkgs; [
     unrar
     unzip
     usbutils
+    ventoy-bin
     wget
     wirelesstools
 ]
