@@ -1,8 +1,20 @@
 pkgs:
 {
-  loader.systemd-boot.enable = true;
-  loader.systemd-boot.memtest86.enable = true;
-  
+  loader.systemd-boot = {
+    enable = true;
+    editor = false;
+    memtest86.enable = true;
+    configurationLimit = 3;
+  };
+
+  # for rescue purposes, copy 
+  #loader.generationsDir = {
+    # link latest generation to /boot/default/kernel and /boot/default/initrd
+  #  enable = true;
+    # copy kernels to /boot so there's no need for /nix/store
+  #  copyKernels = true;
+  #};
+
   loader.efi.canTouchEfiVariables = true;
 
   kernel.sysctl = {
@@ -11,8 +23,8 @@ pkgs:
     # Fix some apps, see bug https://github.com/NixOS/nixpkgs/issues/110468
     # Specifically needed for hardened kernels
     "kernel.unprivileged_userns_clone" = 1;
-    # try not to use swap
-    "vm.swappiness" = 0;
+    # try to use zram first
+    "vm.swappiness" = 100;
   };
 
   # linuxPackages_latest
