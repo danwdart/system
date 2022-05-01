@@ -23,6 +23,7 @@
     ++ import ./networking.nix {pkgs = pkgs; unstable = unstable; }
     ++ import ./office.nix pkgs
     ++ import ./phone.nix pkgs
+    ++ import ./security.nix pkgs
     ++ import ./social.nix pkgs
     ++ import ./system.nix pkgs
     ++ import ./toys.nix pkgs
