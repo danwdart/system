@@ -2,6 +2,9 @@ pkgs:
 let
   # needs /persist, see: https://github.com/nix-community/impermanence/issues/87
   rootDir = "/persist/home/dwd/code/mine/nix/system";
+  haskellSites = "/persist/home/dwd/code/mine/haskell";
+  roqHome = "/persist/home/dwd/code/commissions/roqqett";
+  websites = "${haskellSites}/websites/.sites";
   hostname = "fafnir";
   hostDir = "${rootDir}/${hostname}";
   privateDir = "${hostDir}/private";
@@ -147,19 +150,38 @@ in {
       };
       "home.dandart.co.uk" = {
         default = true;
-        onlySSL = true;
+        forceSSL = true;
         enableACME = true;
         # useACMEHost = ""; # security.acme.certs
         root = "${hostDir}/public_html";
       };
       "nextcloud.dandart.co.uk" = {
 #        # http3 = true;
-        onlySSL = true;
+        forceSSL = true;
         enableACME = true;
+      };
+      "dev.localhost" = {
+        # http3 = true;
+        forceSSL = true;
+        sslCertificate = "${roqHome}/roqqett-web-api/certs/dev-localhost-cert.pem";
+        sslCertificateKey = "${roqHome}/roqqett-web-api/certs/dev-localhost-key.pem";
+        serverAliases = [];
+        extraConfig = ''
+          error_page 502 /502.html;
+        '';
+        locations = {
+          "/" = {
+            proxyPass = "http://localhost:5000/";
+            proxyWebsockets = true;
+          };
+          "/502.html" = {
+            root = "${roqHome}/Data/static/";
+          };
+        };
       };
       "roqqett.dandart.co.uk" = {
         # http3 = true;
-        onlySSL = true;
+        forceSSL = true;
         enableACME = true;
         serverAliases = [];
         extraConfig = ''
@@ -171,23 +193,41 @@ in {
             proxyWebsockets = true;
           };
           "/502.html" = {
+            root = "${roqHome}/Data/static/";
+          };
+        };
+      };
+      "roq-wp.dandart.co.uk" = {
+        # http3 = true;
+        forceSSL = true;
+        enableACME = true;
+        serverAliases = [];
+        extraConfig = ''
+          error_page 502 /502.html;
+        '';
+        locations = {
+          "/" = {
+            proxyPass = "http://localhost:5600/";
+            proxyWebsockets = true;
+          };
+          "/502.html" = {
             root = "${hostDir}/roqqett_html";
           };
         };
       };
       "dev.dandart.co.uk" = {
-        # onlySSL = true;
+        forceSSL = true;
         enableACME = true;
         serverAliases = [];
         locations = {
           "/" = {
-            root = "/persist/home/dwd/code/mine/haskell/websites/.sites/dandart";
+            root = "${websites}/dandart";
             proxyWebsockets = true;
           };
         };
       };
       "dev.jolharg.com" = {
-        # onlySSL = true;
+        forceSSL = true;
         enableACME = true;
         serverAliases = [];
         locations = {
@@ -198,35 +238,77 @@ in {
         };
       };
       "dev.madhackerreviews.com" = {
-        # onlySSL = true;
+        forceSSL = true;
         enableACME = true;
         serverAliases = [];
         locations = {
           "/" = {
-            root = "/persist/home/dwd/code/mine/haskell/websites/.sites/madhacker";
+            root = "${websites}/madhacker";
             proxyWebsockets = true;
           };
         };
       };
       "dev.m0ori.com" = {
-        # onlySSL = true;
+        forceSSL = true;
         enableACME = true;
         serverAliases = [];
         locations = {
           "/" = {
-            root = "/persist/home/dwd/code/mine/haskell/websites/.sites/m0ori";
+            root = "${websites}/m0ori";
             proxyWebsockets = true;
           };
         };
       };
       "dev.blog.dandart.co.uk" = {
-        # onlySSL = true;
+        forceSSL = true;
         enableACME = true;
         serverAliases = [];
         locations = {
           "/" = {
-            root = "/persist/home/dwd/code/mine/haskell/websites/.sites/blog";
+            root = "${websites}/blog";
             proxyWebsockets = true;
+          };
+        };
+      };
+      "dev.jobfinder.jolharg.com" = {
+        # http3 = true;
+        forceSSL = true;
+        enableACME = true;
+        serverAliases = [];
+        locations = {
+          "/" = {
+            root = "${haskellSites}/jobfinder/dist-newstyle/build/x86_64-linux/ghcjs-8.6.0.1/frontend-0.1.0.0/x/frontend/build/frontend/frontend.jsexe";
+            proxyWebsockets = true;
+          };
+        };
+      };
+      "jobfinder.jolharg.com" = {
+        # http3 = true;
+        forceSSL = true;
+        enableACME = true;
+        serverAliases = [];
+        locations = {
+          "/" = {
+            root = "${haskellSites}/jobfinder/result/frontend/bin/frontend.jsexe";
+            proxyWebsockets = true;
+          };
+        };
+      };
+      "api.jobfinder.jolharg.com" = {
+        # http3 = true;
+        forceSSL = true;
+        enableACME = true;
+        serverAliases = [];
+        extraConfig = ''
+          error_page 502 /502.html;
+        '';
+        locations = {
+          "/" = {
+            proxyPass = "http://localhost:8081/";
+            proxyWebsockets = true;
+          };
+          "/502.html" = {
+            root = "${haskellSites}/jobfinder/app/backend/data";
           };
         };
       };
