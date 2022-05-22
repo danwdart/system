@@ -156,7 +156,7 @@ in {
         root = "${hostDir}/public_html";
       };
       "nextcloud.dandart.co.uk" = {
-#        # http3 = true;
+        # http3 = true;
         forceSSL = true;
         enableACME = true;
       };
@@ -183,7 +183,9 @@ in {
         # http3 = true;
         forceSSL = true;
         enableACME = true;
-        serverAliases = [];
+        serverAliases = [
+          "roqqett.dandart.uk"
+        ];
         extraConfig = ''
           error_page 502 /502.html;
         '';
@@ -201,7 +203,9 @@ in {
         # http3 = true;
         forceSSL = true;
         enableACME = true;
-        serverAliases = [];
+        serverAliases = [
+          "roq-wp.dandart.uk"
+        ];
         extraConfig = ''
           error_page 502 /502.html;
         '';
