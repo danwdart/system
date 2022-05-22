@@ -1,4 +1,4 @@
-pkgs:
+{ pkgs, unstable, ...}:
 {
   loader.systemd-boot = {
     enable = true;
@@ -44,7 +44,7 @@ pkgs:
   # https://github.com/zen-kernel/zen-kernel
   # linuxPackages_zen
 
-  kernelPackages = pkgs.linuxPackages_5_15_hardened;
+  kernelPackages = unstable.linuxPackages_5_17_hardened;
 
   plymouth.enable = true;
 }
