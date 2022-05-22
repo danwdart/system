@@ -1,6 +1,10 @@
-{...}:
+{unstable, ...}:
 {
   autoOptimiseStore = true;
+
+  package = unstable.nix;
+
+  # max-jobs = 64;
 
   binaryCaches = [
     "https://cache.nixos.org"

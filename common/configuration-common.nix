@@ -22,13 +22,13 @@ in {
       ./cachix.nix
     ];
 
-  boot = import ./boot.nix pkgs;
+  boot = import ./boot.nix {pkgs = pkgs; unstable = unstable;};
   console = import ./console.nix {};
   environment = import ./environment.nix {pkgs = pkgs; unstable = unstable; config = config; lib = lib;};
   hardware = import ./hardware.nix pkgs;
   i18n = import ./i18n.nix {};
   networking = import ./networking.nix { lib = lib; };
-  nix = import ./nix.nix {};
+  nix = import ./nix.nix { unstable = unstable; };
   nixpkgs = import ./nixpkgs.nix {};
   programs = import ./programs.nix {};
   security = import ./security.nix pkgs;
