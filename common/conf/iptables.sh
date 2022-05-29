@@ -124,6 +124,14 @@ $IPT -A OUTPUT -p tcp --dport 443 -j ACCEPT
 # SSH out
 $IPT -A OUTPUT -p tcp --dport 22 -j ACCEPT
 
+# Gmail SMTP TLS out
+$IPT -A OUTPUT -p tcp --dport 587 -d 173.194.76.109 -j ACCEPT
+$IPT -A OUTPUT -p tcp --dport 587 -d 173.194.76.108 -j ACCEPT
+
+# Gmail IMAP TLS out
+$IPT -A OUTPUT -p tcp --dport 993 -d 74.125.133.109 -j ACCEPT
+$IPT -A OUTPUT -p tcp --dport 993 -d 74.125.133.108 -j ACCEPT
+
 # DNS out
 $IPT -A OUTPUT -p udp --dport 53 -j ACCEPT
 
