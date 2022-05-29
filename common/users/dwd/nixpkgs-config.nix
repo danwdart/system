@@ -8,6 +8,14 @@
       https://hydra.iohk.io
       https://static-haskell-nix.cachix.org
     ];
+    trusted-substituters = [
+      https://cache.nixos.org
+      https://websites.cachix.org
+      https://nixcache.reflex-frp.org
+      https://nixcache.webghc.org
+      https://hydra.iohk.io
+      https://static-haskell-nix.cachix.org
+    ];
     trusted-public-keys = [
       cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
       ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI=
