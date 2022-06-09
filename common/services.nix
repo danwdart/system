@@ -17,9 +17,8 @@ in {
       # see https://www.freebsd.org/cgi/man.cgi?crontab%285%29 for special:
       #@weekly @monthly @yearly @annually @hourly @daily @reboot 
       #m     h d m w
-      # Every Sunday at midnight
-      "0 * * * * dwd  nix-channel --update"
-      "0 * * * * root nix-channel --update"
+      "0 * * * * dwd  RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT"
+      "0 * * * * root RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT"
     ];
   };
 
@@ -281,7 +280,7 @@ in {
         serverAliases = [];
         locations = {
           "/" = {
-            root = "${haskellSites}/jobfinder/dist-newstyle/build/x86_64-linux/ghcjs-8.6.0.1/frontend-0.1.0.0/x/frontend/build/frontend/frontend.jsexe";
+            root = "${haskellSites}/jobfinder/dist-newstyle/build/x86_64-linux/ghcjs-8.6.0.1/ui-0.1.0.0/x/ui/build/ui/ui.jsexe";
             proxyWebsockets = true;
           };
         };
@@ -293,7 +292,7 @@ in {
         serverAliases = [];
         locations = {
           "/" = {
-            root = "${haskellSites}/jobfinder/result/frontend/bin/frontend.jsexe";
+            root = "${haskellSites}/jobfinder/result/ui/bin/ui.jsexe";
             proxyWebsockets = true;
           };
         };
