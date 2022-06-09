@@ -47,6 +47,9 @@ $IPT -A INPUT -p udp -d $HOME_IP --dport 7881 -j ACCEPT
 # $IPT -A INPUT -p tcp -d $HOME_IP --dport 8881 -j ACCEPT
 # $IPT -A INPUT -p udp -d $HOME_IP --dport 8881 -j ACCEPT
 
+# FTP responses
+$IPT -A INPUT -p tcp -d $HOME_IP --sport 20 -j ACCEPT
+
 # IGMP Multicast
 $IPT -A INPUT -p igmp -s $HOME_ROUTER -d $MULTICAST_4 -j ACCEPT
 
@@ -178,6 +181,12 @@ $IPT -A OUTPUT -p tcp -s $HOME_IP --dport 6697 -j ACCEPT
 
 # whois
 $IPT -A OUTPUT -p tcp -s $HOME_IP --dport 43 -j ACCEPT
+
+# FTP
+$IPT -A OUTPUT -p tcp -s $HOME_IP --dport 21 -j ACCEPT
+
+# SMB
+$IPT -A OUTPUT -p tcp -s $HOME_IP --dport 445 -j ACCEPT
 
 # lo
 $IPT -A OUTPUT -s $LOCAL_8 -d $LOCAL_8 -o lo -j ACCEPT
