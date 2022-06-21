@@ -13,7 +13,7 @@ let
   #  };
   #};
   home-manager = builtins.fetchTarball {
-    url = "https://github.com/danwdart/home-manager/archive/release-21.11.tar.gz";
+    url = "https://github.com/danwdart/home-manager/archive/master.tar.gz";
   };
 in {
   imports =
