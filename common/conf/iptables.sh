@@ -2,7 +2,7 @@ export HOME_IP=192.168.1.101
 export HOME_ROUTER=192.168.1.1
 export HOME_BCAST=192.168.1.255
 
-# export PRIVNET_8=10.0.0.0/8
+export PRIVNET_8=10.0.0.0/8
 export PRIVNET_12=172.16.0.0/12
 # export PRIVNET_16=192.168.0.0/16
 export LOCAL_8=127.0.0.0/8
@@ -188,8 +188,14 @@ $IPT -A OUTPUT -p tcp -s $HOME_IP --dport 21 -j ACCEPT
 # SMB
 $IPT -A OUTPUT -p tcp -s $HOME_IP --dport 445 -j ACCEPT
 
+# websdr
+$IPT -A OUTPUT -p tcp -s $HOME_IP -d 192.87.173.88 --dport 8901 -j ACCEPT
+
 # lo
 $IPT -A OUTPUT -s $LOCAL_8 -d $LOCAL_8 -o lo -j ACCEPT
+
+# all from VPN
+$IPT -A OUTPUT -p tcp -s $PRIVNET_8 -d $PRIVNET_12 -j ACCEPT
 
 # objects-us-east-1.dream.io for nix
 # $IPT -A OUTPUT -p tcp --dport 80 -d 208.113.201.37 -j ACCEPT
