@@ -24,6 +24,7 @@
       "kvm"
       "libvirtd"
       "networkmanager"
+      "plugdev"
       "vboxusers"
       "wheel"
       "wireshark"
