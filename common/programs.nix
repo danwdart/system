@@ -20,4 +20,7 @@
     enable = true;
     enableSSHSupport = true;
   };
+
+  # nethoscope.enable = true;
+  nix-ld.enable = true;
 }
