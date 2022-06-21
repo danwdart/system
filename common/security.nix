@@ -1,6 +1,6 @@
 {pkgs, ...}:
 {
-  acme.email = "acme@dandart.co.uk";
+  acme.defaults.email = "acme@dandart.co.uk";
   acme.acceptTerms = true;
 
   # pam.usb.enable = true;
