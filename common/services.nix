@@ -278,10 +278,17 @@ in {
         forceSSL = true;
         enableACME = true;
         serverAliases = [];
+        # htaccess?
+        extraConfig = ''
+          error_page 404 /index.html;
+        '';
         locations = {
           "/" = {
             root = "${haskellSites}/jobfinder/dist-newstyle/build/x86_64-linux/ghcjs-8.6.0.1/ui-0.1.0.0/x/ui/build/ui/ui.jsexe";
             proxyWebsockets = true;
+          };
+          "/api/" = {
+            proxyPass = "http://localhost:8081/api/";
           };
         };
       };
@@ -290,10 +297,17 @@ in {
         forceSSL = true;
         enableACME = true;
         serverAliases = [];
+        # htaccess?
+        extraConfig = ''
+          error_page 404 /index.html;
+        '';
         locations = {
           "/" = {
             root = "${haskellSites}/jobfinder/result/ui/bin/ui.jsexe";
             proxyWebsockets = true;
+          };
+          "/api/" = {
+            proxyPass = "http://localhost:8081/api/";
           };
         };
       };
@@ -341,7 +355,7 @@ in {
 
   nextcloud = {
     enable = true;
-    package = pkgs.nextcloud23;
+    package = pkgs.nextcloud24;
     https = true;
     hostName = "nextcloud.dandart.co.uk";
     webfinger = true;
@@ -468,4 +482,6 @@ in {
   fail2ban.enable = true;
 
   # ntopng.enable = true;
+
+  mozillavpn.enable = true;
 }
