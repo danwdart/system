@@ -16,4 +16,6 @@ pkgs:
     powerOnBoot = true;
     package = pkgs.bluezFull;
   };
+
+  hackrf.enable = true;
 }
