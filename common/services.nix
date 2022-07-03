@@ -147,6 +147,9 @@ in {
       "79.78.147.142" = {
         root = "${hostDir}/public_html";
       };
+      "44.131.255.4" = {
+        root = "${hostDir}/radio_html";
+      };
       "home.dandart.co.uk" = {
         default = true;
         forceSSL = true;
