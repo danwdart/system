@@ -2,6 +2,9 @@ export HOME_IP=192.168.1.101
 export HOME_ROUTER=192.168.1.1
 export HOME_BCAST=192.168.1.255
 
+export AMPR_HOME=44.131.255.4/32
+export AMPR_NET=44.0.0.0/8
+
 export PRIVNET_8=10.0.0.0/8
 export PRIVNET_12=172.16.0.0/12
 # export PRIVNET_16=192.168.0.0/16
@@ -56,14 +59,26 @@ $IPT -A INPUT -p igmp -s $HOME_ROUTER -d $MULTICAST_4 -j ACCEPT
 # DLNA (TODO related?)
 $IPT -A INPUT -p udp -s $HOME_ROUTER -d $HOME_IP --sport 1900 -j ACCEPT
 
+# Plex
+$IPT -A INPUT -p tcp -d $HOME_IP -m multiport --dport 32400,32401 -j ACCEPT
+
 # Plex network discovery
 $IPT -A INPUT -p udp -s $HOME_IP -d $HOME_BCAST -m multiport --dport 32410,32412,34213,32414 -j ACCEPT
+
+# DLNA
+$IPT -A INPUT -p udp -s $HOME_IP -d 239.255.255.250 --dport 1900 -j ACCEPT
 
 # all local for now
 $IPT -A INPUT -s 192.168.1.0/24 -d 192.168.1.101 -j ACCEPT
 
 # and all local broadcast
 $IPT -A INPUT -s 192.168.1.0/24 -d 192.168.1.255 -j ACCEPT
+
+# all local on ham
+$IPT -A INPUT -s $AMPR_NET -d $AMPR_HOME -j ACCEPT
+
+# except ssh/https/ircs
+$IPT -A INPUT -s $AMPR_NET -d $AMPR_HOME -p tcp -m multiport --dport 22,443,6697 -j REJECT
 
 # lo
 $IPT -A INPUT -s $LOCAL_8 -d $LOCAL_8 -i lo -j ACCEPT
@@ -190,6 +205,12 @@ $IPT -A OUTPUT -p tcp -s $HOME_IP --dport 445 -j ACCEPT
 
 # websdr
 $IPT -A OUTPUT -p tcp -s $HOME_IP -d 192.87.173.88 --dport 8901 -j ACCEPT
+
+# all local on ham
+$IPT -A OUTPUT -s $AMPR_HOME -d $AMPR_NET -j ACCEPT
+
+# except ssh/https/ircs
+$IPT -A OUTPUT -s $AMPR_HOME -d $AMPR_NET -p tcp -m multiport --dport 22,443,6697 -j REJECT
 
 # lo
 $IPT -A OUTPUT -s $LOCAL_8 -d $LOCAL_8 -o lo -j ACCEPT
