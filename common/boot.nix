@@ -44,7 +44,7 @@
   # https://github.com/zen-kernel/zen-kernel
   # linuxPackages_zen
 
-  kernelPackages = unstable.linuxPackages_5_17_hardened;
+  kernelPackages = unstable.linuxPackages_5_18_hardened;
 
   plymouth.enable = true;
 }
