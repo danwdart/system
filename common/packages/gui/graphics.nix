@@ -2,7 +2,7 @@ pkgs:
 with pkgs; [
     blender
     dia
-    geogebra
+    # geogebra
     gimp
     inkscape
 ]
