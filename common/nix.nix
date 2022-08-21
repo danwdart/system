@@ -1,30 +1,43 @@
 {unstable, ...}:
 {
-  autoOptimiseStore = true;
 
   package = unstable.nix;
 
   # max-jobs = 64;
 
-  binaryCaches = [
-    "https://cache.nixos.org"
-    "https://websites.cachix.org"
-    "https://nixcache.reflex-frp.org"
-    "https://nixcache.webghc.org"
-    "https://hydra.iohk.io"
-    "https://static-haskell-nix.cachix.org"
-  ];
+  
 
-  binaryCachePublicKeys = [
-    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-    "websites.cachix.org-1:YMPYgEeWohlGq/0wDvWLVSRoNcBS1jIOmku6Djv7zcM="
-    "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
-    "hydra.webghc.org-1:knW30Yb8EXYxmUZKEl0Vc6t2BDjAUQ5kfC1BKJ9qEG8="
-    "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-    "static-haskell-nix.cachix.org-1:Q17HawmAwaM1/BfIxaEDKAxwTOyRVhPG5Ji9K3+FvUU="
-  ];
+  
 
-  trustedUsers = [ "root" "dwd" ];
+  settings = {
+    trusted-users = [ "root" "dwd" ];
+
+    system-features = [
+      "kvm"
+      "big-parallel"
+      "gccarch-skylake" # todo
+    ];
+
+    substituters = [
+      "https://cache.nixos.org"
+      "https://websites.cachix.org"
+      "https://nixcache.reflex-frp.org"
+      "https://nixcache.webghc.org"
+      "https://hydra.iohk.io"
+      "https://static-haskell-nix.cachix.org"
+    ];
+
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "websites.cachix.org-1:YMPYgEeWohlGq/0wDvWLVSRoNcBS1jIOmku6Djv7zcM="
+      "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
+      "hydra.webghc.org-1:knW30Yb8EXYxmUZKEl0Vc6t2BDjAUQ5kfC1BKJ9qEG8="
+      "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+      "static-haskell-nix.cachix.org-1:Q17HawmAwaM1/BfIxaEDKAxwTOyRVhPG5Ji9K3+FvUU="
+    ];
+
+    auto-optimise-store = true;
+  };
 
   gc = {
     automatic = true; # true
@@ -42,9 +55,5 @@
     automatic = true;
   };
 
-  systemFeatures = [
-     "kvm"
-     "big-parallel"
-     "gccarch-haswell"
-  ];
+  
 }
