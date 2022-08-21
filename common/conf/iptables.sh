@@ -1,6 +1,6 @@
-export HOME_IP=192.168.1.101
 export HOME_ROUTER=192.168.1.1
 export HOME_BCAST=192.168.1.255
+export HOME_NET=192.168.1.0/24
 
 export AMPR_HOME=44.131.255.4/32
 export AMPR_NET=44.0.0.0/8
@@ -10,6 +10,7 @@ export PRIVNET_12=172.16.0.0/12
 # export PRIVNET_16=192.168.0.0/16
 export LOCAL_8=127.0.0.0/8
 export MULTICAST_4=224.0.0.0/4
+export SSDP=239.255.255.250
 export THISNET=0.0.0.0
 export BCAST=255.255.255.255
 export DHCP_SERVER_PORT=67
@@ -37,42 +38,49 @@ $IPT -A INPUT -p udp -s $THISNET -d $BCAST --sport $DHCP_CLIENT_PORT --dport $DH
 $IPT -A INPUT -p udp -s $HOME_ROUTER -d $BCAST --sport $DHCP_SERVER_PORT --dport $DHCP_CLIENT_PORT -j ACCEPT
 
 # BitTorrent
-$IPT -A INPUT -p tcp -d $HOME_IP --dport 6881 -j ACCEPT
-$IPT -A INPUT -p udp -d $HOME_IP --dport 6881 -j ACCEPT
-$IPT -A INPUT -p udp -d $HOME_IP --sport 6881 -j ACCEPT
-# $IPT -A INPUT -p udp -d $HOME_IP --dport 6881 -j ACCEPT
+$IPT -A INPUT -p tcp -d $HOME_NET --dport 6881 -j ACCEPT
+$IPT -A INPUT -p udp -d $HOME_NET --dport 6881 -j ACCEPT
+$IPT -A INPUT -p udp -d $HOME_NET --sport 6881 -j ACCEPT
+# $IPT -A INPUT -p udp -d $HOME_NET --dport 6881 -j ACCEPT
 
 # DHT
-$IPT -A INPUT -p tcp -d $HOME_IP --dport 7881 -j ACCEPT
-$IPT -A INPUT -p udp -d $HOME_IP --dport 7881 -j ACCEPT
+$IPT -A INPUT -p tcp -d $HOME_NET --dport 7881 -j ACCEPT
+$IPT -A INPUT -p udp -d $HOME_NET --dport 7881 -j ACCEPT
 
 # Tracker
-# $IPT -A INPUT -p tcp -d $HOME_IP --dport 8881 -j ACCEPT
-# $IPT -A INPUT -p udp -d $HOME_IP --dport 8881 -j ACCEPT
+# $IPT -A INPUT -p tcp -d $HOME_NET --dport 8881 -j ACCEPT
+# $IPT -A INPUT -p udp -d $HOME_NET --dport 8881 -j ACCEPT
 
 # FTP responses
-$IPT -A INPUT -p tcp -d $HOME_IP --sport 20 -j ACCEPT
+$IPT -A INPUT -p tcp -d $HOME_NET --sport 20 -j ACCEPT
 
 # IGMP Multicast
 $IPT -A INPUT -p igmp -s $HOME_ROUTER -d $MULTICAST_4 -j ACCEPT
 
+# mDNS
+$IPT -A INPUT -p udp -s $HOME_NET -d $MULTICAST_4 --sport 5353 --dport 5353 -j ACCEPT
+
 # DLNA (TODO related?)
-$IPT -A INPUT -p udp -s $HOME_ROUTER -d $HOME_IP --sport 1900 -j ACCEPT
+$IPT -A INPUT -p udp -s $HOME_ROUTER -d $HOME_NET --sport 1900 -j ACCEPT
 
 # Plex
-$IPT -A INPUT -p tcp -d $HOME_IP -m multiport --dport 32400,32401 -j ACCEPT
+$IPT -A INPUT -p tcp -d $HOME_NET -m multiport --dport 32400,32401 -j ACCEPT
+$IPT -A INPUT -p tcp -d $HOME_NET --sport 443 -j ACCEPT # psh?
 
 # Plex network discovery
-$IPT -A INPUT -p udp -s $HOME_IP -d $HOME_BCAST -m multiport --dport 32410,32412,34213,32414 -j ACCEPT
+$IPT -A INPUT -p udp -s $HOME_NET -d $HOME_BCAST -m multiport --dport 32410,32412,34213,32414 -j ACCEPT
 
 # DLNA
-$IPT -A INPUT -p udp -s $HOME_IP -d 239.255.255.250 --dport 1900 -j ACCEPT
+$IPT -A INPUT -p udp -s $HOME_NET -d $SSDP --dport 1900 -j ACCEPT
+
+# Mail server
+# $IPT -A INPUT -p tcp -d $HOME_NET --dport 25 -j ACCEPT
 
 # all local for now
-$IPT -A INPUT -s 192.168.1.0/24 -d 192.168.1.101 -j ACCEPT
+$IPT -A INPUT -s $HOME_NET -d $HOME_NET -j ACCEPT
 
 # and all local broadcast
-$IPT -A INPUT -s 192.168.1.0/24 -d 192.168.1.255 -j ACCEPT
+$IPT -A INPUT -s $HOME_NET -d $HOME_BCAST -j ACCEPT
 
 # all local on ham
 $IPT -A INPUT -s $AMPR_NET -d $AMPR_HOME -j ACCEPT
@@ -154,6 +162,13 @@ $IPT -A OUTPUT -p udp --dport 53 -j ACCEPT
 # DHCP
 $IPT -A OUTPUT -p udp --dport $DHCP_SERVER_PORT -j ACCEPT
 
+# SSDP
+$IPT -A OUTPUT -p udp -s $HOME_NET -d $SSDP --dport 1900 -j ACCEPT
+$IPT -A OUTPUT -p udp -s $HOME_NET -d $BCAST --dport 1900 -j ACCEPT
+
+# NAT port mapping
+$IPT -A OUTPUT -p udp -s $HOME_NET -d $HOME_ROUTER --dport 5351 -j ACCEPT
+
 # NTP
 $IPT -A OUTPUT -p udp --dport 123 -j ACCEPT
 
@@ -169,42 +184,42 @@ $IPT -A OUTPUT -p tcp -d $PRIVNET_12 --dport 80 -j ACCEPT # TODO related
 $IPT -A OUTPUT -p tcp -d $PRIVNET_12 --dport 8080 -j ACCEPT # TODO related
 
 # MDNS Out
-$IPT -A OUTPUT -p udp -s $HOME_IP -d $MULTICAST_4 --sport 5353 --dport 5353 -j ACCEPT
+$IPT -A OUTPUT -p udp -s $HOME_NET -d $MULTICAST_4 --sport 5353 --dport 5353 -j ACCEPT
 
 # NetBIOS
-$IPT -A OUTPUT -p udp -s $HOME_IP -d $HOME_BCAST --sport 137 --dport 137 -j ACCEPT
+$IPT -A OUTPUT -p udp -s $HOME_NET -d $HOME_BCAST --sport 137 --dport 137 -j ACCEPT
 
-# Plex network discovery
-$IPT -A OUTPUT -p udp -s $HOME_IP -d $HOME_BCAST -m multiport --dport 32410,32412,34213,32414 -j ACCEPT
+# Plex network discovery - still gets blocked somehow
+$IPT -A OUTPUT -p udp -s $HOME_NET -d $HOME_BCAST -m multiport --dport 32410,32412,34213,32414 -j ACCEPT
 
-# DLNA
-$IPT -A OUTPUT -p udp -s $HOME_IP -d 239.255.255.250 --dport 1900 -j ACCEPT
+# DLNA (SSDP/UPnP)
+$IPT -A OUTPUT -p udp -s $HOME_NET -d $SSDP --dport 1900 -j ACCEPT
 
 # BitTorrent
-$IPT -A OUTPUT -p tcp -s $HOME_IP --sport 6881 -j ACCEPT # related?
-$IPT -A OUTPUT -p tcp -s $HOME_IP --dport 6881 -j ACCEPT
-$IPT -A OUTPUT -p udp -s $HOME_IP --sport 6881 -j ACCEPT # related?
+$IPT -A OUTPUT -p tcp -s $HOME_NET --sport 6881 -j ACCEPT # related?
+$IPT -A OUTPUT -p tcp -s $HOME_NET --dport 6881 -j ACCEPT
+$IPT -A OUTPUT -p udp -s $HOME_NET --sport 6881 -j ACCEPT # related?
 
 # DHT
-$IPT -A OUTPUT -p udp -s $HOME_IP --sport 7881 -j ACCEPT
+$IPT -A OUTPUT -p udp -s $HOME_NET --sport 7881 -j ACCEPT
 
 # Tracker
-$IPT -A OUTPUT -p udp -s $HOME_IP --sport 8881 -j ACCEPT
+$IPT -A OUTPUT -p udp -s $HOME_NET --sport 8881 -j ACCEPT
 
 # irc
-$IPT -A OUTPUT -p tcp -s $HOME_IP --dport 6697 -j ACCEPT
+$IPT -A OUTPUT -p tcp -s $HOME_NET --dport 6697 -j ACCEPT
 
 # whois
-$IPT -A OUTPUT -p tcp -s $HOME_IP --dport 43 -j ACCEPT
+$IPT -A OUTPUT -p tcp -s $HOME_NET --dport 43 -j ACCEPT
 
 # FTP
-$IPT -A OUTPUT -p tcp -s $HOME_IP --dport 21 -j ACCEPT
+$IPT -A OUTPUT -p tcp -s $HOME_NET --dport 21 -j ACCEPT
 
 # SMB
-$IPT -A OUTPUT -p tcp -s $HOME_IP --dport 445 -j ACCEPT
+$IPT -A OUTPUT -p tcp -s $HOME_NET --dport 445 -j ACCEPT
 
 # websdr
-$IPT -A OUTPUT -p tcp -s $HOME_IP -d 192.87.173.88 --dport 8901 -j ACCEPT
+$IPT -A OUTPUT -p tcp -s $HOME_NET -d 192.87.173.88 --dport 8901 -j ACCEPT
 
 # all local on ham
 $IPT -A OUTPUT -s $AMPR_HOME -d $AMPR_NET -j ACCEPT
@@ -224,7 +239,7 @@ $IPT -A OUTPUT -p tcp -s $PRIVNET_8 -d $PRIVNET_12 -j ACCEPT
 
 
 # all local for now
-$IPT -A OUTPUT -s 192.168.1.101 -d 192.168.1.0/24 -j ACCEPT
+$IPT -A OUTPUT -s $HOME_NET -d $HOME_NET -j ACCEPT
 
 # Existing
 $IPT -A OUTPUT -p tcp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
