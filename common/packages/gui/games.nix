@@ -8,6 +8,7 @@ with pkgs; [
     hhexen
     ioquake3 # no desktop icon
     # lbreakout2
+    liberation-circuit
     # ltris
     # mgba
     # mupen64plus # no desktop icon
