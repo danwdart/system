@@ -18,4 +18,11 @@ pkgs:
   };
 
   hackrf.enable = true;
+
+  sane = {
+    enable = true;
+    extraBackends = with pkgs; [
+      hplipWithPlugin
+    ];
+  };
 }
