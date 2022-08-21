@@ -1,6 +1,6 @@
 {...}:
 {
   font = "Lat2-Terminus16";
-  # keyMap = "gb";
+  # keyMap = "uk";
   useXkbConfig = true;
 }
