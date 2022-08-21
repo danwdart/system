@@ -1,12 +1,13 @@
 # man 5 configuration.nix
 # nixos-help
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib,  ... }:
 let
-  unstable = import <unstable> {
+  unstable = import <nixos> {
     config = {
       allowUnfree = true;
     };
   };
+  hostName = "sinistra";
   #master = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz") {
   #  config = {
   #    allowUnfree = true;
@@ -27,14 +28,14 @@ in {
   environment = import ./environment.nix {pkgs = pkgs; unstable = unstable; config = config; lib = lib;};
   hardware = import ./hardware.nix pkgs;
   i18n = import ./i18n.nix {};
-  networking = import ./networking.nix { lib = lib; };
+  networking = import ./networking.nix { lib = lib; hostName = hostName; };
   nix = import ./nix.nix { unstable = unstable; };
   nixpkgs = import ./nixpkgs.nix {};
   programs = import ./programs.nix {};
   security = import ./security.nix pkgs;
-  services = import ./services.nix pkgs;
+  services = import ./services.nix { pkgs = pkgs; hostName = hostName; };
   sound = import ./sound.nix {};
-  system = import ./system.nix {};
+  system = import ./system.nix { hostName = hostName; };
   systemd = import ./systemd.nix {};
   time = import ./time.nix {};
   users = import ./users.nix {};
