@@ -10,7 +10,7 @@ with pkgs;
     caps
     clementine
     csa
-    faust2ladspa
+    # faust2ladspa
     fluidsynth
     gst_all_1.gst-plugins-base
     gst_all_1.gst-plugins-good
@@ -19,7 +19,7 @@ with pkgs;
     hydrogen
     ingen
     jack_rack
-    kapitonov-plugins-pack
+    # kapitonov-plugins-pack
     nova-filters
     pavucontrol
     plugin-torture
