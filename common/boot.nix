@@ -16,6 +16,7 @@
   #};
 
   loader.efi.canTouchEfiVariables = true;
+  loader.efi.efiSysMountPoint = "/boot/efi";
 
   kernel.sysctl = {
     # all magic sysrq keys
