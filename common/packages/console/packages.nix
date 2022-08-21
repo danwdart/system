@@ -11,10 +11,12 @@ pkgs:
     ++ import ./games.nix pkgs
     ++ import ./hamradio.nix pkgs
     ++ import ./maths.nix pkgs
+    # ++ import ./mine.nix pkgs
     ++ import ./media-playing.nix pkgs
     ++ import ./media-ripping.nix pkgs
     ++ import ./networking.nix pkgs
     ++ import ./nix.nix pkgs
     ++ import ./phone.nix pkgs
+    ++ import ./scanning.nix pkgs
     ++ import ./security.nix pkgs
     ++ import ./system.nix pkgs
