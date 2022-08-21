@@ -11,7 +11,9 @@ with pkgs; [
     mailutils
     nixops
     openvpn
+    protonvpn-cli
     python310Packages.mitmproxy
+    python310Packages.protonvpn-nm-lib
     ngrok
     # proxytunnel # insecure openssl
     slirp4netns
