@@ -8,6 +8,8 @@
 
   rtkit.enable = true;
 
+  # when persist use persist here
+
   pki.certificateFiles = [
     "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
     # ../common/private/ca-bundle.crt
