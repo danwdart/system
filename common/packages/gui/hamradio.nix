@@ -22,9 +22,7 @@ with pkgs; [
     tqsl
     # rtlsdr
     sdrangel
-    soapyaudio
     soapyhackrf
-    soapyremote
     soapysdrplay
     soapysdr-with-plugins
     soundmodem # no desktop icon, needs config
