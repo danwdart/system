@@ -1,12 +1,11 @@
-pkgs:
+{ pkgs, hostName, ... }:
 let
   # needs /persist, see: https://github.com/nix-community/impermanence/issues/87
-  rootDir = "/persist/home/dwd/code/mine/nix/system";
-  haskellSites = "/persist/home/dwd/code/mine/haskell";
-  roqHome = "/persist/home/dwd/code/commissions/roqqett";
+  rootDir = "/home/dwd/code/mine/nix/system";
+  haskellSites = "/home/dwd/code/mine/haskell";
+  roqHome = "/home/dwd/code/commissions/roqqett";
   websites = "${haskellSites}/websites/.sites";
-  hostname = "fafnir";
-  hostDir = "${rootDir}/${hostname}";
+  hostDir = "${rootDir}/${hostName}";
   privateDir = "${hostDir}/private";
 in {
   cron = {
@@ -119,12 +118,15 @@ in {
   #    haskellPackages.xmonad-contrib
   #    haskellPackages.monad-logger
   #  ];
-  #  haskellPackages = pkgs.haskell.packages.ghc923;
+  #  haskellPackages = pkgs.haskell.packages.ghc941;
   #};
   
   xserver.layout = "gb";
   xserver.xkbOptions = "terminate:ctrl_alt_bksp,caps:escape,compose:ralt";
   xserver.xkbModel = "latitude";
+
+  # Enable touchpad support (enabled default in most desktopManager).
+  # xserver.libinput.enable = true;
 
   nginx = {
     enable = true;
@@ -238,7 +240,7 @@ in {
         serverAliases = [];
         locations = {
           "/" = {
-            root = "/persist/home/dwd/code/mine/haskell/websites/.sites/jolharg";
+            root = "/home/dwd/code/mine/haskell/websites/.sites/jolharg";
             proxyWebsockets = true;
           };
         };
@@ -420,11 +422,14 @@ in {
     pulse = {
       enable = true;
     };
+    # use the example session manager (no others are packaged yet so this is enabled by default,
+    # no need to redefine it in your config for now)
+    #media-session.enable = true;
   };
 
   postfix = {
     enable = true;
-    domain = "jolharg.com";
+    domain = "${hostName}.jolharg.com";
     rootAlias = "dwd";
     # [smtp.gmail.com]:587    username@gmail.com:password -> sasl_passwd
     config = {
@@ -438,13 +443,13 @@ in {
     relayPort = 587;
     relayDomains = [
       "dandart.co.uk"
-      "fafnir.jolharg.com"
+      "${hostName}.jolharg.com"
       "jolharg.com"
     ];
     setSendmail = true;
     virtual = ''
-      @fafnir dan@dandart.co.uk
-      @fafnir.jolharg.com dan@dandart.co.uk
+      @${hostName} dan@dandart.co.uk
+      @${hostName}.jolharg.com dan@dandart.co.uk
     '';
   };
 
