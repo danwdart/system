@@ -133,7 +133,7 @@ in {
     # enableReload = true;
     defaultListenAddresses = [
       "127.0.0.1"
-      "192.168.1.101"
+      "192.168.1.115"
     ];
     statusPage = true;
     recommendedProxySettings = true;
@@ -142,7 +142,7 @@ in {
       "localhost" = {
         serverAliases = [
           "127.0.0.1"
-          "192.168.1.101"
+          "192.168.1.115"
         ];
         root = "${hostDir}/private_html";
       };
@@ -154,38 +154,38 @@ in {
       };
       "home.dandart.co.uk" = {
         default = true;
-        forceSSL = true;
+        onlySSL = true;
         enableACME = true;
         # useACMEHost = ""; # security.acme.certs
         root = "${hostDir}/public_html";
       };
       "nextcloud.dandart.co.uk" = {
         # http3 = true;
-        forceSSL = true;
+        onlySSL = true;
         enableACME = true;
       };
-      "dev.localhost" = {
-        # http3 = true;
-        forceSSL = true;
-        sslCertificate = "${roqHome}/roqqett-web-api/certs/dev-localhost-cert.pem";
-        sslCertificateKey = "${roqHome}/roqqett-web-api/certs/dev-localhost-key.pem";
-        serverAliases = [];
-        extraConfig = ''
-          error_page 502 /502.html;
-        '';
-        locations = {
-          "/" = {
-            proxyPass = "http://localhost:5000/";
-            proxyWebsockets = true;
-          };
-          "/502.html" = {
-            root = "${roqHome}/Data/static/";
-          };
-        };
-      };
+      #"dev.localhost" = {
+      #  # http3 = true;
+      #  onlySSL = true;
+      #  sslCertificate = "${roqHome}/roqqett-web-api/certs/dev-localhost-cert.pem";
+      #  sslCertificateKey = "${roqHome}/roqqett-web-api/certs/dev-localhost-key.pem";
+      #  serverAliases = [];
+      #  extraConfig = ''
+      #    error_page 502 /502.html;
+      #  '';
+      #  locations = {
+      #    "/" = {
+      #      proxyPass = "http://localhost:5000/";
+      #      proxyWebsockets = true;
+      #    };
+      #    "/502.html" = {
+      #      root = "${roqHome}/Data/static/";
+      #    };
+      #  };
+      #};
       "roqqett.dandart.co.uk" = {
         # http3 = true;
-        forceSSL = true;
+        onlySSL = true;
         enableACME = true;
         serverAliases = [
           "roqqett.dandart.uk"
@@ -205,7 +205,7 @@ in {
       };
       "roq-wp.dandart.co.uk" = {
         # http3 = true;
-        forceSSL = true;
+        onlySSL = true;
         enableACME = true;
         serverAliases = [
           "roq-wp.dandart.uk"
@@ -224,7 +224,7 @@ in {
         };
       };
       "dev.dandart.co.uk" = {
-        forceSSL = true;
+        onlySSL = true;
         enableACME = true;
         serverAliases = [];
         locations = {
@@ -235,7 +235,7 @@ in {
         };
       };
       "dev.jolharg.com" = {
-        forceSSL = true;
+        onlySSL = true;
         enableACME = true;
         serverAliases = [];
         locations = {
@@ -246,7 +246,7 @@ in {
         };
       };
       "dev.madhackerreviews.com" = {
-        forceSSL = true;
+        onlySSL = true;
         enableACME = true;
         serverAliases = [];
         locations = {
@@ -257,7 +257,7 @@ in {
         };
       };
       "dev.m0ori.com" = {
-        forceSSL = true;
+        onlySSL = true;
         enableACME = true;
         serverAliases = [];
         locations = {
@@ -268,7 +268,7 @@ in {
         };
       };
       "dev.blog.dandart.co.uk" = {
-        forceSSL = true;
+        onlySSL = true;
         enableACME = true;
         serverAliases = [];
         locations = {
@@ -280,7 +280,7 @@ in {
       };
       "dev.jobfinder.jolharg.com" = {
         # http3 = true;
-        forceSSL = true;
+        onlySSL = true;
         enableACME = true;
         serverAliases = [];
         # htaccess?
@@ -299,7 +299,7 @@ in {
       };
       "jobfinder.jolharg.com" = {
         # http3 = true;
-        forceSSL = true;
+        onlySSL = true;
         enableACME = true;
         serverAliases = [];
         # htaccess?
@@ -316,69 +316,69 @@ in {
           };
         };
       };
-      "api.jobfinder.jolharg.com" = {
-        # http3 = true;
-        forceSSL = true;
-        enableACME = true;
-        serverAliases = [];
-        extraConfig = ''
-          error_page 502 /502.html;
-        '';
-        locations = {
-          "/" = {
-            proxyPass = "http://localhost:8081/";
-            proxyWebsockets = true;
-          };
-          "/502.html" = {
-            root = "${haskellSites}/jobfinder/app/backend/data";
-          };
-        };
-      };
+      #"api.jobfinder.jolharg.com" = {
+      #  # http3 = true;
+      #  onlySSL = true;
+      #  enableACME = true;
+      #  serverAliases = [];
+      #  extraConfig = ''
+      #    error_page 502 /502.html;
+      #  '';
+      #  locations = {
+      #    "/" = {
+      #      proxyPass = "http://localhost:8081/";
+      #      proxyWebsockets = true;
+      #    };
+      #    "/502.html" = {
+      #      root = "${haskellSites}/jobfinder/app/backend/data";
+      #    };
+      #  };
+      #};
     };
   };
  
-  grocy = {
-    enable = true;
-    hostName = "grocy.dandart.co.uk";
-    nginx = {
-      enableSSL = true;
-    };
-    settings = {
-      calendar = {
-        firstDayOfWeek = 1;
-      };
-      currency = "GBP";
-      culture = "en_GB";
-    };
-  };
+  #grocy = {
+  #  enable = true;
+  #  hostName = "grocy.dandart.co.uk";
+  #  nginx = {
+  #    onlySSL = true;
+  #  };
+  #  settings = {
+  #    calendar = {
+  #      firstDayOfWeek = 1;
+  #    };
+  #    currency = "GBP";
+  #    culture = "en_GB";
+  #  };
+  #};
 
-  plex = {
-    enable = true;
-    package = pkgs.plex;
-    openFirewall = true;
-  };
+  #plex = {
+  #  enable = true;
+  #  package = pkgs.plex;
+  #  openFirewall = true;
+  #};
 
-  nextcloud = {
-    enable = true;
-    package = pkgs.nextcloud24;
-    https = true;
-    hostName = "nextcloud.dandart.co.uk";
-    webfinger = true;
-    config = {
-      dbtype = "pgsql";
-      dbhost = "localhost";
-      dbname = "nextcloud";
-      dbuser = "nextcloud";
-      dbpassFile = "${privateDir}/nextcloud/dbpass";
-      adminuser = "root";
-      adminpassFile = "${privateDir}/nextcloud/adminpass";
-      defaultPhoneRegion = "GB";
-      overwriteProtocol = "https";
-    };
-    autoUpdateApps = {
-      enable = true;
-    };
-  };
+  #nextcloud = {
+  #  enable = true;
+  #  package = pkgs.nextcloud24;
+  #  https = true;
+  #  hostName = "nextcloud.dandart.co.uk";
+  #  webfinger = true;
+  #  config = {
+  #    dbtype = "pgsql";
+  #    dbhost = "localhost";
+  #    dbname = "nextcloud";
+  #    dbuser = "nextcloud";
+  #    dbpassFile = "${privateDir}/nextcloud/dbpass";
+  #    adminuser = "root";
+  #    adminpassFile = "${privateDir}/nextcloud/adminpass";
+  #    defaultPhoneRegion = "GB";
+  #    overwriteProtocol = "https";
+  #  };
+  #  autoUpdateApps = {
+  #    enable = true;
+  #  };
+  #};
 
   postgresql = let
     nextcloudPassword = builtins.readFile "${privateDir}/nextcloud/dbpass";
