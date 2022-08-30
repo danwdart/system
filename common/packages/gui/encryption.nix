@@ -1,5 +1,5 @@
 pkgs:
 with pkgs; [
     kgpg
-    kleopatra
+    # kleopatra # build error 2022-08-30
 ]
