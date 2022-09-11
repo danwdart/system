@@ -1,8 +1,20 @@
 {...}:
 {
+  services = {
+    nginx = {
+      serviceConfig = {
+        # allow nginx to read /home as that's where I stashed my code (don't do this in prod)
+        ProtectHome = "read-only";
+      };
+    };
+  };
+
   tmpfiles.rules = [
   # only on big evil desktop
   #  "w /sys/devices/system/cpu/cpufreq/boost - - - - 0"
+
+    # for nginx
+    "z /home/dwd 0755 dwd users - -"
   ];
 
   #services = {
