@@ -240,7 +240,18 @@ in {
         serverAliases = [];
         locations = {
           "/" = {
-            root = "/home/dwd/code/mine/haskell/websites/.sites/jolharg";
+            root = "${websites}/jolharg";
+            proxyWebsockets = true;
+          };
+        };
+      };
+      "dev.blog.jolharg.com" = {
+        onlySSL = true;
+        enableACME = true;
+        serverAliases = [];
+        locations = {
+          "/" = {
+            root = "${websites}/blogjolharg";
             proxyWebsockets = true;
           };
         };
