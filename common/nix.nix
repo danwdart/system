@@ -5,10 +5,6 @@
 
   # max-jobs = 64;
 
-  
-
-  
-
   settings = {
     trusted-users = [ "root" "dwd" ];
 
@@ -53,7 +49,5 @@
 
   optimise = {
     automatic = true;
-  };
-
-  
+  };  
 }
