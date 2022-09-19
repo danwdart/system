@@ -4,7 +4,7 @@ with pkgs; [
     # clementineUnfree # needs building?
     #ffmpeg-full #insecure for now
     mplayer
-    # spotify
-    # spotifywm
+    spotify
+    spotifywm
     vlc
 ]
