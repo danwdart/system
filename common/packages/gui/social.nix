@@ -1,6 +1,10 @@
 pkgs:
 with pkgs; [
-    discord
+    betterdiscordctl
+    (discord.override {
+        withOpenASAR = true;
+        nss = pkgs.nss_latest;
+    })
     element-desktop
     skypeforlinux
     slack
