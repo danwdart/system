@@ -6,6 +6,8 @@ with pkgs; [
     kdeconnect
     okular
     ktorrent
+    libsForQt5.dolphin
+    libsForQt5.dolphin-plugins
     libsForQt5.phonon
     libsForQt5.phonon-backend-gstreamer
     libsForQt5.yakuake
