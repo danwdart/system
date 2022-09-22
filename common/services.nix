@@ -133,7 +133,8 @@ in {
     # enableReload = true;
     defaultListenAddresses = [
       "127.0.0.1"
-      "192.168.1.115"
+      # "192.168.1.115"
+      "0.0.0.0"
     ];
     statusPage = true;
     recommendedProxySettings = true;
