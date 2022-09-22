@@ -5,4 +5,5 @@ with pkgs; [
     # geogebra
     gimp
     inkscape
+    krita
 ]
