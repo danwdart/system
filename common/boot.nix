@@ -28,24 +28,22 @@
     "vm.swappiness" = 100;
   };
 
-  # linuxPackages_latest
-  
-  # master.linuxPackages_5_13_hardened
+  # linuxKernel.packages.linux_rt_5_10 = 5.10.140
 
-  # https://liquorix.net/
-  # linuxPackages_lqx
-
-  # https://www.osadl.org/Realtime-Linux.projects-realtime-linux.0.html
-  # linuxPackages-rt_latest
-  # linuxPackages_rt_5_11
+  # linuxKernel.packages.linux_hardened = 5.15.67
 
   # https://xanmod.org/
-  # linuxPackages_xanmod
+  # linuxKernel.packages.linux_xanmod)latest = 5.18.11
+
+  # linuxKernel.packages.linux_5_19 = 5.19.9
+
+  # https://liquorix.net/
+  # linuxKernel.packages.linux_lqx = 5.19.10 # same as zen but less aggressive release schedule
 
   # https://github.com/zen-kernel/zen-kernel
-  # linuxPackages_zen
+  # linuxKernel.packages.linux_zen = 5.19.10
 
-  kernelPackages = unstable.linuxPackages_5_18_hardened;
+  kernelPackages = pkgs.linuxKernel.packages.linux_zen;
 
   plymouth.enable = true;
 }
