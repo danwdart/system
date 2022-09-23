@@ -16,6 +16,7 @@ with pkgs; [
     i7z
     inetutils
     jnettop
+    kexec-tools
     lm_sensors
     lshw
     lsof
