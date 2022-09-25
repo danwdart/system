@@ -118,7 +118,7 @@ in {
   #    haskellPackages.xmonad-contrib
   #    haskellPackages.monad-logger
   #  ];
-  #  haskellPackages = pkgs.haskell.packages.ghc941;
+  #  haskellPackages = pkgs.haskell.packages.ghc942;
   #};
   
   xserver.layout = "gb";
