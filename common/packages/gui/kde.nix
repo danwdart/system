@@ -3,7 +3,6 @@ with pkgs; [
     ark
     gwenview
     # kdeGear.kalarm
-    kdeconnect
     okular
     ktorrent
     libsForQt5.dolphin
@@ -12,5 +11,6 @@ with pkgs; [
     libsForQt5.phonon-backend-gstreamer
     libsForQt5.yakuake
     # plasma5.plasma-browser-integration
+    plasma5Packages.kdeconnect-kde
     qdirstat
 ]
