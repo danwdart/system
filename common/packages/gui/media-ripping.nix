@@ -1,5 +1,5 @@
 pkgs:
 with pkgs; [
-    gnome3.cheese
+    gnome.cheese
     tartube
 ]
