@@ -14,13 +14,13 @@ with pkgs; [
     ngspice
     pcb
     python310Packages.cirq-web
-    python310Packages.cirq-rigetti
+    # python310Packages.cirq-rigetti # failing tests, no binary???
     python310Packages.cirq-pasqal
     python310Packages.cirq-ionq
     python310Packages.cirq-google
     python310Packages.cirq-core
     python310Packages.cirq-aqt
-    python310Packages.cirq
+    # python310Packages.cirq # depends on rigetti
     qucs
     stlink
     tkgate
