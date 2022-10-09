@@ -9,7 +9,7 @@ with pkgs; [
     iodine
     irssi
     mailutils
-    nixops
+    # nixops # build failure
     openvpn
     protonvpn-cli
     python310Packages.mitmproxy
