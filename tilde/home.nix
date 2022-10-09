@@ -181,10 +181,11 @@ in {
     enable = true;
     userName = "Dan Dart";
     userEmail = "git@dandart.co.uk";
-    extraConfig = ''
-      [pull]
-        rebase = false
-    '';
+    extraConfig = {
+      pull = {
+        rebase = false;
+      };
+    };
     # signingkey = 39A8DF97
     # gpgsign = true
     # crypt stuff
