@@ -5,8 +5,10 @@ with pkgs; [
     # kdeGear.kalarm
     okular
     ktorrent
+    libsForQt5.discover
     libsForQt5.dolphin
     libsForQt5.dolphin-plugins
+    libsForQt5.kpat
     libsForQt5.phonon
     libsForQt5.phonon-backend-gstreamer
     libsForQt5.yakuake
