@@ -86,21 +86,63 @@ in {
   #  mailTo = "logcheck@dandart.co.uk";
   #};
 
-  xserver.enable = true;
-  xserver.displayManager = {
-    sddm = {
-      enable = true;
+  xserver = {
+    enable = true;
+    displayManager = {
+      sddm = {
+        enable = true;
+        autoLogin = {
+          relogin = true;
+        };
+      };
       autoLogin = {
-        relogin = true;
+        enable = true;
+        user = "dwd";
       };
     };
-    autoLogin = {
-      enable = true;
-      user = "dwd";
+    desktopManager = {
+      plasma5 = {
+        enable = true;
+      };
     };
+    layout = "gb";
+    xkbOptions = "terminate:ctrl_alt_bksp,caps:escape,compose:ralt";
+    xkbModel = "inspiron";
   };
-  
-  xserver.desktopManager.plasma5.enable = true;
+
+  touchegg = {
+    enable = true;
+  };
+
+  # BIG BUG HERE: https://github.com/NixOS/nixpkgs/issues/126374
+  tt-rss = {
+    enable = true;
+    enableGZipOutput = true;
+    database = {
+      # for permissions we'll read and send instead of using passwordFile.
+      password = builtins.readFile "${privateDir}/tt-rss/dbpass";
+    };
+    #auth = {
+      # autoCreate = true;
+      # autoLogin = true;
+    #};
+    email = {
+      fromName = "tt-rss";
+      fromAddress = builtins.readFile "${privateDir}/tt-rss/email_from_address";
+      login = builtins.readFile "${privateDir}/tt-rss/email_login";
+      password = builtins.readFile "${privateDir}/tt-rss/email_password";
+      security = "tls";
+      server = builtins.readFile "${privateDir}/tt-rss/email_server";
+    };
+    #registration = {
+    #  enable = true;
+    #  maxUsers = 1;
+    #};
+    selfUrlPath = "https://news.jolharg.com";
+    # singleUserMode = true;
+    virtualHost = "news.jolharg.com";
+  };
+
   # xserver.videoDrivers = [ "amdgpu" ];
 
   #xserver.windowManager.xmonad = {
@@ -121,10 +163,6 @@ in {
   #  haskellPackages = pkgs.haskell.packages.ghc942;
   #};
   
-  xserver.layout = "gb";
-  xserver.xkbOptions = "terminate:ctrl_alt_bksp,caps:escape,compose:ralt";
-  xserver.xkbModel = "latitude";
-
   # Enable touchpad support (enabled default in most desktopManager).
   # xserver.libinput.enable = true;
 
@@ -161,6 +199,11 @@ in {
         root = "${hostDir}/public_html";
       };
       "nextcloud.dandart.co.uk" = {
+        # http3 = true;
+        onlySSL = true;
+        enableACME = true;
+      };
+      "news.jolharg.com" = {
         # http3 = true;
         onlySSL = true;
         enableACME = true;
@@ -349,20 +392,20 @@ in {
     };
   };
  
-  #grocy = {
-  #  enable = true;
-  #  hostName = "grocy.dandart.co.uk";
-  #  nginx = {
-  #    onlySSL = true;
-  #  };
-  #  settings = {
-  #    calendar = {
-  #      firstDayOfWeek = 1;
-  #    };
-  #    currency = "GBP";
-  #    culture = "en_GB";
-  #  };
-  #};
+  grocy = {
+    enable = true;
+    hostName = "grocy.dandart.co.uk";
+    nginx = {
+      enableSSL = true;
+    };
+    settings = {
+      calendar = {
+        firstDayOfWeek = 1;
+      };
+      currency = "GBP";
+      culture = "en_GB";
+    };
+  };
 
   #plex = {
   #  enable = true;
@@ -370,6 +413,7 @@ in {
   #  openFirewall = true;
   #};
 
+  # perm issues
   #nextcloud = {
   #  enable = true;
   #  package = pkgs.nextcloud24;
@@ -395,6 +439,7 @@ in {
   postgresql = let
     nextcloudPassword = builtins.readFile "${privateDir}/nextcloud/dbpass";
     msfPassword = builtins.readFile "${privateDir}/msf/dbpass";
+    ttrssPassword = builtins.readFile "${privateDir}/tt-rss/dbpass";
   in {
     enable = true;
     package = pkgs.postgresql_14;
@@ -410,6 +455,9 @@ in {
       CREATE ROLE nextcloud WITH LOGIN PASSWORD '${nextcloudPassword}' CREATEDB;
       CREATE DATABASE nextcloud;
       GRANT ALL PRIVILEGES ON DATABASE nextcloud TO nextcloud;
+      CREATE ROLE tt_rss WITH LOGIN PASSWORD '${ttrssPassword}' CREATEDB;
+      CREATE DATABASE tt_rss;
+      GRANT ALL PRIVILEGES ON DATABASE tt_rss TO tt_rss;
     '';
   };
 
@@ -504,4 +552,6 @@ in {
   # ntopng.enable = true;
 
   mozillavpn.enable = true;
+
+  joycond.enable = true;
 }
