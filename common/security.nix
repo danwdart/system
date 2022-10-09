@@ -1,7 +1,33 @@
 {pkgs, ...}:
 {
-  acme.defaults.email = "acme@dandart.co.uk";
-  acme.acceptTerms = true;
+  acme = {
+    defaults = {
+      email = "acme@dandart.co.uk";
+      group = "nginx";
+      webroot = "/var/lib/acme/acme-challenge";
+    };
+    acceptTerms = true;
+    #certs = {
+    #  "home.dandart.co.uk" = {
+    #    extraDomainNames = [
+    #      "nextcloud.dandart.co.uk"
+    #      "news.jolharg.com"
+    #      "roqqett.dandart.co.uk"
+    #      "roq-wp.dandart.co.uk"
+    #      "dev.dandart.co.uk"
+    #      "dev.jolharg.com"
+    #      "dev.blog.jolharg.com"
+    #      "dev.madhackerreviews.com"
+    #      "dev.m0ori.com"
+    #      "dev.blog.dandart.co.uk"
+    #      "dev.jobfinder.jolharg.com"
+    #      "jobfinder.jolharg.com"
+    #      "api.jobfinder.jolharg.com"
+    #      "grocy.dandart.co.uk"
+    #    ];
+    #  };
+    #};
+  };
 
   # pam.usb.enable = true;
   # TODO pam phone fingerprint?
