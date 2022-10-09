@@ -17,7 +17,7 @@ with pkgs; [
     # python310Packages.cirq-rigetti # failing tests, no binary???
     python310Packages.cirq-pasqal
     python310Packages.cirq-ionq
-    python310Packages.cirq-google
+    # python310Packages.cirq-google # build failure
     python310Packages.cirq-core
     python310Packages.cirq-aqt
     # python310Packages.cirq # depends on rigetti
