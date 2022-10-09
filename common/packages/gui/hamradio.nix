@@ -18,7 +18,7 @@ with pkgs; [
     kalibrate-hackrf
     nrsc5
     qsstv
-    quisk
+    # quisk # build failure but why build
     tqsl
     # rtlsdr
     sdrangel
