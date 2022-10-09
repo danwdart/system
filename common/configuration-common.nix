@@ -14,7 +14,7 @@ let
   #  };
   #};
   home-manager = builtins.fetchTarball {
-    url = "https://github.com/danwdart/home-manager/archive/master.tar.gz";
+    url = "https://github.com/nix-community/home-manager/archive/master.tar.gz";
   };
 in {
   imports =
