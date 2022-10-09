@@ -43,7 +43,16 @@
   # https://github.com/zen-kernel/zen-kernel
   # linuxKernel.packages.linux_zen = 5.19.10
 
-  kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+  # linux_6_0
+
+  kernelPackages = pkgs.linuxKernel.packages.linux_6_0;
+
+  #kernelPatches = [
+  #  {
+  #    name = "generic switch pro controller support";
+  #    patch = builtins.fetchurl "https://github.com/DanielOgorchock/linux/files/9727518/generic-pro-controller.log";
+  #  }
+  #];
 
   plymouth.enable = true;
 }
