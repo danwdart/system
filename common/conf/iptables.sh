@@ -73,6 +73,14 @@ $IPT -A INPUT -p udp -s $HOME_NET -d $HOME_BCAST -m multiport --dport 32410,3241
 # DLNA
 $IPT -A INPUT -p udp -s $HOME_NET -d $SSDP --dport 1900 -j ACCEPT
 
+# KDE Connect
+$IPT -A INPUT -p tcp -s $HOME_NET -d $HOME_NET -m multiport --dport 1714:1764 -j ACCEPT
+$IPT -A INPUT -p udp -s $HOME_NET -d $HOME_NET -m multiport --dport 1714:1764 -j ACCEPT
+
+# KDE Connect (Scanning)
+$IPT -A INPUT -p tcp -s $HOME_NET -d $BCAST -m multiport --dport 1714:1764 -j ACCEPT
+$IPT -A INPUT -p udp -s $HOME_NET -d $BCAST -m multiport --dport 1714:1764 -j ACCEPT
+
 # Mail server
 # $IPT -A INPUT -p tcp -d $HOME_NET --dport 25 -j ACCEPT
 
