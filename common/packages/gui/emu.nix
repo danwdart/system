@@ -12,15 +12,16 @@ with pkgs; [
     #protontricks
     rpcs3
     # ruffle
+    virt-viewer
     # winePackages.fonts
     # master.winePackages.staging
     # winetricks # depend on correct version
     #(unstable.winetricks.override {
     #    wine = unstable.wineWowPackages.staging;
     #})
-    unstable.wineWowPackages.fonts # stable = 6.2, unstable = 7
+    unstable.wineWowPackages.fonts
     # master.wineWowPackages.staging # takes forever to compile
-    unstable.wineWowPackages.staging # stable = 6.2, unstable = 7
+    unstable.wineWowPackages.staging
     wiiload
     wiimms-iso-tools
     wiiuse
