@@ -55,7 +55,7 @@ $IPT -A INPUT -p udp -d $HOME_NET --dport 7881 -j ACCEPT
 $IPT -A INPUT -p tcp -d $HOME_NET --sport 20 -j ACCEPT
 
 # IGMP Multicast
-$IPT -A INPUT -p igmp -s $HOME_ROUTER -d $MULTICAST_4 -j ACCEPT
+$IPT -A INPUT -p igmp -s $HOME_NET -d $MULTICAST_4 -j ACCEPT
 
 # mDNS
 $IPT -A INPUT -p udp -s $HOME_NET -d $MULTICAST_4 --sport 5353 --dport 5353 -j ACCEPT
@@ -80,6 +80,9 @@ $IPT -A INPUT -p udp -s $HOME_NET -d $HOME_NET -m multiport --dport 1714:1764 -j
 # KDE Connect (Scanning)
 $IPT -A INPUT -p tcp -s $HOME_NET -d $BCAST -m multiport --dport 1714:1764 -j ACCEPT
 $IPT -A INPUT -p udp -s $HOME_NET -d $BCAST -m multiport --dport 1714:1764 -j ACCEPT
+
+# Discord
+$IPT -A INPUT -p udp -d $HOME_NET -m multiport --dport 50000:65535 -j ACCEPT
 
 # Mail server
 # $IPT -A INPUT -p tcp -d $HOME_NET --dport 25 -j ACCEPT
@@ -106,7 +109,7 @@ $IPT -A INPUT -m conntrack --ctstate INVALID -j DROP
 $IPT -A INPUT -p tcp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 $IPT -A INPUT -p udp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
-# Log
+# Logl
 $IPT -A INPUT -j LOG --log-prefix "INPUT: REJECT: " --log-level 4
 
 # Rest
