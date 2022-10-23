@@ -7,7 +7,7 @@ with pkgs; [
     cmatrix
     enhanced-ctorrent
     file
-    f3
+    # f3 # doesn't compile due to libudev.h missing
     glances
     gptfdisk
     hdparm
