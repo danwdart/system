@@ -5,6 +5,7 @@ with pkgs; [
     etherape
     insomnia
     # mysql-workbench # for work, TODO split out? # error: pynacl-1.4.0 not supported for interpreter python2.7
+    networkmanager-openvpn
     nextcloud-client
     postman
     putty # no desktop icon
