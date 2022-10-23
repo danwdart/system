@@ -14,5 +14,6 @@ with pkgs; [
     libsForQt5.yakuake
     # plasma5.plasma-browser-integration
     plasma5Packages.kdeconnect-kde
+    plasma-hud
     qdirstat
 ]
