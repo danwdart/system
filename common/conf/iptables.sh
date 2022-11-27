@@ -227,7 +227,7 @@ $IPT -A OUTPUT -p tcp -s $HOME_NET --dport 43 -j ACCEPT
 $IPT -A OUTPUT -p tcp -s $HOME_NET --dport 21 -j ACCEPT
 
 # SMB
-$IPT -A OUTPUT -p tcp -s $HOME_NET --dport 445 -j ACCEPT
+$IPT -A OUTPUT -p tcp -s $HOME_NET -m multiport --dport 137,139,445 -j ACCEPT
 
 # websdr
 $IPT -A OUTPUT -p tcp -s $HOME_NET -d 192.87.173.88 --dport 8901 -j ACCEPT
