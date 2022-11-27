@@ -1,4 +1,4 @@
 pkgs:
 with pkgs; [
-    sleepyhead # no desktop icon - executable SleepyHead
+    OSCAR # no icon/transparent but desktop link does exist!
 ]
