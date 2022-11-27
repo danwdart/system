@@ -5,8 +5,8 @@ Activation script:
 (Later) Podcasts OPML or GPodder
 (Later) torcs
 (Later) hub
-(Later) Skype
-(Later) Slack, Teams
+(Later) Skype separate
+(Later) Slack, Teams separate
 
 TODO Extra desktop files
 bristol
@@ -28,5 +28,5 @@ urbanterror
 vkquake
 yquake2
 soundmodem
-sleepyhead
+OSCAR - just icon
 putty
