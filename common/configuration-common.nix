@@ -8,11 +8,6 @@ let
     };
   };
   hostName = "sinistra";
-  #master = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz") {
-  #  config = {
-  #    allowUnfree = true;
-  #  };
-  #};
   home-manager = builtins.fetchTarball {
     url = "https://github.com/nix-community/home-manager/archive/master.tar.gz";
   };
