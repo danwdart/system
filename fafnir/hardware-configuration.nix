@@ -38,7 +38,7 @@ in
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-  
+
   fileSystems = {
     "/" = rootMount;
     # not in persistence because we don't want to back it up
@@ -91,7 +91,7 @@ in
       "/home/dwd/.cache/spotify" # Keep me logged in
       "/home/dwd/.config/autostart"
       "/home/dwd/.config/cachix"
-      "/home/dwd/.config/calibre" 
+      "/home/dwd/.config/calibre"
       "/home/dwd/.config/Code/Backups" # Unsaved open files and workspaces
       "/home/dwd/.config/discord"
       "/home/dwd/.config/doctl"

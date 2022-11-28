@@ -26,7 +26,7 @@
   #      WorkingDirectory = "/home/dwd/code/mine/haskell/jobfinder/app/backend";
   #      Type = "simple";
   #      # LoadCredential
-  #      # StateDirectory = 
+  #      # StateDirectory =
   #      DynamicUser = true;
   #      RestrictNamespaces = true;
   #      SystemCallArchitectures = "native";

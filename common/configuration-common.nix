@@ -35,7 +35,7 @@ in {
   time = import ./time.nix {};
   users = import ./users.nix {};
   virtualisation = import ./virtualisation.nix {};
-  
+
   home-manager.users.dwd = import ./users/dwd/home.nix pkgs;
 
   # todo move

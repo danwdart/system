@@ -12,7 +12,7 @@ in {
   home.homeDirectory = "/home/dwd";
 
   home.packages = [ ];
-  
+
   home.file.ghci = {
     target = ".ghci";
     text = ''
@@ -126,8 +126,8 @@ in {
       echo OS: $(uname -o)
       echo Kernel: $(uname -sr)
       echo CPU: $(cat /proc/cpuinfo | grep "model name" | head -n1 | cut -d ':' -f 2), architecture: $(uname -m)
-      echo RAM: $(free -h | head -n2 | tail -n1 | awk '{print $7}')B available of $(free -h | head -n2 | tail -n1 | awk '{print $2}')B 
-      echo Swap: $(free -h | head -n3 | tail -n1 | awk '{print $4}')B free of $(free -h | head -n3 | tail -n1 | awk '{print $2}')B 
+      echo RAM: $(free -h | head -n2 | tail -n1 | awk '{print $7}')B available of $(free -h | head -n2 | tail -n1 | awk '{print $2}')B
+      echo Swap: $(free -h | head -n3 | tail -n1 | awk '{print $4}')B free of $(free -h | head -n3 | tail -n1 | awk '{print $2}')B
       echo Disk usage:
       df -h / /nix
       echo Have fun!
@@ -246,24 +246,24 @@ in {
       let Tlist_Compact_Format = 1 " show small menu
       let Tlist_Ctags_Cmd = 'ctags' " location of ctags
       "let Tlist_Display_Prototype = 1
-      let Tlist_Display_Tag_Scope = 1        
+      let Tlist_Display_Tag_Scope = 1
       let Tlist_Enable_Fold_Column = 0 " do show folding tree
       let Tlist_Exist_OnlyWindow = 1 " if you are the last, kill yourself
       let Tlist_Exit_OnlyWindow = 1
       " let Tlist_File_Fold_Auto_Close = 0 " fold closed other trees
       let Tlist_File_Fold_Auto_Close = 1
       let tlist_php_settings = 'php;c:class;d:constant;f:function' " don't show variables in freaking php
-      let Tlist_Show_One_File = 1    
+      let Tlist_Show_One_File = 1
       let Tlist_Sort_Type = "name" " order by
       let Tlist_Use_Right_Window = 1 " split to the right side of the screen
       let tlist_vb_settings = 'asp;f:function;c:class' " just functions and classes please
-      let Tlist_WinWidth = 40 " 40 cols wide, so i can (almost always) read my functions        
+      let Tlist_WinWidth = 40 " 40 cols wide, so i can (almost always) read my functions
       map <C-h> <C-w>h
       map <C-j> <C-w>j
       map <C-k> <C-w>k
       map <C-l> <C-w>l
       map <F2> :wa<CR>
-      map <F2><F2> :wqa!<CR> 
+      map <F2><F2> :wqa!<CR>
       " map <Esc><Esc> :qa!<CR>
       " map <F5> :term stack runhaskell %:p<CR>
       " map <F6> :term stack ghci %:p<CR>
@@ -279,7 +279,7 @@ in {
       nmap <C-N><C-N> :set invnumber<CR>
       nmap <C-P><C-P> :set invpaste<CR>
       nmap <C-T><C-T> :TlistToggle<CR>
-      nmap <C-right> :vert term<CR> 
+      nmap <C-right> :vert term<CR>
       nmap <leader>l :set list!<CR> " Shortcut to rapidly toggle `set list`
       nmap <leader>v :tabedit $MYVIMRC<CR>
       nnoremap <Esc>P P'[v' ]=
@@ -386,7 +386,7 @@ in {
           "colorscheme metacosm " my color scheme (only works in GUI)
           set columns=180 " perfect size for me
           set guifont=Consolas:h8 " My favorite font
-          set guioptions=ce 
+          set guioptions=ce
           "              ||
           "              |+-- use simple dialogs rather than pop-ups
           "              +  use GUI tabs, not console style tabs
@@ -556,7 +556,7 @@ in {
   #    haskellPackages.xmonad-contrib
   #    haskellPackages.monad-logger
   #  ];
-  #  haskellPackages = pkgs.haskell.packages.ghc942;
+  #  haskellPackages = pkgs.haskell.packages.ghc94;
   #};
 
   #xsession.windowManager.command =

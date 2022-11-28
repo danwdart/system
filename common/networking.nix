@@ -23,7 +23,7 @@ in {
 
   networkmanager = {
     enable = true;
-    # packages = 
+    # packages =
     #    dns = "
     #insertNameservers = [
     # extra stuff only

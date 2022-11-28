@@ -96,8 +96,8 @@
     #    haskellPackages.monad-logger
     #  ];
     #  haskellPackages = haskell.packages.ghc94;
-    #}; 
-    
+    #};
+
 
 
     #logcheck = {
@@ -136,8 +136,8 @@
       upnp = {
         enable = true;
       };
-      
-      services = 
+
+      services =
     #xrdp.enable = true;
     #xrdp.defaultWindowManager = "startplasma-x11";
 

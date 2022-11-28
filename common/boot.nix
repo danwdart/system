@@ -7,7 +7,7 @@
     configurationLimit = 3;
   };
 
-  # for rescue purposes, copy 
+  # for rescue purposes, copy
   #loader.generationsDir = {
     # link latest generation to /boot/default/kernel and /boot/default/initrd
   #  enable = true;

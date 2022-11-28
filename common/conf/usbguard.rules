@@ -1,7 +1,7 @@
 allow id 0403:6001 serial "" name "USB <-> Serial" hash "tyx9qLC6f1d6iP2r50GwIOk7+ecr0ilDrMTFyKGK9V8="
 allow id 045e:02ea serial "3032363030343237393036363336" name "Controller" hash "ZDxa4Tr+9jjw63yo3XSVwOGX6+ytaiwGkMd+CRR/jVQ="
 allow id 054c:0268 serial "" name "PLAYSTATION(R)3 Controller" hash "K9zBxVwO/eS6XiXh8/tmz2YlX3mFlIv1yFjCdStcUsk="
-allow id 057e:2000 serial "XKJ70043999289" name "Nintendo Switch" hash "SmPo30EvWvNo35NkW+C5dC3p7o96YXsdDnTX0ngpyXE=" 
+allow id 057e:2000 serial "XKJ70043999289" name "Nintendo Switch" hash "SmPo30EvWvNo35NkW+C5dC3p7o96YXsdDnTX0ngpyXE="
 allow id 057e:201d serial "XKJ70043999289" name "Nintendo Switch" hash "2byAQJMtbVsgJa4dy1ie2wB0X38JZcwReYHHh+vGq2U="
 allow id 05e3:0751 serial "" name "USB Storage" hash "zNR+zUn0ym93v361FlHUH5YzvYcQ1nwBk0nBEyXdjY4="
 allow id 0644:0000 serial "" name "TEACV0.0" hash "1b0sPCLzQdXiX+4yFR9qLc60isfwL528XeeV/SkXduE="

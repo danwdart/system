@@ -49,5 +49,5 @@
 
   optimise = {
     automatic = true;
-  };  
+  };
 }
