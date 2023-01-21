@@ -10,6 +10,7 @@ with pkgs; [
     # lbreakout2
     liberation-circuit
     # ltris
+    megaglest
     # mgba
     # mupen64plus # no desktop icon
     nethack-qt # no desktop icon
@@ -37,5 +38,7 @@ with pkgs; [
     # warsow - can't download
     # xonotic # keeps compiling
     yquake2 # no desktop icon
+    # zeroadPackages.zeroad-unwrapped # segfaults
+    # zeroadPackages.zeroad-data
     # zsnes
 ]
