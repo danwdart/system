@@ -16,6 +16,7 @@ with pkgs; [
     htop
     i7z
     inetutils
+    jmtpfs
     jnettop
     kexec-tools
     lm_sensors
