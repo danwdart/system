@@ -32,4 +32,19 @@
       "wireshark"
     ];
   };
+
+  users.raven = {
+    createHome = true;
+    description = "Raven Bloodmoon";
+    initialHashedPassword = "$6$Zj6lI0M2wlkF7bHm$mJW1RGA7oCZFUIhS4IFMGytuGVwEi9e0mghBCyw1uMoGq7HSmwTDxSyn0rADnqz/7l8U0XrFouwQNklsL09W10";
+    isNormalUser = true;
+    extraGroups = [
+      "dialout"
+      "jackaudio"
+      "lp"
+      "networkmanager"
+      "plugdev"
+      "scanner"
+    ];
+  };
 }
