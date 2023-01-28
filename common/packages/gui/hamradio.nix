@@ -4,6 +4,7 @@ with pkgs; [
     cqrlog
     cubicsdr
     dabtools
+    dfu-util
     # direwolf # compilation issues?
     fldigi
     flrig
