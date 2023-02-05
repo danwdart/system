@@ -1,5 +1,5 @@
 pkgs:
 with pkgs; [
     calibre
-    libreoffice-fresh
+    # libreoffice-fresh # no mdds
 ]

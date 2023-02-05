@@ -7,6 +7,6 @@ with (import <nixpkgs> {
         ];
     };
 }); [
-    authy
+    # authy # broken
     plasma-pass
 ]

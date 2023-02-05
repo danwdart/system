@@ -3,7 +3,7 @@ with pkgs; [
     # platform-tools?
     adbfs-rootless
     python310Packages.android-backup
-    code-server # unneeded
+    # code-server # unneeded
     docker-compose
     gitAndTools.gh
     gitAndTools.gitFull

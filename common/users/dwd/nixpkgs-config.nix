@@ -2,18 +2,16 @@
     allowUnfree = true;
     substituters = [
       https://cache.nixos.org
-      https://websites.cachix.org
       https://nixcache.reflex-frp.org
       https://nixcache.webghc.org
-      https://hydra.iohk.io
+      # https://hydra.iohk.io # dead?
       https://static-haskell-nix.cachix.org
     ];
     trusted-substituters = [
       https://cache.nixos.org
-      https://websites.cachix.org
       https://nixcache.reflex-frp.org
       https://nixcache.webghc.org
-      https://hydra.iohk.io
+      https://cache.iog.io
       https://static-haskell-nix.cachix.org
     ];
     trusted-public-keys = [

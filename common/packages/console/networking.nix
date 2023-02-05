@@ -1,7 +1,7 @@
 pkgs:
 with pkgs; [
     autossh
-    azure-cli # TODO split?
+    # azure-cli # TODO split? # broken
     bind # host, nslookup etc
     docker-proxy
     doctl # run doctl auth init before use

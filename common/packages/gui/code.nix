@@ -1,8 +1,8 @@
 pkgs:
 with pkgs; [
     cool-retro-term
-    androidStudioPackages.canary
-    android-tools
+    # androidStudioPackages.canary # dependent on android-tools?
+    # android-tools # build failure at fipsmodule
     circup
     diylc
     gnucap
@@ -19,7 +19,7 @@ with pkgs; [
     python310Packages.cirq-ionq
     # python310Packages.cirq-google # build failure
     python310Packages.cirq-core
-    python310Packages.cirq-aqt
+    # python310Packages.cirq-aqto # missing
     # python310Packages.cirq # depends on rigetti
     qucs
     stlink

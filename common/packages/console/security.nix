@@ -7,7 +7,7 @@ with pkgs; [
     john
     lynis
     masscan
-    metasploit
+    # metasploit # failed
     nmap
     openssl # the CLI client
     # ossec - not yet integrated into systemd
