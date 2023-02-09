@@ -58,7 +58,7 @@ in
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    numDevices = 1;
+    # numDevices = 1; # Using ZRAM devices as general purpose ephemeral block devices is no longer supported
     swapDevices = 1;
     memoryPercent = 50;
   };
