@@ -25,5 +25,6 @@ with pkgs; [
     wiiload
     wiimms-iso-tools
     wiiuse
+    winetricks
     # master.yuzu
 ]
