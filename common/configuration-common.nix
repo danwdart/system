@@ -18,7 +18,6 @@ in {
   imports =
     [
       "${home-manager}/nixos"
-      ./cachix.nix
     ];
 
   boot = import ./boot.nix {pkgs = pkgs; unstable = unstable;};

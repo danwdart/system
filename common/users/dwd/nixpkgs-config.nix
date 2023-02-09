@@ -2,6 +2,7 @@
     allowUnfree = true;
     substituters = [
       https://cache.nixos.org
+      https://dandart.cachix.org
       https://nixcache.reflex-frp.org
       https://nixcache.webghc.org
       # https://hydra.iohk.io # dead?
@@ -9,6 +10,7 @@
     ];
     trusted-substituters = [
       https://cache.nixos.org
+      https://dandart.cachix.org
       https://nixcache.reflex-frp.org
       https://nixcache.webghc.org
       https://cache.iog.io
