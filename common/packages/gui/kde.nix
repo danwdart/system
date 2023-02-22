@@ -8,6 +8,7 @@ with pkgs; [
     libsForQt5.discover
     libsForQt5.dolphin
     libsForQt5.dolphin-plugins
+    libsForQt5.kmail
     libsForQt5.kpat
     libsForQt5.phonon
     libsForQt5.phonon-backend-gstreamer
