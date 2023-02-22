@@ -2,7 +2,7 @@ pkgs:
 with pkgs; [
     # platform-tools?
     adbfs-rootless
-    python310Packages.android-backup
+    # python312Packages.android-backup # build failure
     # code-server # unneeded
     docker-compose
     gitAndTools.gh

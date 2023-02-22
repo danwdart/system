@@ -13,14 +13,14 @@ with pkgs; [
     logisim-evolution
     ngspice
     pcb
-    python310Packages.cirq-web
-    # python310Packages.cirq-rigetti # failing tests, no binary???
-    python310Packages.cirq-pasqal
-    python310Packages.cirq-ionq
-    # python310Packages.cirq-google # build failure
-    python310Packages.cirq-core
-    # python310Packages.cirq-aqto # missing
-    # python310Packages.cirq # depends on rigetti
+    # python312Packages.cirq-web # presumably dependent on core
+    # python312Packages.cirq-rigetti # failing tests, no binary???
+    # python312Packages.cirq-pasqal # presumably dependent on core
+    # python312Packages.cirq-ionq # build failure
+    # python312Packages.cirq-google # build failure
+    # python312Packages.cirq-core # fails to build
+    # python312Packages.cirq-aqto # missing
+    # python312Packages.cirq # depends on rigetti
     qucs
     stlink
     tkgate

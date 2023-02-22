@@ -12,8 +12,8 @@ with pkgs; [
     # nixops # build failure
     openvpn
     protonvpn-cli
-    python310Packages.mitmproxy
-    python310Packages.protonvpn-nm-lib
+    # python312Packages.mitmproxy # fails to build
+    # python312Packages.protonvpn-nm-lib # fails to build
     ngrok
     # proxytunnel # insecure openssl
     slirp4netns

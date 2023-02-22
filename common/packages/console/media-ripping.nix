@@ -1,7 +1,7 @@
 pkgs:
 with pkgs; [
     get_iplayer
-    python38Packages.internetarchive # ia binary
+    # python312Packages.internetarchive # ia binary # unneeded much, also breaks
     # tvheadend # ffmpeg too old
     youtube-dl
     yt-dlp

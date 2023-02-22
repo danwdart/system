@@ -1,6 +1,6 @@
 pkgs:
 with pkgs; [
-    blender
+    # blender # fails to build
     dia
     # geogebra
     gimp
