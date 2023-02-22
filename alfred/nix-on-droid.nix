@@ -2,9 +2,13 @@
 
 {
   environment.packages = with pkgs; [
+    bc
     bzip2
+    cachix
     diffutils
+    direnv
     findutils
+    gawk
     git
     gnugrep
     gnupg
@@ -13,15 +17,19 @@
     gzip
     hostname
     man
+    nginx
     openssh
+    systemd
     tzdata
+    units
     unzip
     utillinux
     vim
+    which
     xz
     zip
   ];
-
+  
   environment.etcBackupExtension = ".bak";
   system.stateVersion = "22.05";
 
