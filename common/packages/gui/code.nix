@@ -1,7 +1,7 @@
 pkgs:
 with pkgs; [
     cool-retro-term
-    # androidStudioPackages.canary # dependent on android-tools?
+    androidStudioPackages.canary # dependent on android-tools?
     # android-tools # build failure at fipsmodule
     circup
     diylc
