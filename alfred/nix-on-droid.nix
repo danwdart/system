@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
-
-{
+let consolePackages = import ../common/packages/console/packages.nix { pkgs = pkgs; unstable = pkgs; };
+in {
   environment.packages = with pkgs; [
     bc
     bzip2
@@ -28,7 +28,7 @@
     which
     xz
     zip
-  ];
+  ] ++ consolePackages;
   
   environment.etcBackupExtension = ".bak";
   system.stateVersion = "22.05";
