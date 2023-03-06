@@ -66,6 +66,10 @@ in {
     */
   };
 
+  # tailscale = {
+  #   enable = true;
+  # };
+
   tor = {
     # enable = true;
     client = {
@@ -188,6 +192,19 @@ in {
 
   # Enable touchpad support (enabled default in most desktopManager).
   # xserver.libinput.enable = true;
+
+  # TODO
+  #onlyoffice = {
+  #  enable = true;
+  #  hostname = "office.jolharg.com";
+  #  port = 8000;
+  #  rabbitmqUrl = "amqp://guest:guest@localhost:5672";
+  #  postgresHost = "localhost";
+  #  postgresName = "onlyoffice";
+  #  postgresUser = "onlyoffice";
+  #  postgresPasswordFile = "";
+  #  jwtSecretFile = "";
+  #};
 
   nginx = {
     enable = true;
