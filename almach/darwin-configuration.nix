@@ -93,6 +93,7 @@ in
     # slack
     # zoom-us
     xearth
+    teams
   ];
 
   # Use a custom configuration.nix location.
