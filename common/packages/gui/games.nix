@@ -17,15 +17,11 @@ with pkgs; [
     # nexuiz # no desktop icon # BIG
     # openarena # no desktop icon # BIG
     # padman?
-    quake3e # no desktop icon
     quakespasm # no desktop icon
     # redeclipse
     # sauerbraten # no desktop icon
     # snes9x-gtk # has to compile now?
     # speed_dreams # no desktop icon # keeps compiling
-    steam
-    steamcmd
-    steam-run-native
     # stuntrally # BIG
     # superTux # Bigish
     # superTuxKart # BIG
@@ -41,4 +37,11 @@ with pkgs; [
     # zeroadPackages.zeroad-unwrapped # segfaults
     # zeroadPackages.zeroad-data
     # zsnes
-]
+] ++ (if builtins.currentSystem != "aarch64-linux" then [
+    steam
+    steamcmd
+    steam-run-native
+    quake3e # no desktop icon
+] else [
+
+])

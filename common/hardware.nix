@@ -1,12 +1,12 @@
 pkgs:
 {
-  cpu.intel.updateMicrocode = true;
+  cpu.intel.updateMicrocode = if builtins.currentSystem == "x86_64-linux" then true else false;
 
   pulseaudio.enable = false;
 
   opengl = {
     driSupport = true;
-    driSupport32Bit = true;
+    driSupport32Bit = if builtins.currentSystem == "x86_64-linux" then true else false;
     #extraPackages32 = with pkgs.pkgsi686Linux; [ libva pkgsi686Linux.amdvlk ];
     #extraPackages = with pkgs; [ amdvlk rocm-opencl-icd rocm-opencl-runtime ];
   };

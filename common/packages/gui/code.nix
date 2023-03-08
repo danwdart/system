@@ -1,7 +1,6 @@
 pkgs:
 with pkgs; [
     cool-retro-term
-    androidStudioPackages.canary # dependent on android-tools?
     # android-tools # build failure at fipsmodule
     circup
     diylc
@@ -27,6 +26,9 @@ with pkgs; [
     vscode # insiders?
     x11docker
     xcircuit
-    xyce
+] ++ (if builtins.currentSystem != "aarch64-linux" then [
+    androidStudioPackages.canary # dependent on android-tools?
+    xyce # broken on aarch64
     xyce-parallel
-]
+] else [
+])

@@ -24,10 +24,12 @@ with pkgs; [
     # rtlsdr
     sdrangel
     soapyhackrf
-    soapysdrplay
     soapysdr-with-plugins
     soundmodem # no desktop icon, needs config
-    welle-io
     wsjtx
     xlog
-]
+] ++ (if builtins.currentSystem != "aarch64-linux" then [
+    soapysdrplay
+    welle-io
+] else [
+])

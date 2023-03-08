@@ -1,6 +1,6 @@
 {...}:
 {
-  steam.enable = true;
+  steam.enable = if builtins.currentSystem != "aarch64-linux" then true else false;
 
   adb.enable = true;
 

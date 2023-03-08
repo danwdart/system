@@ -14,7 +14,6 @@ with pkgs; [
     hdparm
     hidapi
     htop
-    i7z
     inetutils
     jmtpfs
     jnettop
@@ -43,4 +42,7 @@ with pkgs; [
     ventoy-bin
     wget
     wirelesstools
-]
+] ++ (if builtins.currentSystem != "aarch64-linux" then [
+    i7z
+] else [
+])

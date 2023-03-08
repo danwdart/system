@@ -6,7 +6,6 @@ with pkgs;
     ardour
     audacity
     autotalent
-    bristol # no desktop icon
     caps
     clementine
     csa
@@ -22,14 +21,17 @@ with pkgs;
     # kapitonov-plugins-pack
     nova-filters
     pavucontrol
-    plugin-torture
-    polyphone # no desktop icon
     qjackctl
     qsynth
     rosegarden
     soundfont-fluid
-    tuxguitar # no desktop icon
-    x42-gmsynth
     yoshimi
     zam-plugins
-]
+] ++ (if builtins.currentSystem != "aarch64-linux" then [
+    bristol # no desktop icon
+    plugin-torture # broken on aarch64
+    polyphone # no desktop icon # broken on aarch64
+    tuxguitar # no desktop icon # REALLY broken on aarch64
+    x42-gmsynth # broken on aarch64
+] else [
+])
