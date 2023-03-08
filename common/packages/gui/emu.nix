@@ -2,12 +2,10 @@
 with pkgs; [
     desmume
     dosbox
-    citra
     # epsxe # insecure openssl
     higan
     retroarchFull
     melonDS
-    pcsx2 # keeps recompiling
     # pcsxr # depends on insecure ffmpeg
     #protontricks
     rpcs3
@@ -19,12 +17,17 @@ with pkgs; [
     #(unstable.winetricks.override {
     #    wine = unstable.wineWowPackages.staging;
     #})
-    unstable.wineWowPackages.fonts
-    # master.wineWowPackages.staging # takes forever to compile
-    unstable.wineWowPackages.staging
     wiiload
     wiimms-iso-tools
     wiiuse
     winetricks
     # master.yuzu
-]
+] ++ (if builtins.currentSystem != "aarch64-linux" then [
+    citra # broken on aarch64
+    pcsx2 # keeps recompiling
+    unstable.wineWowPackages.fonts
+    # master.wineWowPackages.staging # takes forever to compile
+    unstable.wineWowPackages.staging
+] else [
+])
+

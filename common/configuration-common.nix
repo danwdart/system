@@ -7,7 +7,7 @@ let
       allowUnfree = true;
     };
   };
-  hostName = "sinistra";
+  hostName = "alderamin";
   home-manager = builtins.fetchTarball {
     url = "https://github.com/nix-community/home-manager/archive/master.tar.gz";
   };

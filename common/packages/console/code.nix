@@ -1,7 +1,6 @@
 pkgs:
 with pkgs; [
     # platform-tools?
-    adbfs-rootless
     # python312Packages.android-backup # build failure
     # code-server # unneeded
     docker-compose
@@ -13,4 +12,8 @@ with pkgs; [
     git-lfs
     vim # plugins?
     # xcodebuild
-]
+] ++ (if builtins.currentSystem != "aarch64-linux" then [
+    adbfs-rootless
+] else [
+
+])
