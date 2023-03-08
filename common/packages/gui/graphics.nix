@@ -1,9 +1,11 @@
 pkgs:
 with pkgs; [
     # blender # fails to build
-    dia
     # geogebra
     gimp
     inkscape
     krita
-]
+] ++ (if builtins.currentSystem == "x86_64-linux" then [
+    dia
+] else [
+])

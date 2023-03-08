@@ -30,18 +30,18 @@ with pkgs; [
     # trigger # no desktop icon
     uhexen2
     # urbanterror # no desktop icon # nBIG
-    vkquake # no desktop icon but needs dir
     # warsow - can't download
     # xonotic # keeps compiling
     yquake2 # no desktop icon
     # zeroadPackages.zeroad-unwrapped # segfaults
     # zeroadPackages.zeroad-data
     # zsnes
-] ++ (if builtins.currentSystem != "aarch64-linux" then [
+] ++ (if builtins.currentSystem == "x86_64-linux" then [
     steam
     steamcmd
     steam-run-native
     quake3e # no desktop icon
+    vkquake # no desktop icon but needs dir
 ] else [
 
 ])
