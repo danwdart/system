@@ -31,6 +31,10 @@ in {
     # enable = true;
   };
 
+  fwupd = {
+    enable = true;
+  };
+
   i2p = {
     # enable = true;
     /*
