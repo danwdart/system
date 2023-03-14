@@ -5,11 +5,14 @@ with pkgs; [
     bluez-tools
     cdrkit
     cdrtools
+    clinfo
     cmatrix
+    egl-wayland
     enhanced-ctorrent
     file
     # f3 # doesn't compile due to libudev.h missing
     glances
+    glxinfo
     gptfdisk
     hdparm
     hidapi
@@ -35,6 +38,7 @@ with pkgs; [
     sixpair
     socat
     testdisk
+    vulkan-tools
     u3-tool
     unrar
     unzip
