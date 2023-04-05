@@ -30,9 +30,9 @@ in
     multimon-ng
     units
     ncspot
-    get_iplayer
-    youtube-dl
-    yt-dlp
+    # get_iplayer
+    # youtube-dl
+    # yt-dlp
     autossh
     bind
     doctl
@@ -85,7 +85,7 @@ in
     dosbox
     virt-viewer
     gramps
-    geogebra
+    # geogebra
     gimp
     inkscape
     mplayer
