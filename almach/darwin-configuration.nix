@@ -83,13 +83,13 @@ in
     cool-retro-term
     # vscode
     dosbox
-    virt-viewer
+    # virt-viewer # fails to find epoxy/egl.h
     gramps
     # geogebra
     gimp
     inkscape
     mplayer
-    dbeaver
+    # dbeaver # too old!
     postman
     putty
     rdesktop
