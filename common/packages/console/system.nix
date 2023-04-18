@@ -43,7 +43,7 @@ with pkgs; [
     unrar
     unzip
     usbutils
-    ventoy-bin
+    ventoy
     wget
     wirelesstools
 ] ++ (if builtins.currentSystem != "aarch64-linux" then [

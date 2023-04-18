@@ -37,6 +37,7 @@ $IPT -A INPUT -p tcp -s $PRIVNET_12 -d $PRIVNET_12 -j ACCEPT
 $IPT -A INPUT -p udp -s $THISNET -d $BCAST --sport $DHCP_CLIENT_PORT --dport $DHCP_SERVER_PORT -j ACCEPT
 $IPT -A INPUT -p udp -s $HOME_ROUTER -d $BCAST --sport $DHCP_SERVER_PORT --dport $DHCP_CLIENT_PORT -j ACCEPT
 
+
 # BitTorrent
 $IPT -A INPUT -p tcp -d $HOME_NET --dport 6881 -j ACCEPT
 $IPT -A INPUT -p udp -d $HOME_NET --dport 6881 -j ACCEPT
@@ -89,6 +90,10 @@ $IPT -A INPUT -p udp -d $HOME_NET -m multiport --dport 50000:65535 -j ACCEPT
 
 # all local for now
 $IPT -A INPUT -s $HOME_NET -d $HOME_NET -j ACCEPT
+
+# SMB
+$IPT -A INPUT -p tcp -s $HOME_NET -m multiport --dport 137,139,445,5357 -j ACCEPT
+$IPT -A INPUT -p udp -s $HOME_NET -m multiport --dport 3702 -j ACCEPT
 
 # and all local broadcast
 $IPT -A INPUT -s $HOME_NET -d $HOME_BCAST -j ACCEPT
@@ -227,7 +232,8 @@ $IPT -A OUTPUT -p tcp -s $HOME_NET --dport 43 -j ACCEPT
 $IPT -A OUTPUT -p tcp -s $HOME_NET --dport 21 -j ACCEPT
 
 # SMB
-$IPT -A OUTPUT -p tcp -s $HOME_NET -m multiport --dport 137,139,445 -j ACCEPT
+$IPT -A OUTPUT -p tcp -s $HOME_NET -m multiport --dport 137,139,445,5357 -j ACCEPT
+$IPT -A OUTPUT -p udp -s $HOME_NET -m multiport --dport 3702 -j ACCEPT
 
 # websdr
 $IPT -A OUTPUT -p tcp -s $HOME_NET -d 192.87.173.88 --dport 8901 -j ACCEPT
