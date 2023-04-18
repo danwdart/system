@@ -35,6 +35,53 @@ in {
     enable = true;
   };
 
+  samba-wsdd = {
+    enable = true;
+  };
+
+  samba = {
+    enable = true;
+    nsswins = true;
+    enableNmbd = true;
+    enableWinbindd = true;
+    securityType = "user";
+    extraConfig = ''
+      workgroup = WORKGROUP
+      server string = smbnix
+      netbios name = smbnix
+      security = user 
+      #use sendfile = yes
+      #max protocol = smb2
+      # note: localhost is the ipv6 localhost ::1
+      hosts allow = 192.168.1. 127.0.0.1 localhost
+      hosts deny = 0.0.0.0/0
+      guest account = nobody
+      map to guest = bad user
+    '';
+    shares = {
+      public = {
+        path = "/home/dwd/Public";
+        browseable = "yes";
+        "read only" = "no";
+        "guest ok" = "yes";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+        "force user" = "dwd";
+        "force group" = "users";
+      };
+      # private = {
+      #   path = "/home/dwd";
+      #   browseable = "yes";
+      #   "read only" = "no";
+      #   "guest ok" = "no";
+      #   "create mask" = "0644";
+      #   "directory mask" = "0755";
+      #   "force user" = "dwd";
+      #   "force group" = "users";
+      # };
+    };
+  };
+
   i2p = {
     # enable = true;
     /*
@@ -215,7 +262,7 @@ in {
     # enableReload = true;
     defaultListenAddresses = [
       "127.0.0.1"
-      # "192.168.1.115"
+      # "192.168.1.116"
       "0.0.0.0"
     ];
     statusPage = true;
@@ -225,7 +272,7 @@ in {
       "localhost" = {
         serverAliases = [
           "127.0.0.1"
-          "192.168.1.115"
+          "192.168.1.116"
         ];
         root = "${hostDir}/private_html";
       };
@@ -283,7 +330,7 @@ in {
         '';
         locations = {
           "/" = {
-            proxyPass = "http://localhost:5000/";
+            proxyPass = "http://192.168.1.106:5000/";
             proxyWebsockets = true;
           };
           "/502.html" = {
@@ -303,7 +350,7 @@ in {
         '';
         locations = {
           "/" = {
-            proxyPass = "http://localhost:5600/";
+            proxyPass = "http://192.168.1.106:5600/";
             proxyWebsockets = true;
           };
           "/502.html" = {
@@ -1637,11 +1684,6 @@ in {
   };
 
   printing.enable = true;
-
-  samba.enable = true;
-  samba.nsswins = true;
-  samba.enableNmbd = true;
-  samba.enableWinbindd = true;
 
   xserver.libinput.enable = true;
 
