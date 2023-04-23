@@ -69,16 +69,16 @@ in {
         "force user" = "dwd";
         "force group" = "users";
       };
-      # private = {
-      #   path = "/home/dwd";
-      #   browseable = "yes";
-      #   "read only" = "no";
-      #   "guest ok" = "no";
-      #   "create mask" = "0644";
-      #   "directory mask" = "0755";
-      #   "force user" = "dwd";
-      #   "force group" = "users";
-      # };
+       private = {
+         path = "/home/dwd";
+         browseable = "yes";
+         "read only" = "no";
+         "guest ok" = "no";
+         "create mask" = "0644";
+         "directory mask" = "0755";
+         "force user" = "dwd";
+         "force group" = "users";
+       };
     };
   };
 
