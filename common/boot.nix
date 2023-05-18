@@ -43,9 +43,7 @@
   # https://github.com/zen-kernel/zen-kernel
   # linuxKernel.packages.linux_zen = 5.19.10
 
-  # linux_6_2
-
-  kernelPackages = pkgs.linuxKernel.packages.linux_6_2;
+  kernelPackages = pkgs.linuxKernel.packages.linux_6_3;
 
   #kernelPatches = [
   #  {
