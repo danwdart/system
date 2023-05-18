@@ -18,6 +18,7 @@ in {
   imports =
     [
       "${home-manager}/nixos"
+      (fetchTarball "https://github.com/nix-community/nixos-vscode-server/tarball/master")
     ];
 
   boot = import ./boot.nix {pkgs = pkgs; unstable = unstable;};

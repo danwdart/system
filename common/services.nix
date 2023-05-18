@@ -39,6 +39,8 @@ in {
     enable = true;
   };
 
+  vscode-server.enable = true;
+
   samba = {
     enable = true;
     nsswins = true;
@@ -330,7 +332,7 @@ in {
         '';
         locations = {
           "/" = {
-            proxyPass = "http://192.168.1.100:5000/";
+            proxyPass = "http://192.168.1.103:5000/";
             proxyWebsockets = true;
           };
           "/502.html" = {
@@ -350,7 +352,7 @@ in {
         '';
         locations = {
           "/" = {
-            proxyPass = "http://192.168.1.100:5600/";
+            proxyPass = "http://192.168.1.103:5600/";
             proxyWebsockets = true;
           };
           "/502.html" = {
