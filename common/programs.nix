@@ -22,5 +22,8 @@
   };
 
   # nethoscope.enable = true;
-  nix-ld.enable = true;
+  # nix-ld.enable = true; # breaks ls in nix shells!?
+
+  # needs master
+  # darling.enable = true;
 }
