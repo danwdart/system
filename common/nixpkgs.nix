@@ -5,6 +5,8 @@
     permittedInsecurePackages = [
       # ???
       "python2.7-pyjwt-1.7.1"
+      # ???
+      "openssl-1.1.1t"
     ];
     packageOverrides = pkgs: {
       xsaneGimp = pkgs.xsane.override { gimpSupport = true; };

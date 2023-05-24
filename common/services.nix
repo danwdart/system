@@ -485,20 +485,22 @@ in {
     };
   };
 
-  grocy = {
-    enable = true;
-    hostName = "grocy.dandart.co.uk";
-    nginx = {
-      # onlySSL = true;
-    };
-    settings = {
-      calendar = {
-        firstDayOfWeek = 1;
-      };
-      currency = "GBP";
-      culture = "en_GB";
-    };
-  };
+  # broken
+
+  #grocy = {
+  #  enable = true;
+  #  hostName = "grocy.dandart.co.uk";
+  #  nginx = {
+  #    # onlySSL = true;
+  #  };
+  #  settings = {
+  #    calendar = {
+  #      firstDayOfWeek = 1;
+  #    };
+  #    currency = "GBP";
+  #    culture = "en_GB";
+  #  };
+  #};
 
   # home-assistant = {
   #   enable = true;
