@@ -1724,7 +1724,6 @@ in {
 
   joycond.enable = true;
 
-  # create /var/lib/clamav
   clamav = {
     updater = {
       enable = true;
