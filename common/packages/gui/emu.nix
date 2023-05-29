@@ -4,7 +4,6 @@ with pkgs; [
     dosbox
     # epsxe # insecure openssl
     higan
-    retroarchFull
     melonDS
     # pcsxr # depends on insecure ffmpeg
     #protontricks
@@ -25,6 +24,7 @@ with pkgs; [
 ] ++ (if builtins.currentSystem != "aarch64-linux" then [
     citra # broken on aarch64
     pcsx2 # keeps recompiling
+    retroarchFull # TODO: get rid of libretro-parallel-n64-code - that's the one that's broken on aarch64
     unstable.wineWowPackages.fonts
     # master.wineWowPackages.staging # takes forever to compile
     unstable.wineWowPackages.staging
