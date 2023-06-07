@@ -264,7 +264,7 @@ in {
     # enableReload = true;
     defaultListenAddresses = [
       "127.0.0.1"
-      # "192.168.1.116"
+      # "192.168.1.101"
       "0.0.0.0"
     ];
     statusPage = true;
@@ -274,7 +274,7 @@ in {
       "localhost" = {
         serverAliases = [
           "127.0.0.1"
-          "192.168.1.116"
+          "192.168.1.101"
         ];
         root = "${hostDir}/private_html";
       };
@@ -332,7 +332,7 @@ in {
         '';
         locations = {
           "/" = {
-            proxyPass = "http://192.168.1.103:5000/";
+            proxyPass = "http://192.168.1.112:5000/";
             proxyWebsockets = true;
           };
           "/502.html" = {
@@ -352,7 +352,7 @@ in {
         '';
         locations = {
           "/" = {
-            proxyPass = "http://192.168.1.103:5600/";
+            proxyPass = "http://192.168.1.112:5600/";
             proxyWebsockets = true;
           };
           "/502.html" = {
