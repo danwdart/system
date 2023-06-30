@@ -43,7 +43,7 @@
   # https://github.com/zen-kernel/zen-kernel
   # linuxKernel.packages.linux_zen = 5.19.10
 
-  kernelPackages = pkgs.linuxKernel.packages.linux_6_3;
+  kernelPackages = pkgs.linuxKernel.packages.linux_6_4;
 
   #kernelPatches = [
   #  {
@@ -52,5 +52,16 @@
   #  }
   #];
 
-  plymouth.enable = true;
+  plymouth = {
+    enable = true;
+  };
+  
+  # If you want anything for this built by nixosm, you have to use --argstr system X
+  binfmt.emulatedSystems = [
+    "i686-linux"
+    "x86_64-linux"
+    # "x86_64-windows"
+    "wasm32-wasi"
+    "wasm64-wasi"
+  ];
 }

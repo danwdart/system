@@ -1,4 +1,11 @@
 pkgs:
+let pkgs-x86_64 = import <nixos> {
+        system = "x86_64-linux";
+        config = {
+            allowUnfree = true;
+        };
+    };
+in
 with pkgs; [
     cool-retro-term
     # android-tools # build failure at fipsmodule
@@ -31,4 +38,7 @@ with pkgs; [
     xyce # broken on aarch64
     xyce-parallel
 ] else [
+    pkgs-x86_64.androidStudioPackages.canary
+    pkgs-x86_64.xyce
+    pkgs-x86_64.xyce-parallel
 ])

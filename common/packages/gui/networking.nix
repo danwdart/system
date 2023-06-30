@@ -1,4 +1,11 @@
 { pkgs, unstable, ... }:
+let pkgs-x86_64 = import <nixos> {
+        system = "x86_64-linux";
+        config = {
+            allowUnfree = true;
+        };
+    };
+in
 with pkgs; [
     dbeaver # for work, TODO split out?
     etherape
@@ -15,7 +22,12 @@ with pkgs; [
     beekeeper-studio # for work, TODO split out?
     insomnia
     postman
-    unstable.scrcpy # stable = 1.20, unstable = 1.21, master = 1.22
+    unstable.scrcpy
     tor-browser-bundle-bin
 ] else [
+    pkgs-x86_64.beekeeper-studio # for work, TODO split out?
+    pkgs-x86_64.insomnia
+    pkgs-x86_64.postman
+    pkgs-x86_64.scrcpy
+    pkgs-x86_64.tor-browser-bundle-bin
 ])
