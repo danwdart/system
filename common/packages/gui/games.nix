@@ -24,7 +24,7 @@ with pkgs; [
     # speed_dreams # no desktop icon # keeps compiling
     # stuntrally # BIG
     # superTux # Bigish
-    # superTuxKart # BIG
+    superTuxKart # BIG
     # torcs # no desktop icon
     # tremulous - broken
     # trigger # no desktop icon

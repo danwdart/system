@@ -7,7 +7,6 @@ with pkgs; [
     dfu-util
     # direwolf # compilation issues?
     fldigi
-    flrig
     freedv
     # gnss-sdr
     gnuradio
@@ -29,6 +28,7 @@ with pkgs; [
     wsjtx
     xlog
 ] ++ (if builtins.currentSystem != "aarch64-linux" then [
+    flrig
     soapysdrplay
     welle-io
 ] else [
