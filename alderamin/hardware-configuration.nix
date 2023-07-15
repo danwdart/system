@@ -16,8 +16,14 @@
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/78e2a4fc-e283-4d74-a5d5-81c62c35645c";
       fsType = "btrfs";
-      options = [ "subvol=@" ];
+      options = [ "subvol=@" "noatime" ];
     };
+
+  specialisation.home-on-sd.configuration.fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/658db87e-afd8-45f2-bba1-3acf79691860";
+    fsType = "btrfs";
+    options = [ "subvol=home" "noatime" ];
+  };
 
   fileSystems."/boot/efi" =
     { device = "/dev/disk/by-uuid/F673-C7F9";
