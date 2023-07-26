@@ -39,6 +39,6 @@ with pkgs; [
     xyce-parallel
 ] else [
     pkgs-x86_64.androidStudioPackages.canary
-    pkgs-x86_64.xyce
-    pkgs-x86_64.xyce-parallel
+    # pkgs-x86_64.xyce # takes an age to build
+    # pkgs-x86_64.xyce-parallel # presumably another age to build
 ])
