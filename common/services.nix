@@ -27,6 +27,8 @@ in {
     # useKernelOOMKiller = false;
   };
 
+  envfs.enable = true;
+
   freenet = {
     # enable = true;
   };
@@ -180,11 +182,11 @@ in {
     xkbModel = "inspiron";
   };
 
-  cinnamon = {
-    apps = {
-      enable = true;
-    };
-  };
+  #cinnamon = {
+  #  apps = {
+  #    enable = true;
+  #  };
+  #};
 
   gvfs = {
     enable = true;
