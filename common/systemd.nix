@@ -15,6 +15,8 @@
 
     # for nginx
     "z /home/dwd 0755 dwd users - -"
+    "d /var/lib/clamav 0755 clamav clamav" # because clamav doesn't do this for us?
+    # TODO do a wget / curl to get the latest files, or run freshclam
   ];
 
   #services = {

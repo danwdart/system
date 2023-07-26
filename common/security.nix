@@ -36,10 +36,14 @@
 
   # when persist use persist here
 
-  pki.certificateFiles = [
-    "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
-    # ../common/private/ca-bundle.crt
-    /home/dwd/code/mine/nix/system/common/private/rootCA.pem
-    /home/dwd/code/mine/nix/system/common/private/local-cert.pem
-  ];
+  # We no longer need these but I'll just leave this here so we know how to do it
+
+  #pki.certificateFiles = [
+  #  "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"   
+  #  # ../common/private/ca-bundle.crt
+  #  /home/dwd/code/mine/nix/system/common/private/rootCA.pem
+  #  /home/dwd/code/mine/nix/system/common/private/local-cert.pem
+  #];
+
+  chromiumSuidSandbox.enable = true;
 }

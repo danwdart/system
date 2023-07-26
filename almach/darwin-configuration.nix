@@ -30,9 +30,9 @@ in
     multimon-ng
     units
     ncspot
-    get_iplayer
-    youtube-dl
-    yt-dlp
+    # get_iplayer
+    # youtube-dl
+    # yt-dlp
     autossh
     bind
     doctl
@@ -43,6 +43,7 @@ in
     cachix
     direnv
     nix-direnv
+    nix-index
     nixpkgs-fmt
     atinout
     lrzsz
@@ -82,14 +83,14 @@ in
     audacity
     cool-retro-term
     # vscode
-    dosbox
-    virt-viewer
+    # dosbox # libGL -> mesa broken
+    # virt-viewer # fails to find epoxy/egl.h
     gramps
-    geogebra
+    # geogebra
     gimp
     inkscape
-    mplayer
-    dbeaver
+    # mplayer # same gl issue
+    # dbeaver # too old!
     postman
     putty
     rdesktop
@@ -98,19 +99,31 @@ in
     # slack
     # zoom-us
     xearth
-    teams
+    # teams # nah never using it
   ];
 
   # Use a custom configuration.nix location.
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
   environment.darwinConfig = "/Volumes/Code/system/almach/darwin-configuration.nix";
 
+  # Doesn't install Homebrew. Firstly needs installation:
+  # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  homebrew = {
+    enable = true;
+    brews = [
+
+    ];
+    casks = [
+      "supertuxkart"
+    ];
+  };
+
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
   # nix.package = pkgs.nix;
 
   # Create /etc/zshrc that loads the nix-darwin environment.
-  programs.zsh.enable = true;  # default shell on catalina
+  programs.zsh.enable = true;
   # programs.fish.enable = true;
 
   networking.hostName = hostName;

@@ -1,13 +1,19 @@
 pkgs:
+let pkgs-x86_64 = import <nixos> {
+        system = "x86_64-linux";
+        config = {
+            allowUnfree = true;
+        };
+    };
+in
 with pkgs; [
     chirp
-    cqrlog
+    # cqrlog # github broken?
     cubicsdr
     dabtools
     dfu-util
     # direwolf # compilation issues?
     fldigi
-    flrig
     freedv
     # gnss-sdr
     gnuradio
@@ -29,7 +35,11 @@ with pkgs; [
     wsjtx
     xlog
 ] ++ (if builtins.currentSystem != "aarch64-linux" then [
+    flrig
     soapysdrplay
     welle-io
 ] else [
+    pkgs-x86_64.flrig
+    pkgs-x86_64.soapysdrplay
+    pkgs-x86_64.welle-io
 ])

@@ -1,10 +1,16 @@
 { pkgs, unstable, ... }:
+let pkgs-x86_64 = import <nixos> {
+        system = "x86_64-linux";
+        config = {
+            allowUnfree = true;
+        };
+    };
+in
 with pkgs; [
     desmume
     dosbox
     # epsxe # insecure openssl
     higan
-    retroarchFull
     melonDS
     # pcsxr # depends on insecure ffmpeg
     #protontricks
@@ -25,9 +31,16 @@ with pkgs; [
 ] ++ (if builtins.currentSystem != "aarch64-linux" then [
     citra # broken on aarch64
     pcsx2 # keeps recompiling
+    retroarchFull # TODO: get rid of libretro-parallel-n64-code - that's the one that's broken on aarch64
     unstable.wineWowPackages.fonts
     # master.wineWowPackages.staging # takes forever to compile
     unstable.wineWowPackages.staging
 ] else [
+    pkgs-x86_64.citra # broken on aarch64
+    pkgs-x86_64.pcsx2 # keeps recompiling
+    pkgs-x86_64.retroarchFull # TODO: get rid of libretro-parallel-n64-code - that's the one that's broken on aarch64
+    pkgs-x86_64.wineWowPackages.fonts
+    # master.wineWowPackages.staging # takes forever to compile
+    pkgs-x86_64.wineWowPackages.staging
 ])
 

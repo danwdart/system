@@ -1,4 +1,11 @@
 pkgs:
+let pkgs-x86_64 = import <nixos> {
+        system = "x86_64-linux";
+        config = {
+            allowUnfree = true;
+        };
+    };
+in
 with pkgs; [
     armagetronad # no desktop icon
     dolphinEmu
@@ -24,7 +31,7 @@ with pkgs; [
     # speed_dreams # no desktop icon # keeps compiling
     # stuntrally # BIG
     # superTux # Bigish
-    # superTuxKart # BIG
+    superTuxKart # BIG
     # torcs # no desktop icon
     # tremulous - broken
     # trigger # no desktop icon
@@ -43,5 +50,6 @@ with pkgs; [
     quake3e # no desktop icon
     vkquake # no desktop icon but needs dir
 ] else [
-
+    pkgs-x86_64.quake3e # no desktop icon
+    pkgs-x86_64.vkquake # no desktop icon but needs dir
 ])
