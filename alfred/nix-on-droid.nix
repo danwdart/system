@@ -1,9 +1,14 @@
 { pkgs, config, ... }:
-let consolePackages = import ../common/packages/console/packages.nix { pkgs = pkgs; unstable = pkgs; };
-  sshdTmpDirectory = "${config.user.home}/sshd-tmp";
-  sshdDirectory = "${config.user.home}/sshd";
-  pathToPubKey = "${config.user.home}/.ssh/id_rsa.pub";
-  port = 8022;
+let pkgs = import <nixpkgs> {
+    config = {
+        allowUnfree = true;
+    };
+};
+    consolePackages = import ../common/packages/console/packages.nix pkgs;
+    sshdTmpDirectory = "${config.user.home}/sshd-tmp";
+    sshdDirectory = "${config.user.home}/sshd";
+    pathToPubKey = "${config.user.home}/.ssh/id_rsa.pub";
+    port = 8022;
 in {
   environment.packages = with pkgs; [
     bc
@@ -38,7 +43,7 @@ in {
       echo "Starting sshd in non-daemonized way on port ${toString port}"
       ${pkgs.openssh}/bin/sshd -f "${sshdDirectory}/sshd_config" -D
     '')
-  ];
+  ] ++ consolePackages;
   
   build.activation.sshd = ''
     $DRY_RUN_CMD mkdir $VERBOSE_ARG --parents "${config.user.home}/.ssh"
