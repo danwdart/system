@@ -40,6 +40,6 @@ with pkgs; [
     welle-io
 ] else [
     pkgs-x86_64.flrig
-    pkgs-x86_64.soapysdrplay
+    # pkgs-x86_64.soapysdrplay
     pkgs-x86_64.welle-io
 ])
