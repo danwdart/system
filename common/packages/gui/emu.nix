@@ -39,8 +39,8 @@ with pkgs; [
     pkgs-x86_64.citra # broken on aarch64
     pkgs-x86_64.pcsx2 # keeps recompiling
     pkgs-x86_64.retroarchFull # TODO: get rid of libretro-parallel-n64-code - that's the one that's broken on aarch64
-    pkgs-x86_64.wineWowPackages.fonts
+    # pkgs-x86_64.wineWowPackages.fonts
     # master.wineWowPackages.staging # takes forever to compile
-    pkgs-x86_64.wineWowPackages.staging
+    # pkgs-x86_64.wineWowPackages.staging
 ])
 
