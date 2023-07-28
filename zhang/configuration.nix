@@ -4,7 +4,12 @@
     imports = [
         ./hardware-configuration.nix    
     ];
-    nixpkgs.config.allowUnfree = true;
+    nixpkgs.config = {
+        allowUnfree = true;
+        permittedInsecurePackages = [
+            "nodejs-16.20.1"
+        ];
+    };
     boot.tmp.cleanOnBoot = true;
     zramSwap.enable = true;
     networking.hostName = "zhang";
