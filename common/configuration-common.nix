@@ -2,11 +2,6 @@
 # nixos-help
 { config, pkgs, lib,  ... }:
 let
-  unstable = import <nixos> {
-    config = {
-      allowUnfree = true;
-    };
-  };
   hostName = "alderamin";
   home-manager = builtins.fetchTarball {
     url = "https://github.com/nix-community/home-manager/archive/master.tar.gz";
@@ -21,13 +16,13 @@ in {
       (fetchTarball "https://github.com/nix-community/nixos-vscode-server/tarball/master")
     ];
 
-  boot = import ./boot.nix {pkgs = pkgs; unstable = unstable;};
+  boot = import ./boot.nix {pkgs = pkgs;};
   console = import ./console.nix {};
-  environment = import ./environment.nix {pkgs = pkgs; unstable = unstable; config = config; lib = lib;};
+  environment = import ./environment.nix {pkgs = pkgs;  config = config; lib = lib;};
   hardware = import ./hardware.nix pkgs;
   i18n = import ./i18n.nix {};
   networking = import ./networking.nix { lib = lib; hostName = hostName; };
-  nix = import ./nix.nix { unstable = unstable; };
+  nix = import ./nix.nix { pkgs = pkgs; };
   nixpkgs = import ./nixpkgs.nix {};
   programs = import ./programs.nix { pkgs = pkgs; };
   security = import ./security.nix pkgs;

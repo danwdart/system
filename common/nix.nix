@@ -1,7 +1,7 @@
-{unstable, ...}:
+{...}:
 {
 
-  package = unstable.nix;
+  # package = pkgs.nix;
 
   # max-jobs = 64;
 

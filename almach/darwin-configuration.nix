@@ -10,7 +10,7 @@ in
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
 
-  # systemPackages = import ./packages/packages.nix {pkgs = pkgs; unstable = unstable; };
+  # systemPackages = import ./packages/packages.nix {pkgs = pkgs; };
 
   environment.systemPackages = with nixpkgs; [
     clamav

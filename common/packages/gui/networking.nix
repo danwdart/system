@@ -1,4 +1,4 @@
-{ pkgs, unstable, ... }:
+{ pkgs, ... }:
 let pkgs-x86_64 = import <nixos> {
         system = "x86_64-linux";
         config = {
@@ -22,7 +22,7 @@ with pkgs; [
     beekeeper-studio # for work, TODO split out?
     insomnia
     postman
-    unstable.scrcpy
+    scrcpy
     tor-browser-bundle-bin
 ] else [
     pkgs-x86_64.beekeeper-studio # for work, TODO split out?

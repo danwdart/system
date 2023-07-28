@@ -1,4 +1,4 @@
-{ pkgs, unstable, ... }:
+{ pkgs, ... }:
 let pkgs-x86_64 = import <nixos> {
         system = "x86_64-linux";
         config = {
@@ -20,8 +20,8 @@ with pkgs; [
     # winePackages.fonts
     # master.winePackages.staging
     # winetricks # depend on correct version
-    #(unstable.winetricks.override {
-    #    wine = unstable.wineWowPackages.staging;
+    #(winetricks.override {
+    #    wine = wineWowPackages.staging;
     #})
     wiiload
     wiimms-iso-tools
@@ -32,9 +32,9 @@ with pkgs; [
     citra # broken on aarch64
     pcsx2 # keeps recompiling
     retroarchFull # TODO: get rid of libretro-parallel-n64-code - that's the one that's broken on aarch64
-    unstable.wineWowPackages.fonts
+    wineWowPackages.fonts
     # master.wineWowPackages.staging # takes forever to compile
-    unstable.wineWowPackages.staging
+    wineWowPackages.staging
 ] else [
     pkgs-x86_64.citra # broken on aarch64
     pkgs-x86_64.pcsx2 # keeps recompiling

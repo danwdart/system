@@ -1,4 +1,4 @@
-{ pkgs, unstable, ...}:
+{ pkgs, ...}:
 {
   loader.systemd-boot = {
     enable = true;

@@ -1,4 +1,4 @@
-{ pkgs, unstable, ... }:
+{ pkgs, ... }:
 # Any defaults/must-haves go here
 []
 # Any categorical apps go here
@@ -10,7 +10,7 @@
     ++ import ./chemistry.nix pkgs
     ++ import ./code.nix pkgs
     ++ import ./email.nix pkgs
-    ++ import ./emu.nix {pkgs = pkgs; unstable = unstable; }
+    ++ import ./emu.nix {pkgs = pkgs; }
     ++ import ./encryption.nix pkgs
     ++ import ./games.nix pkgs
     ++ import ./genealogy.nix pkgs
@@ -20,7 +20,7 @@
     ++ import ./kde.nix pkgs
     ++ import ./media-playing.nix pkgs
     ++ import ./media-ripping.nix pkgs
-    ++ import ./networking.nix {pkgs = pkgs; unstable = unstable; }
+    ++ import ./networking.nix {pkgs = pkgs; }
     ++ import ./office.nix pkgs
     ++ import ./phone.nix pkgs
     ++ import ./scanning.nix pkgs
