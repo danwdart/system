@@ -19,10 +19,10 @@
 
   hackrf.enable = true;
 
-  sane = {
+  sane = if isDesktop then {
     enable = true;
     extraBackends = with pkgs; [
       hplipWithPlugin
     ];
-  };
+  } else {};
 }
