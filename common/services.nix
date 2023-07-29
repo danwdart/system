@@ -264,7 +264,7 @@ in {
   #  jwtSecretFile = "";
   #};
 
-  nginx = if isDesktop then {} else {
+  nginx = if isDesktop then { enable = false; } else {
     enable = true;
     # enableReload = true;
     defaultListenAddresses = [
