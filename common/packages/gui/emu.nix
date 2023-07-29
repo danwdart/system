@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+pkgs:
 let pkgs-x86_64 = import <nixos> {
         system = "x86_64-linux";
         config = {

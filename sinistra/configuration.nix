@@ -10,7 +10,7 @@ in {
   imports =
     [
       ./hardware-configuration.nix
-      ../common/configuration-common.nix
+      ../common/configuration-desktop.nix
     ];
 
   # Setup keyfile

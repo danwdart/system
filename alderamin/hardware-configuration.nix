@@ -7,6 +7,25 @@
   imports =
     [ (modulesPath + "/profiles/qemu-guest.nix")
     ];
+    
+  boot.loader.systemd-boot = {
+    enable = true;
+    editor = false;
+    memtest86.enable = true;
+    configurationLimit = 3;
+  };
+
+  # for rescue purposes, copy
+  #loader.generationsDir = {
+    # link latest generation to /boot/default/kernel and /boot/default/initrd
+  #  enable = true;
+    # copy kernels to /boot so there's no need for /nix/store
+  #  copyKernels = true;
+  #};
+
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot/efi";
+
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
   boot.initrd.kernelModules = [ ];

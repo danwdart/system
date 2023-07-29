@@ -1,4 +1,4 @@
-{ pkgs, hostName, hostDir, privateDir, ... }:
+{ pkgs, hostName, hostDir, privateDir, isDesktop, ... }:
 let
   # needs /persist, see: https://github.com/nix-community/impermanence/issues/87
   rootDir = "/home/dwd/code/mine/nix/system";
@@ -143,7 +143,7 @@ in {
   #  mailTo = "logcheck@dandart.co.uk";
   #};
 
-  xserver = {
+  xserver = if isDesktop then {
     enable = true;
     displayManager = {
       sddm = {
@@ -180,7 +180,10 @@ in {
     layout = "gb";
     xkbOptions = "terminate:ctrl_alt_bksp,caps:escape,compose:ralt";
     xkbModel = "inspiron";
-  };
+    libinput = {
+      enable = true;
+    };
+  } else {};
 
   #cinnamon = {
   #  apps = {
@@ -1690,8 +1693,6 @@ in {
   };
 
   printing.enable = true;
-
-  xserver.libinput.enable = true;
 
   openssh = {
     enable = true;

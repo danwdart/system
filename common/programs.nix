@@ -1,16 +1,16 @@
-{pkgs, ...}:
+{ pkgs, isDesktop, ...}:
 {
-  steam.enable = if builtins.currentSystem != "aarch64-linux" then true else false;
+  steam.enable = if builtins.currentSystem != "aarch64-linux" && isDesktop then true else false;
 
   adb.enable = true;
 
-  wireshark.enable = true;
+  wireshark.enable = isDesktop;
 
   iotop.enable = true;
 
   fuse.userAllowOther = true;
 
-  partition-manager.enable = true;
+  partition-manager.enable = isDesktop;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

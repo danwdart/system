@@ -1,6 +1,7 @@
 { pkgs, modulesPath, ... }:
 {
     imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
+
     boot.loader.grub = {
         device = "nodev";
         enable = true;
@@ -16,5 +17,5 @@
     boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "xen_blkfront" ];
     boot.initrd.kernelModules = [ "nvme" ];
     fileSystems."/" = { device = "/dev/sda1"; fsType = "ext4"; };
-    boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_4;
+    # boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_4;
 }

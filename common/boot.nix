@@ -1,23 +1,5 @@
 { pkgs, ...}:
 {
-  loader.systemd-boot = {
-    enable = true;
-    editor = false;
-    memtest86.enable = true;
-    configurationLimit = 3;
-  };
-
-  # for rescue purposes, copy
-  #loader.generationsDir = {
-    # link latest generation to /boot/default/kernel and /boot/default/initrd
-  #  enable = true;
-    # copy kernels to /boot so there's no need for /nix/store
-  #  copyKernels = true;
-  #};
-
-  loader.efi.canTouchEfiVariables = true;
-  loader.efi.efiSysMountPoint = "/boot/efi";
-
   kernel.sysctl = {
     # all magic sysrq keys
     "kernel.sysrq" = 1;

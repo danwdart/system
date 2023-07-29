@@ -13,7 +13,7 @@ in {
     [
       "${impermanence}/nixos.nix"
       ./hardware-configuration.nix
-      ../common/configuration-common.nix
+      ../common/configuration-desktop.nix
     ];
 
   networking.hostName = hostName;

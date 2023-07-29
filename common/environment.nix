@@ -1,6 +1,6 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, systemPackages, ... }:
 {
-  systemPackages = import ./packages/packages.nix {pkgs = pkgs; };
+  systemPackages = systemPackages;
 
   pathsToLink = [
     "/share/nix-direnv"
