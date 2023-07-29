@@ -1,6 +1,6 @@
 # man 5 configuration.nix
 # nixos-help
-{ config, pkgs, lib, hostName, ... }:
+{ config, pkgs, lib, hostName, internalIP, externalIP, fqdn, ... }:
 let
   rootDir = "/home/dwd/code/mine/nix/system";
   hostDir = "${rootDir}/${hostName}";
@@ -12,9 +12,9 @@ in
       ./configuration-common.nix
     ];
 
-  environment = import ./environment.nix {pkgs = pkgs;  config = config; lib = lib; systemPackages = import ./packages/console/packages.nix pkgs;};
-  hardware = import ./hardware.nix {pkgs = pkgs; isDesktop = false;};
+  environment = import ./environment.nix {pkgs = pkgs;  config = config; lib = lib; systemPackages = import ./packages/console/packages.nix pkgs; };
+  hardware = import ./hardware.nix {pkgs = pkgs; isDesktop = false; };
   programs = import ./programs.nix { pkgs = pkgs; isDesktop = false; };
-  services = import ./services.nix { pkgs = pkgs; hostName = hostName; hostDir = hostDir; privateDir = privateDir; isDesktop = false; };
+  services = import ./services.nix { pkgs = pkgs; hostName = hostName; hostDir = hostDir; privateDir = privateDir; internalIP = internalIP; externalIP = externalIP; fqdn = fqdn; isDesktop = false; };
   home-manager.users.dwd = import ./users/dwd/home.nix { pkgs = pkgs; isDesktop = false; };
 }

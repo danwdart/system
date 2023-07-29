@@ -7,6 +7,9 @@ let hostName = "zhang";
 in
 {
     _module.args.hostName = hostName;
+    _module.args.internalIP = "10.0.0.168";
+    _module.args.externalIP = "143.47.240.248";
+    _module.args.fqdn = "zhang.jolharg.com";
     imports = [
         ./hardware-configuration.nix
         ../common/configuration-server.nix
