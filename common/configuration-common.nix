@@ -28,9 +28,7 @@ in {
   time = import ./time.nix {};
   users = import ./users.nix { privateDir = privateDir; };
   virtualisation = import ./virtualisation.nix {};
-
-  home-manager.users.dwd = import ./users/dwd/home.nix pkgs;
-
+  
   # todo move
 
   powerManagement.powertop.enable = true;

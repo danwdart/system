@@ -1,4 +1,4 @@
-pkgs:
+{ pkgs, isDesktop, ... }:
 with pkgs.lib;
 let telnetServers = import ../../servers/telnet.nix;
 in {
@@ -401,7 +401,7 @@ in {
     '';
   };
 
-  programs.vscode = {
+  programs.vscode = if isDesktop then {
     enable = true;
     package = pkgs.vscode;
     extensions = with pkgs.vscode-extensions; [
@@ -514,7 +514,7 @@ in {
     #};
     userSettings = {};
     keybindings = [];
-  };
+  } else {};
 
   services.gpg-agent = {
     defaultCacheTtl = 1800;

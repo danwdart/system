@@ -17,6 +17,8 @@ in
   programs = import ./programs.nix { pkgs = pkgs; isDesktop = true; };
   services = import ./services.nix { pkgs = pkgs; hostName = hostName; hostDir = hostDir; privateDir = privateDir; isDesktop = true; };
 
+  home-manager.users.dwd = import ./users/dwd/home.nix { pkgs = pkgs; isDesktop = true; };
+
   specialisation.server-mode.configuration = {
     environment.systemPackages = import ./packages/console/packages.nix pkgs;
     services.xserver.enable = lib.mkForce false;

@@ -16,4 +16,5 @@ in
   hardware = import ./hardware.nix {pkgs = pkgs; isDesktop = false;};
   programs = import ./programs.nix { pkgs = pkgs; isDesktop = false; };
   services = import ./services.nix { pkgs = pkgs; hostName = hostName; hostDir = hostDir; privateDir = privateDir; isDesktop = false; };
+  home-manager.users.dwd = import ./users/dwd/home.nix { pkgs = pkgs; isDesktop = false; };
 }
