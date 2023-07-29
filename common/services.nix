@@ -1,4 +1,4 @@
-{ pkgs, hostName, hostDir, privateDir, isDesktop, internalIP, externalIP, fqdn, ... }:
+{ pkgs, hostName, hostDir, privateDir, isDesktop, internalIP ? "", externalIP ? "", fqdn ? "", ... }:
 let
   # needs /persist, see: https://github.com/nix-community/impermanence/issues/87
   rootDir = "/home/dwd/code/mine/nix/system";
