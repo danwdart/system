@@ -7,26 +7,27 @@
 let
   hostName = "sinistra";
 in {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ../common/configuration-desktop.nix
+
+    _module.args.hostName = hostName;
+    imports = [
+        ./hardware-configuration.nix
+        ../common/configuration-desktop.nix
     ];
 
-  # Setup keyfile
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
+    # Setup keyfile
+    boot.initrd.secrets = {
+        "/crypto_keyfile.bin" = null;
+    };
 
-  networking.hostName = hostName;
+    networking.hostName = hostName;
 
-  services.openssh.banner = "Connection established to ${hostName}. Unauthorised connections are logged.\n";
+    services.openssh.banner = "Connection established to ${hostName}. Unauthorised connections are logged.\n";
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.11"; # Did you read the comment?
+    # This value determines the NixOS release from which the default
+    # settings for stateful data, like file locations and database versions
+    # on your system were taken. It‘s perfectly fine and recommended to leave
+    # this value at the release version of the first install of this system.
+    # Before changing this value read the documentation for this option
+    # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+    system.stateVersion = "22.11"; # Did you read the comment?
 }
