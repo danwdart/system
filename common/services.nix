@@ -245,7 +245,7 @@ in {
   #    haskellPackages.xmonad-contrib
   #    haskellPackages.monad-logger
   #  ];
-  #  haskellPackages = pkgs.haskell.packages.ghc92;
+  #  haskellPackages = pkgs.haskell.packages.ghc96;
   #};
 
   # Enable touchpad support (enabled default in most desktopManager).
