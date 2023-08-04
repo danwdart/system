@@ -26,7 +26,7 @@ with pkgs; [
     nrsc5
     qsstv
     # quisk # build failure but why build
-    tqsl
+    # tqsl # openssl too old now
     # rtlsdr
     sdrangel
     soapyhackrf
