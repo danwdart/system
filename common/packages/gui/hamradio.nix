@@ -28,7 +28,7 @@ with pkgs; [
     # quisk # build failure but why build
     # tqsl # openssl too old now
     # rtlsdr
-    sdrangel
+    sdrangel # has to be built now for some reason
     soapyhackrf
     soapysdr-with-plugins
     soundmodem # no desktop icon, needs config
