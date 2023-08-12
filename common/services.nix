@@ -292,19 +292,19 @@ in {
       "zhang.dandart.co.uk" = {
         default = true;
         #onlySSL = true;
-        enableACME = true;
+        #enableACME = true;
         # useACMEHost = ""; # security.acme.certs
         root = "${hostDir}/public_html";
       };
       #"nextcloud.dandart.co.uk" = {
         # http3 = true;
       #  #onlySSL = true;
-      #  enableACME = true;
+      #  #enableACME = true;
       #};
       "news.jolharg.com" = {
         # http3 = true;
         #onlySSL = true;
-        enableACME = true;
+        #enableACME = true;
       };
       #"dev.localhost" = {
       #  # http3 = true;
@@ -328,7 +328,7 @@ in {
       "roqqett.dandart.co.uk" = {
         # http3 = true;
         #onlySSL = true;
-        enableACME = true;
+        #enableACME = true;
         serverAliases = [
           "roqqett.dandart.uk"
         ];
@@ -348,7 +348,7 @@ in {
       "roq-wp.dandart.co.uk" = {
         # http3 = true;
         #onlySSL = true;
-        enableACME = true;
+        #enableACME = true;
         serverAliases = [
           "roq-wp.dandart.uk"
         ];
@@ -367,7 +367,7 @@ in {
       };
       "dev.dandart.co.uk" = {
         #onlySSL = true;
-        enableACME = true;
+        #enableACME = true;
         serverAliases = [];
         locations = {
           "/" = {
@@ -378,7 +378,7 @@ in {
       };
       "dev.jolharg.com" = {
         #onlySSL = true;
-        enableACME = true;
+        #enableACME = true;
         serverAliases = [];
         locations = {
           "/" = {
@@ -389,7 +389,7 @@ in {
       };
       "dev.blog.jolharg.com" = {
         #onlySSL = true;
-        enableACME = true;
+        #enableACME = true;
         serverAliases = [];
         locations = {
           "/" = {
@@ -400,7 +400,7 @@ in {
       };
       "dev.madhackerreviews.com" = {
         #onlySSL = true;
-        enableACME = true;
+        #enableACME = true;
         serverAliases = [];
         locations = {
           "/" = {
@@ -411,7 +411,7 @@ in {
       };
       "dev.m0ori.com" = {
         #onlySSL = true;
-        enableACME = true;
+        #enableACME = true;
         serverAliases = [];
         locations = {
           "/" = {
@@ -422,7 +422,7 @@ in {
       };
       "dev.blog.dandart.co.uk" = {
         #onlySSL = true;
-        enableACME = true;
+        #enableACME = true;
         serverAliases = [];
         locations = {
           "/" = {
@@ -434,7 +434,7 @@ in {
       "dev.jobfinder.jolharg.com" = {
         # http3 = true;
         #onlySSL = true;
-        enableACME = true;
+        # #enableACME = true;
         serverAliases = [];
         # htaccess?
         extraConfig = ''
@@ -453,7 +453,7 @@ in {
       "jobfinder.jolharg.com" = {
         # http3 = true;
         #onlySSL = true;
-        enableACME = true;
+        #enableACME = true;
         serverAliases = [];
         # htaccess?
         extraConfig = ''
@@ -472,7 +472,7 @@ in {
       "api.jobfinder.jolharg.com" = {
         # http3 = true;
         #onlySSL = true;
-        enableACME = true;
+        #enableACME = true;
         serverAliases = [];
         extraConfig = ''
           error_page 502 /502.html;
