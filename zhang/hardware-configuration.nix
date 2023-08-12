@@ -8,6 +8,7 @@
         efiSupport = true;
         copyKernels = false;
         efiInstallAsRemovable = true;
+        configurationLimit = 1;
     };
     #boot.loader.systemd-boot = {
     #    enable = true;
