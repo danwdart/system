@@ -3,7 +3,7 @@ with pkgs; [
     autossh
     # azure-cli # TODO split? # broken
     bind # host, nslookup etc
-    docker-proxy
+    # docker-proxy
     doctl # run doctl auth init before use
     hans
     iodine

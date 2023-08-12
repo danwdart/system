@@ -1,14 +1,14 @@
 {...}:
 {
-  docker = {
-    enable = true;
-    liveRestore = true;
-    storageDriver = "btrfs";
-    autoPrune = {
-      enable = true;
-      dates = "weekly";
-    };
-  };
+  # docker = {
+  #   enable = true;
+  #   liveRestore = true;
+  #   storageDriver = "btrfs";
+  #   autoPrune = {
+  #     enable = true;
+  #     dates = "weekly";
+  #   };
+  # };
 
   libvirtd.enable = true;
   libvirtd.onBoot = "start";

@@ -130,7 +130,7 @@ $IPT -A INPUT -j REJECT
 $IPT -P FORWARD DROP
 
 # Docker
-$IPT -A FORWARD -p tcp -s $PRIVNET_12 -d $PRIVNET_12 -j ACCEPT
+# $IPT -A FORWARD -p tcp -s $PRIVNET_12 -d $PRIVNET_12 -j ACCEPT
 
 $IPT -A FORWARD -p tcp --sport 443 -d $PRIVNET_12 -j ACCEPT
 $IPT -A FORWARD -p tcp --dport 443 -s $PRIVNET_12 -j ACCEPT
@@ -197,7 +197,7 @@ $IPT -A OUTPUT -p udp --dport 123 -j ACCEPT
 $IPT -A OUTPUT -p udp --dport 19302:19309 -j ACCEPT
 
 # Docker
-$IPT -A OUTPUT -p tcp -s $PRIVNET_12 -d $PRIVNET_12 -j ACCEPT
+# $IPT -A OUTPUT -p tcp -s $PRIVNET_12 -d $PRIVNET_12 -j ACCEPT
 
 # Roqqett
 $IPT -A OUTPUT -p tcp --dport 5000:6000 -j ACCEPT

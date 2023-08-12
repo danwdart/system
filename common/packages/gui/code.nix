@@ -31,7 +31,7 @@ with pkgs; [
     stlink
     tkgate
     vscode # insiders?
-    x11docker
+    # x11docker
     xcircuit
 ] ++ (if builtins.currentSystem != "aarch64-linux" then [
     androidStudioPackages.canary # dependent on android-tools?

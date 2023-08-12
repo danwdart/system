@@ -29,7 +29,7 @@ in
         extraGroups = [
             "adbusers"
             "dialout"
-            "docker"
+            # "docker"
             "jackaudio"
             "kvm"
             "libvirtd"
