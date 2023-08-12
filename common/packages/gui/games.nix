@@ -11,7 +11,7 @@ with pkgs; [
     dolphinEmu
     # extremetuxracer
     # frozen-bubble
-    golly
+    # golly # now broken?
     hhexen
     ioquake3 # no desktop icon
     # lbreakout2
