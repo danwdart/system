@@ -291,24 +291,27 @@ in {
       };
       "zhang.dandart.co.uk" = {
         default = true;
-        #onlySSL = true;
-        #enableACME = true;
+        onlySSL = true;
+        enableACME = true;
         # useACMEHost = ""; # security.acme.certs
+        serverAliases = [
+          "zhang.jolharg.com"
+        ];
         root = "${hostDir}/public_html";
       };
       #"nextcloud.dandart.co.uk" = {
         # http3 = true;
-      #  #onlySSL = true;
-      #  #enableACME = true;
+      #  onlySSL = true;
+      #  enableACME = true;
       #};
       "news.jolharg.com" = {
         # http3 = true;
-        #onlySSL = true;
-        #enableACME = true;
+        onlySSL = true;
+        enableACME = true;
       };
       #"dev.localhost" = {
       #  # http3 = true;
-      #  #onlySSL = true;
+      #  onlySSL = true;
       #  sslCertificate = "${roqHome}/roqqett-web-api/certs/dev-localhost-cert.pem";
       #  sslCertificateKey = "${roqHome}/roqqett-web-api/certs/dev-localhost-key.pem";
       #  serverAliases = [];
@@ -327,8 +330,8 @@ in {
       #};
       "roqqett.dandart.co.uk" = {
         # http3 = true;
-        #onlySSL = true;
-        #enableACME = true;
+        onlySSL = true;
+        enableACME = true;
         serverAliases = [
           "roqqett.dandart.uk"
         ];
@@ -347,8 +350,8 @@ in {
       };
       "roq-wp.dandart.co.uk" = {
         # http3 = true;
-        #onlySSL = true;
-        #enableACME = true;
+        onlySSL = true;
+        enableACME = true;
         serverAliases = [
           "roq-wp.dandart.uk"
         ];
@@ -366,8 +369,8 @@ in {
         };
       };
       "dev.dandart.co.uk" = {
-        #onlySSL = true;
-        #enableACME = true;
+        onlySSL = true;
+        enableACME = true;
         serverAliases = [];
         locations = {
           "/" = {
@@ -377,8 +380,8 @@ in {
         };
       };
       "dev.jolharg.com" = {
-        #onlySSL = true;
-        #enableACME = true;
+        onlySSL = true;
+        enableACME = true;
         serverAliases = [];
         locations = {
           "/" = {
@@ -388,8 +391,8 @@ in {
         };
       };
       "dev.blog.jolharg.com" = {
-        #onlySSL = true;
-        #enableACME = true;
+        onlySSL = true;
+        enableACME = true;
         serverAliases = [];
         locations = {
           "/" = {
@@ -399,8 +402,8 @@ in {
         };
       };
       "dev.madhackerreviews.com" = {
-        #onlySSL = true;
-        #enableACME = true;
+        onlySSL = true;
+        enableACME = true;
         serverAliases = [];
         locations = {
           "/" = {
@@ -410,8 +413,8 @@ in {
         };
       };
       "dev.m0ori.com" = {
-        #onlySSL = true;
-        #enableACME = true;
+        onlySSL = true;
+        enableACME = true;
         serverAliases = [];
         locations = {
           "/" = {
@@ -421,8 +424,8 @@ in {
         };
       };
       "dev.blog.dandart.co.uk" = {
-        #onlySSL = true;
-        #enableACME = true;
+        onlySSL = true;
+        enableACME = true;
         serverAliases = [];
         locations = {
           "/" = {
@@ -433,8 +436,8 @@ in {
       };
       "dev.jobfinder.jolharg.com" = {
         # http3 = true;
-        #onlySSL = true;
-        # #enableACME = true;
+        onlySSL = true;
+        enableACME = true;
         serverAliases = [];
         # htaccess?
         extraConfig = ''
@@ -452,8 +455,8 @@ in {
       };
       "jobfinder.jolharg.com" = {
         # http3 = true;
-        #onlySSL = true;
-        #enableACME = true;
+        onlySSL = true;
+        enableACME = true;
         serverAliases = [];
         # htaccess?
         extraConfig = ''
@@ -471,8 +474,8 @@ in {
       };
       "api.jobfinder.jolharg.com" = {
         # http3 = true;
-        #onlySSL = true;
-        #enableACME = true;
+        onlySSL = true;
+        enableACME = true;
         serverAliases = [];
         extraConfig = ''
           error_page 502 /502.html;
@@ -496,7 +499,7 @@ in {
   #  enable = true;
   #  hostName = "grocy.dandart.co.uk";
   #  nginx = {
-  #    # #onlySSL = true;
+  #    # onlySSL = true;
   #  };
   #  settings = {
   #    calendar = {
