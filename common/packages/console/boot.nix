@@ -19,5 +19,5 @@ with pkgs; [
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
     efitools
 ] else [
-    pkgs-x86_64.efitools
+   # pkgs-x86_64.efitools
 ])

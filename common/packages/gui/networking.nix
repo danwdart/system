@@ -25,9 +25,8 @@ with pkgs; [
     scrcpy
     tor-browser-bundle-bin
 ] else [
-    pkgs-x86_64.beekeeper-studio # for work, TODO split out?
-    pkgs-x86_64.insomnia
-    pkgs-x86_64.postman
-    pkgs-x86_64.scrcpy
-    pkgs-x86_64.tor-browser-bundle-bin
+   # pkgs-x86_64.insomnia
+   # pkgs-x86_64.postman
+   # pkgs-x86_64.scrcpy
+   # pkgs-x86_64.tor-browser-bundle-bin
 ])

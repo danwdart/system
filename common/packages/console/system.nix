@@ -56,5 +56,5 @@ with pkgs; [
 ] ++ (if builtins.currentSystem != "aarch64-linux" then [
     i7z
 ] else [
-    pkgs-x86_64.i7z
+   # pkgs-x86_64.i7z
 ])

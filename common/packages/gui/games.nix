@@ -50,6 +50,6 @@ with pkgs; [
     quake3e # no desktop icon
     vkquake # no desktop icon but needs dir
 ] else [
-    pkgs-x86_64.quake3e # no desktop icon
-    pkgs-x86_64.vkquake # no desktop icon but needs dir
+   # pkgs-x86_64.quake3e # no desktop icon
+   # pkgs-x86_64.vkquake # no desktop icon but needs dir
 ])

@@ -22,5 +22,5 @@ with pkgs; [
 ] ++ (if builtins.currentSystem != "aarch64-linux" then [
     adbfs-rootless
 ] else [
-    pkgs-x86_64.adbfs-rootless
+   # pkgs-x86_64.adbfs-rootless
 ])

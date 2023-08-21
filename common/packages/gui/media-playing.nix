@@ -16,7 +16,7 @@ with pkgs; [
     spotify
     spotifywm
 ] else [
-    pkgs-x86_64.mplayer
-    pkgs-x86_64.spotify
-    pkgs-x86_64.spotifywm
+   # pkgs-x86_64.mplayer
+   # pkgs-x86_64.spotify
+   # pkgs-x86_64.spotifywm
 ])

@@ -17,10 +17,10 @@ with pkgs; [
     })
     skypeforlinux
 ] else [
-    pkgs-x86_64.betterdiscordctl
-    (pkgs-x86_64.discord.override {
-        withOpenASAR = true;
-        nss = pkgs-x86_64.nss_latest;
-    })
-    pkgs-x86_64.skypeforlinux
+   # pkgs-x86_64.betterdiscordctl
+   # (pkgs-x86_64.discord.override {
+   #      withOpenASAR = true;
+   #      nss =# pkgs-x86_64.nss_latest;
+   #  })
+   # pkgs-x86_64.skypeforlinux
 ])

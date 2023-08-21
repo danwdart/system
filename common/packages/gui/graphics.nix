@@ -15,5 +15,5 @@ with pkgs; [
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
     dia
 ] else [
-    pkgs-x86_64.dia
+   # pkgs-x86_64.dia
 ])

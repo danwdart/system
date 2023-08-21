@@ -11,5 +11,5 @@ with pkgs; [
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
     google-chrome
 ] else [
-    pkgs-x86_64.google-chrome
+   # pkgs-x86_64.google-chrome
 ])
