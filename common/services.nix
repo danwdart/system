@@ -340,7 +340,7 @@ in {
         '';
         locations = {
           "/" = {
-            proxyPass = "http://192.168.1.112:5000/";
+            proxyPass = "http://localhost:5000/";
             proxyWebsockets = true;
           };
           "/502.html" = {
@@ -360,7 +360,7 @@ in {
         '';
         locations = {
           "/" = {
-            proxyPass = "http://192.168.1.112:5600/";
+            proxyPass = "http://localhost:5600/";
             proxyWebsockets = true;
           };
           "/502.html" = {
