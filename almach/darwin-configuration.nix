@@ -87,7 +87,7 @@ in
     # virt-viewer # fails to find epoxy/egl.h
     gramps
     # geogebra
-    gimp
+    # gimp # wrong architecture
     inkscape
     # mplayer # same gl issue
     # dbeaver # too old!
