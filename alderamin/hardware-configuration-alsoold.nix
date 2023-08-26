@@ -14,35 +14,32 @@
     configurationLimit = 3;
   };
 
-  # for rescue purposes, copy
-  #loader.generationsDir = {
-    # link latest generation to /boot/default/kernel and /boot/default/initrd
-  #  enable = true;
-    # copy kernels to /boot so there's no need for /nix/store
-  #  copyKernels = true;
-  #};
-
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot";
-
-
-  boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
+  boot.initrd.availableKernelModules = [ ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
+  
+  boot.loader.efi.canTouchEfiVariables = true;
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/2066b1af-f31b-438b-bda4-a44f0ea05491";
-      fsType = "ext4";
+    { device = "/dev/disk/by-uuid/677becde-e167-4c43-88c8-7d07f6e946cd";
+      fsType = "btrfs";
+      options = [ "subvol=@" "noatime" ];
     };
+  
+  specialisation.home-on-sd.configuration.fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/658db87e-afd8-45f2-bba1-3acf79691860";
+    fsType = "btrfs";
+    options = [ "subvol=home" "noatime" ];
+  };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/F39B-0CFF";
+    { device = "/dev/disk/by-uuid/EF27-682A";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/3451dd34-1a6c-49a8-89c8-950f421580eb"; }
+    [ { device = "/dev/disk/by-uuid/1f9d0da2-355e-4a57-af87-cfdb1a2b32ea"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
