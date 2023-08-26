@@ -26,9 +26,7 @@ in
     services.xserver.desktopManager.plasma5.enable = lib.mkForce false;
   };
 
-  /*
   specialisation.cinnamon.configuration = {
-    environment.systemPackages = import ./packages/console/packages.nix pkgs;
     services.xserver.displayManager.sddm.enable = lib.mkForce false;
     services.xserver.displayManager.lightdm.enable = true;
     services.xserver.desktopManager.plasma5.enable = lib.mkForce false;
@@ -37,14 +35,12 @@ in
   };
 
   specialisation.gnome.configuration = {
-    environment.systemPackages = import ./packages/console/packages.nix pkgs;
     services.xserver.displayManager.sddm.enable = lib.mkForce false;
     services.xserver.displayManager.lightdm.enable = true;
     services.xserver.desktopManager.plasma5.enable = lib.mkForce false;
   };
 
   specialisation.surf.configuration = {
-    environment.systemPackages = import ./packages/console/packages.nix pkgs;
     services.xserver.displayManager.sddm.enable = lib.mkForce false;
     services.xserver.displayManager.lightdm.enable = true;
     services.xserver.desktopManager.plasma5.enable = lib.mkForce false;
@@ -53,7 +49,6 @@ in
   };
 
   specialisation.retroarch.configuration = {
-    environment.systemPackages = import ./packages/console/packages.nix pkgs;
     services.xserver.displayManager.sddm.enable = lib.mkForce false;
     services.xserver.displayManager.lightdm.enable = true;
     services.xserver.desktopManager.plasma5.enable = lib.mkForce false;
@@ -61,7 +56,6 @@ in
   };
 
   specialisation.pantheon.configuration = {
-    environment.systemPackages = import ./packages/console/packages.nix pkgs;
     services.xserver.displayManager.sddm.enable = lib.mkForce false;
     services.xserver.displayManager.lightdm.enable = true;
     services.xserver.desktopManager.plasma5.enable = lib.mkForce false;
@@ -69,11 +63,9 @@ in
   };
 
   specialisation.enlightenment.configuration = {
-    environment.systemPackages = import ./packages/console/packages.nix pkgs;
     services.xserver.displayManager.sddm.enable = lib.mkForce false;
     services.xserver.displayManager.lightdm.enable = true;
     services.xserver.desktopManager.plasma5.enable = lib.mkForce false;
     services.xserver.desktopManager.enlightenment.enable = true;
   };
-  */
 }
