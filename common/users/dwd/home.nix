@@ -556,7 +556,7 @@ in {
   #    haskellPackages.xmonad-contrib
   #    haskellPackages.monad-logger
   #  ];
-  #  haskellPackages = pkgs.haskell.packages.ghc96;
+  #  haskellPackages = pkgs.haskell.packages.ghc94;
   #};
 
   #xsession.windowManager.command =
