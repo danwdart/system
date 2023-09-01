@@ -1,4 +1,4 @@
-{ pkgs, hostName, hostDir, privateDir, isDesktop, internalIP ? "", externalIP ? "", fqdn ? "", ... }:
+{ config, pkgs, hostName, hostDir, privateDir, isDesktop, internalIP ? "", externalIP ? "", fqdn ? "", ... }:
 let
   # needs /persist, see: https://github.com/nix-community/impermanence/issues/87
   rootDir = "/home/dwd/code/mine/nix/system";
@@ -142,6 +142,11 @@ in {
   #  level = "paranoid";
   #  mailTo = "logcheck@dandart.co.uk";
   #};
+
+  nix-serve = if isDesktop then {} else {
+    enable = true;
+    secretKeyFile = "/var/cache-priv-key.pem";
+  };
 
   xserver = if isDesktop then {
     enable = true;
@@ -487,6 +492,20 @@ in {
           };
           "/502.html" = {
             root = "${haskellSites}/jobfinder/app/backend/data";
+          };
+        };
+      };
+      "cache.jolharg.com" = {
+        # http3 = true;
+        onlySSL = true;
+        enableACME = true;
+        serverAliases = [];
+        extraConfig = ''
+          error_page 502 /502.html;
+        '';
+        locations = {
+          "/" = {
+            proxyPass = "http://localhost:5000";
           };
         };
       };
