@@ -69,9 +69,11 @@ in
     inetutils
     jmtpfs
     jnettop
+    logisim-evolution
     lsof
     mono
     ntfs3g
+    # openjdk17
     p7zip
     pciutils
     rpiboot
