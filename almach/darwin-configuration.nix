@@ -130,6 +130,8 @@ in
 
   networking.hostName = hostName;
 
+  nix.settings.trusted-users = [ "dwd" ];
+  
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
