@@ -17,6 +17,18 @@
     fileSystems."/boot" = { device = "/dev/disk/by-uuid/9767-AD89"; fsType = "vfat"; };
     boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "xen_blkfront" ];
     boot.initrd.kernelModules = [ "nvme" ];
-    fileSystems."/" = { device = "/dev/sda1"; fsType = "ext4"; };
+    fileSystems."/" = { device = "/dev/sda1"; fsType = "ext4"; options = [ "noatime" ]; };
+    # swapDevices = [
+    #     {
+    #         device = "/var/swap";
+    #         size = "
+    #     }
+    zramSwap = {
+        enable = true;
+        algorithm = "zstd";
+        # numDevices = 1; # Using ZRAM devices as general purpose ephemeral block devices is no longer supported
+        swapDevices = 1;
+        memoryPercent = 50;
+    };
     # boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_4;
 }
