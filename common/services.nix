@@ -200,9 +200,9 @@ in {
     enable = true;
   };
 
-  touchegg = {
+  touchegg = if isDesktop then {
     enable = true;
-  };
+  } else {};
 
   # BIG BUG HERE: https://github.com/NixOS/nixpkgs/issues/126374
   tt-rss = if isDesktop then {} else {
@@ -1671,7 +1671,7 @@ in {
 
   # miredo.enable = true;
 
-  pipewire = {
+  pipewire = if isDesktop then {
     enable = true;
     jack = {
       enable = true;
@@ -1686,9 +1686,9 @@ in {
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
-  };
+  } else {};
 
-  postfix = {
+  postfix = if isDesktop then {} else {
     enable = true;
     domain = "${hostName}.jolharg.com";
     rootAlias = "dwd";
@@ -1714,7 +1714,7 @@ in {
     '';
   };
 
-  printing.enable = true;
+  printing.enable = isDesktop;
 
   openssh = {
     enable = true;
@@ -1747,7 +1747,7 @@ in {
 
   mozillavpn.enable = true;
 
-  joycond.enable = true;
+  joycond.enable = isDesktop;
 
   clamav = {
     updater = {
