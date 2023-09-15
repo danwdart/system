@@ -42,6 +42,7 @@ with pkgs; [
     p7zip
     pciutils
     rpiboot
+    screen
     sixpair
     socat
     testdisk
