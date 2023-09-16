@@ -450,7 +450,7 @@ in {
         '';
         locations = {
           "/" = {
-            root = "${haskellSites}/jobfinder/dist-newstyle/build/x86_64-linux/ghcjs-8.6.0.1/ui-0.1.0.0/x/ui/build/ui/ui.jsexe";
+            root = "${haskellSites}/jobfinder/dist-newstyle/build/js-ghcjs/ghcjs-8.10.7/ui-0.1.0.0/x/ui/build/ui/ui.jsexe";
             proxyWebsockets = true;
           };
           "/api/" = {
