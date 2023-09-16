@@ -113,10 +113,28 @@ in
   homebrew = {
     enable = true;
     brews = [
-
+      "docker"
+      "docker-compose"
+      "tiger-vnc"
+      "wireshark"
     ];
     casks = [
+      "chirp"
+      "dbeaver-community"
+      "firefox"
+      "gimp"
+      "google-chrome"
+      "libreoffice"
+      "libreoffice-language-pack"
+      #"microsoft-office"
+      "openmtp"
+      "slack"
+      "spotify"
       "supertuxkart"
+      "transmission"
+      "tunnelblick"
+      "visual-studio-code"
+      "zoom"
     ];
   };
 
