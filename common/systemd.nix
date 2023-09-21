@@ -1,11 +1,37 @@
-{...}:
+{ isDesktop, ... }:
 {
-  services = {
+  services = if isDesktop then {} else {
     nginx = {
       serviceConfig = {
         # allow nginx to read /home as that's where I stashed my code (don't do this in prod)
         ProtectHome = "read-only";
       };
+    };
+    # @TODO build this
+    jobfinder-api = {
+      enable = true;
+      description = "JobFinder API";
+      after = ["multi-user.target"];
+      script = ''
+        /run/wrappers/bin/su - dwd -c '
+          set -a; \
+          cd /home/dwd/code/mine/haskell/jobfinder/src/api; \
+          source /home/dwd/code/mine/haskell/jobfinder/.env; \
+          ../../result/api/bin/api'
+      '';
+    };
+
+    dubloons = {
+      enable = true;
+      description = "Arrr, dubloons!";
+      after = ["multi-user.target"];
+      script = ''
+        /run/wrappers/bin/su - dwd -c '
+          set -a; \
+          cd /home/dwd/code/mine/haskell/dubloons; \
+          source /home/dwd/code/mine/haskell/dubloons/.env; \
+          ./result/bin/dubloons'
+      '';
     };
   };
 
@@ -18,55 +44,4 @@
     "d /var/lib/clamav 0755 clamav clamav" # because clamav doesn't do this for us?
     # TODO do a wget / curl to get the latest files, or run freshclam
   ];
-
-  #services = {
-  #  jobfinder-api = {
-  #    description = "JobFinder API";
-  #    after = ["network.target"];
-  #    serviceConfig = {
-  #      ExecStart = "/home/dwd/code/mine/haskell/jobfinder/result/backend/bin/backend";
-  #      WorkingDirectory = "/home/dwd/code/mine/haskell/jobfinder/app/backend";
-  #      Type = "simple";
-  #      # LoadCredential
-  #      # StateDirectory =
-  #      DynamicUser = true;
-  #      RestrictNamespaces = true;
-  #      SystemCallArchitectures = "native";
-  #      PrivateUsers = true;
-  #      ProtectHostname = true;
-  #      ProtectClock = true;
-  #      ProtectKernelTunables = true;
-  #      ProtectKernelModules = true;
-  #      ProtectKernelLogs = true;
-  #      ProtectControlGroups = true;
-  #      RestrictAddressFamilies = ["AF_UNIX AF_INET AF_INET6"];
-  #      LockPersonality = true;
-  #      RestrictRealtime = true;
-  #      SystemCallFilter =
-  #        "~"
-  #        + (builtins.concatStringsSep " " [
-  #          "@clock"
-  #          "@cpu-emulation"
-  #          "@debug"
-  #          "@keyring"
-  #          "@memlock"
-  #          "@module"
-  #          "@mount"
-  #          "@obsolete"
-  #          "@raw-io"
-  #          "@reboot"
-  #          "@resources"
-  #          "@setuid"
-  #          "@swap"
-  #        ]);
-  #      RemoveIPC = true;
-  #      PrivateTmp = true;
-  #      PrivateDevices = true;
-  #      NoNewPrivileges = true;
-  #      RestrictSUIDSGID = true;
-  #      ProtectSystem = "strict";
-  #      ProtectHome = "read-only"; # "tmpfs"
-  #    };
-  #  };
-  #};
 }

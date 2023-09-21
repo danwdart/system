@@ -24,7 +24,6 @@ in {
   security = import ./security.nix pkgs;
   sound = import ./sound.nix {};
   system = import ./system.nix { hostName = hostName; };
-  systemd = import ./systemd.nix {};
   time = import ./time.nix {};
   users = import ./users.nix { privateDir = privateDir; };
   virtualisation = import ./virtualisation.nix {};
