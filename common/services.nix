@@ -491,7 +491,7 @@ in {
             proxyWebsockets = true;
           };
           "/502.html" = {
-            root = "${haskellSites}/jobfinder/app/backend/data";
+            root = "${haskellSites}/jobfinder/src/api/data";
           };
         };
       };
