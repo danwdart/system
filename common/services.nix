@@ -454,7 +454,7 @@ in {
             proxyWebsockets = true;
           };
           "/api/" = {
-            proxyPass = "http://localhost:8081/api/";
+            proxyPass = "http://localhost:8082/api/";
           };
         };
       };
@@ -495,6 +495,24 @@ in {
           };
         };
       };
+      "api.dev.jobfinder.jolharg.com" = {
+        # http3 = true;
+        onlySSL = true;
+        enableACME = true;
+        serverAliases = [];
+        extraConfig = ''
+          error_page 502 /502.html;
+        '';
+        locations = {
+          "/" = {
+            proxyPass = "http://localhost:8082/";
+            proxyWebsockets = true;
+          };
+          "/502.html" = {
+            root = "${haskellSites}/jobfinder/src/api/data";
+          };
+        };
+      };
       "cache.jolharg.com" = {
         # http3 = true;
         onlySSL = true;
@@ -511,6 +529,15 @@ in {
       };
     };
   };
+
+  # github-runners = {
+  #   jolharg = {
+  #     enable = true;
+  #     url = "https://github.com/JolHarg";
+  #     tokenFile = ./private/github/runners/jolharg.token;
+  #     nodeRuntimes = [ "node16" "node20" ];
+  #   };
+  # };
 
   # broken
 
