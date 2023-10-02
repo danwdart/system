@@ -84,6 +84,7 @@ in
     wget
     audacity
     cool-retro-term
+    fontforge
     # vscode
     # dosbox # libGL -> mesa broken
     # virt-viewer # fails to find epoxy/egl.h
@@ -119,22 +120,22 @@ in
       "wireshark"
     ];
     casks = [
-      "chirp"
-      "dbeaver-community"
-      "firefox"
-      "gimp"
-      "google-chrome"
-      "libreoffice"
-      "libreoffice-language-pack"
+      # "chirp" # skip as installed already
+      # "dbeaver-community" # skip as installed already
+      # "firefox" # skip as installed already
+      # "gimp" # skip as installed already
+      # "google-chrome" # skip as installed already
+      # "libreoffice" # 404
+      # "libreoffice-language-pack" # un-upgradeable
       #"microsoft-office"
-      "openmtp"
-      "slack"
-      "spotify"
+      # "openmtp" # skip as installed already
+      # "slack" # skip as installed already
+      # "spotify" # skip as installed already
       "supertuxkart"
-      "transmission"
-      "tunnelblick"
-      "visual-studio-code"
-      "zoom"
+      # "transmission" # skip as installed already
+      # "tunnelblick" # skip as installed already
+      # "visual-studio-code" # skip as installed already
+      # "zoom" # 403
     ];
   };
 
