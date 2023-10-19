@@ -1,4 +1,4 @@
-{ isDesktop, ... }:
+{ isDesktop, privateDir, ... }:
 {
   services = if isDesktop then {} else {
     nginx = {
@@ -32,6 +32,22 @@
           source /home/dwd/code/mine/haskell/dubloons/.env; \
           ./result/bin/dubloons'
       '';
+      };
+
+    postgrest = let
+      appBuilderPassword = builtins.readFile "${privateDir}/app-builder/dbpass";
+    in
+    {
+      enable = true;
+      description = "PostgREST";
+      environment = {
+        PGRST_DB_URI = "postgres://authenticator:${appBuilderPassword}@localhost:5432/app_builder";
+        PGRST_DB_SCHEMAS = "app_builder";
+        PGRST_DB_ANON_ROLE = "web_anon";
+      };
+      after = ["multi-user.target"];
+      script = "/run/current-system/sw/bin/postgrest";
+      reload = "/run/current-system/sw/bin/pkill -SIGUSR2 postgrest";
     };
   };
 
