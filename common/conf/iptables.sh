@@ -17,18 +17,24 @@ export DHCP_SERVER_PORT=67
 export DHCP_CLIENT_PORT=68
 
 export IPT=iptables-nft
+export IP6T=ip6tables-nft
 
 $IPT -F
+$IP6T -F
 
 ## INPUT
 $IPT -P INPUT DROP
+$IP6T -P INPUT DROP
 
 # SSH in
 $IPT -A INPUT -p tcp --dport 22 -j ACCEPT
+$IP6T -A INPUT -p tcp --dport 22 -j ACCEPT
 
 # Web in
 $IPT -A INPUT -p tcp --dport 80 -j ACCEPT # Might as well for acme
+$IP6T -A INPUT -p tcp --dport 80 -j ACCEPT # Might as well for acme
 $IPT -A INPUT -p tcp --dport 443 -j ACCEPT
+$IP6T -A INPUT -p tcp --dport 443 -j ACCEPT
 
 # Dev MySQL
 # $IPT -A INPUT -p tcp -s $PRIVNET_12 --dport 3306 -j ACCEPT
@@ -112,22 +118,31 @@ $IPT -A INPUT -s $AMPR_NET -d $AMPR_HOME -p tcp -m multiport --dport 22,443,6697
 # lo
 $IPT -A INPUT -s $LOCAL_8 -d $LOCAL_8 -i lo -j ACCEPT
 
+# ICMPv6 is more necessary than ICMPv4
+$IP6T -A INPUT -p icmpv6 -j ACCEPT
+
 # Invalid
 $IPT -A INPUT -m conntrack --ctstate INVALID -j DROP
+$IP6T -A INPUT -m conntrack --ctstate INVALID -j DROP
 
 # Existing
 $IPT -A INPUT -p tcp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+$IP6T -A INPUT -p tcp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 $IPT -A INPUT -p udp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+$IP6T -A INPUT -p udp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
 # Logl
 $IPT -A INPUT -j LOG --log-prefix "INPUT: REJECT: " --log-level 4
+$IP6T -A INPUT -j LOG --log-prefix "INPUT: REJECT: " --log-level 4
 
 # Rest
 $IPT -A INPUT -j REJECT
+$IP6T -A INPUT -j REJECT
 
 
 ## FORWARD
 $IPT -P FORWARD DROP
+$IP6T -P FORWARD DROP
 
 # Docker
 # $IPT -A FORWARD -p tcp -s $PRIVNET_12 -d $PRIVNET_12 -j ACCEPT
@@ -150,38 +165,50 @@ $IPT -A FORWARD -p tcp -d $PRIVNET_12 --dport 8080 -j ACCEPT # TODO related
 
 # Log
 $IPT -A FORWARD -j LOG --log-prefix "FORWARD: REJECT: " --log-level 4
+$IP6T -A FORWARD -j LOG --log-prefix "FORWARD: REJECT: " --log-level 4
 
 # Existing
 $IPT -A FORWARD -p tcp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+$IP6T -A FORWARD -p tcp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 $IPT -A FORWARD -p udp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+$IP6T -A FORWARD -p udp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
 # Rest
 $IPT -A FORWARD -j REJECT
+$IP6T -A FORWARD -j REJECT
 
 
 ## OUTPUT
 $IPT -P OUTPUT DROP
+$IP6T -P OUTPUT DROP
 
 # Debug
 $IPT -A OUTPUT -p tcp --dport 80 -j ACCEPT
+$IP6T -A OUTPUT -p tcp --dport 80 -j ACCEPT
 
 # Web out
 $IPT -A OUTPUT -p tcp --dport 443 -j ACCEPT
+$IP6T -A OUTPUT -p tcp --dport 443 -j ACCEPT
 
 # SSH out
 $IPT -A OUTPUT -p tcp --dport 22 -j ACCEPT
+$IP6T -A OUTPUT -p tcp --dport 22 -j ACCEPT
 
 # Gmail SMTP TLS out
 $IPT -A OUTPUT -p tcp --dport 587 -j ACCEPT
+$IP6T -A OUTPUT -p tcp --dport 587 -j ACCEPT
 
 # IMAP TLS out
 $IPT -A OUTPUT -p tcp --dport 993 -j ACCEPT
+$IP6T -A OUTPUT -p tcp --dport 993 -j ACCEPT
 
 # DNS out
 $IPT -A OUTPUT -p udp --dport 53 -j ACCEPT
+$IP6T -A OUTPUT -p udp --dport 53 -j ACCEPT
 
 # DHCP
 $IPT -A OUTPUT -p udp --dport $DHCP_SERVER_PORT -j ACCEPT
+$IP6T -A OUTPUT -p udp --dport $DHCP_SERVER_PORT -j ACCEPT
 
 # SSDP
 $IPT -A OUTPUT -p udp -s $HOME_NET -d $SSDP --dport 1900 -j ACCEPT
@@ -192,6 +219,7 @@ $IPT -A OUTPUT -p udp -s $HOME_NET -d $HOME_ROUTER --dport 5351 -j ACCEPT
 
 # NTP
 $IPT -A OUTPUT -p udp --dport 123 -j ACCEPT
+$IP6T -A OUTPUT -p udp --dport 123 -j ACCEPT
 
 # Google Meet
 $IPT -A OUTPUT -p udp --dport 19302:19309 -j ACCEPT
@@ -201,6 +229,7 @@ $IPT -A OUTPUT -p udp --dport 19302:19309 -j ACCEPT
 
 # Roqqett
 $IPT -A OUTPUT -p tcp --dport 5000:6000 -j ACCEPT
+$IP6T -A OUTPUT -p tcp --dport 5000:6000 -j ACCEPT
 $IPT -A OUTPUT -p tcp -d $PRIVNET_12 --dport 80 -j ACCEPT # TODO related
 $IPT -A OUTPUT -p tcp -d $PRIVNET_12 --dport 8080 -j ACCEPT # TODO related
 
@@ -263,12 +292,19 @@ $IPT -A OUTPUT -p tcp -s $PRIVNET_8 -d $PRIVNET_12 -j ACCEPT
 # all local for now
 $IPT -A OUTPUT -s $HOME_NET -d $HOME_NET -j ACCEPT
 
+# ICMPv6 is more necessary than ICMPv4
+$IP6T -A OUTPUT -p icmpv6 -j ACCEPT
+
 # Existing
 $IPT -A OUTPUT -p tcp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+$IP6T -A OUTPUT -p tcp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 $IPT -A OUTPUT -p udp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+$IP6T -A OUTPUT -p udp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
 # Log
 $IPT -A OUTPUT -j LOG --log-prefix "OUTPUT: REJECT: " --log-level 4
+$IP6T -A OUTPUT -j LOG --log-prefix "OUTPUT: REJECT: " --log-level 4
 
 # Rest
 $IPT -A OUTPUT -j REJECT
+$IP6T -A OUTPUT -j REJECT
