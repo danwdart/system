@@ -94,7 +94,7 @@ in
     inkscape
     # mplayer # same gl issue
     # dbeaver # too old!
-    postman
+    # postman
     putty
     rdesktop
     scrcpy
@@ -120,6 +120,7 @@ in
       "wireshark"
     ];
     casks = [
+      "karabiner-elements"
       # "chirp" # skip as installed already
       # "dbeaver-community" # skip as installed already
       # "firefox" # skip as installed already
