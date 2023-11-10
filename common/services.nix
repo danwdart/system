@@ -527,6 +527,20 @@ in {
           };
         };
       };
+      "appbuilder.jolharg.com" = {
+        # http3 = true;
+        onlySSL = true;
+        enableACME = true;
+        serverAliases = [];
+        extraConfig = ''
+          error_page 502 /502.html;
+        '';
+        locations = {
+          "/" = {
+            proxyPass = "http://localhost:3000";
+          };
+        };
+      };
     };
   };
 
@@ -1668,9 +1682,10 @@ in {
     nextcloudPassword = builtins.readFile "${privateDir}/nextcloud/dbpass";
     msfPassword = builtins.readFile "${privateDir}/msf/dbpass";
     ttrssPassword = builtins.readFile "${privateDir}/tt-rss/dbpass";
+    appBuilderPassword = builtins.readFile "${privateDir}/app-builder/dbpass";
   in {
     enable = true;
-    package = pkgs.postgresql_14;
+    package = pkgs.postgresql_16  ;
     enableTCPIP = true;
     authentication = pkgs.lib.mkOverride 10 ''
       local all all trust
@@ -1686,6 +1701,13 @@ in {
       CREATE ROLE tt_rss WITH LOGIN PASSWORD '${ttrssPassword}' CREATEDB;
       CREATE DATABASE tt_rss;
       GRANT ALL PRIVILEGES ON DATABASE tt_rss TO tt_rss;
+      create schema app_builder;
+      create role web_anon nologin;
+      grant usage on schema app_builder to web_anon;
+      create table app_builder.apps (id serial primary key, name text);
+      grant select on app_builder.apps to web_anon;
+      create role authenticator noinherit login password '${appBuilderPassword}';
+      grant web_anon to authenticator;
     '';
   };
 
