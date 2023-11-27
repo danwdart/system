@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-nix-channel --update
-sudo nix-channel --update
+nix-channel --update $@
+sudo nix-channel --update $@
