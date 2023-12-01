@@ -36,6 +36,12 @@ $IP6T -A INPUT -p tcp --dport 80 -j ACCEPT # Might as well for acme
 $IPT -A INPUT -p tcp --dport 443 -j ACCEPT
 $IP6T -A INPUT -p tcp --dport 443 -j ACCEPT
 
+# Sauer in
+$IPT -A INPUT -p udp --dport 28785 -j ACCEPT
+$IP6T -A INPUT -p udp --dport 28785 -j ACCEPT
+$IPT -A INPUT -p udp --dport 28786 -j ACCEPT
+$IP6T -A INPUT -p udp --dport 28786 -j ACCEPT
+
 # Dev MySQL
 # $IPT -A INPUT -p tcp -s $PRIVNET_12 --dport 3306 -j ACCEPT
 

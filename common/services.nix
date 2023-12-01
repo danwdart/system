@@ -205,33 +205,33 @@ in {
   } else {};
 
   # BIG BUG HERE: https://github.com/NixOS/nixpkgs/issues/126374
-  tt-rss = if isDesktop then {} else {
-    enable = true;
-    enableGZipOutput = true;
-    database = {
-      # for permissions we'll read and send instead of using passwordFile.
-      password = builtins.readFile "${privateDir}/tt-rss/dbpass";
-    };
-    #auth = {
-      # autoCreate = true;
-      # autoLogin = true;
-    #};
-    email = {
-      fromName = "tt-rss";
-      fromAddress = builtins.readFile "${privateDir}/tt-rss/email_from_address";
-      login = builtins.readFile "${privateDir}/tt-rss/email_login";
-      password = builtins.readFile "${privateDir}/tt-rss/email_password";
-      security = "tls";
-      server = builtins.readFile "${privateDir}/tt-rss/email_server";
-    };
-    #registration = {
-    #  enable = true;
-    #  maxUsers = 1;
-    #};
-    selfUrlPath = "https://news.jolharg.com";
-    # singleUserMode = true;
-    virtualHost = "news.jolharg.com";
-  };
+  # tt-rss = if isDesktop then {} else {
+  #   enable = true;
+  #   enableGZipOutput = true;
+  #   database = {
+  #     # for permissions we'll read and send instead of using passwordFile.
+  #     password = builtins.readFile "${privateDir}/tt-rss/dbpass";
+  #   };
+  #   #auth = {
+  #     # autoCreate = true;
+  #     # autoLogin = true;
+  #   #};
+  #   email = {
+  #     fromName = "tt-rss";
+  #     fromAddress = builtins.readFile "${privateDir}/tt-rss/email_from_address";
+  #     login = builtins.readFile "${privateDir}/tt-rss/email_login";
+  #     password = builtins.readFile "${privateDir}/tt-rss/email_password";
+  #     security = "tls";
+  #     server = builtins.readFile "${privateDir}/tt-rss/email_server";
+  #   };
+  #   #registration = {
+  #   #  enable = true;
+  #   #  maxUsers = 1;
+  #   #};
+  #   selfUrlPath = "https://news.jolharg.com";
+  #   # singleUserMode = true;
+  #   virtualHost = "news.jolharg.com";
+  # };
 
   # xserver.videoDrivers = [ "amdgpu" ];
 
@@ -1797,6 +1797,36 @@ in {
   mozillavpn.enable = true;
 
   joycond.enable = isDesktop;
+
+  # syslogd.enableNetworkInput = true;
+
+  # syslog-ng = let
+  #   discordSyslogEndpoint = builtins.readFile "${privateDir}/discord/endpoints/syslog";
+  # in {
+  #   enable = true;
+  #   extraConfig = ''
+  #     source s_net {
+  #       tcp(port(514) flags(syslog-protocol));
+  #     };
+# 
+  #     destination d_http {
+  #         http(
+  #             url("${discordSyslogEndpoint}")
+  #             method("POST")
+  #             user-agent("syslog-ng User Agent")
+  #             headers("Content-Type: application/json")
+  #             body('{"username": "test", "content": "''${ISODATE} ''${MESSAGE}"}')
+  #         );
+  #     };
+# 
+  #     log {
+  #         source(s_net);
+  #         destination(d_http);
+  #     };
+  #   '';
+  # };
+
+  # journald.forwardToSyslog = true;
 
   clamav = {
     updater = {
