@@ -46,8 +46,8 @@ in
     nix-index
     nixpkgs-fmt
     atinout
-    lrzsz
-    minicom
+    # lrzsz # c compiler cannot create executables
+    # minicom # requires lrzsz
     mnemonicode
     binwalk
     hexedit
@@ -99,9 +99,10 @@ in
     rdesktop
     scrcpy
     newman
+    # OSCAR
     # slack
     # zoom-us
-    xearth
+    # xearth # gifout.c:556:3: error: call to undeclared library function 'exit' with type 'void (int) __attribute__((noreturn))'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
     # teams # nah never using it
   ];
 
@@ -120,6 +121,7 @@ in
       "wireshark"
     ];
     casks = [
+      "browserstacklocal"
       "karabiner-elements"
       # "chirp" # skip as installed already
       # "dbeaver-community" # skip as installed already
@@ -129,6 +131,7 @@ in
       # "libreoffice" # 404
       # "libreoffice-language-pack" # un-upgradeable
       #"microsoft-office"
+      "oscar"
       # "openmtp" # skip as installed already
       # "slack" # skip as installed already
       # "spotify" # skip as installed already
