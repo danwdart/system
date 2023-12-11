@@ -126,10 +126,12 @@ in
       # "chirp" # skip as installed already
       # "dbeaver-community" # skip as installed already
       # "firefox" # skip as installed already
+      "fugu"
       # "gimp" # skip as installed already
       # "google-chrome" # skip as installed already
       # "libreoffice" # 404
       # "libreoffice-language-pack" # un-upgradeable
+      "macfuse"
       #"microsoft-office"
       "oscar"
       # "openmtp" # skip as installed already
