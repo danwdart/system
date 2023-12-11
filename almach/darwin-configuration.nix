@@ -117,13 +117,17 @@ in
     brews = [
       "docker"
       "docker-compose"
+      # "ext4fuse" # Skipped (no bottle for Apple Silicon)
       "tiger-vnc"
       "wireshark"
     ];
     casks = [
+      # "arc" # hmm interesting but nah not for now
+      # "blender" # 522
       "browserstacklocal"
       "karabiner-elements"
       # "chirp" # skip as installed already
+      # "clementine" # really crashy???
       # "dbeaver-community" # skip as installed already
       # "firefox" # skip as installed already
       "fugu"
@@ -131,9 +135,11 @@ in
       # "google-chrome" # skip as installed already
       # "libreoffice" # 404
       # "libreoffice-language-pack" # un-upgradeable
-      "macfuse"
+      # "macfuse"
+      # "microsoft-edge" # really now... well it's an option
       #"microsoft-office"
       "oscar"
+      # "osxfuse" # The FUSE for macOS installation package is not compatible with this version of macOS.
       # "openmtp" # skip as installed already
       # "slack" # skip as installed already
       # "spotify" # skip as installed already
