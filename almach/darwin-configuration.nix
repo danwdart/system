@@ -138,6 +138,7 @@ in
       # "macfuse"
       # "microsoft-edge" # really now... well it's an option
       #"microsoft-office"
+      "microsoft-remote-desktop"
       "oscar"
       # "osxfuse" # The FUSE for macOS installation package is not compatible with this version of macOS.
       # "openmtp" # skip as installed already
