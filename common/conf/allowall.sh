@@ -1,4 +1,7 @@
 #!/bin/sh
+set -euo pipefail
+trap pwd ERR
+
 iptables -F
 iptables -P INPUT ACCEPT
 iptables -P OUTPUT ACCEPT

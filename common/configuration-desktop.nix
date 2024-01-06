@@ -14,6 +14,7 @@ in
 
   environment = import ./environment.nix {pkgs = pkgs;  config = config; lib = lib; systemPackages = import ./packages/packages.nix pkgs;};
   hardware = import ./hardware.nix {pkgs = pkgs; isDesktop = true;};
+  networking = import ./networking.nix { lib = lib; hostName = hostName; isDesktop = true; };
   programs = import ./programs.nix { pkgs = pkgs; isDesktop = true; };
   services = import ./services.nix { pkgs = pkgs; hostName = hostName; hostDir = hostDir; privateDir = privateDir; isDesktop = true; };
   systemd = import ./systemd.nix { privateDir = privateDir; isDesktop = true; };

@@ -18,7 +18,6 @@ in {
   boot = import ./boot.nix {pkgs = pkgs;};
   console = import ./console.nix {};
   i18n = import ./i18n.nix {};
-  networking = import ./networking.nix { lib = lib; hostName = hostName; };
   nix = import ./nix.nix { pkgs = pkgs; };
   nixpkgs = import ./nixpkgs.nix {};
   security = import ./security.nix pkgs;

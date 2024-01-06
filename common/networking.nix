@@ -1,4 +1,4 @@
-{ lib, hostName, ... }:
+{ lib, hostName, isDesktop, ... }:
 with builtins;
 with lib;
 let
@@ -53,8 +53,10 @@ in {
     logReversePathDrops = true;
     logRefusedConnections = true;
     # TODO to nftables
-    extraCommands = builtins.readFile "/home/dwd/code/mine/nix/system/common/conf/iptables.sh" +
-      (lib.strings.concatStringsSep "\n" (map allowTelnet (attrValues telnetServers)));
+    extraCommands = (if isDesktop then
+      builtins.readFile "/home/dwd/code/mine/nix/system/common/conf/iptables-desktop.sh" else
+      builtins.readFile "/home/dwd/code/mine/nix/system/common/conf/iptables-server.sh"
+    ) + (lib.strings.concatStringsSep "\n" (map allowTelnet (attrValues telnetServers)));
     # Allow private IP ranges
     # extraCommands = ''
     # '';

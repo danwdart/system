@@ -1,16 +1,27 @@
-export HOME_ROUTER=192.168.1.1
-export HOME_BCAST=192.168.1.255
-export HOME_NET=192.168.1.0/24
+#!/bin/sh
+set -euo pipefail
+trap pwd ERR
 
-export AMPR_HOME=44.131.255.4/32
+export HOME_ROUTER=192.168.1.1
+export HOME_ROUTER6=::1/128
+export HOME_BCAST=192.168.1.255
+export HOME_ALL_IL_AN=ff01::1
+export HOME_ALL_LL_AN=ff02::1
+export HOME_NET=192.168.1.0/24
+export HOME_NET6=fe80::/10
+export AMPR_HOME=44.63.0.51/32
 export AMPR_NET=44.0.0.0/8
 
 export PRIVNET_8=10.0.0.0/8
 export PRIVNET_12=172.16.0.0/12
 # export PRIVNET_16=192.168.0.0/16
 export LOCAL_8=127.0.0.0/8
+export LOCAL_128=::1/128
 export MULTICAST_4=224.0.0.0/4
+export MULTICAST6_8=ff00::/8
 export SSDP=239.255.255.250
+export SSDP6_LL=239.255.255.250
+export SSDP6_SL=239.255.255.250
 export THISNET=0.0.0.0
 export BCAST=255.255.255.255
 export DHCP_SERVER_PORT=67
@@ -57,63 +68,94 @@ $IPT -A INPUT -p udp -s $HOME_ROUTER -d $BCAST --sport $DHCP_SERVER_PORT --dport
 
 # BitTorrent
 $IPT -A INPUT -p tcp -d $HOME_NET --dport 6881 -j ACCEPT
+$IP6T -A INPUT -p tcp -d $HOME_NET6 --dport 6881 -j ACCEPT
 $IPT -A INPUT -p udp -d $HOME_NET --dport 6881 -j ACCEPT
+$IP6T -A INPUT -p udp -d $HOME_NET6 --dport 6881 -j ACCEPT
 $IPT -A INPUT -p udp -d $HOME_NET --sport 6881 -j ACCEPT
+$IP6T -A INPUT -p udp -d $HOME_NET6 --sport 6881 -j ACCEPT
 # $IPT -A INPUT -p udp -d $HOME_NET --dport 6881 -j ACCEPT
+# $IP6T -A INPUT -p udp -d $HOME_NET6 --dport 6881 -j ACCEPT
 
 # DHT
 $IPT -A INPUT -p tcp -d $HOME_NET --dport 7881 -j ACCEPT
+$IP6T -A INPUT -p tcp -d $HOME_NET6 --dport 7881 -j ACCEPT
 $IPT -A INPUT -p udp -d $HOME_NET --dport 7881 -j ACCEPT
+$IP6T -A INPUT -p udp -d $HOME_NET6 --dport 7881 -j ACCEPT
 
 # Tracker
 # $IPT -A INPUT -p tcp -d $HOME_NET --dport 8881 -j ACCEPT
+# $IP6T -A INPUT -p tcp -d $HOME_NET6 --dport 8881 -j ACCEPT
 # $IPT -A INPUT -p udp -d $HOME_NET --dport 8881 -j ACCEPT
+# $IP6T -A INPUT -p udp -d $HOME_NET6 --dport 8881 -j ACCEPT
 
 # FTP responses
 $IPT -A INPUT -p tcp -d $HOME_NET --sport 20 -j ACCEPT
+$IP6T -A INPUT -p tcp -d $HOME_NET6 --sport 20 -j ACCEPT
 
 # IGMP Multicast
 $IPT -A INPUT -p igmp -s $HOME_NET -d $MULTICAST_4 -j ACCEPT
+$IP6T -A INPUT -p igmp -s $HOME_NET6 -d $MULTICAST6_8 -j ACCEPT
 
 # mDNS
 $IPT -A INPUT -p udp -s $HOME_NET -d $MULTICAST_4 --sport 5353 --dport 5353 -j ACCEPT
+$IP6T -A INPUT -p udp -s $HOME_NET6 -d $MULTICAST6_8 --sport 5353 --dport 5353 -j ACCEPT
 
 # DLNA (TODO related?)
 $IPT -A INPUT -p udp -s $HOME_ROUTER -d $HOME_NET --sport 1900 -j ACCEPT
+$IP6T -A INPUT -p udp -s $HOME_ROUTER6 -d $HOME_NET6 --sport 1900 -j ACCEPT
 
 # Plex
 $IPT -A INPUT -p tcp -d $HOME_NET -m multiport --dport 32400,32401 -j ACCEPT
+$IP6T -A INPUT -p tcp -d $HOME_NET6 -m multiport --dport 32400,32401 -j ACCEPT
 $IPT -A INPUT -p tcp -d $HOME_NET --sport 443 -j ACCEPT # psh?
+$IP6T -A INPUT -p tcp -d $HOME_NET6 --sport 443 -j ACCEPT # psh?
 
 # Plex network discovery
 $IPT -A INPUT -p udp -s $HOME_NET -d $HOME_BCAST -m multiport --dport 32410,32412,34213,32414 -j ACCEPT
+$IP6T -A INPUT -p udp -s $HOME_NET6 -d $HOME_ALL_IL_AN -m multiport --dport 32410,32412,34213,32414 -j ACCEPT
+$IP6T -A INPUT -p udp -s $HOME_NET6 -d $HOME_ALL_LL_AN -m multiport --dport 32410,32412,34213,32414 -j ACCEPT
 
 # DLNA
 $IPT -A INPUT -p udp -s $HOME_NET -d $SSDP --dport 1900 -j ACCEPT
+$IP6T -A INPUT -p udp -s $HOME_NET -d $SSDP6_LL --dport 1900 -j ACCEPT
+$IP6T -A INPUT -p udp -s $HOME_NET -d $SSDP6_SL --dport 1900 -j ACCEPT
 
 # KDE Connect
 $IPT -A INPUT -p tcp -s $HOME_NET -d $HOME_NET -m multiport --dport 1714:1764 -j ACCEPT
+$IP6T -A INPUT -p tcp -s $HOME_NET6 -d $HOME_NET6 -m multiport --dport 1714:1764 -j ACCEPT
 $IPT -A INPUT -p udp -s $HOME_NET -d $HOME_NET -m multiport --dport 1714:1764 -j ACCEPT
+$IP6T -A INPUT -p udp -s $HOME_NET6 -d $HOME_NET6 -m multiport --dport 1714:1764 -j ACCEPT
 
 # KDE Connect (Scanning)
 $IPT -A INPUT -p tcp -s $HOME_NET -d $BCAST -m multiport --dport 1714:1764 -j ACCEPT
+$IP6T -A INPUT -p tcp -s $HOME_NET6 -d $HOME_ALL_IL_AN -m multiport --dport 1714:1764 -j ACCEPT
+$IP6T -A INPUT -p tcp -s $HOME_NET6 -d $HOME_ALL_LL_AN -m multiport --dport 1714:1764 -j ACCEPT
 $IPT -A INPUT -p udp -s $HOME_NET -d $BCAST -m multiport --dport 1714:1764 -j ACCEPT
+$IP6T -A INPUT -p udp -s $HOME_NET6 -d $HOME_ALL_IL_AN -m multiport --dport 1714:1764 -j ACCEPT
+$IP6T -A INPUT -p udp -s $HOME_NET6 -d $HOME_ALL_LL_AN -m multiport --dport 1714:1764 -j ACCEPT
 
 # Discord
 $IPT -A INPUT -p udp -d $HOME_NET -m multiport --dport 50000:65535 -j ACCEPT
+$IP6T -A INPUT -p udp -d $HOME_NET6 -m multiport --dport 50000:65535 -j ACCEPT
 
 # Mail server
 # $IPT -A INPUT -p tcp -d $HOME_NET --dport 25 -j ACCEPT
+# $IP6T -A INPUT -p tcp -d $HOME_NET6 --dport 25 -j ACCEPT
 
 # all local for now
 $IPT -A INPUT -s $HOME_NET -d $HOME_NET -j ACCEPT
+$IP6T -A INPUT -s $HOME_NET6 -d $HOME_NET6 -j ACCEPT
 
 # SMB
 $IPT -A INPUT -p tcp -s $HOME_NET -m multiport --dport 137,139,445,5357 -j ACCEPT
+$IP6T -A INPUT -p tcp -s $HOME_NET6 -m multiport --dport 137,139,445,5357 -j ACCEPT
 $IPT -A INPUT -p udp -s $HOME_NET -m multiport --dport 3702 -j ACCEPT
+$IP6T -A INPUT -p udp -s $HOME_NET6 -m multiport --dport 3702 -j ACCEPT
 
 # and all local broadcast
 $IPT -A INPUT -s $HOME_NET -d $HOME_BCAST -j ACCEPT
+$IP6T -A INPUT -s $HOME_NET6 -d $HOME_ALL_IL_AN -j ACCEPT
+$IP6T -A INPUT -s $HOME_NET6 -d $HOME_ALL_LL_AN -j ACCEPT
 
 # all local on ham
 $IPT -A INPUT -s $AMPR_NET -d $AMPR_HOME -j ACCEPT
@@ -123,6 +165,7 @@ $IPT -A INPUT -s $AMPR_NET -d $AMPR_HOME -p tcp -m multiport --dport 22,443,6697
 
 # lo
 $IPT -A INPUT -s $LOCAL_8 -d $LOCAL_8 -i lo -j ACCEPT
+$IP6T -A INPUT -s $LOCAL_128 -d $LOCAL_128 -i lo -j ACCEPT
 
 # ICMPv6 is more necessary than ICMPv4
 $IP6T -A INPUT -p icmpv6 -j ACCEPT
@@ -229,6 +272,7 @@ $IP6T -A OUTPUT -p udp --dport 123 -j ACCEPT
 
 # Google Meet
 $IPT -A OUTPUT -p udp --dport 19302:19309 -j ACCEPT
+$IP6T -A OUTPUT -p udp --dport 19302:19309 -j ACCEPT
 
 # Docker
 # $IPT -A OUTPUT -p tcp -s $PRIVNET_12 -d $PRIVNET_12 -j ACCEPT
@@ -241,39 +285,56 @@ $IPT -A OUTPUT -p tcp -d $PRIVNET_12 --dport 8080 -j ACCEPT # TODO related
 
 # MDNS Out
 $IPT -A OUTPUT -p udp -s $HOME_NET -d $MULTICAST_4 --sport 5353 --dport 5353 -j ACCEPT
+$IPT6 -A OUTPUT -p udp -s $HOME_NET6 -d $MULTICAST6_8 --sport 5353 --dport 5353 -j ACCEPT
 
 # NetBIOS
 $IPT -A OUTPUT -p udp -s $HOME_NET -d $HOME_BCAST --sport 137 --dport 137 -j ACCEPT
+$IP6T -A OUTPUT -p udp -s $HOME_NET6 -d $HOME_ALL_IL_AN --sport 137 --dport 137 -j ACCEPT
+$IP6T -A OUTPUT -p udp -s $HOME_NET6 -d $HOME_ALL_LL_AN --sport 137 --dport 137 -j ACCEPT
 
 # Plex network discovery - still gets blocked somehow
 $IPT -A OUTPUT -p udp -s $HOME_NET -d $HOME_BCAST -m multiport --dport 32410,32412,34213,32414 -j ACCEPT
+$IP6T -A OUTPUT -p udp -s $HOME_NET6 -d $HOME_ALL_IL_AN -m multiport --dport 32410,32412,34213,32414 -j ACCEPT
+$IP6T -A OUTPUT -p udp -s $HOME_NET6 -d $HOME_ALL_LL_AN -m multiport --dport 32410,32412,34213,32414 -j ACCEPT
 
 # DLNA (SSDP/UPnP)
 $IPT -A OUTPUT -p udp -s $HOME_NET -d $SSDP --dport 1900 -j ACCEPT
+$IP6T -A OUTPUT -p udp -s $HOME_NET6 -d $SSDP6_LL --dport 1900 -j ACCEPT
+$IP6T -A OUTPUT -p udp -s $HOME_NET6 -d $SSDP6_SL --dport 1900 -j ACCEPT
 
 # BitTorrent
 $IPT -A OUTPUT -p tcp -s $HOME_NET --sport 6881 -j ACCEPT # related?
+$IP6T -A OUTPUT -p tcp -s $HOME_NET6 --sport 6881 -j ACCEPT # related?
 $IPT -A OUTPUT -p tcp -s $HOME_NET --dport 6881 -j ACCEPT
+$IP6T -A OUTPUT -p tcp -s $HOME_NET6 --dport 6881 -j ACCEPT
 $IPT -A OUTPUT -p udp -s $HOME_NET --sport 6881 -j ACCEPT # related?
+$IP6T -A OUTPUT -p udp -s $HOME_NET6 --sport 6881 -j ACCEPT # related?
 
 # DHT
 $IPT -A OUTPUT -p udp -s $HOME_NET --sport 7881 -j ACCEPT
+$IP6T -A OUTPUT -p udp -s $HOME_NET6 --sport 7881 -j ACCEPT
 
 # Tracker
 $IPT -A OUTPUT -p udp -s $HOME_NET --sport 8881 -j ACCEPT
+$IP6T -A OUTPUT -p udp -s $HOME_NET6 --sport 8881 -j ACCEPT
 
 # irc
 $IPT -A OUTPUT -p tcp -s $HOME_NET --dport 6697 -j ACCEPT
+$IP6T -A OUTPUT -p tcp -s $HOME_NET6 --dport 6697 -j ACCEPT
 
 # whois
 $IPT -A OUTPUT -p tcp -s $HOME_NET --dport 43 -j ACCEPT
+$IP6T -A OUTPUT -p tcp -s $HOME_NET6 --dport 43 -j ACCEPT
 
 # FTP
 $IPT -A OUTPUT -p tcp -s $HOME_NET --dport 21 -j ACCEPT
+$IP6T -A OUTPUT -p tcp -s $HOME_NET6 --dport 21 -j ACCEPT
 
 # SMB
 $IPT -A OUTPUT -p tcp -s $HOME_NET -m multiport --dport 137,139,445,5357 -j ACCEPT
+$IP6T -A OUTPUT -p tcp -s $HOME_NET6 -m multiport --dport 137,139,445,5357 -j ACCEPT
 $IPT -A OUTPUT -p udp -s $HOME_NET -m multiport --dport 3702 -j ACCEPT
+$IP6T -A OUTPUT -p udp -s $HOME_NET6 -m multiport --dport 3702 -j ACCEPT
 
 # websdr
 $IPT -A OUTPUT -p tcp -s $HOME_NET -d 192.87.173.88 --dport 8901 -j ACCEPT
@@ -286,6 +347,7 @@ $IPT -A OUTPUT -s $AMPR_HOME -d $AMPR_NET -p tcp -m multiport --dport 22,443,669
 
 # lo
 $IPT -A OUTPUT -s $LOCAL_8 -d $LOCAL_8 -o lo -j ACCEPT
+$IP6T -A OUTPUT -s $LOCAL_128 -d $LOCAL_128 -i lo -j ACCEPT
 
 # all from VPN
 $IPT -A OUTPUT -p tcp -s $PRIVNET_8 -d $PRIVNET_12 -j ACCEPT

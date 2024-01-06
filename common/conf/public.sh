@@ -1,8 +1,12 @@
+#!/bin/sh
+set -euo pipefail
+trap pwd ERR
+
 export HOME_ROUTER=192.168.1.1
 export HOME_BCAST=192.168.1.255
 export HOME_NET=192.168.1.0/24
 
-export AMPR_HOME=44.131.255.4/32
+export AMPR_HOME=44.63.0.51/32
 export AMPR_NET=44.0.0.0/8
 
 export PRIVNET_8=10.0.0.0/8
