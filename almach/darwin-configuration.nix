@@ -59,7 +59,7 @@ in
     sshuttle
     tcpdump
     aha
-    bluez-tools
+    # bluez-tools
     cdrtools
     cmatrix
     file
@@ -135,6 +135,7 @@ in
       # "google-chrome" # skip as installed already
       # "libreoffice" # 404
       # "libreoffice-language-pack" # un-upgradeable
+      "lulu"
       # "macfuse"
       # "microsoft-edge" # really now... well it's an option
       #"microsoft-office"
@@ -148,6 +149,8 @@ in
       # "transmission" # skip as installed already
       # "tunnelblick" # skip as installed already
       # "visual-studio-code" # skip as installed already
+      # "wireshark" # skip as installed already
+      "wireshark-chmodbpf"
       # "zoom" # 403
     ];
   };
