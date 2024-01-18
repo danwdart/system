@@ -2,6 +2,7 @@
 {
     autoUpgrade = {
       enable = true;
+      persistent = true;
       # persistent?                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                = true;
       dates = "hourly";
       allowReboot = true; # okay this is getting annoying, disabled until NixOS supports kexec/ksplice/etc
