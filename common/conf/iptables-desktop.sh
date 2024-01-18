@@ -7,7 +7,11 @@ export HOME_ROUTER6=::1/128
 export HOME_BCAST=192.168.1.255
 export HOME_ALL_IL_AN=ff01::1
 export HOME_ALL_LL_AN=ff02::1
+export HOME_ALL_DHCP=ff02::1:2
 export HOME_NET=192.168.1.0/24
+export HOME_LL6=fe80::/10
+export HOME_IP=2603:c020:c005:7c00:4b99:973c:65d2:5837
+export MDNS6=ff02::fb # dealt with already by MULTICAST6_8
 export HOME_NET6=fe80::/10
 export AMPR_HOME=44.63.0.51/32
 export AMPR_NET=44.0.0.0/8
@@ -26,6 +30,8 @@ export THISNET=0.0.0.0
 export BCAST=255.255.255.255
 export DHCP_SERVER_PORT=67
 export DHCP_CLIENT_PORT=68
+export DHCP6_SERVER_PORT=547
+export DHCP6_CLIENT_PORT=546
 
 export IPT=iptables-nft
 export IP6T=ip6tables-nft
@@ -64,7 +70,7 @@ $IPT -A INPUT -p tcp -s $PRIVNET_8 -d $PRIVNET_8 -j ACCEPT
 # DHCP
 $IPT -A INPUT -p udp -s $THISNET -d $BCAST --sport $DHCP_CLIENT_PORT --dport $DHCP_SERVER_PORT -j ACCEPT
 $IPT -A INPUT -p udp -s $HOME_ROUTER -d $BCAST --sport $DHCP_SERVER_PORT --dport $DHCP_CLIENT_PORT -j ACCEPT
-
+$IP6T -A INPUT -p udp -s $HOME_LL6 -d $HOME_LL6 --sport $DHCP6_SERVER_PORT --dport $DHCP6_CLIENT_PORT -j ACCEPT
 
 # BitTorrent
 $IPT -A INPUT -p tcp -d $HOME_NET --dport 6881 -j ACCEPT
@@ -161,7 +167,7 @@ $IP6T -A INPUT -s $HOME_NET6 -d $HOME_ALL_LL_AN -j ACCEPT
 $IPT -A INPUT -s $AMPR_NET -d $AMPR_HOME -j ACCEPT
 
 # except ssh/https/ircs
-$IPT -A INPUT -s $AMPR_NET -d $AMPR_HOME -p tcp -m multiport --dport 22,443,6697 -j REJECT
+$IPT -A INPUT -s $AMPR_NET -d $AMPR_HOME -p tcp -m multiport --dport 22,443,6697 -j DROP
 
 # lo
 $IPT -A INPUT -s $LOCAL_8 -d $LOCAL_8 -i lo -j ACCEPT
@@ -181,12 +187,15 @@ $IPT -A INPUT -p udp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 $IP6T -A INPUT -p udp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
 # Logl
-$IPT -A INPUT -j LOG --log-prefix "INPUT: REJECT: " --log-level 4
-$IP6T -A INPUT -j LOG --log-prefix "INPUT: REJECT: " --log-level 4
+$IPT -A INPUT -j LOG --log-prefix "INPUT: DROP: " --log-level 4
+$IP6T -A INPUT -j LOG --log-prefix "INPUT: DROP: " --log-level 4
+
+$IPT -A INPUT -j NFLOG --nflog-group 2 --nflog-prefix "INPUT:"
+$IP6T -A INPUT -j NFLOG --nflog-group 2 --nflog-prefix "INPUT:"
 
 # Rest
-$IPT -A INPUT -j REJECT
-$IP6T -A INPUT -j REJECT
+$IPT -A INPUT -j DROP
+$IP6T -A INPUT -j DROP
 
 
 ## FORWARD
@@ -213,8 +222,11 @@ $IPT -A FORWARD -p tcp -d $PRIVNET_12 --dport 80 -j ACCEPT # TODO related
 $IPT -A FORWARD -p tcp -d $PRIVNET_12 --dport 8080 -j ACCEPT # TODO related
 
 # Log
-$IPT -A FORWARD -j LOG --log-prefix "FORWARD: REJECT: " --log-level 4
-$IP6T -A FORWARD -j LOG --log-prefix "FORWARD: REJECT: " --log-level 4
+$IPT -A FORWARD -j LOG --log-prefix "FORWARD: DROP: " --log-level 4
+$IP6T -A FORWARD -j LOG --log-prefix "FORWARD: DROP: " --log-level 4
+
+$IPT -A FORWARD -j NFLOG --nflog-group 2 --nflog-prefix "FORWARD:"
+$IP6T -A FORWARD -j NFLOG --nflog-group 2 --nflog-prefix "FORWARD:"
 
 # Existing
 $IPT -A FORWARD -p tcp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
@@ -223,8 +235,8 @@ $IPT -A FORWARD -p udp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 $IP6T -A FORWARD -p udp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
 # Rest
-$IPT -A FORWARD -j REJECT
-$IP6T -A FORWARD -j REJECT
+$IPT -A FORWARD -j DROP
+$IP6T -A FORWARD -j DROP
 
 
 ## OUTPUT
@@ -257,7 +269,7 @@ $IP6T -A OUTPUT -p udp --dport 53 -j ACCEPT
 
 # DHCP
 $IPT -A OUTPUT -p udp --dport $DHCP_SERVER_PORT -j ACCEPT
-$IP6T -A OUTPUT -p udp --dport $DHCP_SERVER_PORT -j ACCEPT
+$IP6T -A OUTPUT -p udp --sport $DHCP6_CLIENT_PORT --dport $DHCP6_SERVER_PORT -s $HOME_LL6 -d $HOME_ALL_DHCP -j ACCEPT
 
 # SSDP
 $IPT -A OUTPUT -p udp -s $HOME_NET -d $SSDP --dport 1900 -j ACCEPT
@@ -286,6 +298,7 @@ $IPT -A OUTPUT -p tcp -d $PRIVNET_12 --dport 8080 -j ACCEPT # TODO related
 # MDNS Out
 $IPT -A OUTPUT -p udp -s $HOME_NET -d $MULTICAST_4 --sport 5353 --dport 5353 -j ACCEPT
 $IPT6 -A OUTPUT -p udp -s $HOME_NET6 -d $MULTICAST6_8 --sport 5353 --dport 5353 -j ACCEPT
+$IPT6 -A 
 
 # NetBIOS
 $IPT -A OUTPUT -p udp -s $HOME_NET -d $HOME_BCAST --sport 137 --dport 137 -j ACCEPT
@@ -343,7 +356,7 @@ $IPT -A OUTPUT -p tcp -s $HOME_NET -d 192.87.173.88 --dport 8901 -j ACCEPT
 $IPT -A OUTPUT -s $AMPR_HOME -d $AMPR_NET -j ACCEPT
 
 # except ssh/https/ircs
-$IPT -A OUTPUT -s $AMPR_HOME -d $AMPR_NET -p tcp -m multiport --dport 22,443,6697 -j REJECT
+$IPT -A OUTPUT -s $AMPR_HOME -d $AMPR_NET -p tcp -m multiport --dport 22,443,6697 -j DROP
 
 # lo
 $IPT -A OUTPUT -s $LOCAL_8 -d $LOCAL_8 -o lo -j ACCEPT
@@ -370,9 +383,12 @@ $IPT -A OUTPUT -p udp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 $IP6T -A OUTPUT -p udp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
 # Log
-$IPT -A OUTPUT -j LOG --log-prefix "OUTPUT: REJECT: " --log-level 4
-$IP6T -A OUTPUT -j LOG --log-prefix "OUTPUT: REJECT: " --log-level 4
+$IPT -A OUTPUT -j LOG --log-prefix "OUTPUT: DROP: " --log-level 4
+$IP6T -A OUTPUT -j LOG --log-prefix "OUTPUT: DROP: " --log-level 4
+
+$IPT -A OUTPUT -j NFLOG --nflog-group 2 --nflog-prefix "OUTPUT:"
+$IP6T -A OUTPUT -j NFLOG --nflog-group 2 --nflog-prefix "OUTPUT:"
 
 # Rest
-$IPT -A OUTPUT -j REJECT
-$IP6T -A OUTPUT -j REJECT
+$IPT -A OUTPUT -j DROP
+$IP6T -A OUTPUT -j DROP
