@@ -126,7 +126,7 @@ in {
       # echo Nix version: $(nix --version | awk '{print $3}')
       echo OS: $(uname -o)
       echo Kernel: $(uname -sr)
-      echo CPU: $(cat /proc/cpuinfo | grep "model name" | head -n1 | cut -d ':' -f 2), architecture: $(uname -m)
+      echo CPU: $(lscpu | grep "Model name" | head -n1 | cut -d ':' -f 2 | sed 's/^\s\+//'), architecture: $(uname -m)
       echo RAM: $(free -h | head -n2 | tail -n1 | awk '{print $7}')B available of $(free -h | head -n2 | tail -n1 | awk '{print $2}')B
       echo Swap: $(free -h | head -n3 | tail -n1 | awk '{print $4}')B free of $(free -h | head -n3 | tail -n1 | awk '{print $2}')B
       echo Disk usage:
