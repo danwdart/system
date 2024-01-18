@@ -125,7 +125,6 @@ in
       # "arc" # hmm interesting but nah not for now
       # "blender" # 522
       "browserstacklocal"
-      "karabiner-elements"
       # "chirp" # skip as installed already
       # "clementine" # really crashy???
       # "dbeaver-community" # skip as installed already
@@ -133,6 +132,8 @@ in
       "fugu"
       # "gimp" # skip as installed already
       # "google-chrome" # skip as installed already
+      "kapitainsky-rclone-browser"
+      "karabiner-elements"
       # "libreoffice" # 404
       # "libreoffice-language-pack" # un-upgradeable
       "lulu"
