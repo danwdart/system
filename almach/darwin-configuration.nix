@@ -22,6 +22,7 @@ in
     gitAndTools.hub
     git-crypt
     git-lfs
+    gnupg
     vim
     mtools
     ddate
