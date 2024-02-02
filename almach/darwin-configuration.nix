@@ -117,7 +117,7 @@ in
     enable = true;
     brews = [
       "docker"
-      "docker-compose"
+      # "docker-compose" # it's a plugin and not a separate package now (follow instructions)
       # "ext4fuse" # Skipped (no bottle for Apple Silicon)
       "tiger-vnc"
       "wireshark"
@@ -148,6 +148,7 @@ in
       # "slack" # skip as installed already
       # "spotify" # skip as installed already
       "supertuxkart"
+      "thunderbird"
       # "transmission" # skip as installed already
       # "tunnelblick" # skip as installed already
       # "visual-studio-code" # skip as installed already
