@@ -40,6 +40,14 @@ $IP6T -A INPUT -p tcp --dport 80 -j ACCEPT # Might as well for acme
 $IPT -A INPUT -p tcp --dport 443 -j ACCEPT
 $IP6T -A INPUT -p tcp --dport 443 -j ACCEPT
 
+# SMTP in
+$IPT -A INPUT -p tcp --dport 25 -j ACCEPT
+$IP6T -A INPUT -p tcp --dport 25 -j ACCEPT
+
+# SMTPS in
+$IPT -A INPUT -p tcp --dport 587 -j ACCEPT
+$IP6T -A INPUT -p tcp --dport 587 -j ACCEPT
+
 # Sauer in
 $IPT -A INPUT -p udp --dport 28785 -j ACCEPT
 $IP6T -A INPUT -p udp --dport 28785 -j ACCEPT
@@ -124,6 +132,14 @@ $IP6T -A OUTPUT -p tcp --dport 587 -j ACCEPT
 # IMAP TLS out
 $IPT -A OUTPUT -p tcp --dport 993 -j ACCEPT
 $IP6T -A OUTPUT -p tcp --dport 993 -j ACCEPT
+
+# SMTP out
+$IPT -A OUTPUT -p tcp --dport 25 -j ACCEPT
+$IP6T -A OUTPUT -p tcp --dport 25 -j ACCEPT
+
+# SMTPS out
+$IPT -A OUTPUT -p tcp --dport 587 -j ACCEPT
+$IP6T -A OUTPUT -p tcp --dport 587 -j ACCEPT
 
 # DNS out
 $IPT -A OUTPUT -p udp --dport 53 -j ACCEPT
