@@ -13,7 +13,7 @@ in
   # systemPackages = import ./packages/packages.nix {pkgs = pkgs; };
 
   environment.systemPackages = with nixpkgs; [
-    clamav
+    # clamav
     rclone
     # docker-compose
     gitAndTools.gh
@@ -116,8 +116,9 @@ in
   homebrew = {
     enable = true;
     brews = [
+      "clamav"
       "docker"
-      # "docker-compose" # it's a plugin and not a separate package now (follow instructions)
+      # "docker-compose" # it's a plugin and not a separate package now (follow instructions)x
       # "ext4fuse" # Skipped (no bottle for Apple Silicon)
       "tiger-vnc"
       "wireshark"
