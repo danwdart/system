@@ -1,4 +1,4 @@
-{ config, pkgs, hostName, hostDir, privateDir, isDesktop, internalIP ? "", externalIP ? "", fqdn ? "", ... }:
+{ config, pkgs, hostName, hostDir, privateDir, isDesktop, internalIPv4 ? "", externalIPv4 ? "", localIPv6 ? "", globalIPv6 ? "", fqdn ? "", ... }:
 let
   # needs /persist, see: https://github.com/nix-community/impermanence/issues/87
   rootDir = "/home/dwd/code/mine/nix/system";
@@ -9,13 +9,14 @@ in {
   cron = {
     enable = true;
     # Will only show in outbox if enabled
-    # mailto = "cron@dandart.co.uk";
+    mailto = "cron@dandart.co.uk";
     systemCronJobs = [
       # see https://www.freebsd.org/cgi/man.cgi?crontab%285%29 for special:
       #@weekly @monthly @yearly @annually @hourly @daily @reboot
       #m     h d m w
       "0 * * * * dwd  RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT"
       "0 * * * * root RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT"
+      "0 1 * * * root RESULT=$(cd ${rootDir}/${hostName} && $PWD/../common/scripts/upgrade.sh 2>&1); [ 0 != $? ] && echo $RESULT"
     ];
   };
 
@@ -27,7 +28,8 @@ in {
     # useKernelOOMKiller = false;
   };
 
-  envfs.enable = true;
+  # This seems to be quite fucky sometimes. Just run `sudo envfs /bin; sudo envfs /usr/bin` if you get issues with transport endpoint.
+  # envfs.enable = true;
 
   freenet = {
     # enable = true;
@@ -130,6 +132,25 @@ in {
     client = {
       # enable = true;
     };
+    enableGeoIP = false;
+    # backup /var/lib/tor/onion/myOnion
+    # relay.onionServices = {
+    #   myOnion = {
+    #     version = 3;
+    #     map = [{
+    #       port = 80;
+    #       target = {
+    #         addr = "[::1]";
+    #         port = 8080;
+    #       };
+    #     }];
+    #   };
+    # };
+    # settings = {
+    #   ClientUseIPv4 = false;
+    #   ClientUseIPv6 = true;
+    #   ClientPreferIPv6ORPort = true;
+    # };
   };
 
   zeronet = {
@@ -137,11 +158,11 @@ in {
     # torAlways = true;
   };
 
-  #logcheck = {
-  #  enable = true;
-  #  level = "paranoid";
-  #  mailTo = "logcheck@dandart.co.uk";
-  #};
+  # logcheck = {
+  #   enable = true;
+  #   level = "paranoid";
+  #   mailTo = "logcheck@dandart.co.uk";
+  # };
 
   nix-serve = if isDesktop then {} else {
     enable = true;
@@ -197,7 +218,7 @@ in {
   #};
 
   gvfs = {
-    enable = true;
+    enable = isDesktop;
   };
 
   touchegg = if isDesktop then {
@@ -205,33 +226,33 @@ in {
   } else {};
 
   # BIG BUG HERE: https://github.com/NixOS/nixpkgs/issues/126374
-  # tt-rss = if isDesktop then {} else {
-  #   enable = true;
-  #   enableGZipOutput = true;
-  #   database = {
-  #     # for permissions we'll read and send instead of using passwordFile.
-  #     password = builtins.readFile "${privateDir}/tt-rss/dbpass";
-  #   };
-  #   #auth = {
-  #     # autoCreate = true;
-  #     # autoLogin = true;
-  #   #};
-  #   email = {
-  #     fromName = "tt-rss";
-  #     fromAddress = builtins.readFile "${privateDir}/tt-rss/email_from_address";
-  #     login = builtins.readFile "${privateDir}/tt-rss/email_login";
-  #     password = builtins.readFile "${privateDir}/tt-rss/email_password";
-  #     security = "tls";
-  #     server = builtins.readFile "${privateDir}/tt-rss/email_server";
-  #   };
-  #   #registration = {
-  #   #  enable = true;
-  #   #  maxUsers = 1;
-  #   #};
-  #   selfUrlPath = "https://news.jolharg.com";
-  #   # singleUserMode = true;
-  #   virtualHost = "news.jolharg.com";
-  # };
+  tt-rss = if isDesktop then {} else {
+    enable = true;
+    enableGZipOutput = true;
+    database = {
+      # for permissions we'll read and send instead of using passwordFile.
+      password = builtins.readFile "${privateDir}/tt-rss/dbpass";
+    };
+    #auth = {
+      # autoCreate = true;
+      # autoLogin = true;
+    #};
+    email = {
+      fromName = "tt-rss";
+      fromAddress = builtins.readFile "${privateDir}/tt-rss/email_from_address";
+      login = builtins.readFile "${privateDir}/tt-rss/email_login";
+      password = builtins.readFile "${privateDir}/tt-rss/email_password";
+      security = "tls";
+      server = builtins.readFile "${privateDir}/tt-rss/email_server";
+    };
+    #registration = {
+    #  enable = true;
+    #  maxUsers = 1;
+    #};
+    selfUrlPath = "https://news.jolharg.com";
+    # singleUserMode = true;
+    virtualHost = "news.jolharg.com";
+  };
 
   # xserver.videoDrivers = [ "amdgpu" ];
 
@@ -257,25 +278,32 @@ in {
   # xserver.libinput.enable = true;
 
   # TODO
-  #onlyoffice = {
-  #  enable = true;
-  #  hostname = "office.jolharg.com";
-  #  port = 8000;
-  #  rabbitmqUrl = "amqp://guest:guest@localhost:5672";
-  #  postgresHost = "localhost";
-  #  postgresName = "onlyoffice";
-  #  postgresUser = "onlyoffice";
-  #  postgresPasswordFile = "";
-  #  jwtSecretFile = "";
-  #};
+  # why is this x86_64 only???
+  # onlyoffice = let rabbitMQPassword = builtins.readFile "${privateDir}/rabbitmq/password";
+  # in {
+  #   enable = true;
+  #   hostname = "office.jolharg.com";
+  #   port = 8000;
+  #   rabbitmqUrl = "amqp://rabbitmq:${rabbitMQPassword}@localhost:5672";
+  #   # postgresHost = "localhost";
+  #   postgresName = "onlyoffice";
+  #   # postgresUser = "onlyoffice";
+  #   # postgresPasswordFile = "${privateDir}/onlyoffice/dbpass";
+  #   jwtSecretFile = "${privateDir}/onlyoffice/jwtsecret";
+  # };
 
   nginx = if isDesktop then { enable = false; } else {
     enable = true;
     # enableReload = true;
     defaultListenAddresses = [
       "127.0.0.1"
-      "${internalIP}"
+      "[::1]"
+      "${internalIPv4}"
+      "${externalIPv4}"
+      "[${localIPv6}]"
+      "[${globalIPv6}]"
       "0.0.0.0"
+      "[::]"
     ];
     statusPage = true;
     recommendedProxySettings = true;
@@ -284,23 +312,40 @@ in {
       "localhost" = {
         serverAliases = [
           "127.0.0.1"
-          "${internalIP}"
+          "[::1]"
+          "${internalIPv4}"
+          "[${localIPv6}]"
         ];
         root = "${hostDir}/private_html";
       };
       "${fqdn}" = {
         root = "${hostDir}/public_html";
       };
-      "44.131.255.4" = {
+      "44.63.0.51" = {
         root = "${hostDir}/radio_html";
       };
-      "zhang.dandart.co.uk" = {
+      "${hostName}.dandart.co.uk" = {
         default = true;
         onlySSL = true;
         enableACME = true;
         # useACMEHost = ""; # security.acme.certs
         serverAliases = [
-          "zhang.jolharg.com"
+          "${hostName}.jolharg.com"
+        ];
+        root = "${hostDir}/public_html";
+      };
+      "${hostName}6.dandart.co.uk" = {
+        onlySSL = true;
+        enableACME = true;
+        # useACMEHost = ""; # security.acme.certs
+        listenAddresses = [
+          "[::1]"
+          "[${localIPv6}]"
+          "[${globalIPv6}]"
+          "[::]"
+        ];
+        serverAliases = [
+          "${hostName}6.jolharg.com"
         ];
         root = "${hostDir}/public_html";
       };
@@ -1678,11 +1723,20 @@ in {
   #  };
   #};
 
+  # rabbitmq = {
+  #   enable = true;
+  #   configItems = {
+  #     default_user = "rabbitmq";
+  #     default_pass = builtins.readFile "${privateDir}/rabbitmq/password";
+  #   };
+  # };
+
   postgresql = let
     nextcloudPassword = builtins.readFile "${privateDir}/nextcloud/dbpass";
     msfPassword = builtins.readFile "${privateDir}/msf/dbpass";
     ttrssPassword = builtins.readFile "${privateDir}/tt-rss/dbpass";
     appBuilderPassword = builtins.readFile "${privateDir}/app-builder/dbpass";
+    onlyofficeDBPassword = builtins.readFile "${privateDir}/onlyoffice/dbpass";
   in {
     enable = true;
     package = pkgs.postgresql_16  ;
@@ -1709,6 +1763,9 @@ in {
       create role authenticator noinherit login password '${appBuilderPassword}';
       grant web_anon to authenticator;
     '';
+    # create role onlyoffice with login password '${onlyofficeDBPassword}' CREATEDB;
+    # CREATE DATABASE onlyoffice;
+    # GRANT ALL PRIVILEGES ON DATABASE onlyoffice TO onlyoffice;
   };
 
   udisks2.enable = true;
@@ -1741,12 +1798,21 @@ in {
     enable = true;
     domain = "${hostName}.jolharg.com";
     rootAlias = "dwd";
+    # config = {
+    #   smtpd_use_tls = true;
+    #   smtpd_tls_key_file = "/var/lib/acme/zhang.dandart.co.uk/key.pem";
+    #   smtpd_tls_cert_file = "/var/lib/acme/zhang.dandart.co.uk/cert.pem";
+    #   smtpd_tls_CAfile = "/var/lib/acme/zhang.dandart.co.uk/chain.pem";
+    #   smtpd_tls_loglevel = "3";
+    #   smtpd_tls_received_header = true;
+    #   smtpd_tls_session_cache_timeout = "3600s";
+    # };
     # [smtp.gmail.com]:587    username@gmail.com:password -> sasl_passwd
     config = {
       smtp_sasl_auth_enable = true;
       smtp_sasl_security_options = "noanonymous";
       smtp_use_tls = true;
-      # postmap this!
+      # postmap this! # TODO permissions
       smtp_sasl_password_maps = "hash:${privateDir}/sasl_passwd";
     };
     relayHost = "smtp.gmail.com";
@@ -1758,8 +1824,8 @@ in {
     ];
     setSendmail = true;
     virtual = ''
-      @${hostName} dan@dandart.co.uk
-      @${hostName}.jolharg.com dan@dandart.co.uk
+      @${hostName} ${hostName}@dandart.co.uk
+      @${hostName}.jolharg.com ${hostName}@dandart.co.uk
     '';
   };
 
@@ -1770,14 +1836,37 @@ in {
     openFirewall = true;
   };
 
+  ulogd = {
+    enable = true;
+    settings = {
+      emu1 = {
+        file = "/var/log/ulogd_pkts.log";
+        sync = 1;
+      };
+      global = {
+        stack = [
+          "log1:NFLOG,base1:BASE,ifi1:IFINDEX,ip2str1:IP2STR,print1:PRINTPKT,emu1:LOGEMU"
+          "log1:NFLOG,base1:BASE,pcap1:PCAP"
+        ];
+      };
+      log1 = {
+        group = 2;
+      };
+      pcap1 = {
+        file = "/var/log/ulogd.pcap";
+        sync = 1;
+      };
+    };
+  };
+
   #xrdp.enable = true;
   #xrdp.defaultWindowManager = "startplasma-x11";
 
-  avahi = {
+  avahi = if isDesktop then {} else {
     enable = true;
     wideArea = true;
     ipv6 = true;
-    nssmdns = true;
+    nssmdns4 = true;
     # domainName = "jolharg.com"
     publish = {
       enable = true;
@@ -1794,7 +1883,7 @@ in {
 
   # ntopng.enable = true;
 
-  mozillavpn.enable = true;
+  mozillavpn.enable = isDesktop;
 
   joycond.enable = isDesktop;
 
