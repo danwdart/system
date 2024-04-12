@@ -27,7 +27,7 @@ with pkgs; [
     # python312Packages.cirq-core # fails to build
     # python312Packages.cirq-aqto # missing
     # python312Packages.cirq # depends on rigetti
-    qucs
+    # qucs
     stlink
     tkgate
     vscode # insiders?
