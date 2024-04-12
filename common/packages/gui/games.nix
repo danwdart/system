@@ -7,7 +7,7 @@ let pkgs-x86_64 = import <nixos> {
     };
 in
 with pkgs; [
-    armagetronad # no desktop icon
+    # armagetronad # no desktop icon # failed with exit code 141
     dolphinEmu
     # extremetuxracer
     # frozen-bubble
