@@ -169,43 +169,56 @@ in {
     secretKeyFile = "/var/cache-priv-key.pem";
   };
 
-  xserver = if isDesktop then {
-    enable = true;
-    displayManager = {
-      sddm = {
+  desktopManager = if isDesktop then {
+    plasma6 = {
+      enable = true;
+    };
+  } else {};
+
+  displayManager = if isDesktop then {
+    sddm = {
+      enable = true;
+      wayland = {
         enable = true;
-        #autoLogin = {
-        #  relogin = true;
-        #};
       };
       #autoLogin = {
-       # enable = true;
-       # user = "dwd";
-      #};
-      #surf-display = {
-      #  enable = true;
-      #};
-      #retroarch = {
-      #  enable = true;
-      #};
-      #kodi = {
-      #  enable = true;
-      #}
-    };
-    desktopManager = {
-      plasma5 = {
-        enable = true;
-      };
-      #cinnamon = {
-      #  enable = true;
-      #};
-      #enlightenment = {
-      #  enable = true;
+      #  relogin = true;
       #};
     };
-    layout = "gb";
-    xkbOptions = "terminate:ctrl_alt_bksp,caps:escape,compose:ralt";
-    xkbModel = "inspiron";
+    #autoLogin = {
+      # enable = true;
+      # user = "dwd";
+    #};
+    #surf-display = {
+    #  enable = true;
+    #};
+    #retroarch = {
+    #  enable = true;
+    #};
+    #kodi = {
+    #  enable = true;
+    #}
+  } else {};
+
+  xserver = if isDesktop then {
+    enable = true;
+    
+    # desktopManager = {
+    #   #plasma5 = {
+    #   #  enable = true;
+    #   #};
+    #   #cinnamon = {
+    #   #  enable = true;
+    #   #};
+    #   #enlightenment = {
+    #   #  enable = true;
+    #   #};
+    # };
+    xkb = {
+      layout = "gb";
+      model = "inspiron";
+      options = "terminate:ctrl_alt_bksp,caps:escape,compose:ralt";
+    };
     libinput = {
       enable = true;
     };
