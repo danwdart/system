@@ -29,9 +29,9 @@ with pkgs; [
     winetricks
     # master.yuzu
 ] ++ (if builtins.currentSystem != "aarch64-linux" then [
-    citra # broken on aarch64
+    # citra # broken on aarch64
     pcsx2 # keeps recompiling
-    retroarchFull # TODO: get rid of libretro-parallel-n64-code - that's the one that's broken on aarch64
+    # retroarchFull # TODO: get rid of libretro-parallel-n64-code - that's the one that's broken on aarch64 # takes ages to compile even on a good machine, why is it even bothering
     wineWowPackages.fonts
     # master.wineWowPackages.staging # takes forever to compile
     wineWowPackages.staging
