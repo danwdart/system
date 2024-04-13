@@ -100,6 +100,12 @@ $IP6T -A INPUT -p tcp -d $NET6 --dport 8881 -j ACCEPT
 $IPT -A INPUT -p udp -d $NET --dport 8881 -j ACCEPT
 $IP6T -A INPUT -p udp -d $NET6 --dport 8881 -j ACCEPT
 
+# Steam Client
+$IPT -A INPUT -p udp -d $NET -m multiport --dport 27031:27036 -j ACCEPT
+$IPT -A INPUT -p tcp -d $NET --dport 27036 -j ACCEPT
+$IP6T -A INPUT -p udp -d $NET6 -m multiport --dport 27031:27036 -j ACCEPT
+$IP6T -A INPUT -p tcp -d $NET6 --dport 27036 -j ACCEPT
+
 # FTP responses
 $IPT -A INPUT -p tcp -d $NET --sport 20 -j ACCEPT
 $IP6T -A INPUT -p tcp -d $NET6 --sport 20 -j ACCEPT
@@ -295,15 +301,15 @@ $IPT -A OUTPUT -p udp --dport 123 -j ACCEPT
 $IP6T -A OUTPUT -p udp --dport 123 -j ACCEPT
 
 # Google Meet
-$IPT -A OUTPUT -p udp --dport 19302:19309 -j ACCEPT
-$IP6T -A OUTPUT -p udp --dport 19302:19309 -j ACCEPT
+$IPT -A OUTPUT -p udp -m multiport --dport 19302:19309 -j ACCEPT
+$IP6T -A OUTPUT -p udp -m multiport --dport 19302:19309 -j ACCEPT
 
 # Docker
 # $IPT -A OUTPUT -p tcp -s $PRIVNET_12 -d $PRIVNET_12 -j ACCEPT
 
 # Roqqett
-$IPT -A OUTPUT -p tcp --dport 5000:6000 -j ACCEPT
-$IP6T -A OUTPUT -p tcp --dport 5000:6000 -j ACCEPT
+$IPT -A OUTPUT -p tcp -m multiport --dport 5000:6000 -j ACCEPT
+$IP6T -A OUTPUT -p tcp -m multiport --dport 5000:6000 -j ACCEPT
 $IPT -A OUTPUT -p tcp -d $PRIVNET_12 --dport 80 -j ACCEPT # TODO related
 $IPT -A OUTPUT -p tcp -d $PRIVNET_12 --dport 8080 -j ACCEPT # TODO related
 
@@ -346,6 +352,16 @@ $IP6T -A OUTPUT -p udp -s $NET6 --sport 7881 -j ACCEPT
 # Tracker
 $IPT -A OUTPUT -p udp -s $NET --sport 8881 -j ACCEPT
 $IP6T -A OUTPUT -p udp -s $NET6 --sport 8881 -j ACCEPT
+
+# Steam Client
+$IPT -A OUTPUT -p tcp -s $NET -m multiport --dport 27015:27050 -j ACCEPT
+$IPT -A OUTPUT -p udp -s $NET -m multiport --dport 27015:27050 -j ACCEPT
+$IPT -A OUTPUT -p udp -s $NET -m multiport --dport 27000:27100 -j ACCEPT
+$IPT -A OUTPUT -p udp -s $NET --dport 4380 -j ACCEPT
+$IP6T -A OUTPUT -p tcp -s $NET6 -m multiport --dport 27015:27050 -j ACCEPT
+$IP6T -A OUTPUT -p udp -s $NET6 -m multiport --dport 27015:27050 -j ACCEPT
+$IP6T -A OUTPUT -p udp -s $NET6 -m multiport --dport 27000:27100 -j ACCEPT
+$IP6T -A OUTPUT -p udp -s $NET6 --dport 4380 -j ACCEPT
 
 # irc
 $IPT -A OUTPUT -p tcp -s $NET --dport 6697 -j ACCEPT
