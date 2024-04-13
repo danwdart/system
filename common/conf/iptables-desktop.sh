@@ -101,8 +101,12 @@ $IPT -A INPUT -p udp -d $NET --dport 8881 -j ACCEPT
 $IP6T -A INPUT -p udp -d $NET6 --dport 8881 -j ACCEPT
 
 # Steam Client
+$IPT -A INPUT -p tcp -d $NET --dport 27015 -j ACCEPT
+$IPT -A INPUT -p udp -d $NET --dport 27015 -j ACCEPT
 $IPT -A INPUT -p udp -d $NET -m multiport --dport 27031:27036 -j ACCEPT
 $IPT -A INPUT -p tcp -d $NET --dport 27036 -j ACCEPT
+$IP6T -A INPUT -p tcp -d $NET6 --dport 27015 -j ACCEPT
+$IP6T -A INPUT -p udp -d $NET6 --dport 27015 -j ACCEPT
 $IP6T -A INPUT -p udp -d $NET6 -m multiport --dport 27031:27036 -j ACCEPT
 $IP6T -A INPUT -p tcp -d $NET6 --dport 27036 -j ACCEPT
 
@@ -356,11 +360,17 @@ $IP6T -A OUTPUT -p udp -s $NET6 --sport 8881 -j ACCEPT
 # Steam Client
 $IPT -A OUTPUT -p tcp -s $NET -m multiport --dport 27015:27050 -j ACCEPT
 $IPT -A OUTPUT -p udp -s $NET -m multiport --dport 27015:27050 -j ACCEPT
+$IPT -A OUTPUT -p udp -s $NET -m multiport --dport 27014:27030 -j ACCEPT
 $IPT -A OUTPUT -p udp -s $NET -m multiport --dport 27000:27100 -j ACCEPT
+$IPT -A OUTPUT -p udp -s $NET --dport 3478 -j ACCEPT
+$IPT -A OUTPUT -p udp -s $NET --dport 4379 -j ACCEPT
 $IPT -A OUTPUT -p udp -s $NET --dport 4380 -j ACCEPT
 $IP6T -A OUTPUT -p tcp -s $NET6 -m multiport --dport 27015:27050 -j ACCEPT
 $IP6T -A OUTPUT -p udp -s $NET6 -m multiport --dport 27015:27050 -j ACCEPT
+$IP6T -A OUTPUT -p udp -s $NET6 -m multiport --dport 27014:27030 -j ACCEPT
 $IP6T -A OUTPUT -p udp -s $NET6 -m multiport --dport 27000:27100 -j ACCEPT
+$IP6T -A OUTPUT -p udp -s $NET6 --dport 3478 -j ACCEPT
+$IP6T -A OUTPUT -p udp -s $NET6 --dport 4379 -j ACCEPT
 $IP6T -A OUTPUT -p udp -s $NET6 --dport 4380 -j ACCEPT
 
 # irc
