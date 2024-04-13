@@ -8,6 +8,7 @@ export ALL_DHCP=ff02::1:2
 export AMPR_HOME=44.63.0.51/32
 export AMPR_NET=44.0.0.0/8
 export BCAST=10.0.0.255
+export BCAST_ALL=255.255.255.255
 export DHCP_CLIENT_PORT=68
 export DHCP_SERVER_PORT=67
 export DHCP6_CLIENT_PORT=546
@@ -31,6 +32,7 @@ export SSDP=239.255.255.250
 export SSDP6_LL=ff02::c
 export SSDP6_SL=ff05::c
 export THISNET=0.0.0.0
+export ZERO=0.0.0.0
 
 
 $IPT -F
@@ -65,8 +67,8 @@ $IP6T -A INPUT -p udp --dport 28786 -j ACCEPT
 # $IPT -A INPUT -p tcp -s $PRIVNET_8 -d $PRIVNET_8 -j ACCEPT
 
 # DHCP
-$IPT -A INPUT -p udp -s $THISNET -d $BCAST --sport $DHCP_CLIENT_PORT --dport $DHCP_SERVER_PORT -j ACCEPT
-$IPT -A INPUT -p udp -s $ROUTER -d $BCAST --sport $DHCP_SERVER_PORT --dport $DHCP_CLIENT_PORT -j ACCEPT
+$IPT -A INPUT -p udp -s $ZERO -d $BCAST_ALL --sport $DHCP_CLIENT_PORT --dport $DHCP_SERVER_PORT -j ACCEPT
+$IPT -A INPUT -p udp -s $ROUTER -d $BCAST_ALL --sport $DHCP_SERVER_PORT --dport $DHCP_CLIENT_PORT -j ACCEPT
 $IP6T -A INPUT -p udp -s $LL6 -d $LL6 --sport $DHCP6_SERVER_PORT --dport $DHCP6_CLIENT_PORT -j ACCEPT
 
 # lo
@@ -101,6 +103,7 @@ $IP6T -A INPUT -s $LOCAL_128 -d $LOCAL_128 -i lo -j ACCEPT
 
 # IGMP Multicast
 # $IPT -A INPUT -p igmp -s $NET -d $MULTICAST_4 -j ACCEPT
+# $IPT -A INPUT -p igmp -s $ZERO -d $MULTICAST_4 -j ACCEPT
 # $IP6T -A INPUT -p igmp -s $NET6 -d $MULTICAST6_8 -j ACCEPT
 
 # mDNS
@@ -131,6 +134,7 @@ $IP6T -A INPUT -s $LOCAL_128 -d $LOCAL_128 -i lo -j ACCEPT
 # $IPT -A INPUT -p tcp -s $NET -d $NET -m multiport --dport 1714:1764 -j ACCEPT
 # $IP6T -A INPUT -p tcp -s $NET6 -d $NET6 -m multiport --dport 1714:1764 -j ACCEPT
 # $IPT -A INPUT -p udp -s $NET -d $NET -m multiport --dport 1714:1764 -j ACCEPT
+# $IPT -A INPUT -p udp -s $NET -d $BCAST_ALL -m multiport --dport 1714:1764 -j ACCEPT
 # $IP6T -A INPUT -p udp -s $NET6 -d $NET6 -m multiport --dport 1714:1764 -j ACCEPT
 
 # KDE Connect (Scanning)
@@ -244,6 +248,10 @@ $IP6T -A OUTPUT -p tcp --dport 80 -j ACCEPT
 # Web out
 $IPT -A OUTPUT -p tcp --dport 443 -j ACCEPT
 $IP6T -A OUTPUT -p tcp --dport 443 -j ACCEPT
+
+# HTTP3
+$IPT -A OUTPUT -p udp --dport 443 -j ACCEPT
+$IP6T -A OUTPUT -p udp --dport 443 -j ACCEPT
 
 # SSH out
 $IPT -A OUTPUT -p tcp --dport 22 -j ACCEPT
