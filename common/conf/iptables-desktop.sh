@@ -307,6 +307,11 @@ $IP6T -A OUTPUT -p tcp --dport 5000:6000 -j ACCEPT
 $IPT -A OUTPUT -p tcp -d $PRIVNET_12 --dport 80 -j ACCEPT # TODO related
 $IPT -A OUTPUT -p tcp -d $PRIVNET_12 --dport 8080 -j ACCEPT # TODO related
 
+# IGMP Multicast
+$IPT -A OUTPUT -p igmp -s $NET -d $MULTICAST_4 -j ACCEPT
+$IPT -A OUTPUT -p igmp -s $ZERO -d $MULTICAST_4 -j ACCEPT
+$IP6T -A OUTPUT -p igmp -s $NET6 -d $MULTICAST6_8 -j ACCEPT
+
 # MDNS Out
 $IPT -A OUTPUT -p udp -s $NET -d $MULTICAST_4 --sport 5353 --dport 5353 -j ACCEPT
 $IP6T -A OUTPUT -p udp -s $NET6 -d $MULTICAST6_8 --sport 5353 --dport 5353 -j ACCEPT
