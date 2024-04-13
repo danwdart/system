@@ -46,12 +46,13 @@ with pkgs; [
     sixpair
     socat
     testdisk
-    vulkan-tools
     u3-tool
     unrar
     unzip
     usbutils
     ventoy
+    vulkan-tools
+    wayland-utils
     wget
     wirelesstools
 ] ++ (if builtins.currentSystem != "aarch64-linux" then [
