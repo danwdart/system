@@ -5,16 +5,16 @@ with pkgs; [
     # kdeGear.kalarm
     okular
     ktorrent
-    libsForQt5.discover
-    libsForQt5.dolphin
-    libsForQt5.dolphin-plugins
-    libsForQt5.kmail
-    libsForQt5.kpat
-    libsForQt5.phonon
-    libsForQt5.phonon-backend-gstreamer
-    libsForQt5.yakuake
-    # plasma5.plasma-browser-integration
-    plasma5Packages.kdeconnect-kde
+    # kdePackages.discover
+    kdePackages.dolphin
+    kdePackages.dolphin-plugins
+    kdePackages.kmail
+    kdePackages.kpat
+    kdePackages.phonon
+    # kdePackages.phonon-backend-gstreamer
+    kdePackages.yakuake
+    kdePackages.plasma-browser-integration
+    kdePackages.kdeconnect-kde
     plasma-hud
     qdirstat
 ]
