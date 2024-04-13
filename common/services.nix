@@ -1930,20 +1930,20 @@ in {
 
   # journald.forwardToSyslog = true;
 
-  clamav = {
-    updater = {
-      enable = true;
-      interval = "*/30 * * * *";
-      frequency = 48;
-      settings = {
-        SafeBrowsing = true;
-      };
-    };
-    daemon = {
-      enable = true;
-      settings = {
-
-      };
-    };
-  };
+  # clamav = {
+  #   updater = {
+  #     enable = true;
+  #     interval = "*/30 * * * *";
+  #     frequency = 48;
+  #     settings = {
+  #       SafeBrowsing = true;
+  #     };
+  #   };
+  #   daemon = {
+  #     enable = true;
+  #     settings = {
+# 
+  #     };
+  #   };
+  # };
 }
