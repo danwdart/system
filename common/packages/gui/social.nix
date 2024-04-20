@@ -15,7 +15,9 @@ with pkgs; [
         withOpenASAR = true;
         nss = pkgs.nss_latest;
     })
+    slack
     skypeforlinux
+    zoom-us
 ] else [
    # pkgs-x86_64.betterdiscordctl
    # (pkgs-x86_64.discord.override {
