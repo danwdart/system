@@ -5,18 +5,23 @@
 { config, lib, pkgs, ... }:
 
 {
+  nixpkgs.config.allowUnfree = true;
+
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
-  boot.loader.efi.efiSysMountPoint = "/efi";
-  boot.loader.efi.canTouchEfiVariables = true;
-
+  # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.xbootldrMountPoint = "/boot";
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.netbootxyz.enable = true;
 
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_8;
+
+  boot.plymouth.enable = true;
+
+  boot.binfmt.emulatedSystems = [ "i686-linux" "i686-windows" "aarch64-linux" "x86_64-windows" ];
 
   networking.hostName = "glados"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -30,11 +35,12 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
+  hardware.opengl.enable = true;
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
   console = {
     font = "Lat2-Terminus16";
-    # keyMap = "gb";
+    # keyMap = "uk";
     useXkbConfig = true; # use xkb.options in tty.
   };
 
@@ -42,12 +48,12 @@
   services.xserver.enable = true;
 
 
-  # Enable the Plasma 6 Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  # Enable the Plasma 5 Desktop Environment.
+  services.xserver.displayManager.sddm.enable = true;
+  #services.xserver.desktopManager.plasma5.enable = true;
   
-  hardware.opengl.enable = true;
+  services.xserver.displayManager.sddm.wayland.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb.layout = "gb";
@@ -69,19 +75,38 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.dwd = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-      firefox
-      tree
-    ];
+     isNormalUser = true;
+     extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
+  #   packages = with pkgs; [
+  #     firefox
+  #     tree
+  #   ];
   };
+
+  virtualisation.docker.enable = true;
+
+  virtualisation.kvmgt.enable = true;
+
+  
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    cachix
+    direnv
+    nix-direnv
+    git
+    gnupg
+    htop
+    openssh
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    firefox
+    vscode
+    discord
+    element-desktop
+    zoom-us
+    slack
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -91,6 +116,10 @@
     enable = true;
     enableSSHSupport = true;
   };
+
+  programs.steam.enable = true;
+
+  programs.nix-ld.enable = true;
 
   # List services that you want to enable:
 

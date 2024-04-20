@@ -8,30 +8,23 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-  
-  boot.loader.efi.efiSysMountPoint = "/efi";
-  boot.loader.efi.canTouchEfiVariables = true;
 
   boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.xbootldrMountPoint = "/boot";
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.netbootxyz.enable = true;
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/b9bf6382-06b6-4b8e-9ce4-0672fc7a4ffc";
-      fsType = "ext4";
+    { device = "/dev/disk/by-uuid/e92870f7-8aba-488b-be31-66940a142d4a";
       options = [ "noatime" ];
-    };
-
-  fileSystems."/efi" =
-    { device = "/dev/disk/by-uuid/ACEE-3BBC";
-      fsType = "vfat";
+      fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/FE54-479A";
+    { device = "/dev/disk/by-uuid/7B2E-DF9D";
       fsType = "vfat";
     };
 
