@@ -36,8 +36,18 @@
 
   plymouth = {
     enable = true;
+    # logo = pkgs.fetchurl {
+    #   url = "https://nixos.org/logo/nixos-hires.png";
+    #   sha256 = "1ivzgd7iz0i06y36p8m5w48fd8pjqwxhdaavc0pxs7w1g7mcy5si";
+    # };
   };
-  
+
+  tmp = {
+    useTmpfs = true;
+    # tmpfsSize = "50%";
+    cleanOnBoot = true; # unless it's tmpfs in which case who cares
+  };
+
   # If you want anything for this built by nixosm, you have to use --argstr system X
   binfmt.emulatedSystems = [
     "i686-linux"

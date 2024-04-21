@@ -12,7 +12,7 @@ with pkgs; [
     mailutils
     # nixops # build failure
     openvpn
-    protonvpn-cli
+    # protonvpn-cli
     # python312Packages.mitmproxy # fails to build
     # python312Packages.protonvpn-nm-lib # fails to build
     ngrok

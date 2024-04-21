@@ -27,7 +27,7 @@ with pkgs;
     soundfont-fluid
     yoshimi
     zam-plugins
-] ++ (if builtins.currentSystem != "aarch64-linux" then [
+] ++ (if builtins.currentSystem == "x86_64-linux" then [
     bristol # no desktop icon
     plugin-torture # broken on aarch64
     polyphone # no desktop icon # broken on aarch64

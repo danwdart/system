@@ -66,6 +66,7 @@ in {
   };
 
   extraHosts = ''
-    127.0.0.1      ${hostName}.dandart.co.uk home.dandart.co.uk grocy.dandart.co.uk nextcloud.dandart.co.uk roqqett.dandart.co.uk roq-wp.dandart.co.uk dev.dandart.co.uk dev.jolharg.com news.jolharg.com dev.madhackerreviews.com dev.m0ori.com dev.blog.dandart.co.uk jobfinder.jolharg.com api.jobfinder.jolharg.com
+    127.0.0.1      ${hostName}.dandart.co.uk home.dandart.co.uk dev.dandart.co.uk dev.jolharg.com dev.madhackerreviews.com dev.m0ori.com dev.blog.dandart.co.uk jobfinder.jolharg.com api.jobfinder.jolharg.com
+    ::1            ${hostName}.dandart.co.uk home.dandart.co.uk dev.dandart.co.uk dev.jolharg.com dev.madhackerreviews.com dev.m0ori.com dev.blog.dandart.co.uk jobfinder.jolharg.com api.jobfinder.jolharg.com
   '';
 }

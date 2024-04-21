@@ -1,5 +1,5 @@
 pkgs:
 with pkgs; [
-    calibre
+    # calibre # fails to build with python mechanize
     # libreoffice-fresh # no mdds
 ]

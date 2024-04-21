@@ -55,7 +55,7 @@ with pkgs; [
     wayland-utils
     wget
     wirelesstools
-] ++ (if builtins.currentSystem != "aarch64-linux" then [
+] ++ (if builtins.currentSystem == "x86_64-linux" then [
     i7z
 ] else [
    # pkgs-x86_64.i7z

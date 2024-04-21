@@ -10,7 +10,7 @@ with pkgs; [
     #xorg.xev
     systembus-notify # make it autostart?
     testdisk-qt
-] ++ (if builtins.currentSystem != "aarch64-linux" then [
+] ++ (if builtins.currentSystem == "x86_64-linux" then [
     xorg.xf86videointel
 ] else [
 ])

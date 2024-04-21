@@ -19,7 +19,7 @@ with pkgs; [
     git-lfs
     vim # plugins?
     # xcodebuild
-] ++ (if builtins.currentSystem != "aarch64-linux" then [
+] ++ (if builtins.currentSystem == "x86_64-linux" then [
     adbfs-rootless
 ] else [
    # pkgs-x86_64.adbfs-rootless

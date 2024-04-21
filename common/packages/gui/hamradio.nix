@@ -31,10 +31,9 @@ with pkgs; [
     sdrangel # has to be built now for some reason
     soapyhackrf
     soapysdr-with-plugins
-    soundmodem # no desktop icon, needs config
     wsjtx
     xlog
-] ++ (if builtins.currentSystem != "aarch64-linux" then [
+] ++ (if builtins.currentSystem == "x86_64-linux" then [
     flrig
     soapysdrplay
     welle-io

@@ -1,6 +1,6 @@
 { pkgs, isDesktop, ...}:
 {
-  steam.enable = builtins.currentSystem != "aarch64-linux" && isDesktop;
+  steam.enable = builtins.currentSystem == "x86_64-linux" && isDesktop;
 
   adb.enable = true;
 
@@ -11,6 +11,8 @@
   fuse.userAllowOther = true;
 
   partition-manager.enable = isDesktop;
+
+  soundmodem.enable = isDesktop;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

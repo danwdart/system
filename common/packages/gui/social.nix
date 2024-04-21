@@ -9,7 +9,7 @@ let
 in
 with pkgs; [
     element-desktop
-] ++ (if builtins.currentSystem != "aarch64-linux" then [
+] ++ (if builtins.currentSystem == "x86_64-linux" then [
     betterdiscordctl
     (discord.override {
         withOpenASAR = true;

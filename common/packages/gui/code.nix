@@ -33,8 +33,8 @@ with pkgs; [
     vscode # insiders?
     # x11docker
     xcircuit
-] ++ (if builtins.currentSystem != "aarch64-linux" then [
-    androidStudioPackages.canary # dependent on android-tools?
+] ++ (if builtins.currentSystem == "x86_64-linux" then [
+    # androidStudioPackages.canary # dependent on android-tools?
     xyce # broken on aarch64
     xyce-parallel
 ] else [

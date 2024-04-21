@@ -1752,7 +1752,7 @@ in {
     onlyofficeDBPassword = builtins.readFile "${privateDir}/onlyoffice/dbpass";
   in {
     enable = true;
-    package = pkgs.postgresql_16  ;
+    package = pkgs.postgresql_16;
     enableTCPIP = true;
     authentication = pkgs.lib.mkOverride 10 ''
       local all all trust
@@ -1875,28 +1875,28 @@ in {
   #xrdp.enable = true;
   #xrdp.defaultWindowManager = "startplasma-x11";
 
-  avahi = if isDesktop then {} else {
-    enable = true;
-    wideArea = true;
-    ipv6 = true;
-    nssmdns4 = true;
-    # domainName = "jolharg.com"
-    publish = {
-      enable = true;
-      # browseDomains = [ "jolharg.com" ];
-      hinfo = true;
-      domain = true;
-      # addresses = true;
-      userServices = true;
-      workstation = true;
-    };
-  };
+  # avahi = if isDesktop then { # dbus_bus_request_name(): Request to own name refused by policy
+  #   enable = true;
+  #   wideArea = true;
+  #   ipv6 = true;
+  #   nssmdns4 = true;
+  #   # domainName = "jolharg.com"
+  #   publish = {
+  #     enable = true;
+  #     # browseDomains = [ "jolharg.com" ];
+  #     hinfo = true;
+  #     domain = true;
+  #     # addresses = true;
+  #     userServices = true;
+  #     workstation = true;
+  #   };
+  # } else {};
 
   fail2ban.enable = true;
 
   # ntopng.enable = true;
 
-  mozillavpn.enable = isDesktop;
+  # mozillavpn.enable = isDesktop;
 
   joycond.enable = isDesktop;
 
