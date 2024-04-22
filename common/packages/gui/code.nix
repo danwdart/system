@@ -35,8 +35,8 @@ with pkgs; [
     xcircuit
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
     # androidStudioPackages.canary # dependent on android-tools?
-    xyce # broken on aarch64
-    xyce-parallel
+    # xyce # broken on aarch64
+    # xyce-parallel
 ] else [
     ## pkgs-x86_64.androidStudioPackages.canary ???
     ## pkgs-x86_64.xyce # takes an age to build
