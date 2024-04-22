@@ -10,7 +10,7 @@ with pkgs; [
     # platform-tools?
     # python312Packages.android-backup # build failure
     # code-server # unneeded
-    # docker-compose
+    docker-compose # doing the alias doesn't seem to be enough
     gitAndTools.gh
     gitAndTools.gitFull
     gitAndTools.git-hub

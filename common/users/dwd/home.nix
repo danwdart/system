@@ -118,6 +118,7 @@ in {
       {
         ll = "ls -l";
         ".." = "cd ..";
+        # "docker-compose" = "docker compose";
       };
     initExtra = ''
       source <(doctl completion bash)
