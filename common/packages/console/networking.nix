@@ -1,5 +1,6 @@
 pkgs:
-with pkgs; [
+let awsvpnclient = builtins.fetchTarball {url = "https://github.com/ymatsiuk/awsvpnclient/archive/master.tar.gz"; };
+in with pkgs; [
     autossh
     # azure-cli # TODO split? # broken
     bind # host, nslookup etc
@@ -18,4 +19,5 @@ with pkgs; [
     ngrok
     # proxytunnel # insecure openssl
     slirp4netns
+    (pkgs.callPackage "${awsvpnclient}/awsvpnclient.nix" { openvpn = pkgs.callPackage "${awsvpnclient}/openvpn.nix" { }; })
 ]
