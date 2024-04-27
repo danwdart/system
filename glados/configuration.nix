@@ -18,6 +18,7 @@ in
     ];
 
     networking.hostName = hostName;
+    networking.domain = "dandart.co.uk";
 
     services.openssh.banner = "Connection established to ${hostName}. Unauthorised connections are logged.\n";
 
