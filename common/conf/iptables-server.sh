@@ -404,7 +404,7 @@ $IPT -A OUTPUT -s $LOCAL_8 -d $LOCAL_8 -o lo -j ACCEPT
 $IP6T -A OUTPUT -s $LOCAL_128 -d $LOCAL_128 -o lo -j ACCEPT
 
 # all from VPN
-$IPT -A OUTPUT -p tcp -s $PRIVNET_8 -d $PRIVNET_12 -j ACCEPT
+$IPT -A OUTPUT -s $PRIVNET_16 -d $PRIVNET_8 -j ACCEPT
 
 # all local for now
 # $IPT -A OUTPUT -s $NET -d $NET -j ACCEPT
