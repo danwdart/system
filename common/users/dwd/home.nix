@@ -45,7 +45,10 @@ in {
 
   home.file.face = {
     target = ".face";
-    source = /home/dwd/Pictures/me/me.jpg;
+    source = builtins.fetchurl {
+      name = "hiro.png";
+      url = "https://cdn.discordapp.com/attachments/570351784082800640/1232826038451704002/Picsart_24-04-24_23-50-10-473.png?ex=662ade38&is=66298cb8&hm=f9620e0be576f4d13ce9d9f9d4b63be71764339bb2c991746349ad2a59b702e3";
+    };
   };
 
   # overlays go here
@@ -517,6 +520,18 @@ in {
     userSettings = {};
     keybindings = [];
   } else {};
+
+  programs.wpaperd = {
+    enable = true;
+    settings = {
+      default = {
+        path = builtins.fetchurl "https://cdn.donmai.us/original/63/6f/__zero_two_and_hiro_darling_in_the_franxx__636f66c442802a72d18a8f0157d69712.jpg";
+        duration = "10m";
+        sorting = "random";
+        mode = "fit";
+      };
+    };
+  };
 
   services.gpg-agent = {
     defaultCacheTtl = 1800;
