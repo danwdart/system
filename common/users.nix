@@ -25,6 +25,7 @@ in
   
     users.dwd = {
         createHome = true;
+        # name = "Dan Dart";
         description = "Dan Dart";
         initialHashedPassword = builtins.readFile "${privateDir}/users/dwd/hashed_password";
         isNormalUser = true;
@@ -45,6 +46,7 @@ in
             "wireshark"
         ];
         openssh.authorizedKeys.keys = dansKeys;
+        linger = true;
     };
   
     users.raven = {
