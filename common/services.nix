@@ -14,9 +14,11 @@ in {
       # see https://www.freebsd.org/cgi/man.cgi?crontab%285%29 for special:
       #@weekly @monthly @yearly @annually @hourly @daily @reboot
       #m     h d m w
-      "0 * * * * dwd  RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT"
-      "0 * * * * root RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT"
-      "0 1 * * * root RESULT=$(cd ${rootDir}/${hostName} && $PWD/../common/scripts/upgrade.sh 2>&1); [ 0 != $? ] && echo $RESULT"
+      "0 * * * * dwd  RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT || echo Successfully updated channels as dwd."
+      "0 * * * * root RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT || echo Successfully updated channels as root."
+      "0 1 * * * root RESULT=$(cd ${rootDir}/${hostName} && $PWD/../common/scripts/upgrade.sh 2>&1); [ 0 != $? ] && echo $RESULT || echo Successfully rebuilt the system."
+      "0 1 * * * dwd IP=$(ip -6 addr show dev wlp1s0 scope global | awk '/inet6/{print $2}' | head -n1 | cut -d / -f 1); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1736676347 --record-data $IP); [ 0 != $? ] && echo $RESULT || echo Successfully updated IPv6 address to $IP"
+      "0 1 * * * dwd IP=$(curl https://api.ipify.org); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1736676743 --record-data $IP); [ 0 != $? ] && echo $RESULT || echo Successfully updated IPv4 address to $IP"
     ];
   };
 
@@ -41,6 +43,8 @@ in {
 
   samba-wsdd = {
     enable = true;
+    openFirewall = true;
+    discovery = true;
   };
 
   vscode-server.enable = true;
@@ -59,8 +63,8 @@ in {
       #use sendfile = yes
       #max protocol = smb2
       # note: localhost is the ipv6 localhost ::1
-      hosts allow = 192.168.1. 127.0.0.1 localhost
-      hosts deny = 0.0.0.0/0
+      hosts allow = 192.168.1. 127.0.0.1 localhost 2a0a:5586:34e0:0:
+      hosts deny = 0.0.0.0/0 ::/0
       guest account = nobody
       map to guest = bad user
     '';
@@ -305,7 +309,7 @@ in {
   #   jwtSecretFile = "${privateDir}/onlyoffice/jwtsecret";
   # };
 
-  nginx = if isDesktop then { enable = false; } else {
+  nginx = {
     enable = true;
     # enableReload = true;
     defaultListenAddresses = [
@@ -337,18 +341,19 @@ in {
       "44.63.0.51" = {
         root = "${hostDir}/radio_html";
       };
-      "${hostName}.dandart.co.uk" = {
+      # "${hostName}.${if isDesktop then ".home" else ""}dandart.co.uk" = {
+      #   default = true;
+      #   onlySSL = true;
+      #   enableACME = true;
+      #   # useACMEHost = ""; # security.acme.certs
+      #   serverAliases = [
+      #   ];
+      #   root = "${hostDir}/public_html";
+      # };
+      "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk" = {
         default = true;
-        onlySSL = true;
-        enableACME = true;
-        # useACMEHost = ""; # security.acme.certs
-        serverAliases = [
-          "${hostName}.jolharg.com"
-        ];
-        root = "${hostDir}/public_html";
-      };
-      "${hostName}6.dandart.co.uk" = {
-        onlySSL = true;
+        forceSSL = true;
+        # onlySSL = true;
         enableACME = true;
         # useACMEHost = ""; # security.acme.certs
         listenAddresses = [
@@ -358,7 +363,6 @@ in {
           "[::]"
         ];
         serverAliases = [
-          "${hostName}6.jolharg.com"
         ];
         root = "${hostDir}/public_html";
       };
@@ -367,11 +371,11 @@ in {
       #  onlySSL = true;
       #  enableACME = true;
       #};
-      "news.jolharg.com" = {
-        # http3 = true;
-        onlySSL = true;
-        enableACME = true;
-      };
+      # "news.jolharg.com" = {
+      #   # http3 = true;
+      #   onlySSL = true;
+      #   enableACME = true;
+      # };
       #"dev.localhost" = {
       #  # http3 = true;
       #  onlySSL = true;
@@ -391,214 +395,214 @@ in {
       #    };
       #  };
       #};
-      "roqqett.dandart.co.uk" = {
-        # http3 = true;
-        onlySSL = true;
-        enableACME = true;
-        serverAliases = [
-          "roqqett.dandart.uk"
-        ];
-        extraConfig = ''
-          error_page 502 /502.html;
-        '';
-        locations = {
-          "/" = {
-            proxyPass = "http://localhost:5000/";
-            proxyWebsockets = true;
-          };
-          "/502.html" = {
-            root = "${roqHome}/Data/static/";
-          };
-        };
-      };
-      "roq-wp.dandart.co.uk" = {
-        # http3 = true;
-        onlySSL = true;
-        enableACME = true;
-        serverAliases = [
-          "roq-wp.dandart.uk"
-        ];
-        extraConfig = ''
-          error_page 502 /502.html;
-        '';
-        locations = {
-          "/" = {
-            proxyPass = "http://localhost:5600/";
-            proxyWebsockets = true;
-          };
-          "/502.html" = {
-            root = "${hostDir}/roqqett_html";
-          };
-        };
-      };
-      "dev.dandart.co.uk" = {
-        onlySSL = true;
-        enableACME = true;
-        serverAliases = [];
-        locations = {
-          "/" = {
-            root = "${websites}/dandart";
-            proxyWebsockets = true;
-          };
-        };
-      };
-      "dev.jolharg.com" = {
-        onlySSL = true;
-        enableACME = true;
-        serverAliases = [];
-        locations = {
-          "/" = {
-            root = "${websites}/jolharg";
-            proxyWebsockets = true;
-          };
-        };
-      };
-      "dev.blog.jolharg.com" = {
-        onlySSL = true;
-        enableACME = true;
-        serverAliases = [];
-        locations = {
-          "/" = {
-            root = "${websites}/blogjolharg";
-            proxyWebsockets = true;
-          };
-        };
-      };
-      "dev.madhackerreviews.com" = {
-        onlySSL = true;
-        enableACME = true;
-        serverAliases = [];
-        locations = {
-          "/" = {
-            root = "${websites}/madhacker";
-            proxyWebsockets = true;
-          };
-        };
-      };
-      "dev.m0ori.com" = {
-        onlySSL = true;
-        enableACME = true;
-        serverAliases = [];
-        locations = {
-          "/" = {
-            root = "${websites}/m0ori";
-            proxyWebsockets = true;
-          };
-        };
-      };
-      "dev.blog.dandart.co.uk" = {
-        onlySSL = true;
-        enableACME = true;
-        serverAliases = [];
-        locations = {
-          "/" = {
-            root = "${websites}/blog";
-            proxyWebsockets = true;
-          };
-        };
-      };
-      "dev.jobfinder.jolharg.com" = {
-        # http3 = true;
-        onlySSL = true;
-        enableACME = true;
-        serverAliases = [];
-        # htaccess?
-        extraConfig = ''
-          error_page 404 /index.html;
-        '';
-        locations = {
-          "/" = {
-            root = "${haskellSites}/jobfinder/dist-newstyle/build/js-ghcjs/ghcjs-8.10.7/ui-0.1.0.0/x/ui/build/ui/ui.jsexe";
-            proxyWebsockets = true;
-          };
-          "/api/" = {
-            proxyPass = "http://localhost:8082/api/";
-          };
-        };
-      };
-      "jobfinder.jolharg.com" = {
-        # http3 = true;
-        onlySSL = true;
-        enableACME = true;
-        serverAliases = [];
-        # htaccess?
-        extraConfig = ''
-          error_page 404 /index.html;
-        '';
-        locations = {
-          "/" = {
-            root = "${haskellSites}/jobfinder/result/ui/bin/ui.jsexe";
-            proxyWebsockets = true;
-          };
-          "/api/" = {
-            proxyPass = "http://localhost:8081/api/";
-          };
-        };
-      };
-      "api.jobfinder.jolharg.com" = {
-        # http3 = true;
-        onlySSL = true;
-        enableACME = true;
-        serverAliases = [];
-        extraConfig = ''
-          error_page 502 /502.html;
-        '';
-        locations = {
-          "/" = {
-            proxyPass = "http://localhost:8081/";
-            proxyWebsockets = true;
-          };
-          "/502.html" = {
-            root = "${haskellSites}/jobfinder/src/api/data";
-          };
-        };
-      };
-      "api.dev.jobfinder.jolharg.com" = {
-        # http3 = true;
-        onlySSL = true;
-        enableACME = true;
-        serverAliases = [];
-        extraConfig = ''
-          error_page 502 /502.html;
-        '';
-        locations = {
-          "/" = {
-            proxyPass = "http://localhost:8082/";
-            proxyWebsockets = true;
-          };
-          "/502.html" = {
-            root = "${haskellSites}/jobfinder/src/api/data";
-          };
-        };
-      };
-      "cache.jolharg.com" = {
-        # http3 = true;
-        onlySSL = true;
-        enableACME = true;
-        serverAliases = [];
-        extraConfig = ''
-          error_page 502 /502.html;
-        '';
-        locations = {
-          "/" = {
-            proxyPass = "http://localhost:5000";
-          };
-        };
-      };
-      "appbuilder.jolharg.com" = {
-        # http3 = true;
-        onlySSL = true;
-        enableACME = true;
-        serverAliases = [];
-        extraConfig = ''
-          error_page 502 /502.html;
-        '';
-        locations = {
-          "/" = {
-            proxyPass = "http://localhost:3000";
-          };
-        };
-      };
+      # "roqqett.dandart.co.uk" = {
+      #   # http3 = true;
+      #   onlySSL = true;
+      #   enableACME = true;
+      #   serverAliases = [
+      #     "roqqett.dandart.uk"
+      #   ];
+      #   extraConfig = ''
+      #     error_page 502 /502.html;
+      #   '';
+      #   locations = {
+      #     "/" = {
+      #       proxyPass = "http://localhost:5000/";
+      #       proxyWebsockets = true;
+      #     };
+      #     "/502.html" = {
+      #       root = "${roqHome}/Data/static/";
+      #     };
+      #   };
+      # };
+      # "roq-wp.dandart.co.uk" = {
+      #   # http3 = true;
+      #   onlySSL = true;
+      #   enableACME = true;
+      #   serverAliases = [
+      #     "roq-wp.dandart.uk"
+      #   ];
+      #   extraConfig = ''
+      #     error_page 502 /502.html;
+      #   '';
+      #   locations = {
+      #     "/" = {
+      #       proxyPass = "http://localhost:5600/";
+      #       proxyWebsockets = true;
+      #     };
+      #     "/502.html" = {
+      #       root = "${hostDir}/roqqett_html";
+      #     };
+      #   };
+      # };
+      # "dev.dandart.co.uk" = {
+      #   onlySSL = true;
+      #   enableACME = true;
+      #   serverAliases = [];
+      #   locations = {
+      #     "/" = {
+      #       root = "${websites}/dandart";
+      #       proxyWebsockets = true;
+      #     };
+      #   };
+      # };
+      # "dev.jolharg.com" = {
+      #   onlySSL = true;
+      #   enableACME = true;
+      #   serverAliases = [];
+      #   locations = {
+      #     "/" = {
+      #       root = "${websites}/jolharg";
+      #       proxyWebsockets = true;
+      #     };
+      #   };
+      # };
+      # "dev.blog.jolharg.com" = {
+      #   onlySSL = true;
+      #   enableACME = true;
+      #   serverAliases = [];
+      #   locations = {
+      #     "/" = {
+      #       root = "${websites}/blogjolharg";
+      #       proxyWebsockets = true;
+      #     };
+      #   };
+      # };
+      # "dev.madhackerreviews.com" = {
+      #   onlySSL = true;
+      #   enableACME = true;
+      #   serverAliases = [];
+      #   locations = {
+      #     "/" = {
+      #       root = "${websites}/madhacker";
+      #       proxyWebsockets = true;
+      #     };
+      #   };
+      # };
+      # "dev.m0ori.com" = {
+      #   onlySSL = true;
+      #   enableACME = true;
+      #   serverAliases = [];
+      #   locations = {
+      #     "/" = {
+      #       root = "${websites}/m0ori";
+      #       proxyWebsockets = true;
+      #     };
+      #   };
+      # };
+      # "dev.blog.dandart.co.uk" = {
+      #   onlySSL = true;
+      #   enableACME = true;
+      #   serverAliases = [];
+      #   locations = {
+      #     "/" = {
+      #       root = "${websites}/blog";
+      #       proxyWebsockets = true;
+      #     };
+      #   };
+      # };
+      # "dev.jobfinder.jolharg.com" = {
+      #   # http3 = true;
+      #   onlySSL = true;
+      #   enableACME = true;
+      #   serverAliases = [];
+      #   # htaccess?
+      #   extraConfig = ''
+      #     error_page 404 /index.html;
+      #   '';
+      #   locations = {
+      #     "/" = {
+      #       root = "${haskellSites}/jobfinder/dist-newstyle/build/js-ghcjs/ghcjs-8.10.7/ui-0.1.0.0/x/ui/build/ui/ui.jsexe";
+      #       proxyWebsockets = true;
+      #     };
+      #     "/api/" = {
+      #       proxyPass = "http://localhost:8082/api/";
+      #     };
+      #   };
+      # };
+      # "jobfinder.jolharg.com" = {
+      #   # http3 = true;
+      #   onlySSL = true;
+      #   enableACME = true;
+      #   serverAliases = [];
+      #   # htaccess?
+      #   extraConfig = ''
+      #     error_page 404 /index.html;
+      #   '';
+      #   locations = {
+      #     "/" = {
+      #       root = "${haskellSites}/jobfinder/result/ui/bin/ui.jsexe";
+      #       proxyWebsockets = true;
+      #     };
+      #     "/api/" = {
+      #       proxyPass = "http://localhost:8081/api/";
+      #     };
+      #   };
+      # };
+      # "api.jobfinder.jolharg.com" = {
+      #   # http3 = true;
+      #   onlySSL = true;
+      #   enableACME = true;
+      #   serverAliases = [];
+      #   extraConfig = ''
+      #     error_page 502 /502.html;
+      #   '';
+      #   locations = {
+      #     "/" = {
+      #       proxyPass = "http://localhost:8081/";
+      #       proxyWebsockets = true;
+      #     };
+      #     "/502.html" = {
+      #       root = "${haskellSites}/jobfinder/src/api/data";
+      #     };
+      #   };
+      # };
+      # "api.dev.jobfinder.jolharg.com" = {
+      #   # http3 = true;
+      #   onlySSL = true;
+      #   enableACME = true;
+      #   serverAliases = [];
+      #   extraConfig = ''
+      #     error_page 502 /502.html;
+      #   '';
+      #   locations = {
+      #     "/" = {
+      #       proxyPass = "http://localhost:8082/";
+      #       proxyWebsockets = true;
+      #     };
+      #     "/502.html" = {
+      #       root = "${haskellSites}/jobfinder/src/api/data";
+      #     };
+      #   };
+      # };
+      # "cache.jolharg.com" = {
+      #   # http3 = true;
+      #   onlySSL = true;
+      #   enableACME = true;
+      #   serverAliases = [];
+      #   extraConfig = ''
+      #     error_page 502 /502.html;
+      #   '';
+      #   locations = {
+      #     "/" = {
+      #       proxyPass = "http://localhost:5000";
+      #     };
+      #   };
+      # };
+      # "appbuilder.jolharg.com" = {
+      #   # http3 = true;
+      #   onlySSL = true;
+      #   enableACME = true;
+      #   serverAliases = [];
+      #   extraConfig = ''
+      #     error_page 502 /502.html;
+      #   '';
+      #   locations = {
+      #     "/" = {
+      #       proxyPass = "http://localhost:3000";
+      #     };
+      #   };
+      # };
     };
   };
 
