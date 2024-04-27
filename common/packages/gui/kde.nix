@@ -14,7 +14,7 @@ with pkgs; [
     # kdePackages.phonon-backend-gstreamer
     kdePackages.yakuake
     kdePackages.plasma-browser-integration
-    kdePackages.kdeconnect-kde
+    # kdePackages.kdeconnect-kde # dealt with
     plasma-hud
     qdirstat
 ]

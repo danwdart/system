@@ -23,7 +23,7 @@ with pkgs; [
     gptfdisk
     hdparm
     hidapi
-    htop
+    # htop # dealt with
     inetutils
     jmtpfs
     jnettop
@@ -42,7 +42,7 @@ with pkgs; [
     p7zip
     pciutils
     rpiboot
-    screen
+    # screen # dealt with
     sixpair
     socat
     testdisk

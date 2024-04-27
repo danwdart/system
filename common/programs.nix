@@ -4,7 +4,19 @@
 
   adb.enable = true;
 
+  atop = {
+    enable = true;
+    # netatop = {
+    #   enable = true;
+    # };
+    setuidWrapper = {
+      enable = true;
+    };
+  };
+
   wireshark.enable = isDesktop;
+
+  iftop.enable = true;
 
   iotop.enable = true;
 
@@ -41,6 +53,54 @@
   #   ];
   # };
 
-  # needs master
+  # big
   # darling.enable = true;
+
+  # zsh = {
+  #   enable = true;
+  #   ohMyZsh = {
+  #     enable = true;
+  #     plugins = [ "git" "man" ];
+  #     # theme = "agnoster";
+  #   };
+  # };
+
+  firefox = {
+    enable = true;
+    languagePacks = [ "en-GB" ];
+    # preferences = [ ];
+  };
+
+  gamemode = {
+    enable = true;
+    enableRenice = true;
+  };
+
+  # basically be steamos WM
+  gamescope = {
+    enable = true;
+  };
+
+  htop = {
+    enable = true;
+    settings = {};
+  };
+
+  kdeconnect = {
+    enable = true; # auto open firewall
+  };
+
+  screen = {
+    enable = true;
+    screenrc = ''
+    '';
+  };
+
+  wavemon = {
+    enable = true;
+  };
+
+  xastir = {
+    enable = true;
+  };
 }
