@@ -204,6 +204,11 @@ in {
     #}
   } else {};
 
+
+  libinput = {
+    enable = isDesktop;
+  };
+
   xserver = if isDesktop then {
     enable = true;
     
@@ -222,9 +227,6 @@ in {
       layout = "gb";
       model = "inspiron";
       options = "terminate:ctrl_alt_bksp,caps:escape,compose:ralt";
-    };
-    libinput = {
-      enable = true;
     };
   } else {};
 
@@ -292,7 +294,7 @@ in {
   #};
 
   # Enable touchpad support (enabled default in most desktopManager).
-  # xserver.libinput.enable = true;
+  # libinput.enable = true;
 
   # TODO
   # why is this x86_64 only???
@@ -1811,7 +1813,7 @@ in {
     #media-session.enable = true;
   } else {};
 
-  postfix = if isDesktop then {} else {
+  postfix = {
     enable = true;
     domain = "${hostName}.jolharg.com";
     rootAlias = "dwd";
