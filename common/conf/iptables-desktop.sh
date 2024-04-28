@@ -60,10 +60,12 @@ $IP6T -A INPUT -p tcp --dport 443 -j ACCEPT
 # $IP6T -A INPUT -p tcp --dport 587 -j ACCEPT
 
 # Sauer in
-# $IPT -A INPUT -p udp --dport 28785 -j ACCEPT
-# $IP6T -A INPUT -p udp --dport 28785 -j ACCEPT
-# $IPT -A INPUT -p udp --dport 28786 -j ACCEPT
-# $IP6T -A INPUT -p udp --dport 28786 -j ACCEPT
+$IPT -A INPUT -p udp --dport 28784 -j ACCEPT
+$IP6T -A INPUT -p udp --dport 28784 -j ACCEPT
+$IPT -A INPUT -p udp --dport 28785 -j ACCEPT
+$IP6T -A INPUT -p udp --dport 28785 -j ACCEPT
+$IPT -A INPUT -p udp --dport 28786 -j ACCEPT
+$IP6T -A INPUT -p udp --dport 28786 -j ACCEPT
 
 # Internal networks
 $IPT -A INPUT -p tcp -s $PRIVNET_12 -d $PRIVNET_12 -j ACCEPT

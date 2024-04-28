@@ -54,6 +54,8 @@ $IP6T -A INPUT -p tcp --dport 443 -j ACCEPT
 
 
 # Sauer in
+$IPT -A INPUT -p udp --dport 28784 -j ACCEPT
+$IP6T -A INPUT -p udp --dport 28784 -j ACCEPT
 $IPT -A INPUT -p udp --dport 28785 -j ACCEPT
 $IP6T -A INPUT -p udp --dport 28785 -j ACCEPT
 $IPT -A INPUT -p udp --dport 28786 -j ACCEPT
