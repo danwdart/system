@@ -26,13 +26,13 @@ with pkgs; [
     openarena # no desktop icon # BIG
     # padman?
     # quakespasm # no desktop icon
-    redeclipse
+    # redeclipse # meh crazy controls now?
     # sauerbraten # elsewhere in cli
     # snes9x-gtk # has to compile now?
     # speed_dreams # no desktop icon # keeps compiling
     # stuntrally # BIG
     # superTux # Bigish
-    superTuxKart # BIG
+    # superTuxKart # BIG
     # torcs # no desktop icon
     # tremulous # - broken
     # trenchbroom
