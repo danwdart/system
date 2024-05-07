@@ -47,6 +47,7 @@ in
         ];
         openssh.authorizedKeys.keys = dansKeys;
         linger = true;
+        homeMode = "755";
     };
   
     users.raven = {
@@ -62,5 +63,6 @@ in
             "plugdev"
             "scanner"
         ];
+        homeMode = "755";
     };
 }

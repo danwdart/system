@@ -35,8 +35,8 @@ with pkgs; [
     xlog
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
     flrig
-    soapysdrplay
-    welle-io
+    # soapysdrplay
+    # welle-io
 ] else [
    # pkgs-x86_64.flrig
     ## pkgs-x86_64.soapysdrplay

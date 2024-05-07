@@ -68,7 +68,19 @@
   firefox = {
     enable = true;
     languagePacks = [ "en-GB" ];
-    # preferences = [ ];
+    preferences = {
+      "browser.contentblocking.category" = "strict";
+      "browser.protections_panel.infoMessage.seen" = true;
+      "browser.rights.3.shown" = true;
+      "network.trr.mode" = 3;
+      "network.trr.custom_uri" = "https://doh.kekew.info/dns-query";
+      "privacy.donottrackheader.enabled" = true;
+      "privacy.fingerprintingProtection" = true;
+      "privacy.globalprivacycontrol.enabled" = true;
+      "privacy.trackingprotection.emailtracking.enabled" = true;
+      "privacy.trackingprotection.enabled" = true;
+      "privacy.trackingprotection.socialtracking.enabled" = true;
+    };
   };
 
   gamemode = {

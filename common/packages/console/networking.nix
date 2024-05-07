@@ -16,7 +16,7 @@ in with pkgs; [
     # protonvpn-cli
     # python312Packages.mitmproxy # fails to build
     # python312Packages.protonvpn-nm-lib # fails to build
-    ngrok
+    # ngrok
     # proxytunnel # insecure openssl
     slirp4netns
     (pkgs.callPackage "${awsvpnclient}/awsvpnclient.nix" { openvpn = pkgs.callPackage "${awsvpnclient}/openvpn.nix" { }; })

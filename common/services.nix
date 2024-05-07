@@ -49,6 +49,8 @@ in {
 
   vscode-server.enable = true;
 
+  preload.enable = true;
+
   samba = {
     enable = true;
     nsswins = true;

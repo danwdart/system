@@ -40,7 +40,7 @@ in
     irssi
     mailutils
     openvpn
-    ngrok
+    # ngrok
     cachix
     direnv
     nix-direnv

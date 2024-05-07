@@ -148,7 +148,7 @@ in
       "/home/dwd/.local/share/Steam"
       "/home/dwd/.local/share/WSJT-X"
       "/home/dwd/.mozilla"
-      "/home/dwd/.ngrok2"
+      # "/home/dwd/.ngrok2"
       "/home/dwd/.pcsxr"
       "/home/dwd/.quakespasm"
       "/home/dwd/.serverless"

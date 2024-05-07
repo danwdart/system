@@ -213,44 +213,8 @@ $IP6T -A INPUT -j DROP
 
 
 ## FORWARD
-$IPT -P FORWARD DROP
-$IP6T -P FORWARD DROP
-
-# Docker
-# $IPT -A FORWARD -p tcp -s $PRIVNET_12 -d $PRIVNET_12 -j ACCEPT
-
-$IPT -A FORWARD -p tcp --sport 443 -d $PRIVNET_12 -j ACCEPT
-$IPT -A FORWARD -p tcp --dport 443 -s $PRIVNET_12 -j ACCEPT
-
-$IPT -A FORWARD -p tcp --sport 22 -d $PRIVNET_12 -j ACCEPT
-$IPT -A FORWARD -p tcp --dport 22 -s $PRIVNET_12 -j ACCEPT
-
-$IPT -A FORWARD -p udp --sport 53 -d $PRIVNET_12 -j ACCEPT # TODO related
-$IPT -A FORWARD -p udp --dport 53 -s $PRIVNET_12 -j ACCEPT
-
-$IPT -A FORWARD -p udp --sport $DHCP_SERVER_PORT -d $PRIVNET_12 -j ACCEPT # TODO related
-$IPT -A FORWARD -p udp --dport $DHCP_SERVER_PORT -s $PRIVNET_12 -j ACCEPT
-
-$IPT -A FORWARD -p tcp -d $PRIVNET_12 --dport 80 -j ACCEPT # TODO related
-
-$IPT -A FORWARD -p tcp -d $PRIVNET_12 --dport 8080 -j ACCEPT # TODO related
-
-# Log
-# $IPT -A FORWARD -j LOG --log-prefix "FORWARD: DROP: " --log-level 4
-# $IP6T -A FORWARD -j LOG --log-prefix "FORWARD: DROP: " --log-level 4
-
-$IPT -A FORWARD -j NFLOG --nflog-group 2 --nflog-prefix "FORWARD:"
-$IP6T -A FORWARD -j NFLOG --nflog-group 2 --nflog-prefix "FORWARD:"
-
-# Existing
-$IPT -A FORWARD -p tcp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-$IP6T -A FORWARD -p tcp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-$IPT -A FORWARD -p udp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-$IP6T -A FORWARD -p udp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-
-# Rest
-$IPT -A FORWARD -j DROP
-$IP6T -A FORWARD -j DROP
+$IPT -P FORWARD ACCEPT
+$IP6T -P FORWARD ACCEPT
 
 ## OUTPUT
 $IPT -P OUTPUT ACCEPT

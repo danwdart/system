@@ -38,8 +38,8 @@ with pkgs; [
     # trenchbroom
     # trigger # no desktop icon
     uhexen2
-    urbanterror # BIG # weirdX
-    warsow # no desktop icon
+    # urbanterror # BIG # weirdX
+    # warsow # ehh... no desktop icon
     xonotic
     yquake2
     # zeroadPackages.zeroad-unwrapped # segfaults

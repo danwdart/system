@@ -16,7 +16,7 @@ with pkgs; [
         nss = pkgs.nss_latest;
     })
     slack
-    skypeforlinux
+    # skypeforlinux
     zoom-us
 ] else [
    # pkgs-x86_64.betterdiscordctl
