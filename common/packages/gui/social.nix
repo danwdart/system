@@ -12,7 +12,7 @@ with pkgs; [
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
     betterdiscordctl
     (discord.override {
-        withOpenASAR = true;
+        # withOpenASAR = true;
         nss = pkgs.nss_latest;
     })
     slack
