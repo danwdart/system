@@ -11,6 +11,7 @@ with pkgs; [
     efibootmgr
     # efitools # broken on aarch64
     efivar
+    sbctl
     sbsigntool
     uefi-firmware-parser
     uefitool
