@@ -4,15 +4,16 @@
 
   adb.enable = true;
 
-  atop = {
-    enable = true;
-    # netatop = {
-    #   enable = true;
-    # };
-    setuidWrapper = {
-      enable = true;
-    };
-  };
+  # mkSystemd missing???
+  # atop = {
+  #   enable = true;
+  #   # netatop = {
+  #   #   enable = true;
+  #   # };
+  #   setuidWrapper = {
+  #     enable = true;
+  #   };
+  # };
 
   wireshark.enable = isDesktop;
 
@@ -67,7 +68,8 @@
 
   firefox = {
     enable = true;
-    languagePacks = [ "en-GB" ];
+    # error: attribute 'nameValuePair' missing
+    # languagePacks = [ "en-GB" ];
     preferences = {
       "browser.contentblocking.category" = "strict";
       "browser.protections_panel.infoMessage.seen" = true;
