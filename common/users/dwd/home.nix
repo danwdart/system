@@ -44,22 +44,22 @@ in {
   };
 
   # Current Discord avatar is at https://cdn.discordapp.com/avatars/303520548028416000/6ff43f8ea532dddc67822aa304244f8c.png?size=256
-  home.file.face = {
-    target = ".face";
-    source = builtins.fetchurl {
-      name = "hiro.png";
-      url = "https://cdn.discordapp.com/attachments/570351784082800640/1232826038451704002/Picsart_24-04-24_23-50-10-473.png?ex=662ade38&is=66298cb8&hm=f9620e0be576f4d13ce9d9f9d4b63be71764339bb2c991746349ad2a59b702e3";
-    };
-  };
+  # home.file.face = {
+  #  target = ".face";
+  #  source = builtins.fetchurl {
+  #    name = "hiro.png";
+  #    url = "https://cdn.discordapp.com/attachments/570351784082800640/1232826038451704002/Picsart_24-04-24_23-50-10-473.png?ex=662ade38&is=66298cb8&hm=f9620e0be576f4d13ce9d9f9d4b63be71764339bb2c991746349ad2a59b702e3";
+  #  };
+  #};
 
   # for sddm
-  home.file.faceIcon = {
-    target = ".face.icon";
-    source = builtins.fetchurl {
-      name = "hiro.png";
-      url = "https://cdn.discordapp.com/attachments/570351784082800640/1232826038451704002/Picsart_24-04-24_23-50-10-473.png?ex=662ade38&is=66298cb8&hm=f9620e0be576f4d13ce9d9f9d4b63be71764339bb2c991746349ad2a59b702e3";
-    };
-  };
+  #home.file.faceIcon = {
+  #  target = ".face.icon";
+  #  source = builtins.fetchurl {
+  #    name = "hiro.png";
+  #    url = "https://cdn.discordapp.com/attachments/570351784082800640/1232826038451704002/Picsart_24-04-24_23-50-10-473.png?ex=662ade38&is=66298cb8&hm=f9620e0be576f4d13ce9d9f9d4b63be71764339bb2c991746349ad2a59b702e3";
+  #  };
+  #};
 
   # overlays go here
   nixpkgs.config = import ./nixpkgs-config.nix;
@@ -109,7 +109,7 @@ in {
       };
     };
     includes = [
-      "/home/dwd/code/commissions/roqqett/Data/sshconfig"
+      "/home/dwd/code/work/roqqett/Data/sshconfig"
     ];
   };
 
