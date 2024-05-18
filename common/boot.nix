@@ -15,7 +15,7 @@
   # linuxKernel.packages.linux_hardened = 5.15.67
 
   # https://xanmod.org/
-  # linuxKernel.packages.linux_xanmod)latest = 5.18.11
+  # linuxKernel.packages.linux_xanmod_latest = 5.18.11
 
   # linuxKernel.packages.linux_5_19 = 5.19.9
 
@@ -25,7 +25,7 @@
   # https://github.com/zen-kernel/zen-kernel
   # linuxKernel.packages.linux_zen = 5.19.10
 
-  kernelPackages = pkgs.linuxKernel.packages.linux_6_8;
+  kernelPackages = pkgs.linuxKernel.packages.linux_6_9;
 
   #kernelPatches = [
   #  {
