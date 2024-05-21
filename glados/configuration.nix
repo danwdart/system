@@ -4,15 +4,20 @@
 
 { config, lib, pkgs, ... }:
 let hostName = "glados";
+    impermanence = builtins.fetchTarball {
+      url =
+        "https://github.com/nix-community/impermanence/archive/master.tar.gz";
+    };
 in
 {
     _module.args.hostName = hostName;
     _module.args.internalIPv4 = "192.168.1.68";
-    _module.args.externalIPv4 = "141.195.160.172";
+    _module.args.externalIPv4 = "141.195.160.37";
     _module.args.localIPv6 = "fe80::12d9:227a:5efb:acd5";
-    _module.args.globalIPv6 = "2a0a:5586:34e0::7";
+    _module.args.globalIPv6 = "2a0a:5586:3171::2";
     _module.args.fqdn = "glados.dandart.co.uk";
     imports = [
+        "${impermanence}/nixos.nix"
         ./hardware-configuration.nix
         ../common/configuration-desktop.nix
     ];

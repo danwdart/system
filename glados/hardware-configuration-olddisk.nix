@@ -8,36 +8,30 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "uas" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
   
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.xbootldrMountPoint = "/boot";
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/efi";
-
-  fileSystems."/" = lib.mkDefault
-    { device = "/dev/disk/by-uuid/1778de2b-8859-4988-9fed-cbd53b8fb7cf";
+  fileSystems."/" =
+    lib.mkDefault { device = "/dev/disk/by-uuid/b9bf6382-06b6-4b8e-9ce4-0672fc7a4ffc";
       fsType = "ext4";
+      neededForBoot = true;
       options = [ "noatime" ];
     };
 
   fileSystems."/efi" =
-    { device = "/dev/disk/by-uuid/18A6-ECFF";
+    { device = "/dev/disk/by-uuid/ACEE-3BBC";
       fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/9C62-E073";
+    { device = "/dev/disk/by-uuid/FE54-479A";
       fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
     };
 
   swapDevices = [ ];
-  
+
   zramSwap = {
     enable = true;
     algorithm = "zstd";
@@ -56,7 +50,7 @@
     };
 
     fileSystems."/persist" =
-    { device = "/dev/disk/by-uuid/1778de2b-8859-4988-9fed-cbd53b8fb7cf";
+    { device = "/dev/disk/by-uuid/b9bf6382-06b6-4b8e-9ce4-0672fc7a4ffc";
       fsType = "ext4";
       neededForBoot = true;
       options = [ "noatime" ];
@@ -167,7 +161,6 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.docker0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp1s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
