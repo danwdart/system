@@ -37,6 +37,9 @@
     ];
 
     experimental-features = [
+      "auto-allocate-uids"
+      "ca-derivations"
+      "cgroups"
       "nix-command"
     ];
 
@@ -50,11 +53,12 @@
     persistent = true; # like anacron
   };
 
+  # Saves 2.4G
   extraOptions = ''
-    keep-outputs = true
-    keep-derivations = true
+    keep-outputs = false
+    keep-derivations = false
   '';
-
+  
   optimise = {
     automatic = true;
   };
