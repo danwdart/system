@@ -2,10 +2,11 @@ pkgs:
 with pkgs; [
     #etcher
     gparted
+    kitty
     #rpi-imager
     #unetbootin
     #winusb
-    #woeusb
+    #woeusb # -ng
     #xcruiser # no desktop icon
     #xorg.xev
     systembus-notify # make it autostart?
