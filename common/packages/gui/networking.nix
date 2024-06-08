@@ -7,7 +7,7 @@ let pkgs-x86_64 = import <nixos> {
     };
 in
 with pkgs; [
-    dbeaver # for work, TODO split out?
+    dbeaver-bin # for work, TODO split out?
     etherape
     # mysql-workbench # for work, TODO split out? # error: pynacl-1.4.0 not supported for interpreter python2.7
     networkmanager-openvpn
@@ -21,7 +21,7 @@ with pkgs; [
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
     beekeeper-studio # for work, TODO split out?
     insomnia
-    postman
+    # postman
     scrcpy
     tor-browser-bundle-bin
 ] else [
