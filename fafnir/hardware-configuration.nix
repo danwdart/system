@@ -125,7 +125,7 @@ in
       "/home/dwd/.config/Nextcloud"
       "/home/dwd/.config/ON4QZ" # qsstv
       "/home/dwd/.config/PCSX2"
-      "/home/dwd/.config/Postman"
+      # "/home/dwd/.config/Postman"
       "/home/dwd/.config/rclone"
       "/home/dwd/.config/spotify" # cache as well?
       "/home/dwd/.config/Slack"
