@@ -46,4 +46,7 @@
   #];
 
   chromiumSuidSandbox.enable = true;
+
+  allowUserNamespaces = true;
+  unprivilegedUsernsClone = true;
 }
