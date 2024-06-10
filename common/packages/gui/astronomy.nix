@@ -2,6 +2,6 @@ pkgs:
 with pkgs;
 [
     celestia
-    kstars
+    # kstars # build failed
     stellarium
 ]
