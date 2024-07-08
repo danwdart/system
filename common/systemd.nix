@@ -1,6 +1,13 @@
 { isDesktop, privateDir, ... }:
 {
-  services = if isDesktop then {} else {
+  services = if isDesktop then {
+    nginx = {
+      serviceConfig = {
+        # allow nginx to read /home as that's where I stashed my code (don't do this in prod)
+        ProtectHome = "read-only";
+      };
+    };
+  } else {
     nginx = {
       serviceConfig = {
         # allow nginx to read /home as that's where I stashed my code (don't do this in prod)

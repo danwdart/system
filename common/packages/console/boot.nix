@@ -13,7 +13,6 @@ with pkgs; [
     efivar
     sbctl
     sbsigntool
-    uefi-firmware-parser
     uefitool
     uefitoolPackages.new-engine
     uefitoolPackages.old-engine

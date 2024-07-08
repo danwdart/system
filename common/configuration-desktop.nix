@@ -13,13 +13,18 @@ in
     ];
 
   environment = import ./environment.nix {pkgs = pkgs;  config = config; lib = lib; systemPackages = import ./packages/packages.nix pkgs;};
-  hardware = import ./hardware.nix {pkgs = pkgs; isDesktop = true;};
+  hardware = import ./hardware.nix { pkgs = pkgs; isDesktop = true; };
   networking = import ./networking.nix { lib = lib; hostName = hostName; isDesktop = true; };
   programs = import ./programs.nix { pkgs = pkgs; isDesktop = true; };
-  services = import ./services.nix { pkgs = pkgs; config = config; hostName = hostName; hostDir = hostDir; privateDir = privateDir; internalIPv4 = internalIPv4; externalIPv4 = externalIPv4; localIPv6 = localIPv6; globalIPv6 = globalIPv6; fqdn = fqdn; isDesktop = true; };
+  security = import ./security.nix { pkgs = pkgs; isDesktop = true; hostName = hostName; };
+  services = import ./services.nix { pkgs = pkgs; hostName = hostName; hostDir = hostDir; privateDir = privateDir; internalIPv4 = internalIPv4; externalIPv4 = externalIPv4; localIPv6 = localIPv6; globalIPv6 = globalIPv6; fqdn = fqdn; isDesktop = true; };
   systemd = import ./systemd.nix { privateDir = privateDir; isDesktop = true; };
   
   home-manager.users.dwd = import ./users/dwd/home.nix { pkgs = pkgs; isDesktop = true; };
+
+  # specialisation.musl.configuration = {
+  #   system = "x86_64-linux-musl";
+  # };
 
   # specialisation.server-mode.configuration = {
   #   environment.systemPackages = import ./packages/console/packages.nix pkgs;

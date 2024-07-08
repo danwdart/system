@@ -15,12 +15,11 @@ in {
       (fetchTarball "https://github.com/nix-community/nixos-vscode-server/tarball/master")
     ];
 
-  boot = import ./boot.nix {pkgs = pkgs;};
+  boot = import ./boot.nix { pkgs = pkgs; };
   console = import ./console.nix {};
   i18n = import ./i18n.nix {};
   nix = import ./nix.nix { pkgs = pkgs; };
   nixpkgs = import ./nixpkgs.nix {};
-  security = import ./security.nix pkgs;
   sound = import ./sound.nix {};
   system = import ./system.nix { hostName = hostName; };
   time = import ./time.nix {};

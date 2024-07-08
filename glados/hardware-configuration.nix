@@ -3,7 +3,20 @@
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, modulesPath, ... }:
 
-{
+let
+  netboot = import (pkgs.path + "/nixos/lib/eval-config.nix") {
+    modules = [
+      (pkgs.path + "/nixos/modules/installer/netboot/netboot-minimal.nix")
+      {
+        # you will want to add options here to support your filesystem
+        # and also maybe ssh to let you in
+        # boot.supportedFilesystems = [ "zfs" ];
+        boot.kernelModules = [ "kvm-intel" ];
+        system.stateVersion = "24.11";
+      }
+    ];
+  };
+in {
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
@@ -15,14 +28,42 @@
   
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.xbootldrMountPoint = "/boot";
+  # boot.loader.systemd-boot.extraEntries = {
+  #   "nixos-installer.conf" = ''
+  #     title NixOS Installer
+  #     version 24.11
+  #     linux ($drive1)/rescue-kernel init=${netboot.config.system.build.toplevel}/init ${toString netboot.config.boot.kernelParams}
+  #     initrd ($drive1)/rescue-initrd
+  #     options i915.enable_gvt=1
+  #   '';
+  # };
+  # boot.loader.systemd-boot.extraFiles = {
+  #   "rescue-kernel" = "${netboot.config.system.build.kernel}/bzImage";
+  #   "rescue-initrd" = "${netboot.config.system.build.netbootRamdisk}/initrd";
+  # };
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/efi";
 
-  fileSystems."/" = lib.mkDefault
-    { device = "/dev/disk/by-uuid/1778de2b-8859-4988-9fed-cbd53b8fb7cf";
-      fsType = "ext4";
-      options = [ "noatime" ];
-    };
+  # fileSystems."/" = lib.mkDefault
+  #   { device = "/dev/disk/by-uuid/1778de2b-8859-4988-9fed-cbd53b8fb7cf";
+  #     fsType = "ext4";
+  #     options = [ "noatime" ];
+  #   };
+
+  fileSystems."/" = {
+    device = "tmpfs";
+    fsType = "tmpfs";
+    options = [
+      "size=16G"
+    ];
+  };
+
+  fileSystems."/persist" =
+  { device = "/dev/disk/by-uuid/1778de2b-8859-4988-9fed-cbd53b8fb7cf";
+    fsType = "ext4";
+    neededForBoot = true;
+    options = [ "noatime" ];
+  };
 
   fileSystems."/efi" =
     { device = "/dev/disk/by-uuid/18A6-ECFF";
@@ -46,118 +87,112 @@
     memoryPercent = 50;
   };
 
-  specialisation.ramdisk.configuration = {
-    fileSystems."/" = {
-      device = "tmpfs";
-      fsType = "tmpfs";
-      options = [
-        "size=16G"
-      ];
-    };
-
-    fileSystems."/persist" =
-    { device = "/dev/disk/by-uuid/1778de2b-8859-4988-9fed-cbd53b8fb7cf";
-      fsType = "ext4";
-      neededForBoot = true;
-      options = [ "noatime" ];
-    };
-
-    environment.persistence."/persist" = {
+  environment.persistence."/persist" = {
+    hideMounts = true;
+    directories = [
+      "/etc/ssh"
+      "/etc/NetworkManager"
+      "/etc/secureboot"
+      "/var/lib"
+      "/root/.cache/nix" # for when rebuilding the system
+      "/nix"
+    ];
+    files = [
+      "/etc/machine-id"
+      # "/root/.nix-channels" # keeps dying
+    ];
+    users.dwd = { # todo imports = [ /path/to/impermanence/home-manager.nix ]; & move to home.persistence."/persist/home/dwd" on flag
       directories = [
-        "/etc/ssh"
-        "/etc/NetworkManager"
-        "/var/lib"
-        "/home/dwd/code"
-        "/home/dwd/Desktop"
-        "/home/dwd/Documents"
-        "/home/dwd/Downloads"
-        "/home/dwd/from"
-        "/home/dwd/games"
-        "/home/dwd/Music"
-        "/home/dwd/Pictures"
-        "/home/dwd/qsstv"
-        "/home/dwd/radioimages"
-        "/home/dwd/Templates" # Really? I don't even use that. But should I? There's no harm...
-        "/home/dwd/Videos"
-        "/home/dwd/VMs"
-        "/home/dwd/.android"
-        "/home/dwd/.armagetronad"
-        "/home/dwd/.azure" # for work, TODO split out?
-        "/home/dwd/.cache/nix" # Stop having to keep redownloading tarballs and search indices
-        "/home/dwd/.cache/spotify" # Keep me logged in
-        "/home/dwd/.config/autostart"
-        "/home/dwd/.config/cachix"
-        "/home/dwd/.config/calibre"
-        "/home/dwd/.config/Code/Backups" # Unsaved open files and workspaces
-        "/home/dwd/.config/discord"
-        "/home/dwd/.config/doctl"
-        "/home/dwd/.config/dolphin-emu"
-        "/home/dwd/.config/Element"
-        "/home/dwd/.config/gh"
-        "/home/dwd/.config/Gpredict"
-        "/home/dwd/.config/htop"
-        "/home/dwd/.config/Insomnia"
-        "/home/dwd/.config/kdeconnect"
-        "/home/dwd/.config/Microsoft/Microsoft Teams"
-        "/home/dwd/.config/nethack"
-        "/home/dwd/.config/Nextcloud"
-        "/home/dwd/.config/ON4QZ" # qsstv
-        "/home/dwd/.config/PCSX2"
-        "/home/dwd/.config/Postman"
-        "/home/dwd/.config/rclone"
-        "/home/dwd/.config/spotify" # cache as well?
-        "/home/dwd/.config/Slack"
-        "/home/dwd/.config/VirtualBox" # TODO move?
-        "/home/dwd/.dosbox"
-        "/home/dwd/.fldigi"
-        "/home/dwd/.flrig"
-        "/home/dwd/.frozen-bubble"
-        "/home/dwd/.ghc"
-        "/home/dwd/.gnupg"
-        "/home/dwd/.googleearth"
-        "/home/dwd/.kde"
-        "/home/dwd/.lgames"
-        "/home/dwd/.local/share/citra-emu"
-        "/home/dwd/.local/share/direnv"
-        "/home/dwd/.local/share/dolphin-emu"
-        "/home/dwd/.local/share/ktorrent"
-        "/home/dwd/.local/share/kwalletd"
-        "/home/dwd/.local/share/networkmanagement"
-        "/home/dwd/.local/share/Steam"
-        "/home/dwd/.local/share/WSJT-X"
-        "/home/dwd/.mozilla"
-        # "/home/dwd/.ngrok2"
-        "/home/dwd/.pcsxr"
-        "/home/dwd/.quakespasm"
-        "/home/dwd/.serverless"
-        "/home/dwd/.ssh"
-        "/home/dwd/.steam" # TODO copy/link, don't mount
-        "/home/dwd/.thunderbird"
-        "/home/dwd/.vagrant.d" # TODO relocate
-        "/home/dwd/.vkquake"
-        "/home/dwd/.wine"
-        "/home/dwd/.yq2"
-        "/root/.cache/nix" # for when rebuilding the system
-        "/nix"
+        "code"
+        "Desktop"
+        "Documents"
+        "Downloads"
+        "from"
+        "games"
+        "Music"
+        "Pictures"
+        "qsstv"
+        "radioimages"
+        "Templates" # Really? I don't even use that. But should I? There's no harm...
+        "Videos"
+        "VMs"
+        ".android"
+        ".armagetronad"
+        ".azure" # for work, TODO split out?
+        ".cache/nix" # Stop having to keep redownloading tarballs and search indices
+        ".cache/spotify" # Keep me logged in
+        ".config/autostart"
+        ".config/cachix"
+        ".config/calibre"
+        ".config/Code/Backups" # Unsaved open files and workspaces
+        ".config/discord"
+        ".config/doctl"
+        ".config/dolphin-emu"
+        ".config/Element"
+        ".config/gh"
+        ".config/Gpredict"
+        ".config/htop"
+        ".config/Insomnia"
+        ".config/kdeconnect"
+        ".config/Microsoft/Microsoft Teams"
+        ".config/nethack"
+        ".config/Nextcloud"
+        ".config/ON4QZ" # qsstv
+        ".config/PCSX2"
+        # ".config/Postman"
+        ".config/rclone"
+        ".config/spotify" # cache as well?
+        ".config/Slack"
+        # ".config/VirtualBox" # TODO move?
+        ".dosbox"
+        ".fldigi"
+        ".flrig"
+        ".frozen-bubble"
+        ".ghc"
+        { directory = ".gnupg"; mode = "0700"; }
+        ".googleearth"
+        # ".kde"
+        ".lgames"
+        ".local/share/Baba_Is_You"
+        ".local/share/citra-emu"
+        ".local/share/direnv"
+        ".local/share/dolphin-emu"
+        ".local/share/ktorrent"
+        ".local/share/kwalletd"
+        ".local/share/networkmanagement"
+        ".local/share/Steam"
+        ".local/share/WSJT-X"
+        ".mozilla"
+        # ".ngrok2"
+        ".pcsxr"
+        ".quakespasm"
+        ".serverless"
+        { directory = ".ssh"; mode = "0700"; }
+        ".steam" # TODO copy/link, don't mount
+        ".thunderbird"
+        ".tor project"
+        # ".vagrant.d" # TODO relocate
+        ".vkquake"
+        ".wine"
+        # ".yq2"
       ];
       files = [
-        "/etc/machine-id"
-        "/home/dwd/.bash_history"
-        "/home/dwd/.config/Code/storage.json" # Open files and workspaces
-        "/home/dwd/.config/Code/User/globalStorage/state.vscdb" # Current state
-        "/home/dwd/.config/dolphinrc"
-        "/home/dwd/.config/kdeglobals"
-        "/home/dwd/.config/ktorrentrc"
-        "/home/dwd/.config/mimeapps.list"
-        "/home/dwd/.config/plasma-org.kde.plasma.desktop-appletsrc"
-        "/home/dwd/.config/plasmarc"
-        "/home/dwd/.config/plasmashellrc"
-        "/home/dwd/.config/powermanagementprofilesrc"
-        "/home/dwd/.config/WSJT-X.ini"
-        "/home/dwd/.local/share/user-places.xbel"
-        "/home/dwd/.nix-channels"
-        "/home/dwd/.serverlessrc"
-        # "/root/.nix-channels" # keeps dying
+        ".bash_history"
+        ".config/Code/storage.json" # Open files and workspaces
+        ".config/Code/User/globalStorage/state.vscdb" # Current state
+        ".config/dolphinrc"
+        ".config/kdeglobals"
+        ".config/ktorrentrc"
+        ".config/mimeapps.list"
+        ".config/plasma-org.kde.plasma.desktop-appletsrc"
+        ".config/plasmarc"
+        ".config/plasmashellrc"
+        ".config/powerdevilrc"
+        ".config/powermanagementprofilesrc"
+        ".config/WSJT-X.ini"
+        ".local/share/user-places.xbel"
+        ".nix-channels"
+        ".serverlessrc"
       ];
     };
   };

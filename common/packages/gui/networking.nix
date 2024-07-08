@@ -19,7 +19,7 @@ with pkgs; [
     # tightvnc # no gui without config # banned as insecure with no replacement suggested
     wireshark
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
-    beekeeper-studio # for work, TODO split out?
+    # beekeeper-studio # for work, TODO split out?
     insomnia
     # postman
     scrcpy

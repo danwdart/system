@@ -4,13 +4,6 @@
 
   pulseaudio.enable = false;
 
-  opengl = if isDesktop then {
-    driSupport = true;
-    driSupport32Bit = builtins.currentSystem == "x86_64-linux";
-    #extraPackages32 = with pkgs.pkgsi686Linux; [ libva pkgsi686Linux.amdvlk ];
-    #extraPackages = with pkgs; [ amdvlk rocm-opencl-icd rocm-opencl-runtime ];
-  } else {};
-
   bluetooth = {
     enable = true;
     powerOnBoot = true;

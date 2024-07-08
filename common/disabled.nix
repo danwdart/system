@@ -95,7 +95,7 @@
     #    haskellPackages.xmonad-contrib
     #    haskellPackages.monad-logger
     #  ];
-    #  haskellPackages = haskell.packages.ghc96;
+    #  haskellPackages = haskell.packages.ghc98;
     #};
 
 
