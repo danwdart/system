@@ -28,7 +28,6 @@ in {
     units
     unzip
     wget
-    youtube-dl
     yt-dlp
     zssh
   ];

@@ -32,7 +32,6 @@ in
     units
     ncspot
     # get_iplayer
-    # youtube-dl
     # yt-dlp
     autossh
     bind
