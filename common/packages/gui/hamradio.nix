@@ -7,21 +7,21 @@ let pkgs-x86_64 = import <nixos> {
     };
 in
 with pkgs; [
-    chirp
+    chirp # python issues
     # cqrlog # github broken?
     cubicsdr
     dabtools
     dfu-util
-    # direwolf # compilation issues?
+    direwolf # compilation issues?
     fldigi
     freedv
     # gnss-sdr
-    gnuradio
+    # gnuradio # thrift-0.20.0 not supported for interpreter python3.12
     gpredict
     gqrx
     # guglielmo
     hackrf
-    inspectrum
+    # inspectrum # 1 dependencies of derivation '/nix/store/k5r8bpbplh1kl5ffc3qcvzi955l81191-inspectrum-0.3.1.drv' failed to build
     kalibrate-hackrf
     nrsc5
     qsstv

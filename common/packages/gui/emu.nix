@@ -15,7 +15,7 @@ with pkgs; [
     # pcsxr # depends on insecure ffmpeg
     #protontricks
     rpcs3
-    # ruffle
+    ruffle
     virt-viewer
     # winePackages.fonts
     # master.winePackages.staging

@@ -1,17 +1,18 @@
 pkgs:
 with pkgs; [
     aircrack-ng
-    binwalk
+    binwalk # python issues
     chkrootkit
     hexedit
     john
     lynis
     masscan
-    # metasploit # failed
+    metasploit # failed
     nmap
     openssl # the CLI client
-    # ossec - not yet integrated into systemd
-    # sslstrip - not yet available
+    # ossec-agent - not yet integrated into systemd
+    # ossec-server - not yet integrated into systemd
+    sslstrip
     # rkhunter - not yet available
     sshuttle
     tcpdump

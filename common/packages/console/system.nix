@@ -41,9 +41,10 @@ with pkgs; [
     # opencorsairlink
     p7zip
     pciutils
+    pv
     rpiboot
-    # screen # dealt with
     sixpair
+    smartmontools
     socat
     testdisk
     u3-tool

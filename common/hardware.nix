@@ -12,6 +12,8 @@
 
   hackrf.enable = true;
 
+  # graphics.enable = true;
+
   # sane = if isDesktop then {
   #   enable = true;
   #   extraBackends = with pkgs; [

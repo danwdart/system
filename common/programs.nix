@@ -1,8 +1,15 @@
 { pkgs, isDesktop, ...}:
 {
-  steam.enable = builtins.currentSystem == "x86_64-linux" && isDesktop;
+  steam = if builtins.currentSystem == "x86_64-linux" && isDesktop then {
+    enable = true;
+    gamescopeSession = {
+      enable = true;
+    };
+  } else {};
 
   adb.enable = true;
+
+  dconf.enable = true;
 
   # mkSystemd missing???
   # atop = {

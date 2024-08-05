@@ -7,6 +7,7 @@ with (import <nixpkgs> {
         ];
     };
 }); [
+    armitage
     # authy # broken
     plasma-pass
 ]

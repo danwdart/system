@@ -59,7 +59,7 @@ in {
   };
 
   fileSystems."/persist" =
-  { device = "/dev/disk/by-uuid/1778de2b-8859-4988-9fed-cbd53b8fb7cf";
+  { device = "/dev/disk/by-uuid/52ea4ab6-fa46-42e8-900a-cf793abe81b3";
     fsType = "ext4";
     neededForBoot = true;
     options = [ "noatime" ];

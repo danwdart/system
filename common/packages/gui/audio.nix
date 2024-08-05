@@ -6,19 +6,20 @@ with pkgs;
     ardour
     audacity
     autotalent
+    # baudline # download link is down
     caps
     clementine
     csa
-    # faust2ladspa
+    faust2ladspa
     fluidsynth
     gst_all_1.gst-plugins-base
     gst_all_1.gst-plugins-good
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-ugly
     hydrogen
-    ingen
+    # ingen # build failed with raul-unstable
     jack_rack
-    # kapitonov-plugins-pack
+    kapitonov-plugins-pack
     nova-filters
     pavucontrol
     qjackctl

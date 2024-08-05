@@ -7,9 +7,10 @@ let pkgs-x86_64 = import <nixos> {
     };
 in
 with pkgs; [
-    # clementine
+    clementine
     # clementineUnfree # needs building?
     #ffmpeg-full #insecure for now
+    kaffeine
     vlc
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
     mplayer

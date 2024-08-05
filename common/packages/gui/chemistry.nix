@@ -1,5 +1,5 @@
 pkgs:
 with pkgs;
 [
-    # avogadro # build failure
+    # avogadro2 # fails to build
 ]

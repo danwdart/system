@@ -20,11 +20,12 @@ in {
   i18n = import ./i18n.nix {};
   nix = import ./nix.nix { pkgs = pkgs; };
   nixpkgs = import ./nixpkgs.nix {};
-  sound = import ./sound.nix {};
   system = import ./system.nix { hostName = hostName; };
   time = import ./time.nix {};
   users = import ./users.nix { privateDir = privateDir; };
   virtualisation = import ./virtualisation.nix {};
+
+  home-manager.backupFileExtension = ".bak";
   
   # todo move
 

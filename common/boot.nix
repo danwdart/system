@@ -25,7 +25,37 @@
   # https://github.com/zen-kernel/zen-kernel
   # linuxKernel.packages.linux_zen = 5.19.10
 
-  kernelPackages = pkgs.linuxKernel.packages.linux_6_9;
+  kernelPackages = pkgs.linuxPackages_latest;
+
+  # https://nixos.wiki/wiki/Linux_kernel
+  kernelPatches = [
+    {
+      name = "Amateur Radio support";
+      patch = null;
+      extraConfig = ''
+              HAMRADIO y
+
+              #
+              # Packet Radio protocols
+              #
+              AX25 m
+              AX25_DAMA_SLAVE y
+              NETROM m
+              ROSE m
+
+              #
+              # AX.25 network device drivers
+              #
+              MKISS m
+              6PACK m
+              BPQETHER m
+              BAYCOM_SER_FDX m
+              BAYCOM_SER_HDX m
+              YAM m
+              # end of AX.25 network device drivers
+      '';
+    }
+  ];
 
   #kernelPatches = [
   #  {
@@ -43,7 +73,7 @@
   };
 
   tmp = {
-    useTmpfs = true;
+    # useTmpfs = true; # temporarily off
     # tmpfsSize = "50%";
     cleanOnBoot = true; # unless it's tmpfs in which case who cares
   };

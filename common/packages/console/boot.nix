@@ -9,7 +9,6 @@ in
 with pkgs; [
     # beefi
     efibootmgr
-    # efitools # broken on aarch64
     efivar
     sbctl
     sbsigntool

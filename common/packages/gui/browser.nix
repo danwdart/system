@@ -6,10 +6,9 @@ let pkgs-x86_64 = import <nixos> {
         };
     };
 in
-with pkgs; [
-    # firefox # handled already
-] ++ (if builtins.currentSystem == "x86_64-linux" then [
+with pkgs;
+if builtins.currentSystem == "x86_64-linux" then [
     # google-chrome
 ] else [
    # pkgs-x86_64.google-chrome
-])
+]

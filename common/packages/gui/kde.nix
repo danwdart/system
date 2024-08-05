@@ -15,6 +15,6 @@ with pkgs; [
     kdePackages.yakuake
     kdePackages.plasma-browser-integration
     # kdePackages.kdeconnect-kde # dealt with
-    plasma-hud
+    # plasma-hud # nose-1.3.7 not supported for interpreter python3.12
     qdirstat
 ]

@@ -7,8 +7,8 @@ let pkgs-x86_64 = import <nixos> {
     };
 in
 with pkgs; [
-    # blender # fails to build
-    # geogebra
+    blender # fails to build
+    geogebra
     gimp
     inkscape
     krita

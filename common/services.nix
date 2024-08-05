@@ -1,26 +1,33 @@
-{ config, pkgs, hostName, hostDir, privateDir, isDesktop, internalIPv4 ? "", externalIPv4 ? "", localIPv6 ? "", globalIPv6 ? "", fqdn ? "", ... }:
+{ pkgs, hostName, hostDir, privateDir, isDesktop, internalIPv4, externalIPv4, localIPv6, globalIPv6, fqdn, ... }:
 let
   # needs /persist, see: https://github.com/nix-community/impermanence/issues/87
   rootDir = "/home/dwd/code/mine/nix/system";
   haskellSites = "/home/dwd/code/mine/haskell";
-  roqHome = "/home/dwd/code/commissions/roqqett";
+  roqHome = "/home/dwd/code/work/roqqett";
   websites = "${haskellSites}/websites/.sites";
+  pkgsPan = import (builtins.fetchTarball 
+    "https://github.com/pan93412/nixpkgs/archive/refs/heads/fail2ban-update.tar.gz"
+  ) {};
 in {
   cron = {
     enable = true;
-    # Will only show in outbox if enabled
     mailto = "cron@dandart.co.uk";
     systemCronJobs = [
       # see https://www.freebsd.org/cgi/man.cgi?crontab%285%29 for special:
       #@weekly @monthly @yearly @annually @hourly @daily @reboot
-      #m     h d m w
-      "0 * * * * dwd  RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT || echo Successfully updated channels as dwd."
-      "0 * * * * root RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT || echo Successfully updated channels as root."
-      "0 1 * * * root RESULT=$(cd ${rootDir}/${hostName} && $PWD/../common/scripts/upgrade.sh 2>&1); [ 0 != $? ] && echo $RESULT || echo Successfully rebuilt the system."
-      "0 1 * * * dwd IP=$(ip -6 addr show dev wlp1s0 scope global | awk '/inet6/{print $2}' | head -n1 | cut -d / -f 1); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1736676347 --record-data $IP); [ 0 != $? ] && echo $RESULT || echo Successfully updated IPv6 address to $IP"
-      "0 1 * * * dwd IP=$(curl https://api.ipify.org); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1736676743 --record-data $IP); [ 0 != $? ] && echo $RESULT || echo Successfully updated IPv4 address to $IP"
+      #m h d m w
+      "0 * * * * dwd  RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT"
+      "0 * * * * root RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT"
+      "0 */2 * * * root RESULT=$(cd ${rootDir}/${hostName} && $PWD/../common/scripts/upgrade.sh 2>&1); [ 0 != $? ] && echo $RESULT || echo System updated."
+      "0 2 * * * dwd RESULT=$(cd ~/code; ./build-nix.sh; ./build-nix.sh 4; ./build-nix.sh 18;); [ 0 != $? ] && echo $RESULT"
+      # scorpii.dandart.co.uk
+      "0 1 * * * dwd IP=$(ip -6 addr show dev wlp3s0 scope global | awk '/inet6/{print $2}' | head -n2 | tail -n1 | cut -d / -f 1); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1747775271 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT"
+      # home.dandart.co.uk
+      "0 1 * * * dwd IP=$(curl https://api.ipify.org 2>/dev/null); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1736676743 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT"
     ];
   };
+
+  logrotate.checkConfig = false; # https://discourse.nixos.org/t/logrotate-config-fails-due-to-missing-group-30000/
 
   earlyoom = {
     enable = true;
@@ -65,7 +72,7 @@ in {
       #use sendfile = yes
       #max protocol = smb2
       # note: localhost is the ipv6 localhost ::1
-      hosts allow = 192.168.1. 127.0.0.1 localhost 2a0a:5586:34e0:0:
+      hosts allow = 192.168.1. 127.0.0.1 localhost 2a0a:5586:cdd:: fe80::
       hosts deny = 0.0.0.0/0 ::/0
       guest account = nobody
       map to guest = bad user
@@ -94,75 +101,84 @@ in {
     };
   };
 
-  i2p = {
-    # enable = true;
-    /*
-    proto = {
-      i2pControl = {
-        enable = true;
-      };
-      i2cp = {
-        enable = true;
-      };
-      sam = {
-        enable = true;
-      };
-      bob = {
-        enable = true;
-      };
-      http = {
-        enable = true;
-      };
-      i2pd = {
-        enable = true;
-        websocket = {
-          enable = true;
-        };
-      };
-    };
-    ntcp2 = {
-      enable = true;
-    };
-    upnp = {
-      enable = true;
-    };
-    */
+  usbmuxd = {
+    enable = true;
   };
+
+  # i2p = {
+  #   enable = true;
+  # };
+# 
+  # i2pd = {
+  #   enable = true;
+# 
+  #   websocket = {
+  #     enable = true;
+  #   };
+# 
+  #   proto = {
+  #     i2pControl = {
+  #       enable = true;
+  #     };
+  #     i2cp = {
+  #       enable = true;
+  #     };
+  #     sam = {
+  #       enable = true;
+  #     };
+  #     bob = {
+  #       enable = true;
+  #     };
+  #     http = {
+  #       enable = true;
+  #     };
+  #   };
+# 
+  #   ntcp2 = {
+  #     enable = true;
+  #   };
+# 
+  #   upnp = {
+  #     enable = true;
+  #   };
+  # };
 
   # tailscale = {
   #   enable = true;
   # };
 
   tor = {
-    # enable = true;
+    enable = true;
     client = {
-      # enable = true;
+      enable = true;
     };
     enableGeoIP = false;
     # backup /var/lib/tor/onion/myOnion
-    # relay.onionServices = {
-    #   myOnion = {
-    #     version = 3;
-    #     map = [{
-    #       port = 80;
-    #       target = {
-    #         addr = "[::1]";
-    #         port = 8080;
-    #       };
-    #     }];
-    #   };
-    # };
-    # settings = {
-    #   ClientUseIPv4 = false;
-    #   ClientUseIPv6 = true;
-    #   ClientPreferIPv6ORPort = true;
-    # };
+    relay = {
+      onionServices = {
+        myOnion = {
+          version = 3;
+          map = [{
+            port = 80;
+            target = {
+              addr = "[::1]";
+              port = 80;
+            };
+          }];
+        };
+      };
+    };
+    settings = {
+      ClientUseIPv4 = false;
+      ClientUseIPv6 = true;
+      ClientPreferIPv6ORPort = true;
+    };
   };
 
-  zeronet = {
-    # enable = true;
-    # torAlways = true;
-  };
+  # zeronet = {
+  #   enable = true;
+  #   torAlways = true;
+  # };
 
   # logcheck = {
   #   enable = true;
@@ -173,6 +189,16 @@ in {
   nix-serve = if isDesktop then {} else {
     enable = true;
     secretKeyFile = "/var/cache-priv-key.pem";
+  };
+
+  logind = {
+    lidSwitch = "lock";
+    lidSwitchDocked = "lock";
+    # lidSwitchExternalPower = "lock";
+  };
+
+  upower = {
+    enable = true;
   };
 
   desktopManager = if isDesktop then {
@@ -209,6 +235,9 @@ in {
 
   libinput = {
     enable = isDesktop;
+    touchpad = {
+      sendEventsMode = "disabled-on-external-mouse";
+    };
   };
 
   xserver = if isDesktop then {
@@ -242,9 +271,9 @@ in {
     enable = isDesktop;
   };
 
-  touchegg = if isDesktop then {
-    enable = true;
-  } else {};
+  touchegg = {
+    enable = isDesktop;
+  };
 
   # BIG BUG HERE: https://github.com/NixOS/nixpkgs/issues/126374
   tt-rss = if isDesktop then {} else {
@@ -292,7 +321,7 @@ in {
   #    haskellPackages.xmonad-contrib
   #    haskellPackages.monad-logger
   #  ];
-  #  haskellPackages = pkgs.haskell.packages.ghc96;
+  #  haskellPackages = pkgs.haskell.packages.ghc910;
   #};
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -329,6 +358,8 @@ in {
     statusPage = true;
     recommendedProxySettings = true;
     # sso = {};
+    # too many server names
+    serverNamesHashBucketSize = 128;
     virtualHosts = {
       "localhost" = {
         serverAliases = [
@@ -342,14 +373,17 @@ in {
       "${fqdn}" = {
         root = "${hostDir}/public_html";
       };
-      "44.63.0.51" = {
+      "m0ori.ampr.org" = {
+        serverAliases = [
+          "44.63.0.51"
+        ];
         root = "${hostDir}/radio_html";
       };
       # "${hostName}.${if isDesktop then ".home" else ""}dandart.co.uk" = {
       #   default = true;
-      #   onlySSL = true;
-      #   enableACME = true;
-      #   # useACMEHost = ""; # security.acme.certs
+      #   forceSSL = true;
+      #   # enableACME = true;
+      #   useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
       #   serverAliases = [
       #   ];
       #   root = "${hostDir}/public_html";
@@ -357,9 +391,9 @@ in {
       "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk" = {
         default = true;
         forceSSL = true;
-        # onlySSL = true;
-        enableACME = true;
-        # useACMEHost = ""; # security.acme.certs
+        # forceSSL = true;
+        # enableACME = true;
+        useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
         listenAddresses = [
           "[::1]"
           "[${localIPv6}]"
@@ -370,19 +404,49 @@ in {
         ];
         root = "${hostDir}/public_html";
       };
+      "dandart.geek" = {
+        # forceSSL = true;
+        addSSL = true;
+        # enableACME = true;
+        useACMEHost = "dandart.geek"; # TODO force?
+        listenAddresses = [
+          "[::1]"
+          "[${localIPv6}]"
+          "[${globalIPv6}]"
+          "[::]"
+        ];
+        serverAliases = [
+        ];
+        root = "${hostDir}/geek_html";
+      };
+      "p7x3d7ma4mtvtj3r3ekv55fn2aazezkdvi4fzxeyotcpt5rmb4fxjlid.onion" = {
+        # forceSSL = true;
+        # addSSL = true;
+        # enableACME = true;
+        # useACMEHost = "dandart.geek"; # TODO force?
+        listenAddresses = [
+          "[::1]"
+          # "[${localIPv6}]"
+          # "[${globalIPv6}]"
+          # "[::]"
+        ];
+        serverAliases = [
+        ];
+        root = "${hostDir}/tor_html";
+      };
       #"nextcloud.dandart.co.uk" = {
         # http3 = true;
-      #  onlySSL = true;
-      #  enableACME = true;
+      #  forceSSL = true;
+      #  # enableACME = true;
       #};
       # "news.jolharg.com" = {
       #   # http3 = true;
-      #   onlySSL = true;
-      #   enableACME = true;
+      #   forceSSL = true;
+      #   # enableACME = true;
       # };
       #"dev.localhost" = {
       #  # http3 = true;
-      #  onlySSL = true;
+      #  forceSSL = true;
       #  sslCertificate = "${roqHome}/roqqett-web-api/certs/dev-localhost-cert.pem";
       #  sslCertificateKey = "${roqHome}/roqqett-web-api/certs/dev-localhost-key.pem";
       #  serverAliases = [];
@@ -399,30 +463,31 @@ in {
       #    };
       #  };
       #};
-      # "roqqett.dandart.co.uk" = {
-      #   # http3 = true;
-      #   onlySSL = true;
-      #   enableACME = true;
-      #   serverAliases = [
-      #     "roqqett.dandart.uk"
-      #   ];
-      #   extraConfig = ''
-      #     error_page 502 /502.html;
-      #   '';
-      #   locations = {
-      #     "/" = {
-      #       proxyPass = "http://localhost:5000/";
-      #       proxyWebsockets = true;
-      #     };
-      #     "/502.html" = {
-      #       root = "${roqHome}/Data/static/";
-      #     };
-      #   };
-      # };
+      "roqqett.dandart.co.uk" = {
+        # http3 = true;
+        forceSSL = true;
+        # enableACME = true;
+        useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
+        serverAliases = [
+          # "roqqett.dandart.uk"
+        ];
+        extraConfig = ''
+          error_page 502 /502.html;
+        '';
+        locations = {
+          "/" = {
+            proxyPass = "http://localhost:5000/";
+            proxyWebsockets = true;
+          };
+          "/502.html" = {
+            root = "${roqHome}/Data/static/";
+          };
+        };
+      };
       # "roq-wp.dandart.co.uk" = {
       #   # http3 = true;
-      #   onlySSL = true;
-      #   enableACME = true;
+      #   forceSSL = true;
+      #   # enableACME = true;
       #   serverAliases = [
       #     "roq-wp.dandart.uk"
       #   ];
@@ -439,95 +504,144 @@ in {
       #     };
       #   };
       # };
-      # "dev.dandart.co.uk" = {
-      #   onlySSL = true;
-      #   enableACME = true;
-      #   serverAliases = [];
-      #   locations = {
-      #     "/" = {
-      #       root = "${websites}/dandart";
-      #       proxyWebsockets = true;
-      #     };
-      #   };
-      # };
-      # "dev.jolharg.com" = {
-      #   onlySSL = true;
-      #   enableACME = true;
-      #   serverAliases = [];
-      #   locations = {
-      #     "/" = {
-      #       root = "${websites}/jolharg";
-      #       proxyWebsockets = true;
-      #     };
-      #   };
-      # };
-      # "dev.blog.jolharg.com" = {
-      #   onlySSL = true;
-      #   enableACME = true;
-      #   serverAliases = [];
-      #   locations = {
-      #     "/" = {
-      #       root = "${websites}/blogjolharg";
-      #       proxyWebsockets = true;
-      #     };
-      #   };
-      # };
-      # "dev.madhackerreviews.com" = {
-      #   onlySSL = true;
-      #   enableACME = true;
-      #   serverAliases = [];
-      #   locations = {
-      #     "/" = {
-      #       root = "${websites}/madhacker";
-      #       proxyWebsockets = true;
-      #     };
-      #   };
-      # };
-      # "dev.m0ori.com" = {
-      #   onlySSL = true;
-      #   enableACME = true;
-      #   serverAliases = [];
-      #   locations = {
-      #     "/" = {
-      #       root = "${websites}/m0ori";
-      #       proxyWebsockets = true;
-      #     };
-      #   };
-      # };
-      # "dev.blog.dandart.co.uk" = {
-      #   onlySSL = true;
-      #   enableACME = true;
-      #   serverAliases = [];
-      #   locations = {
-      #     "/" = {
-      #       root = "${websites}/blog";
-      #       proxyWebsockets = true;
-      #     };
-      #   };
-      # };
-      # "dev.jobfinder.jolharg.com" = {
-      #   # http3 = true;
-      #   onlySSL = true;
-      #   enableACME = true;
-      #   serverAliases = [];
-      #   # htaccess?
-      #   extraConfig = ''
-      #     error_page 404 /index.html;
-      #   '';
-      #   locations = {
-      #     "/" = {
-      #       root = "${haskellSites}/jobfinder/dist-newstyle/build/js-ghcjs/ghcjs-8.10.7/ui-0.1.0.0/x/ui/build/ui/ui.jsexe";
-      #       proxyWebsockets = true;
-      #     };
-      #     "/api/" = {
-      #       proxyPass = "http://localhost:8082/api/";
-      #     };
-      #   };
-      # };
+      "dev.dandart.co.uk" = {
+        forceSSL = true;
+        # enableACME = true;
+        useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
+        serverAliases = [];
+        listenAddresses = [
+          "[::1]"
+          "[${localIPv6}]"
+          "[${globalIPv6}]"
+          "[::]"
+        ];
+        locations = {
+          "/" = {
+            root = "${websites}/dandart";
+            proxyWebsockets = true;
+          };
+        };
+      };
+      "dev.jolharg.com" = {
+        forceSSL = true;
+        # enableACME = true;
+        useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
+        serverAliases = [];
+        listenAddresses = [
+          "[::1]"
+          "[${localIPv6}]"
+          "[${globalIPv6}]"
+          "[::]"
+        ];
+        locations = {
+          "/" = {
+            root = "${websites}/jolharg";
+            proxyWebsockets = true;
+          };
+        };
+      };
+      "dev.blog.jolharg.com" = {
+        forceSSL = true;
+        # enableACME = true;
+        useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
+        serverAliases = [];
+        listenAddresses = [
+          "[::1]"
+          "[${localIPv6}]"
+          "[${globalIPv6}]"
+          "[::]"
+        ];
+        locations = {
+          "/" = {
+            root = "${websites}/blogjolharg";
+            proxyWebsockets = true;
+          };
+        };
+      };
+      "dev.madhackerreviews.com" = {
+        forceSSL = true;
+        # enableACME = true;
+        useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
+        serverAliases = [];
+        listenAddresses = [
+          "[::1]"
+          "[${localIPv6}]"
+          "[${globalIPv6}]"
+          "[::]"
+        ];
+        locations = {
+          "/" = {
+            root = "${websites}/madhacker";
+            proxyWebsockets = true;
+          };
+        };
+      };
+      "dev.m0ori.com" = {
+        forceSSL = true;
+        # enableACME = true;
+        useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
+        serverAliases = [];
+        listenAddresses = [
+          "[::1]"
+          "[${localIPv6}]"
+          "[${globalIPv6}]"
+          "[::]"
+        ];
+        locations = {
+          "/" = {
+            root = "${websites}/m0ori";
+            proxyWebsockets = true;
+          };
+        };
+      };
+      "dev.blog.dandart.co.uk" = {
+        forceSSL = true;
+        # enableACME = true;
+        useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
+        serverAliases = [];
+        listenAddresses = [
+          "[::1]"
+          "[${localIPv6}]"
+          "[${globalIPv6}]"
+          "[::]"
+        ];
+        locations = {
+          "/" = {
+            root = "${websites}/blog";
+            proxyWebsockets = true;
+          };
+        };
+      };
+      "dev.jobfinder.jolharg.com" = {
+        # http3 = true;
+        forceSSL = true;
+        # enableACME = true;
+        useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
+        serverAliases = [];
+        # htaccess?
+        extraConfig = ''
+          error_page 404 /index.html;
+        '';
+        listenAddresses = [
+          "[::1]"
+          "[${localIPv6}]"
+          "[${globalIPv6}]"
+          "[::]"
+        ];
+        locations = {
+          "/" = {
+            root = "${haskellSites}/jobfinder/dist-newstyle/build/js-ghcjs/ghcjs-8.10.7/ui-0.1.0.0/x/ui/build/ui/ui.jsexe";
+            proxyWebsockets = true;
+          };
+          "/api/" = {
+            proxyPass = "http://localhost:8082/api/";
+          };
+        };
+      };
       # "jobfinder.jolharg.com" = {
       #   # http3 = true;
-      #   onlySSL = true;
-      #   enableACME = true;
+      #   forceSSL = true;
+      #   # enableACME = true;
       #   serverAliases = [];
       #   # htaccess?
       #   extraConfig = ''
@@ -545,8 +659,8 @@ in {
       # };
       # "api.jobfinder.jolharg.com" = {
       #   # http3 = true;
-      #   onlySSL = true;
-      #   enableACME = true;
+      #   forceSSL = true;
+      #   # enableACME = true;
       #   serverAliases = [];
       #   extraConfig = ''
       #     error_page 502 /502.html;
@@ -561,28 +675,35 @@ in {
       #     };
       #   };
       # };
-      # "api.dev.jobfinder.jolharg.com" = {
-      #   # http3 = true;
-      #   onlySSL = true;
-      #   enableACME = true;
-      #   serverAliases = [];
-      #   extraConfig = ''
-      #     error_page 502 /502.html;
-      #   '';
-      #   locations = {
-      #     "/" = {
-      #       proxyPass = "http://localhost:8082/";
-      #       proxyWebsockets = true;
-      #     };
-      #     "/502.html" = {
-      #       root = "${haskellSites}/jobfinder/src/api/data";
-      #     };
-      #   };
-      # };
+      "api.dev.jobfinder.jolharg.com" = {
+        # http3 = true;
+        forceSSL = true;
+        # # enableACME = true;
+        useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
+        serverAliases = [];
+        extraConfig = ''
+          error_page 502 /502.html;
+        '';
+        listenAddresses = [
+          "[::1]"
+          "[${localIPv6}]"
+          "[${globalIPv6}]"
+          "[::]"
+        ];
+        locations = {
+          "/" = {
+            proxyPass = "http://localhost:8082/";
+            proxyWebsockets = true;
+          };
+          "/502.html" = {
+            root = "${haskellSites}/jobfinder/src/api/data";
+          };
+        };
+      };
       # "cache.jolharg.com" = {
       #   # http3 = true;
-      #   onlySSL = true;
-      #   enableACME = true;
+      #   forceSSL = true;
+      #   # enableACME = true;
       #   serverAliases = [];
       #   extraConfig = ''
       #     error_page 502 /502.html;
@@ -595,8 +716,8 @@ in {
       # };
       # "appbuilder.jolharg.com" = {
       #   # http3 = true;
-      #   onlySSL = true;
-      #   enableACME = true;
+      #   forceSSL = true;
+      #   # enableACME = true;
       #   serverAliases = [];
       #   extraConfig = ''
       #     error_page 502 /502.html;
@@ -625,7 +746,7 @@ in {
   #  enable = true;
   #  hostName = "grocy.dandart.co.uk";
   #  nginx = {
-  #    # onlySSL = true;
+  #    # forceSSL = true;
   #  };
   #  settings = {
   #    calendar = {
@@ -1835,18 +1956,32 @@ in {
       smtp_use_tls = true;
       # postmap this! # TODO permissions
       smtp_sasl_password_maps = "hash:${privateDir}/sasl_passwd";
+      # either these 3:
+
+      sender_canonical_maps = "regexp:${privateDir}/sender_canonical_maps";
+      # sender_canonical_classes = "envelope_sender, header_sender";
+      smtp_header_checks = "regexp:${privateDir}/header_check";
+      
+      # or this global thing
+      # smtp_generic_maps = hash:/etc/postfix/generic
+      # same format as virtual
     };
-    relayHost = "smtp.gmail.com";
+    relayHost = "smtp-mail.outlook.com";
     relayPort = 587;
     relayDomains = [
       "dandart.co.uk"
-      "${hostName}.jolharg.com"
-      "jolharg.com"
+      "hotmail.co.uk"
     ];
     setSendmail = true;
     virtual = ''
-      @${hostName} ${hostName}@dandart.co.uk
-      @${hostName}.jolharg.com ${hostName}@dandart.co.uk
+      dwd@scorpii microsoft@dandart.co.uk
+      dwd microsoft@dandart.co.uk
+      root microsoft@dandart.co.uk
+      cron microsoft@dandart.co.uk
+      @${hostName} microsoft@dandart.co.uk
+      @${hostName}.${hostName}.jolharg.com microsoft@dandart.co.uk
+      @${hostName}.jolharg.com microsoft@dandart.co.uk
+      MAILER-DAEMON@scorpii.scorpii.jolharg.com microsoft@dandart.co.uk
     '';
   };
 
@@ -1901,6 +2036,7 @@ in {
   # } else {};
 
   fail2ban.enable = true;
+  fail2ban.package = pkgsPan.fail2ban; # https://github.com/NixOS/nixpkgs/issues/325803 https://github.com/NixOS/nixpkgs/pull/325602
 
   # ntopng.enable = true;
 
@@ -1908,33 +2044,32 @@ in {
 
   joycond.enable = isDesktop;
 
-  # syslogd.enableNetworkInput = true;
+  syslogd.enableNetworkInput = true;
 
-  # syslog-ng = let
-  #   discordSyslogEndpoint = builtins.readFile "${privateDir}/discord/endpoints/syslog";
-  # in {
-  #   enable = true;
-  #   extraConfig = ''
-  #     source s_net {
-  #       tcp(port(514) flags(syslog-protocol));
-  #     };
-# 
-  #     destination d_http {
-  #         http(
-  #             url("${discordSyslogEndpoint}")
-  #             method("POST")
-  #             user-agent("syslog-ng User Agent")
-  #             headers("Content-Type: application/json")
-  #             body('{"username": "test", "content": "''${ISODATE} ''${MESSAGE}"}')
-  #         );
-  #     };
-# 
-  #     log {
-  #         source(s_net);
-  #         destination(d_http);
-  #     };
-  #   '';
-  # };
+  syslog-ng = let
+    discordSyslogEndpoint = builtins.readFile "${privateDir}/discord/endpoints/syslog";
+  in {
+    enable = true;
+    extraConfig = ''
+      source s_net {
+        tcp(port(514) flags(syslog-protocol));
+      };
+      destination d_http {
+          http(
+              url("${discordSyslogEndpoint}")
+              method("POST")
+              user-agent("syslog-ng User Agent")
+              headers("Content-Type: application/json")
+              body('{"username": "test", "content": "''${ISODATE} ''${MESSAGE}"}')
+          );
+      };
+
+      log {
+          source(s_net);
+          destination(d_http);
+      };
+    '';
+  };
 
   # journald.forwardToSyslog = true;
 
