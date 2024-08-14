@@ -1974,14 +1974,14 @@ in {
     ];
     setSendmail = true;
     virtual = ''
-      dwd@scorpii microsoft@dandart.co.uk
+      dwd@${hostName} microsoft@dandart.co.uk
       dwd microsoft@dandart.co.uk
       root microsoft@dandart.co.uk
       cron microsoft@dandart.co.uk
       @${hostName} microsoft@dandart.co.uk
       @${hostName}.${hostName}.jolharg.com microsoft@dandart.co.uk
       @${hostName}.jolharg.com microsoft@dandart.co.uk
-      MAILER-DAEMON@scorpii.scorpii.jolharg.com microsoft@dandart.co.uk
+      MAILER-DAEMON@${hostName}.${hostName}.jolharg.com microsoft@dandart.co.uk
     '';
   };
 
