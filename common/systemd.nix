@@ -24,7 +24,7 @@
           set -a; \
           cd /home/dwd/code/mine/haskell/jobfinder/src/api; \
           source /home/dwd/code/mine/haskell/jobfinder/.env; \
-          ../../result/api/bin/api'
+          ./result/exe/bin/api'
       '';
     };
 
