@@ -202,10 +202,14 @@ in {
       pull = {
         rebase = false;
       };
+      push = {
+        autoSetupRemote = true;
+      };
     };
-    # signingkey = 39A8DF97
-    # gpgsign = true
-    # crypt stuff
+    signing = {
+      key = "0240A2F45637C90C";
+      signByDefault = true;
+    };
   };
 
   programs.vim = {
