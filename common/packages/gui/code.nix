@@ -12,7 +12,7 @@ with pkgs; [
     circup
     diylc
     gnucap
-    horizon-eda
+    # horizon-eda
     kate
     librepcb
     logisim
