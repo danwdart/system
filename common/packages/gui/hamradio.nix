@@ -7,7 +7,7 @@ let pkgs-x86_64 = import <nixos> {
     };
 in
 with pkgs; [
-    chirp # python issues
+    # chirp # python issues
     # cqrlog # github broken?
     cubicsdr
     dabtools
