@@ -23,14 +23,14 @@
           "dev.blog.dandart.co.uk"
           "dev.jobfinder.jolharg.com"
           "api.dev.jobfinder.jolharg.com"
-          # "jobfinder.jolharg.com"
-          # "api.jobfinder.jolharg.com"
+          "jobfinder.jolharg.com"
+          "api.jobfinder.jolharg.com"
           # "grocy.dandart.co.uk"
         ];
       };
-      "dandart.geek" = {
-        server = "https://playground.acme.libre";
-      };
+      # "dandart.geek" = {
+      #   server = "https://playground.acme.libre";
+      # };
     };
   };
 
