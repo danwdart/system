@@ -78,7 +78,7 @@
     cleanOnBoot = true; # unless it's tmpfs in which case who cares
   };
 
-  # If you want anything for this built by nixosm, you have to use --argstr system X
+  # If you want anything for this built by nixos, you have to use --argstr system X
   binfmt.emulatedSystems = [
     "i686-linux"
     # "x86_64-linux"
