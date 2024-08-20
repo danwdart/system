@@ -59,7 +59,7 @@ in {
   # };
 
   fileSystems."/" =
-  { device = "/dev/disk/by-uuid/52ea4ab6-fa46-42e8-900a-cf793abe81b3";
+  { device = "/dev/disk/by-uuid/b059e259-ff09-4abd-a8d2-7c009727977c";
     fsType = "ext4";
     neededForBoot = true;
     options = [ "noatime" ];
@@ -72,7 +72,7 @@ in {
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/12FB-0A1D";
+    { device = "/dev/disk/by-uuid/04D6-0D2D";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
