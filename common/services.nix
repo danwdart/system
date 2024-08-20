@@ -21,7 +21,7 @@ in {
       "0 */2 * * * root RESULT=$(cd ${rootDir}/${hostName} && $PWD/../common/scripts/upgrade.sh 2>&1); [ 0 != $? ] && echo $RESULT || echo System updated."
       "0 2 * * * dwd RESULT=$(cd ~/code; ./build-nix.sh; ./build-nix.sh 4; ./build-nix.sh 18;); [ 0 != $? ] && echo $RESULT"
       # scorpii.dandart.co.uk
-      "0 1 * * * dwd IP=$(ip -6 addr show dev wlp3s0 scope global | awk '/inet6/{print $2}' | head -n2 | tail -n1 | cut -d / -f 1); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1747775271 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT"
+      "0 1 * * * dwd IP=$(ip -6 addr show dev wlp3s0 scope global | awk '/inet6/{print $2}' | head -n1 | cut -d / -f 1); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1747775271 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT"
       # home.dandart.co.uk
       "0 1 * * * dwd IP=$(curl https://api.ipify.org 2>/dev/null); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1736676743 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT"
     ];
@@ -405,10 +405,11 @@ in {
         root = "${hostDir}/public_html";
       };
       "dandart.geek" = {
+        # todo fix
         # forceSSL = true;
-        addSSL = true;
+        # addSSL = true;
         # enableACME = true;
-        useACMEHost = "dandart.geek"; # TODO force?
+        # useACMEHost = "dandart.geek"; # TODO force?
         listenAddresses = [
           "[::1]"
           "[${localIPv6}]"
@@ -419,7 +420,7 @@ in {
         ];
         root = "${hostDir}/geek_html";
       };
-      "p7x3d7ma4mtvtj3r3ekv55fn2aazezkdvi4fzxeyotcpt5rmb4fxjlid.onion" = {
+      "${builtins.readFile "${privateDir}/tor_url"}" = {
         # forceSSL = true;
         # addSSL = true;
         # enableACME = true;
@@ -630,7 +631,7 @@ in {
         ];
         locations = {
           "/" = {
-            root = "${haskellSites}/jobfinder/dist-newstyle/build/js-ghcjs/ghcjs-8.10.7/ui-0.1.0.0/x/ui/build/ui/ui.jsexe";
+            root = "${haskellSites}/jobfinder/src/ui/dist-newstyle/build/js-ghcjs/ghcjs-8.10.7/ui-0.1.0.0/x/ui/build/ui/ui.jsexe";
             proxyWebsockets = true;
           };
           "/api/" = {
@@ -638,43 +639,45 @@ in {
           };
         };
       };
-      # "jobfinder.jolharg.com" = {
-      #   # http3 = true;
-      #   forceSSL = true;
-      #   # enableACME = true;
-      #   serverAliases = [];
-      #   # htaccess?
-      #   extraConfig = ''
-      #     error_page 404 /index.html;
-      #   '';
-      #   locations = {
-      #     "/" = {
-      #       root = "${haskellSites}/jobfinder/result/ui/bin/ui.jsexe";
-      #       proxyWebsockets = true;
-      #     };
-      #     "/api/" = {
-      #       proxyPass = "http://localhost:8081/api/";
-      #     };
-      #   };
-      # };
-      # "api.jobfinder.jolharg.com" = {
-      #   # http3 = true;
-      #   forceSSL = true;
-      #   # enableACME = true;
-      #   serverAliases = [];
-      #   extraConfig = ''
-      #     error_page 502 /502.html;
-      #   '';
-      #   locations = {
-      #     "/" = {
-      #       proxyPass = "http://localhost:8081/";
-      #       proxyWebsockets = true;
-      #     };
-      #     "/502.html" = {
-      #       root = "${haskellSites}/jobfinder/src/api/data";
-      #     };
-      #   };
-      # };
+      "jobfinder.jolharg.com" = {
+        # http3 = true;
+        forceSSL = true;
+        # enableACME = true;
+        useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
+        serverAliases = [];
+        # htaccess?
+        extraConfig = ''
+          error_page 404 /index.html;
+        '';
+        locations = {
+          "/" = {
+            root = "${haskellSites}/jobfinder/src/ui/result/exe/bin/ui.jsexe";
+            proxyWebsockets = true;
+          };
+          "/api/" = {
+            proxyPass = "http://localhost:8081/api/";
+          };
+        };
+      };
+      "api.jobfinder.jolharg.com" = {
+        # http3 = true;
+        forceSSL = true;
+        # enableACME = true;
+        useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
+        serverAliases = [];
+        extraConfig = ''
+          error_page 502 /502.html;
+        '';
+        locations = {
+          "/" = {
+            proxyPass = "http://localhost:8081/";
+            proxyWebsockets = true;
+          };
+          "/502.html" = {
+            root = "${haskellSites}/jobfinder/src/api/data";
+          };
+        };
+      };
       "api.dev.jobfinder.jolharg.com" = {
         # http3 = true;
         forceSSL = true;
