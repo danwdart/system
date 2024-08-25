@@ -2021,25 +2021,25 @@ in {
   #xrdp.enable = true;
   #xrdp.defaultWindowManager = "startplasma-x11";
 
-  # avahi = if isDesktop then { # dbus_bus_request_name(): Request to own name refused by policy
-  #   enable = true;
-  #   wideArea = true;
-  #   ipv6 = true;
-  #   nssmdns4 = true;
-  #   # domainName = "jolharg.com"
-  #   publish = {
-  #     enable = true;
-  #     # browseDomains = [ "jolharg.com" ];
-  #     hinfo = true;
-  #     domain = true;
-  #     # addresses = true;
-  #     userServices = true;
-  #     workstation = true;
-  #   };
-  # } else {};
+  avahi = if isDesktop then { # dbus_bus_request_name(): Request to own name refused by policy
+    enable = true;
+    wideArea = true;
+    ipv6 = true;
+    nssmdns4 = true;
+    # domainName = "jolharg.com"
+    publish = {
+      enable = true;
+      # browseDomains = [ "jolharg.com" ];
+      hinfo = true;
+      domain = true;
+      # addresses = true;
+      userServices = true;
+      workstation = true;
+    };
+  } else {};
 
   fail2ban.enable = true;
-  fail2ban.package = pkgsPan.fail2ban; # https://github.com/NixOS/nixpkgs/issues/325803 https://github.com/NixOS/nixpkgs/pull/325602
+  fail2ban.package = pkgsPan.fail2ban;
 
   # ntopng.enable = true;
 
