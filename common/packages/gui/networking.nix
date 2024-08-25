@@ -5,9 +5,12 @@ let pkgs-x86_64 = import <nixos> {
             allowUnfree = true;
         };
     };
+    pkgsMaster = import (builtins.fetchTarball 
+        "https://github.com/NixOS/nixpkgs/archive/refs/heads/master.tar.gz"
+    ) {};
 in
 with pkgs; [
-    dbeaver-bin # for work, TODO split out?
+    pkgsMaster.dbeaver-bin # for work, TODO split out?
     etherape
     # mysql-workbench # for work, TODO split out? # error: pynacl-1.4.0 not supported for interpreter python2.7
     networkmanager-openvpn
