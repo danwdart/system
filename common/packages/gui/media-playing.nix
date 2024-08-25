@@ -12,6 +12,7 @@ with pkgs; [
     #ffmpeg-full #insecure for now
     kaffeine
     vlc
+    gnome-network-displays
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
     mplayer
     spotify
