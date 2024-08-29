@@ -1,7 +1,7 @@
 pkgs:
 with pkgs; [
     # cinelerra # keeps compiling
-    kdenlive
+    kdePackages.kdenlive
     simplescreenrecorder
     obs-studio
 ]

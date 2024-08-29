@@ -1,5 +1,5 @@
 pkgs:
 with pkgs; [
-    kgpg
-    kleopatra
+    kdePackages.kgpg
+    kdePackages.kleopatra
 ]

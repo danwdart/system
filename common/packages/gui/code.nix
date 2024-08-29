@@ -13,7 +13,7 @@ with pkgs; [
     diylc
     gnucap
     # horizon-eda
-    kate
+    kdePackages.kate
     librepcb
     logisim
     logisim-evolution
