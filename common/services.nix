@@ -20,10 +20,14 @@ in {
       "0 * * * * root RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT"
       "0 */2 * * * root RESULT=$(cd ${rootDir}/${hostName} && $PWD/../common/scripts/upgrade.sh 2>&1); [ 0 != $? ] && echo $RESULT || echo System updated."
       "0 2 * * * dwd RESULT=$(cd ~/code; ./build-nix.sh; ./build-nix.sh 4; ./build-nix.sh 18;); [ 0 != $? ] && echo $RESULT"
-      # scorpii.dandart.co.uk
+      # scorpii.home.dandart.co.uk
       "0 1 * * * dwd IP=$(ip -6 addr show dev wlp3s0 scope global | awk '/inet6/{print $2}' | head -n1 | cut -d / -f 1); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1747775271 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT"
       # home.dandart.co.uk
       "0 1 * * * dwd IP=$(curl https://api.ipify.org 2>/dev/null); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1736676743 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT"
+      # scorpii.dandart.co.uk (IPv6)
+      "0 1 * * * dwd IP=$(ip -6 addr show dev wlp3s0 scope global | awk '/inet6/{print $2}' | head -n1 | cut -d / -f 1); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1750535304 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT"
+      # scorpii.dandart.co.uk (IPv4)
+      "0 1 * * * dwd IP=$(curl https://api.ipify.org 2>/dev/null); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1750535231 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT"
     ];
   };
 
@@ -470,6 +474,7 @@ in {
         # enableACME = true;
         useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
         serverAliases = [
+          "roqqett.home.dandart.co.uk"
           # "roqqett.dandart.uk"
         ];
         extraConfig = ''
