@@ -12,7 +12,7 @@ in
 with pkgs; [
     pkgsMaster.dbeaver-bin # for work, TODO split out?
     etherape
-    # mysql-workbench # for work, TODO split out? # error: pynacl-1.4.0 not supported for interpreter python2.7
+    mysql-workbench
     networkmanager-openvpn
     nextcloud-client
     putty # no desktop icon
