@@ -15,7 +15,7 @@
           # "news.jolharg.com"
           "roqqett.dandart.co.uk"
           "roqqett.home.dandart.co.uk"
-          # "roq-wp.dandart.co.uk"
+          "roq-wp.dandart.co.uk"
           "dev.dandart.co.uk"
           "dev.jolharg.com"
           "dev.blog.jolharg.com"
