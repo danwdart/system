@@ -113,7 +113,7 @@ with pkgs; [
     kdePackages.plasma-disks
     kdePackages.plasma-firewall
     kdePackages.plasma-browser-integration
-    kdePackages.plasma-thunderbolt
+    # ``kdePackages.plasma-thunderbolt
     kdePackages.plasma-vault
     kdePackages.plasmatube
     kdePackages.plymouth-kcm
