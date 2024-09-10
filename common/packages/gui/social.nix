@@ -48,6 +48,7 @@ with pkgs; [
             #     <https://github.com/NixOS/nixpkgs/pull/334638#issuecomment-2289025802>
 
     # element-desktop # insecure notice
+    fractal
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
     betterdiscordctl
     (discord.override {
