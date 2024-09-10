@@ -490,26 +490,27 @@ in {
           };
         };
       };
-      # "roq-wp.dandart.co.uk" = {
-      #   # http3 = true;
-      #   forceSSL = true;
-      #   # enableACME = true;
-      #   serverAliases = [
-      #     "roq-wp.dandart.uk"
-      #   ];
-      #   extraConfig = ''
-      #     error_page 502 /502.html;
-      #   '';
-      #   locations = {
-      #     "/" = {
-      #       proxyPass = "http://localhost:5600/";
-      #       proxyWebsockets = true;
-      #     };
-      #     "/502.html" = {
-      #       root = "${hostDir}/roqqett_html";
-      #     };
-      #   };
-      # };
+      "roq-wp.dandart.co.uk" = {
+        # http3 = true;
+        forceSSL = true;
+        # enableACME = true;
+        useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
+        # serverAliases = [
+        #   "roq-wp.dandart.uk"
+        # ];
+        extraConfig = ''
+          error_page 502 /502.html;
+        '';
+        locations = {
+          "/" = {
+            proxyPass = "http://localhost:5600/";
+            proxyWebsockets = true;
+          };
+          "/502.html" = {
+            root = "${roqHome}/Data/static/";
+          };
+        };
+      };
       "dev.dandart.co.uk" = {
         forceSSL = true;
         # enableACME = true;
