@@ -16,13 +16,14 @@ with pkgs;
     gst_all_1.gst-plugins-good
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-ugly
+    helvum # like qjackctl but lines
     hydrogen
     # ingen # build failed with raul-unstable
     jack_rack
     kapitonov-plugins-pack
     nova-filters
     pavucontrol
-    qjackctl
+    qjackctl # the other one?
     qsynth
     rosegarden
     soundfont-fluid
