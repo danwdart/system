@@ -3,6 +3,7 @@ with pkgs; [
     aircrack-ng
     binwalk # python issues
     chkrootkit
+    gpgme
     hexedit
     john
     lynis
