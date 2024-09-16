@@ -133,10 +133,6 @@ in {
           user = "dandart";
         };
       };
-      includes = [
-        "/home/dwd/code/work/roqqett/Data/sshconfig"
-        "/home/dwd/Downloads/devcloud-ssh-config"
-      ];
     };
     bash = {
       enable = true;

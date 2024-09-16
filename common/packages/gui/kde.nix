@@ -1,130 +1,133 @@
 pkgs:
-with pkgs; [
+(with pkgs; [
     amarok
-    # kdePackages.akregator
-    # kdePackages.alligator
-    kdePackages.ark
-    # kdePackages.artikulate
-    # kdePackages.audiotube
-    kdePackages.bomber
-    kdePackages.bovo
-    kdePackages.breeze
-    kdePackages.breeze-grub
-    kdePackages.breeze-gtk
-    kdePackages.breeze-icons
-    kdePackages.breeze-plymouth
-    # kdePackages.discover # no need?
-    kdePackages.dolphin
-    kdePackages.dolphin-plugins
-    # kdePackages.dragon # aeeehhh
-    # kdePackages.elisa # ehh
-    kdePackages.filelight
-    kdePackages.francis
-    # kdePackages.full # !!!
-    kdePackages.granatier
-    kdePackages.gwenview
-    kdePackages.isoimagewriter
-    kdePackages.juk
-    kdePackages.kaccounts-integration
-    kdePackages.kaccounts-providers
-    kdePackages.kalarm
-    kdePackages.kalgebra
-    kdePackages.kalm
-    kdePackages.kalzium
-    # kdePackages.kamoso # BROKEN
-    kdePackages.kapman
-    kdePackages.kasts
-    kdePackages.katomic
-    # kdePackages.kauth # ???
-    kdePackages.kbackup
-    kdePackages.kblocks
-    kdePackages.kbounce
-    kdePackages.kbreakout
-    kdePackages.kcalc
-    # kdePackages.kcompletion # ???
-    kdePackages.kcron
-    kdePackages.kdeplasma-addons
-    kdePackages.kdevelop
-    kdePackages.kdf
-    kdePackages.kdiagram
-    kdePackages.kdiamond
-    # kdePackages.kdnssd # lib?
-    kdePackages.keysmith
-    kdePackages.kfourinline
-    kdePackages.kget
-    kdePackages.kgoldrunner
-    # kdePackages.kgpg # dupe
-    kdePackages.kgraphviewer
-    kdePackages.khangman
-    kdePackages.khealthcertificate
-    kdePackages.kidletime
-    # kdePackages.kig # BROKEN
-    kdePackages.kigo
-    kdePackages.killbots
-    kdePackages.kio
-    kdePackages.kio-admin # default?
-    kdePackages.kio-extras
-    kdePackages.kio-extras-kf5
-    kdePackages.kio-fuse
-    kdePackages.kio-gdrive
-    kdePackages.kio-zeroconf
-    kdePackages.kirigami
-    kdePackages.kirigami-addons
-    kdePackages.kirigami-gallery
-    kdePackages.kiriki
-    kdePackages.kiten
-    # kdePackages.kleopatra # dupe
-    kdePackages.klickety
-    kdePackages.klines
-    kdePackages.kmail
-    kdePackages.kmines
-    kdePackages.kmouth
-    kdePackages.kmplot
-    kdePackages.knavalbattle
-    kdePackages.knetwalk
-    kdePackages.knewstuff
-    kdePackages.knights
-    kdePackages.koko
-    kdePackages.kolf
-    kdePackages.kolourpaint
-    kdePackages.kompare
-    kdePackages.kontact
-    kdePackages.konqueror
-    kdePackages.konquest
-    kdePackages.konversation
-    kdePackages.korganizer
-    kdePackages.kpat
-    kdePackages.kreversi
-    kdePackages.ksirk
-    # kdePackages.ksshaskpass
-    kdePackages.ksudoku
-    kdePackages.ksquares
-    kdePackages.kteatime
-    kdePackages.ktorrent
-    kdePackages.ktimer
-    # kdePackages.kwallet-pam
-    kdePackages.kup
-    # kdePackages.kwave # BROKEN
-    # kdePackages.marble # BROKEN
-    kdePackages.merkuro
-    kdePackages.minuet
-    # kdePackages.neochat # No libolm
-    kdePackages.okular
-    kdePackages.plasma-disks
-    kdePackages.plasma-firewall
-    kdePackages.plasma-browser-integration
-    # ``kdePackages.plasma-thunderbolt
-    kdePackages.plasma-vault
-    kdePackages.plasmatube
-    kdePackages.plymouth-kcm
-    kdePackages.phonon
-    # kdePackages.phonon-backend-gstreamer
-    kdePackages.step
-    kdePackages.sweeper
-    kdePackages.tokodon
-    kdePackages.yakuake
-    kdePackages.xdg-desktop-portal-kde # ???
-    # kdePackages.kdeconnect-kde # dealt with
-    # plasma-hud # nose-1.3.7 not supported for interpreter python3.12
     qdirstat
-]
+]) ++
+(with pkgs.kdePackages; [
+    # akregator
+    # alligator
+    ark
+    # artikulate
+    # audiotube
+    bomber
+    bovo
+    breeze
+    breeze-grub
+    breeze-gtk
+    breeze-icons
+    breeze-plymouth
+    # discover # no need?
+    dolphin
+    dolphin-plugins
+    # dragon # aeeehhh
+    # elisa # ehh
+    filelight
+    francis
+    # full # !!!
+    granatier
+    gwenview
+    isoimagewriter
+    juk
+    kaccounts-integration
+    kaccounts-providers
+    kalarm
+    kalgebra
+    kalm
+    kalzium
+    # kamoso # BROKEN
+    kapman
+    kasts
+    katomic
+    # kauth # ???
+    kbackup
+    kblocks
+    kbounce
+    kbreakout
+    kcalc
+    # kcompletion # ???
+    kcron
+    kdeplasma-addons
+    kdevelop
+    kdf
+    kdiagram
+    kdiamond
+    # kdnssd # lib?
+    keysmith
+    kfourinline
+    kget
+    kgoldrunner
+    # kgpg # dupe
+    kgraphviewer
+    khangman
+    khealthcertificate
+    kidletime
+    # kig # BROKEN
+    kigo
+    killbots
+    kio
+    kio-admin # default?
+    kio-extras
+    kio-extras-kf5
+    kio-fuse
+    kio-gdrive
+    kio-zeroconf
+    kirigami
+    kirigami-addons
+    kirigami-gallery
+    kiriki
+    kiten
+    # kleopatra # dupe
+    klickety
+    klines
+    kmail
+    kmail-account-wizard
+    kmines
+    kmouth
+    kmplot
+    knavalbattle
+    knetwalk
+    knewstuff
+    knights
+    koko
+    kolf
+    kolourpaint
+    kompare
+    kontact
+    konqueror
+    konquest
+    konversation
+    korganizer
+    kpat
+    kreversi
+    ksirk
+    # ksshaskpass
+    ksudoku
+    ksquares
+    kteatime
+    ktorrent
+    ktimer
+    # kwallet-pam
+    kup
+    # kwave # BROKEN
+    # marble # BROKEN
+    merkuro
+    minuet
+    # neochat # No libolm
+    okular
+    plasma-disks
+    plasma-firewall
+    plasma-browser-integration
+    # ``plasma-thunderbolt
+    plasma-vault
+    plasmatube
+    plymouth-kcm
+    phonon
+    # phonon-backend-gstreamer
+    step
+    sweeper
+    tokodon
+    yakuake
+    xdg-desktop-portal-kde # ???
+    # kdeconnect-kde # dealt with
+    # plasma-hud # nose-1.3.7 not supported for interpreter python3.12
+])

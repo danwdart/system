@@ -5,25 +5,21 @@ let pkgs-x86_64 = import <nixos> {
             allowUnfree = true;
         };
     };
-    pkgsMaster = import (builtins.fetchTarball 
-        "https://github.com/NixOS/nixpkgs/archive/refs/heads/master.tar.gz"
-    ) {};
 in
 with pkgs; [
-    pkgsMaster.dbeaver-bin # for work, TODO split out?
     etherape
-    mysql-workbench
+    # mysql-workbench
     networkmanager-openvpn
     nextcloud-client
     putty # no desktop icon
     rdesktop # no gui without config
-    newman
+    # newman
     # protonvpn-gui
     # tightvnc # no gui without config # banned as insecure with no replacement suggested
     wireshark
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
     # beekeeper-studio # for work, TODO split out?
-    insomnia
+    # insomnia
     # postman
     scrcpy
     tor-browser-bundle-bin
