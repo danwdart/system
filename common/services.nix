@@ -8,6 +8,7 @@ let
   pkgsPan = import (builtins.fetchTarball 
     "https://github.com/pan93412/nixpkgs/archive/refs/heads/fail2ban-update.tar.gz"
   ) {};
+  keyId = "0240A2F45637C90C";
 in {
   cron = {
     enable = true;
@@ -16,18 +17,20 @@ in {
       # see https://www.freebsd.org/cgi/man.cgi?crontab%285%29 for special:
       #@weekly @monthly @yearly @annually @hourly @daily @reboot
       #m h d m w
-      "0 * * * * dwd  RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT"
-      "0 * * * * root RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT"
-      "0 */2 * * * root RESULT=$(cd ${rootDir}/${hostName} && $PWD/../common/scripts/upgrade.sh 2>&1); [ 0 != $? ] && echo $RESULT || echo System updated."
-      "0 2 * * * dwd RESULT=$(cd ~/code; ./build-nix.sh; ./build-nix.sh 4; ./build-nix.sh 18;); [ 0 != $? ] && echo $RESULT"
+      "0 * * * * dwd  RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
+      "0 * * * * root RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
+      "0 */2 * * * root RESULT=$(cd ${rootDir}/${hostName} && $PWD/../common/scripts/upgrade.sh 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId} || echo System updated. | gpg -ae -r ${keyId}"
+      "0 2 * * * dwd RESULT=$(cd ~/code; ./build-nix.sh; ./build-nix.sh 4; ./build-nix.sh 18; 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
+      # Backup everything to USB hourly - TODO cloud backups but passwordless? Or take password from another service?
+      "0 * * * * dwd RESULT=$(cd ~; mkdir -p /run/media/dwd/Backup/.config; for i in 3ds/ Audio/ Desktop/ Documents/ Music/ Pictures/ Phone/ Public/ radioimages/ Videos/ .gnupg/ .ssh/ .config/rclone; do rsync -auvP $i /run/media/dwd/Backup/$i 2>&1; done); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
       # scorpii.home.dandart.co.uk
-      "0 1 * * * dwd IP=$(ip -6 addr show dev wlp3s0 scope global | awk '/inet6/{print $2}' | head -n1 | cut -d / -f 1); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1747775271 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT"
+      "0 1 * * * dwd IP=$(ip -6 addr show dev wlp3s0 scope global | awk '/inet6/{print $2}' | head -n1 | cut -d / -f 1); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1747775271 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
       # home.dandart.co.uk
-      "0 1 * * * dwd IP=$(curl https://api.ipify.org 2>/dev/null); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1736676743 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT"
+      "0 1 * * * dwd IP=$(curl https://api.ipify.org 2>/dev/null); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1736676743 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
       # scorpii.dandart.co.uk (IPv6)
-      "0 1 * * * dwd IP=$(ip -6 addr show dev wlp3s0 scope global | awk '/inet6/{print $2}' | head -n1 | cut -d / -f 1); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1750535304 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT"
+      "0 1 * * * dwd IP=$(ip -6 addr show dev wlp3s0 scope global | awk '/inet6/{print $2}' | head -n1 | cut -d / -f 1); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1750535304 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
       # scorpii.dandart.co.uk (IPv4)
-      "0 1 * * * dwd IP=$(curl https://api.ipify.org 2>/dev/null); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1750535231 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT"
+      "0 1 * * * dwd IP=$(curl https://api.ipify.org 2>/dev/null); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1750535231 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
     ];
   };
 
@@ -65,23 +68,26 @@ in {
   samba = {
     enable = true;
     nsswins = true;
-    enableNmbd = true;
-    enableWinbindd = true;
-    securityType = "user";
-    extraConfig = ''
-      workgroup = WORKGROUP
-      server string = smbnix
-      netbios name = smbnix
-      security = user 
-      #use sendfile = yes
-      #max protocol = smb2
-      # note: localhost is the ipv6 localhost ::1
-      hosts allow = 192.168.1. 127.0.0.1 localhost 2a0a:5586:cdd:: fe80::
-      hosts deny = 0.0.0.0/0 ::/0
-      guest account = nobody
-      map to guest = bad user
-    '';
-    shares = {
+    nmbd = {
+      enable = true;
+    };
+    winbindd = {
+      enable = true;
+    };
+    settings = {
+      global = {
+        "workgroup" = "WORKGROUP";
+        "server string" = "smbnix";
+        "netbios name" = "smbnix";
+        "security" = "user";
+        #"use sendfile" = "yes";
+        #"max protocol" = "smb2";
+        # note: localhost is the ipv6 localhost ::1
+        "hosts allow" = "192.168.1. 127.0.0.1 localhost 2a0a:5586:cdd:: fe80::";
+        "hosts deny" = "0.0.0.0/0 ::/0";
+        "guest account" = "nobody";
+        "map to guest" = "bad user";
+      };
       public = {
         path = "/home/dwd/Public";
         browseable = "yes";
@@ -92,16 +98,16 @@ in {
         "force user" = "dwd";
         "force group" = "users";
       };
-       private = {
-         path = "/home/dwd";
-         browseable = "yes";
-         "read only" = "no";
-         "guest ok" = "no";
-         "create mask" = "0644";
-         "directory mask" = "0755";
-         "force user" = "dwd";
-         "force group" = "users";
-       };
+      private = {
+        path = "/home/dwd";
+        browseable = "yes";
+        "read only" = "no";
+        "guest ok" = "no";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+        "force user" = "dwd";
+        "force group" = "users";
+      };
     };
   };
 
