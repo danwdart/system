@@ -164,7 +164,6 @@ in {
   #         "VMs"
   #         ".android"
   #         ".armagetronad"
-  #         ".azure" # for work, TODO split out?
   #         ".cache/nix" # Stop having to keep redownloading tarballs and search indices
   #         ".cache/spotify" # Keep me logged in
   #         ".config/autostart"
