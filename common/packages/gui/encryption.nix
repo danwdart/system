@@ -1,5 +1,5 @@
 pkgs:
 with pkgs; [
     kdePackages.kgpg
-    # kdePackages.kleopatra
+    kdePackages.kleopatra # needed for kmail for some reason
 ]
