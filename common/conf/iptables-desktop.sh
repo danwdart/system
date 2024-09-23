@@ -2,6 +2,8 @@
 set -euo pipefail
 trap pwd ERR
 
+export NET6=$(route -n6 | grep "/64" | grep ^2 | cut -d ' ' -f 1)
+
 export ALL_IL_AN=ff01::1
 export ALL_LL_AN=ff02::1
 export ALL_DHCP=ff02::1:2
@@ -13,7 +15,6 @@ export DHCP_CLIENT_PORT=68
 export DHCP_SERVER_PORT=67
 export DHCP6_CLIENT_PORT=546
 export DHCP6_SERVER_PORT=547
-export IP=2a0a:5586:cdd::7
 export IPT=iptables-nft
 export IP6T=ip6tables-nft
 export LL6=fe80::/10
@@ -22,8 +23,8 @@ export LOCAL_128=::1/128
 export MDNS6=ff02::fb # dealt with already by MULTICAST6_8
 export MULTICAST_4=224.0.0.0/4
 export MULTICAST6_8=ff00::/8
-export NET=192.168.1.73/24
-export NET6=2a0a:5586:cdd::/64
+export NET=192.168.1.0/24
+export NET6=2a0a:5586:30ac::/64
 export PRIVNET_8=10.0.0.0/8
 export PRIVNET_12=172.16.0.0/12
 export PRIVNET_16=192.168.0.0/16
@@ -49,7 +50,9 @@ $IP6T -P INPUT DROP
 $IPT -A INPUT -p tcp --dport 80 -j ACCEPT # Might as well for acme
 $IP6T -A INPUT -p tcp --dport 80 -j ACCEPT # Might as well for acme
 $IPT -A INPUT -p tcp --dport 443 -j ACCEPT
+$IPT -A INPUT -p udp --dport 443 -j ACCEPT # quic
 $IP6T -A INPUT -p tcp --dport 443 -j ACCEPT
+$IP6T -A INPUT -p udp --dport 443 -j ACCEPT # quic
 
 # SMTP in
 # $IPT -A INPUT -p tcp --dport 25 -j ACCEPT
@@ -77,8 +80,8 @@ $IPT -A INPUT -p udp -s $ROUTER -d $BCAST_ALL --sport $DHCP_SERVER_PORT --dport 
 $IP6T -A INPUT -p udp -s $LL6 -d $LL6 --sport $DHCP6_SERVER_PORT --dport $DHCP6_CLIENT_PORT -j ACCEPT
 
 # lo
-$IPT -A INPUT -s $LOCAL_8 -d $LOCAL_8 -i lo -j ACCEPT
-$IP6T -A INPUT -s $LOCAL_128 -d $LOCAL_128 -i lo -j ACCEPT
+$IPT -A INPUT -i lo -j ACCEPT
+$IP6T -A INPUT -i lo -j ACCEPT
 
 # BitTorrent
 $IPT -A INPUT -p tcp -d $NET --dport 6881 -j ACCEPT
@@ -408,8 +411,8 @@ $IP6T -A OUTPUT -p tcp -s $NET6 --dport 21 -j ACCEPT
 # SMB
 $IPT -A OUTPUT -p tcp -s $NET -m multiport --dport 137,139,445,3702,5357 -j ACCEPT
 $IPT -A OUTPUT -p udp -s $NET -m multiport --dport 137,139,445,3702,5357 -j ACCEPT
-$IP6T -A OUTPUT -p tcp -s $IP -m multiport --dport 137,139,445,3702,5357 -j ACCEPT
-$IP6T -A OUTPUT -p udp -s $IP -m multiport --dport 137,139,445,3702,5357 -j ACCEPT
+$IP6T -A OUTPUT -p tcp -s $NET6 -m multiport --dport 137,139,445,3702,5357 -j ACCEPT
+$IP6T -A OUTPUT -p udp -s $NET6 -m multiport --dport 137,139,445,3702,5357 -j ACCEPT
 $IP6T -A OUTPUT -p tcp -s $LL6 -m multiport --dport 137,139,445,3702,5357 -j ACCEPT
 $IP6T -A OUTPUT -p udp -s $LL6 -m multiport --dport 137,139,445,3702,5357 -j ACCEPT
 
@@ -433,6 +436,9 @@ $IPT -A OUTPUT -s $PRIVNET_16 -d $PRIVNET_8 -j ACCEPT
 # $IPT -A OUTPUT -p tcp --dport 80 -d 208.113.201.37 -j ACCEPT
 # ip6tables-nft -A OUTPUT -p tcp --dport 80 -d 2607:f298:5:ee00::33 -j ACCEPT
 
+# lo
+$IPT -A INPUT -i lo -j ACCEPT
+$IP6T -A INPUT -i lo -j ACCEPT
 
 # all local for now
 $IPT -A OUTPUT -s $NET -d $NET -j ACCEPT
