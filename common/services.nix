@@ -24,11 +24,11 @@ in {
       # Backup everything to USB hourly - TODO cloud backups but passwordless? Or take password from another service?
       "0 * * * * dwd RESULT=$(cd ~; mkdir -p /run/media/dwd/Backup/.config; for i in 3ds/ Audio/ Desktop/ Documents/ Music/ Pictures/ Phone/ Public/ radioimages/ Videos/ .gnupg/ .ssh/ .config/rclone; do rsync -auvP $i /run/media/dwd/Backup/$i 2>&1; done); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
       # scorpii.home.dandart.co.uk
-      "0 1 * * * dwd IP=$(ip -6 addr show dev wlp3s0 scope global | awk '/inet6/{print $2}' | head -n1 | cut -d / -f 1); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1747775271 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
+      "0 1 * * * dwd IP=$(ip -6 addr show dev wlp3s0 scope global | awk '/inet6/{print $2}' | grep '::' | cut -d / -f 1); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1747775271 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
       # home.dandart.co.uk
       "0 1 * * * dwd IP=$(curl https://api.ipify.org 2>/dev/null); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1736676743 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
       # scorpii.dandart.co.uk (IPv6)
-      "0 1 * * * dwd IP=$(ip -6 addr show dev wlp3s0 scope global | awk '/inet6/{print $2}' | head -n1 | cut -d / -f 1); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1750535304 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
+      "0 1 * * * dwd IP=$(ip -6 addr show dev wlp3s0 scope global | awk '/inet6/{print $2}' | grep '::' | cut -d / -f 1); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1750535304 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
       # scorpii.dandart.co.uk (IPv4)
       "0 1 * * * dwd IP=$(curl https://api.ipify.org 2>/dev/null); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1750535231 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
     ];
