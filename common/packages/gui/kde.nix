@@ -2,6 +2,7 @@ pkgs:
 (with pkgs; [
     amarok
     qdirstat
+    systemdgenie
 ]) ++
 (with pkgs.kdePackages; [
     # akregator
