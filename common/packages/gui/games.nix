@@ -27,6 +27,7 @@ with pkgs; [
     nethack-qt # no desktop icon
     nexuiz # no desktop icon # BIG
     openarena # no desktop icon # BIG
+    openmw
     # padman?
     # quakespasm # no desktop icon
     # redeclipse # meh crazy controls now?
