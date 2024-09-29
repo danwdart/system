@@ -2,7 +2,7 @@
 set -euo pipefail
 trap pwd ERR
 
-export NET6=$(route -n6 | grep "/64" | grep ^2 | cut -d ' ' -f 1)
+export NET6=$(/run/current-system/sw/bin/route -n6 | grep "/64" | grep ^2 | cut -d ' ' -f 1)
 
 export ALL_IL_AN=ff01::1
 export ALL_LL_AN=ff02::1
@@ -52,6 +52,10 @@ $IPT -A INPUT -p tcp --dport 443 -j ACCEPT
 $IPT -A INPUT -p udp --dport 443 -j ACCEPT # quic
 $IP6T -A INPUT -p tcp --dport 443 -j ACCEPT
 $IP6T -A INPUT -p udp --dport 443 -j ACCEPT # quic
+
+# DNS in
+# $IPT -A INPUT -p udp --dport 53 -j ACCEPT
+# $IP6T -A INPUT -p udp --dport 53 -j ACCEPT
 
 # SMTP in
 # $IPT -A INPUT -p tcp --dport 25 -j ACCEPT
