@@ -44,6 +44,7 @@ pkgs:
     kblocks
     kbounce
     kbreakout
+    # kcachegrind # dev stuff
     kcalc
     # kcompletion # ???
     kcron
@@ -115,6 +116,7 @@ pkgs:
     minuet
     # neochat # No libolm
     okular
+    # picmi # too addictive
     plasma-disks
     plasma-firewall
     plasma-browser-integration
