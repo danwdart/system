@@ -12,9 +12,8 @@
         extraDomainNames = [
           # these need to be real and pointing here, they can't be "just in case"
           # "nextcloud.dandart.co.uk"
-          # "news.jolharg.com"
-          "roqqett.dandart.co.uk"
-          "roqqett.home.dandart.co.uk"
+          # "roqqett.dandart.co.uk"
+          # "roqqett.home.dandart.co.uk"
           "roq-wp.dandart.co.uk"
           "dev.dandart.co.uk"
           "dev.jolharg.com"
@@ -26,6 +25,7 @@
           "api.dev.jobfinder.jolharg.com"
           "jobfinder.jolharg.com"
           "api.jobfinder.jolharg.com"
+          # "news.dandart.co.uk"
           # "grocy.dandart.co.uk"
         ];
       };
