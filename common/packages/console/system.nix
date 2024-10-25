@@ -41,6 +41,7 @@ with pkgs; [
     # opencorsairlink
     p7zip
     pciutils
+    power-profiles-daemon
     pv
     rpiboot
     sixpair
