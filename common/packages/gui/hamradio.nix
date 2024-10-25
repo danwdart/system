@@ -5,9 +5,12 @@ let pkgs-x86_64 = import <nixos> {
             allowUnfree = true;
         };
     };
+    pkgsMaster = import (builtins.fetchTarball 
+        "https://github.com/NixOS/nixpkgs/archive/refs/heads/master.tar.gz"
+    ) {};
 in
 with pkgs; [
-    chirp
+    pkgsMaster.chirp
     # cqrlog # github broken?
     cubicsdr
     dabtools
