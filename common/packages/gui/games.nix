@@ -5,14 +5,13 @@ let pkgs-x86_64 = import <nixos> {
             allowUnfree = true;
         };
     };
-    pkgs-doomsday = import (builtins.fetchTarball "https://github.com/pluiedev/nixpkgs/archive/refs/heads/init/doomsday-engine.tar.gz") {
-    };
+    pkgs-doomsday = import (builtins.fetchTarball "https://github.com/pluiedev/nixpkgs/archive/refs/heads/init/doomsday-engine.tar.gz") {};
 in
 with pkgs; [
     # alienarena # no desktop icon # segfaults
     # armagetronad # no desktop icon # failed with exit code 141
-    dolphinEmu
-    pkgs-doomsday.doomsday-engine3
+    dolphin-emu
+    pkgs-doomsday.doomsday-engine_3
     # extremetuxracer
     # frozen-bubble
     # golly # now broken?
