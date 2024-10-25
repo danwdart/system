@@ -20,7 +20,7 @@ in {
       "0 * * * * dwd  RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
       "0 * * * * root RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
       "0 */2 * * * root RESULT=$(cd ${rootDir}/${hostName} && $PWD/../common/scripts/upgrade.sh 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId} || echo System updated. | gpg -ae -r ${keyId}"
-      "0 2 * * * dwd RESULT=$(cd ~/code; ./build-nix.sh; ./build-nix.sh 4; ./build-nix.sh 18; 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
+      "0 2 * * * dwd RESULT=$(cd ~/code; ./build-nix.sh; ./build-nix.sh 24; 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
       # Backup everything to USB hourly - TODO cloud backups but passwordless? Or take password from another service?
       "0 * * * * dwd RESULT=$(cd ~; mkdir -p /run/media/dwd/Backup/.config; for i in 3ds/ Audio/ Desktop/ Documents/ Music/ Pictures/ Phone/ Public/ radioimages/ Videos/ .gnupg/ .ssh/ .config/rclone; do rsync -auvP $i /run/media/dwd/Backup/$i 2>&1; done); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
       # scorpii.home.dandart.co.uk
@@ -286,33 +286,33 @@ in {
   };
 
   # BIG BUG HERE: https://github.com/NixOS/nixpkgs/issues/126374
-  tt-rss = if isDesktop then {} else {
-    enable = true;
-    enableGZipOutput = true;
-    database = {
-      # for permissions we'll read and send instead of using passwordFile.
-      password = builtins.readFile "${privateDir}/tt-rss/dbpass";
-    };
-    #auth = {
-      # autoCreate = true;
-      # autoLogin = true;
-    #};
-    email = {
-      fromName = "tt-rss";
-      fromAddress = builtins.readFile "${privateDir}/tt-rss/email_from_address";
-      login = builtins.readFile "${privateDir}/tt-rss/email_login";
-      password = builtins.readFile "${privateDir}/tt-rss/email_password";
-      security = "tls";
-      server = builtins.readFile "${privateDir}/tt-rss/email_server";
-    };
-    #registration = {
-    #  enable = true;
-    #  maxUsers = 1;
-    #};
-    selfUrlPath = "https://news.jolharg.com";
-    # singleUserMode = true;
-    virtualHost = "news.jolharg.com";
-  };
+  # tt-rss = {
+  #   enable = true;
+  #   enableGZipOutput = true;
+  #   database = {
+  #     # for permissions we'll read and send instead of using passwordFile.
+  #     password = builtins.readFile "${privateDir}/tt-rss/dbpass";
+  #   };
+  #   #auth = {
+  #     # autoCreate = true;
+  #     # autoLogin = true;
+  #   #};
+  #   email = {
+  #     fromName = "tt-rss";
+  #     fromAddress = builtins.readFile "${privateDir}/tt-rss/email_from_address";
+  #     login = builtins.readFile "${privateDir}/tt-rss/email_login";
+  #     password = builtins.readFile "${privateDir}/tt-rss/email_password";
+  #     security = "tls";
+  #     server = builtins.readFile "${privateDir}/tt-rss/email_server";
+  #   };
+  #   #registration = {
+  #   #  enable = true;
+  #   #  maxUsers = 1;
+  #   #};
+  #   selfUrlPath = "https://news.dandart.co.uk";
+  #   # singleUserMode = true;
+  #   virtualHost = "news.dandart.co.uk";
+  # };
 
   # xserver.videoDrivers = [ "amdgpu" ];
 
@@ -450,9 +450,10 @@ in {
       #  forceSSL = true;
       #  # enableACME = true;
       #};
-      # "news.jolharg.com" = {
+      # "news.dandart.co.uk" = {
       #   # http3 = true;
       #   forceSSL = true;
+      #   useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
       #   # enableACME = true;
       # };
       #"dev.localhost" = {
@@ -474,49 +475,49 @@ in {
       #    };
       #  };
       #};
-      "roqqett.dandart.co.uk" = {
-        # http3 = true;
-        forceSSL = true;
-        # enableACME = true;
-        useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
-        serverAliases = [
-          "roqqett.home.dandart.co.uk"
-          # "roqqett.dandart.uk"
-        ];
-        extraConfig = ''
-          error_page 502 /502.html;
-        '';
-        locations = {
-          "/" = {
-            proxyPass = "http://localhost:5000/";
-            proxyWebsockets = true;
-          };
-          "/502.html" = {
-            root = "${roqHome}/Data/static/";
-          };
-        };
-      };
-      "roq-wp.dandart.co.uk" = {
-        # http3 = true;
-        forceSSL = true;
-        # enableACME = true;
-        useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
-        # serverAliases = [
-        #   "roq-wp.dandart.uk"
-        # ];
-        extraConfig = ''
-          error_page 502 /502.html;
-        '';
-        locations = {
-          "/" = {
-            proxyPass = "http://localhost:5600/";
-            proxyWebsockets = true;
-          };
-          "/502.html" = {
-            root = "${roqHome}/Data/static/";
-          };
-        };
-      };
+      # "roqqett.dandart.co.uk" = {
+      #   # http3 = true;
+      #   forceSSL = true;
+      #   # enableACME = true;
+      #   useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
+      #   serverAliases = [
+      #     "roqqett.home.dandart.co.uk"
+      #     # "roqqett.dandart.uk"
+      #   ];
+      #   extraConfig = ''
+      #     error_page 502 /502.html;
+      #   '';
+      #   locations = {
+      #     "/" = {
+      #       proxyPass = "http://localhost:5000/";
+      #       proxyWebsockets = true;
+      #     };
+      #     "/502.html" = {
+      #       root = "${roqHome}/Data/static/";
+      #     };
+      #   };
+      # };
+      # "roq-wp.dandart.co.uk" = {
+      #   # http3 = true;
+      #   forceSSL = true;
+      #   # enableACME = true;
+      #   useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
+      #   # serverAliases = [
+      #   #   "roq-wp.dandart.uk"
+      #   # ];
+      #   extraConfig = ''
+      #     error_page 502 /502.html;
+      #   '';
+      #   locations = {
+      #     "/" = {
+      #       proxyPass = "http://localhost:5600/";
+      #       proxyWebsockets = true;
+      #     };
+      #     "/502.html" = {
+      #       root = "${roqHome}/Data/static/";
+      #     };
+      #   };
+      # };
       "dev.dandart.co.uk" = {
         forceSSL = true;
         # enableACME = true;
