@@ -2,7 +2,8 @@
 set -euo pipefail
 trap pwd ERR
 
-export NET6=$(/run/current-system/sw/bin/route -n6 | grep "/64" | grep ^2 | cut -d ' ' -f 1)
+# export NET6=$(/run/current-system/sw/bin/route -n6 | grep "/64" | grep ^2 | cut -d ' ' -f 1)
+export NET6=2a0a:5586:30ac::/64
 
 export ALL_IL_AN=ff01::1
 export ALL_LL_AN=ff02::1
@@ -95,6 +96,12 @@ $IPT -A INPUT -p udp -d $NET --sport 6881 -j ACCEPT
 $IP6T -A INPUT -p udp -d $NET6 --sport 6881 -j ACCEPT
 # $IPT -A INPUT -p udp -d $NET --dport 6881 -j ACCEPT
 # $IP6T -A INPUT -p udp -d $NET6 --dport 6881 -j ACCEPT
+
+# aria2
+$IPT -A INPUT -p tcp -d $NET -m multiport --dport 6881:6999 -j ACCEPT
+$IP6T -A INPUT -p tcp -d $NET6 -m multiport --dport 6881:6999 -j ACCEPT
+$IPT -A INPUT -p udp -d $NET -m multiport --dport 6881:6999 -j ACCEPT
+$IP6T -A INPUT -p udp -d $NET6 -m multiport --dport 6881:6999 -j ACCEPT
 
 # DHT
 $IPT -A INPUT -p tcp -d $NET --dport 7881 -j ACCEPT
