@@ -34,6 +34,7 @@ with pkgs; [
     sdrangel # has to be built now for some reason
     soapyhackrf
     soapysdr-with-plugins
+    tqsl
     wsjtx
     xlog
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
