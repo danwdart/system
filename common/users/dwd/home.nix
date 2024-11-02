@@ -521,18 +521,6 @@ in {
           sha256 = "1gvjqy54myss4w1x55lnyj2l887xcnxc141df85ikmw1gr9s8gdz";
         }
         {
-          name = "remote-ssh-nightly";
-          publisher = "ms-vscode-remote";
-          version = "2021.5.15300";
-          sha256 = "13lq0zjxv24v6v0hkinf5bc73wnxbab1mhdr67i3qb8pd4kgpkcj";
-        }
-        {
-          name = "remote-ssh-edit-nightly";
-          publisher = "ms-vscode-remote";
-          version = "2021.5.29700";
-          sha256 = "0l8w5p24jn1lldr82yvrq2lsxizjyqm3pz87x03bdajngj8hvmzg";
-        }
-        {
           name = "stylish-haskell";
           publisher = "vigoo";
           version = "0.0.10";
