@@ -608,6 +608,24 @@ in {
           };
         };
       };
+      "dev.blog.m0ori.com" = {
+        forceSSL = true;
+        # enableACME = true;
+        useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
+        serverAliases = [];
+        listenAddresses = [
+          "[::1]"
+          "[${localIPv6}]"
+          "[${globalIPv6}]"
+          "[::]"
+        ];
+        locations = {
+          "/" = {
+            root = "${websites}/blogm0ori";
+            proxyWebsockets = true;
+          };
+        };
+      };
       "dev.blog.dandart.co.uk" = {
         forceSSL = true;
         # enableACME = true;
