@@ -7,7 +7,7 @@ let pkgs-x86_64 = import <nixos> {
     };
 in
 with pkgs; [
-    blender # fails to build
+    # blender # fails to build because of python3.11-openusd
     geogebra
     gimp
     inkscape
