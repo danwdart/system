@@ -3,7 +3,7 @@ set -euo pipefail
 trap pwd ERR
 
 # export NET6=$(route -n6 | grep "/64" | grep ^2 | cut -d ' ' -f 1)
-export NET6=2a0a:5586:30ac::/64
+export NET6=2a0a:5586:992::/64
 
 export ALL_IL_AN=ff01::1
 export ALL_LL_AN=ff02::1
@@ -25,7 +25,7 @@ export MDNS6=ff02::fb # dealt with already by MULTICAST6_8
 export MULTICAST_4=224.0.0.0/4
 export MULTICAST6_8=ff00::/8
 export NET=192.168.1.0/24
-export NET6=2a0a:5586:30ac::/64
+export NET6=2a0a:5586:992::/64
 export PRIVNET_8=10.0.0.0/8
 export PRIVNET_12=172.16.0.0/12
 export PRIVNET_16=192.168.0.0/16
