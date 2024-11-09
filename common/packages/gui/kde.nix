@@ -10,8 +10,8 @@ pkgs:
     ark
     # artikulate
     # audiotube
-    bomber
-    bovo
+    # bomber # failed to build because of libkdegames -> 7zz
+    # bovo # failed to build because of libkdegames -> 7zz
     breeze
     breeze-grub
     breeze-gtk
@@ -25,7 +25,7 @@ pkgs:
     filelight
     francis
     # full # !!!
-    granatier
+    # granatier # failed to build because of libkdegames -> 7zz
     gwenview
     isoimagewriter
     juk
@@ -36,14 +36,14 @@ pkgs:
     kalm
     kalzium
     # kamoso # BROKEN
-    kapman
+    # kapman # failed to build because of libkdegames -> 7zz
     kasts
-    katomic
+    # katomic # failed to build because of libkdegames -> 7zz
     # kauth # ???
     kbackup
-    kblocks
-    kbounce
-    kbreakout
+    # kblocks # failed to build because of libkdegames -> 7zz
+    # kbounce # failed to build because of libkdegames -> 7zz
+    # kbreakout # failed to build because of libkdegames -> 7zz
     # kcachegrind # dev stuff
     kcalc
     # kcompletion # ???
@@ -52,20 +52,20 @@ pkgs:
     kdevelop
     kdf
     kdiagram
-    kdiamond
+    # kdiamond # failed to build because of libkdegames -> 7zz
     # kdnssd # lib?
     keysmith
-    kfourinline
+    # kfourinline # failed to build because of libkdegames -> 7zz
     kget
-    kgoldrunner
+    # kgoldrunner # failed to build because of libkdegames -> 7zz
     # kgpg # dupe
     kgraphviewer
     khangman
     khealthcertificate
     kidletime
     # kig # BROKEN
-    kigo
-    killbots
+    # kigo # failed to build because of libkdegames -> 7zz
+    # killbots # failed to build because of libkdegames -> 7zz
     kio
     kio-admin # default?
     kio-extras
@@ -76,35 +76,35 @@ pkgs:
     kirigami
     kirigami-addons
     kirigami-gallery
-    kiriki
+    # kiriki # failed to build because of libkdegames -> 7zz
     kiten
     # kleopatra # dupe
-    klickety
-    klines
+    # klickety # failed to build because of libkdegames -> 7zz
+    # klines # failed to build because of libkdegames -> 7zz
     kmail
     kmail-account-wizard
-    kmines
+    # kmines # failed to build because of libkdegames -> 7zz
     kmouth
     kmplot
-    knavalbattle
-    knetwalk
+    # knavalbattle # failed to build because of libkdegames -> 7zz
+    # knetwalk # failed to build because of libkdegames -> 7zz
     knewstuff
-    knights
+    # knights # failed to build because of libkdegames -> 7zz
     koko
-    kolf
+    # kolf # failed to build because of libkdegames -> 7zz
     kolourpaint
     kompare
     kontact
     konqueror
-    konquest
+    # konquest # failed to build because of libkdegames -> 7zz
     konversation
     korganizer
-    kpat
-    kreversi
-    ksirk
+    # kpat # failed to build because of libkdegames -> 7zz
+    # kreversi # failed to build because of libkdegames -> 7zz
+    # ksirk # failed to build because of libkdegames -> 7zz
     # ksshaskpass
-    ksudoku
-    ksquares
+    # ksudoku # failed to build because of libkdegames -> 7zz
+   #  ksquares # failed to build because of libkdegames -> 7zz
     kteatime
     ktorrent
     ktimer
