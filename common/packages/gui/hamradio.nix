@@ -8,6 +8,9 @@ let pkgs-x86_64 = import <nixos> {
     pkgsMaster = import (builtins.fetchTarball 
         "https://github.com/NixOS/nixpkgs/archive/refs/heads/master.tar.gz"
     ) {};
+    # pkgsIllDefinedFreeDVPre = import (builtins.fetchTarball 
+    #     "https://github.com/illdefined/nixpkgs/archive/refs/heads/freedv-pre.tar.gz"
+    # ) {};
 in
 with pkgs; [
     pkgsMaster.chirp
@@ -15,9 +18,10 @@ with pkgs; [
     cubicsdr
     dabtools
     dfu-util
-    direwolf # compilation issues?
+    direwolf
     fldigi
     freedv
+    # pkgsIllDefinedFreeDVPre.freedv_pre
     # gnss-sdr
     # gnuradio # thrift-0.20.0 not supported for interpreter python3.12
     gpredict
