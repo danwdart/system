@@ -26,8 +26,8 @@ in {
   virtualisation = import ./virtualisation.nix {};
 
   home-manager.backupFileExtension = ".bak";
-  
+
   # todo move
 
-  powerManagement.powertop.enable = true;
+  # powerManagement.powertop.enable = true; # no because the mouse dies a lot otherwise
 }
