@@ -42,11 +42,13 @@ with pkgs; [
     p7zip
     pciutils
     power-profiles-daemon
+    powertop # the actual package not the auto tuner
     pv
     rpiboot
     sixpair
     smartmontools
     socat
+    supergfxctl
     testdisk
     u3-tool
     unrar
