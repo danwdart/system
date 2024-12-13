@@ -2,6 +2,7 @@ pkgs:
 (with pkgs; [
     amarok
     qdirstat
+    supergfxctl-plasmoid
     systemdgenie
 ]) ++
 (with pkgs.kdePackages; [
