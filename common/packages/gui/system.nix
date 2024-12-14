@@ -5,6 +5,7 @@ with pkgs; [
     kitty
     #rpi-imager
     #unetbootin
+    wev
     #winusb
     #woeusb # -ng
     #xcruiser # no desktop icon
