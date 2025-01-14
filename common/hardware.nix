@@ -2,8 +2,6 @@
 {
   cpu.intel.updateMicrocode = builtins.currentSystem == "x86_64-linux";
 
-  pulseaudio.enable = false;
-
   bluetooth = {
     enable = true;
     powerOnBoot = true;
@@ -12,7 +10,7 @@
 
   hackrf.enable = true;
 
-  # graphics.enable = true;
+  graphics.enable = true;
 
   # sane = if isDesktop then {
   #   enable = true;

@@ -16,6 +16,8 @@ with pkgs; [
     cmatrix
     egl-wayland
     enhanced-ctorrent
+    exfat
+    exfatprogs
     file
     # f3 # doesn't compile due to libudev.h missing
     glances

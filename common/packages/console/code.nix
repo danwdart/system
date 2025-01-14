@@ -8,7 +8,7 @@ let pkgs-x86_64 = import <nixos> {
 in
 with pkgs; [
     # platform-tools?
-    # python313Packages.android-backup # build failure
+    python314Packages.android-backup
     # code-server # unneeded
     # docker-compose # doing the alias doesn't seem to be enough
     gitAndTools.gh
