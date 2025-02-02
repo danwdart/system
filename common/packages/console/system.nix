@@ -10,6 +10,7 @@ with pkgs; [
     aha # for formatting the output of the firmware section of the Info Centre
     bluez-alsa
     bluez-tools
+    btop
     cdrkit
     cdrtools
     clinfo
