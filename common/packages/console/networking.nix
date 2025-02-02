@@ -3,18 +3,23 @@ with pkgs; [
     autossh
     # azure-cli # TODO split? # broken
     bind # host, nslookup etc
+    # cyrus_sasl
+    # cyrus-sasl-xoauth2
     # docker-proxy
     doctl # run doctl auth init before use
+    gping
     hans
     iodine
     irssi
     mailutils
-    # nixops # build failure
+    nixops_unstable_full
     openvpn
     # postgrest
     # protonvpn-cli
-    # python313Packages.mitmproxy # fails to build
-    # python313Packages.protonvpn-nm-lib # fails to build
+    # python314Packages.mitmproxy # fails to build in python3.14-msgspec
+    # msgspec/_core.c:2148:7: error: ‘_Py_IMMORTAL_REFCNT’ undeclared here (not in a function)
+    # 2148 |     { _Py_IMMORTAL_REFCNT },
+    # python314Packages.protonvpn-nm-lib # fails to build
     # ngrok
     # proxytunnel # insecure openssl
     slirp4netns
