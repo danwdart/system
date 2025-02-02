@@ -27,35 +27,56 @@
 
   kernelPackages = pkgs.linuxPackages_latest;
 
+  # crashy wifi?
+  # https://bugzilla.kernel.org/show_bug.cgi?id=215391
+  extraModprobeConfig = ''
+    options mt7921e disable_aspm=1
+  '';
+
   # https://nixos.wiki/wiki/Linux_kernel
   kernelPatches = [
-    {
-      name = "Amateur Radio support";
-      patch = null;
-      extraConfig = ''
-              HAMRADIO y
+    # {
+    #   name = "Amateur Radio support";
+    #   patch = null;
+    #   extraConfig = ''
+    #           HAMRADIO y
 
-              #
-              # Packet Radio protocols
-              #
-              AX25 m
-              AX25_DAMA_SLAVE y
-              NETROM m
-              ROSE m
+    #           #
+    #           # Packet Radio protocols
+    #           #
+    #           AX25 m
+    #           AX25_DAMA_SLAVE y
+    #           NETROM m
+    #           ROSE m
 
-              #
-              # AX.25 network device drivers
-              #
-              MKISS m
-              6PACK m
-              BPQETHER m
-              BAYCOM_SER_FDX m
-              BAYCOM_SER_HDX m
-              YAM m
-              # end of AX.25 network device drivers
-      '';
-    }
+    #           #
+    #           # AX.25 network device drivers
+    #           #
+    #           MKISS m
+    #           6PACK m
+    #           BPQETHER m
+    #           BAYCOM_SER_FDX m
+    #           BAYCOM_SER_HDX m
+    #           YAM m
+    #           # end of AX.25 network device drivers
+    #   '';
+    # }
+    # {
+    #   name = "Realtime support";
+    #   patch = null;
+    #   extraConfig = ''
+    #           # PREEMPT_BUILT n
+    #           PREEMPT_VOLUNTARY n
+    #           PREEMPT_RT y
+    #           # PREEMPT_DYNAMIC n
+    #   '';
+    # }
   ];
+
+  # kernelParams = [
+  #   "intel_iommu=on"
+  #   "kvm.ignore_msrs=1"
+  # ];
 
   #kernelPatches = [
   #  {
@@ -66,6 +87,7 @@
 
   plymouth = {
     enable = true;
+    # theme = "spinfinity";
     # logo = pkgs.fetchurl {
     #   url = "https://nixos.org/logo/nixos-hires.png";
     #   sha256 = "1ivzgd7iz0i06y36p8m5w48fd8pjqwxhdaavc0pxs7w1g7mcy5si";

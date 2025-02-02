@@ -24,7 +24,7 @@ with pkgs; [
     # pkgsIllDefinedFreeDVPre.freedv_pre
     # gnss-sdr
     # gnuradio # thrift-0.20.0 not supported for interpreter python3.12
-    gpredict
+    # gpredict # can't build goocanvas
     gqrx
     # guglielmo
     hackrf

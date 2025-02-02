@@ -19,7 +19,6 @@ export IP6T=ip6tables-nft
 export LL6=fe80::/10
 export LOCAL_8=127.0.0.0/8
 export LOCAL_128=::1/128
-export MDNS6=ff02::fb
 export MULTICAST_4=224.0.0.0/4
 export MULTICAST6_8=ff00::/8
 export NET=10.0.0.0/24

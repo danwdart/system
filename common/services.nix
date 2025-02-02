@@ -12,7 +12,7 @@ let
 in {
   cron = {
     enable = true;
-    mailto = "cron@dandart.co.uk";
+    # mailto = "cron@dandart.co.uk";
     systemCronJobs = [
       # see https://www.freebsd.org/cgi/man.cgi?crontab%285%29 for special:
       #@weekly @monthly @yearly @annually @hourly @daily @reboot
@@ -33,6 +33,14 @@ in {
       "0 1 * * * dwd IP=$(curl https://api.ipify.org 2>/dev/null); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1750535231 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
     ];
   };
+
+  supergfxd = if isDesktop then {
+    enable = true;
+    settings = {
+      vfio_enable = "true";
+      hotplug_type = "asus";
+    };
+  } else {};
 
   logrotate.checkConfig = false; # https://discourse.nixos.org/t/logrotate-config-fails-due-to-missing-group-30000/
 
@@ -281,38 +289,38 @@ in {
     enable = isDesktop;
   };
 
-  touchegg = {
-    enable = isDesktop;
-  };
+  # touchegg = {
+  #   enable = isDesktop && isTouchscreen;
+  # };
 
   # BIG BUG HERE: https://github.com/NixOS/nixpkgs/issues/126374
-  # tt-rss = {
-  #   enable = true;
-  #   enableGZipOutput = true;
-  #   database = {
-  #     # for permissions we'll read and send instead of using passwordFile.
-  #     password = builtins.readFile "${privateDir}/tt-rss/dbpass";
-  #   };
-  #   #auth = {
-  #     # autoCreate = true;
-  #     # autoLogin = true;
-  #   #};
-  #   email = {
-  #     fromName = "tt-rss";
-  #     fromAddress = builtins.readFile "${privateDir}/tt-rss/email_from_address";
-  #     login = builtins.readFile "${privateDir}/tt-rss/email_login";
-  #     password = builtins.readFile "${privateDir}/tt-rss/email_password";
-  #     security = "tls";
-  #     server = builtins.readFile "${privateDir}/tt-rss/email_server";
-  #   };
-  #   #registration = {
-  #   #  enable = true;
-  #   #  maxUsers = 1;
-  #   #};
-  #   selfUrlPath = "https://news.dandart.co.uk";
-  #   # singleUserMode = true;
-  #   virtualHost = "news.dandart.co.uk";
-  # };
+  tt-rss = {
+    enable = true;
+    enableGZipOutput = true;
+    database = {
+      # for permissions we'll read and send instead of using passwordFile.
+      password = builtins.readFile "${privateDir}/tt-rss/dbpass";
+    };
+    #auth = {
+      # autoCreate = true;
+      # autoLogin = true;
+    #};
+    email = {
+      fromName = "tt-rss";
+      fromAddress = builtins.readFile "${privateDir}/tt-rss/email_from_address";
+      login = builtins.readFile "${privateDir}/tt-rss/email_login";
+      password = builtins.readFile "${privateDir}/tt-rss/email_password";
+      security = "tls";
+      server = builtins.readFile "${privateDir}/tt-rss/email_server";
+    };
+    #registration = {
+    #  enable = true;
+    #  maxUsers = 1;
+    #};
+    selfUrlPath = "https://news.dandart.co.uk";
+    # singleUserMode = true;
+    virtualHost = "news.dandart.co.uk";
+  };
 
   # xserver.videoDrivers = [ "amdgpu" ];
 
@@ -342,7 +350,7 @@ in {
   # onlyoffice = let rabbitMQPassword = builtins.readFile "${privateDir}/rabbitmq/password";
   # in {
   #   enable = true;
-  #   hostname = "office.jolharg.com";
+  #   hostname = "office.dandart.co.uk";
   #   port = 8000;
   #   rabbitmqUrl = "amqp://rabbitmq:${rabbitMQPassword}@localhost:5672";
   #   # postgresHost = "localhost";
@@ -450,12 +458,12 @@ in {
       #  forceSSL = true;
       #  # enableACME = true;
       #};
-      # "news.dandart.co.uk" = {
-      #   # http3 = true;
-      #   forceSSL = true;
-      #   useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
-      #   # enableACME = true;
-      # };
+      "news.dandart.co.uk" = {
+        # http3 = true;
+        forceSSL = true;
+        useACMEHost = "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk"; # security.acme.certs
+        # enableACME = true;
+      };
       #"dev.localhost" = {
       #  # http3 = true;
       #  forceSSL = true;
@@ -1953,6 +1961,8 @@ in {
 
   # miredo.enable = true;
 
+  pulseaudio.enable = false;
+
   pipewire = if isDesktop then {
     enable = true;
     jack = {
@@ -1970,54 +1980,55 @@ in {
     #media-session.enable = true;
   } else {};
 
-  postfix = {
-    enable = true;
-    domain = "${hostName}.jolharg.com";
-    rootAlias = "dwd";
-    # config = {
-    #   smtpd_use_tls = true;
-    #   smtpd_tls_key_file = "/var/lib/acme/zhang.dandart.co.uk/key.pem";
-    #   smtpd_tls_cert_file = "/var/lib/acme/zhang.dandart.co.uk/cert.pem";
-    #   smtpd_tls_CAfile = "/var/lib/acme/zhang.dandart.co.uk/chain.pem";
-    #   smtpd_tls_loglevel = "3";
-    #   smtpd_tls_received_header = true;
-    #   smtpd_tls_session_cache_timeout = "3600s";
-    # };
-    # [smtp.gmail.com]:587    username@gmail.com:password -> sasl_passwd
-    config = {
-      smtp_sasl_auth_enable = true;
-      smtp_sasl_security_options = "noanonymous";
-      smtp_use_tls = true;
-      # postmap this! # TODO permissions
-      smtp_sasl_password_maps = "hash:${privateDir}/sasl_passwd";
-      # either these 3:
-
-      sender_canonical_maps = "regexp:${privateDir}/sender_canonical_maps";
-      # sender_canonical_classes = "envelope_sender, header_sender";
-      smtp_header_checks = "regexp:${privateDir}/header_check";
-      
-      # or this global thing
-      # smtp_generic_maps = hash:/etc/postfix/generic
-      # same format as virtual
-    };
-    relayHost = "smtp-mail.outlook.com";
-    relayPort = 587;
-    relayDomains = [
-      "dandart.co.uk"
-      "hotmail.co.uk"
-    ];
-    setSendmail = true;
-    virtual = ''
-      dwd@${hostName} microsoft@dandart.co.uk
-      dwd microsoft@dandart.co.uk
-      root microsoft@dandart.co.uk
-      cron microsoft@dandart.co.uk
-      @${hostName} microsoft@dandart.co.uk
-      @${hostName}.${hostName}.jolharg.com microsoft@dandart.co.uk
-      @${hostName}.jolharg.com microsoft@dandart.co.uk
-      MAILER-DAEMON@${hostName}.${hostName}.jolharg.com microsoft@dandart.co.uk
-    '';
-  };
+  # postfix = {
+  #   enable = true;
+  #   domain = "mail.dandart.co.uk";
+  #   rootAlias = "dwd";
+  #   # config = {
+  #   #   smtpd_use_tls = true;
+  #   #   smtpd_tls_key_file = "/var/lib/acme/zhang.dandart.co.uk/key.pem";
+  #   #   smtpd_tls_cert_file = "/var/lib/acme/zhang.dandart.co.uk/cert.pem";
+  #   #   smtpd_tls_CAfile = "/var/lib/acme/zhang.dandart.co.uk/chain.pem";
+  #   #   smtpd_tls_loglevel = "3";
+  #   #   smtpd_tls_received_header = true;
+  #   #   smtpd_tls_session_cache_timeout = "3600s";
+  #   # };
+  #   # [smtp.gmail.com]:587    username@gmail.com:password -> sasl_passwd
+  #   # config = {
+  #   #   smtp_sasl_auth_enable = true;
+  #   #   smtp_sasl_security_options = "";
+  #   #   # postmap this! # TODO permissions
+  #   #   smtp_sasl_password_maps = "hash:${privateDir}/sasl_passwd";
+  #   #   # either these 3:
+  #   #   smtp_tls_policy_maps = "hash:${privateDir}/tls_policy";
+# # 
+  #   #   
+  #   #   sender_canonical_maps = "regexp:${privateDir}/sender_canonical_maps";
+  #   #   # sender_canonical_classes = "envelope_sender, header_sender";
+  #   #   smtp_header_checks = "regexp:${privateDir}/header_check";
+  #   #   
+  #   #   # or this global thing
+  #   #   # smtp_generic_maps = hash:/etc/postfix/generic
+  #   #   # same format as virtual
+  #   # };
+  #   # relayHost = "smtp-mail.outlook.com";
+  #   # relayPort = 587;
+  #   # relayDomains = [
+  #   #   "dandart.co.uk"
+  #   #   "hotmail.co.uk"
+  #   # ];
+  #   setSendmail = true;
+  #   # virtual = ''
+  #   #   dwd@${hostName} dan@dandart.co.uk
+  #   #   dwd dan@dandart.co.uk
+  #   #   root dan@dandart.co.uk
+  #   #   cron dan@dandart.co.uk
+  #   #   @${hostName} dan@dandart.co.uk
+  #   #   @${hostName}.${hostName}.dandart.co.uk dan@dandart.co.uk
+  #   #   @${hostName}.dandart.co.uk dan@dandart.co.uk
+  #   #   MAILER-DAEMON@${hostName}.${hostName}.dandart.co.uk dan@dandart.co.uk
+  #   # '';
+  # };
 
   printing.enable = isDesktop;
 
@@ -2107,20 +2118,25 @@ in {
 
   # journald.forwardToSyslog = true;
 
-  # clamav = {
-  #   updater = {
-  #     enable = true;
-  #     interval = "*/30 * * * *";
-  #     frequency = 48;
-  #     settings = {
-  #       SafeBrowsing = true;
-  #     };
-  #   };
-  #   daemon = {
-  #     enable = true;
-  #     settings = {
-# 
-  #     };
-  #   };
-  # };
+  clamav = {
+    scanner = {
+      enable = true;
+    };
+    updater = {
+      enable = true;
+      interval = "*/30 * * * *";
+      frequency = 48;
+      settings = {
+        SafeBrowsing = true;
+      };
+    };
+    # fangfrisch = {
+    #   enable = true;
+    # };
+    daemon = {
+      enable = true;
+      settings = {
+      };
+    };
+  };
 }

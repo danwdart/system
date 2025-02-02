@@ -45,21 +45,22 @@
 
   # nethoscope.enable = true;
 
-  # nix-ld = {
-  #   enable = true; # breaks ls in nix shells!?
-  #   # Sets up all the libraries to load
-  #   libraries = with pkgs; [
-  #     stdenv.cc.cc
-  #     zlib
-  #     fuse3
-  #     icu
-  #     zlib
-  #     nss
-  #     openssl
-  #     curl
-  #     expat
-  #   ];
-  # };
+  # required for a non-hacked doctl sls
+  nix-ld = {
+    enable = true;
+    # Sets up all the libraries to load
+    libraries = with pkgs; [
+      stdenv.cc.cc
+      zlib
+      fuse3
+      icu
+      zlib
+      nss
+      openssl
+      curl
+      expat
+    ];
+  };
 
   # big
   # darling.enable = true;

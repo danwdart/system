@@ -1,7 +1,7 @@
 pkgs:
 with pkgs; [
     get_iplayer
-    # python313Packages.internetarchive # ia binary # unneeded much, also breaks
-    # tvheadend # ffmpeg too old
+    # python314Packages.internetarchive # ia binary # unneeded much, also breaks in pytest_mock
+    # tvheadend # ffmpeg too old - unmaintained now - https://github.com/NixOS/nixpkgs/pull/332259
     yt-dlp
 ]

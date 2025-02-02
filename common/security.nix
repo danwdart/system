@@ -26,7 +26,7 @@
           "api.dev.jobfinder.jolharg.com"
           "jobfinder.jolharg.com"
           "api.jobfinder.jolharg.com"
-          # "news.dandart.co.uk"
+          "news.dandart.co.uk"
           # "grocy.dandart.co.uk"
         ];
       };

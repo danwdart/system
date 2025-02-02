@@ -16,7 +16,7 @@ with pkgs; [
     uefitoolPackages.new-engine
     uefitoolPackages.old-engine
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
-    efitools
+    # efitools # won't build
 ] else [
    # pkgs-x86_64.efitools
 ])

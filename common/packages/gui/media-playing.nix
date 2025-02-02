@@ -13,8 +13,9 @@ with pkgs; [
     kaffeine
     vlc
     gnome-network-displays
+    guvcview
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
-    mplayer
+    # mplayer # no longer builds
     spotify
     spotifywm
 ] else [

@@ -9,11 +9,11 @@ with pkgs; [
     ipatool
     libideviceactivation
     libirecovery
-    lrzsz # dep
-    minicom
+    # lrzsz # dep # won't compile
+    minicom # no lrzsz
     mnemonicode
     # androidenv.androidPkgs_9_0.platform-tools # possibly unneeded, possibly fastboot # build failure
     statserial
-    xpwn
-    zssh
+    # xpwn # failed to build in minizip
+    # zssh # failed to build
 ]

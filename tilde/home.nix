@@ -70,8 +70,8 @@ in {
 
   # is this necessary?
   xdg.configFile."nix/nix.conf".text = ''
-    substituters = https://cache.nixos.org https://dandart.cachix.org https://nixcache.reflex-frp.org https://miso-haskell.cachix.org https://nixcache.webghc.org https://cache.iog.io https://static-haskell-nix.cachix.org # https://cache.jolharg.com
-    trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI= miso-haskell.cachix.org-1:6N2DooyFlZOHUfJtAx1Q09H0P5XXYzoxxQYiwn6W1e8= hydra.webghc.org-1:knW30Yb8EXYxmUZKEl0Vc6t2BDjAUQ5kfC1BKJ9qEG8= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= dandart.cachix.org-1:k7r2DOpcXOY6Hx+qXMrtYjzCt0XH5tmfJHL/faJ088I= static-haskell-nix.cachix.org-1:Q17HawmAwaM1/BfIxaEDKAxwTOyRVhPG5Ji9K3+FvUU= # cache.jolharg.com:JSK2oHzlOOULEJXAM1sKG7+WvB3bZkO9DtlyljmjfH4=
+    substituters = https://cache.nixos.org https://nixpkgs-update-cache.nix-community.org https://nix-community.cachix.org https://dandart.cachix.org https://nixcache.reflex-frp.org https://miso-haskell.cachix.org https://nixcache.webghc.org https://cache.iog.io https://static-haskell-nix.cachix.org # https://cache.jolharg.com
+    trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nixpkgs-update-cache.nix-community.org-1:U8d6wiQecHUPJFSqHN9GSSmNkmdiFW7GW7WNAnHW0SM= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI= miso-haskell.cachix.org-1:6N2DooyFlZOHUfJtAx1Q09H0P5XXYzoxxQYiwn6W1e8= hydra.webghc.org-1:knW30Yb8EXYxmUZKEl0Vc6t2BDjAUQ5kfC1BKJ9qEG8= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= dandart.cachix.org-1:k7r2DOpcXOY6Hx+qXMrtYjzCt0XH5tmfJHL/faJ088I= static-haskell-nix.cachix.org-1:Q17HawmAwaM1/BfIxaEDKAxwTOyRVhPG5Ji9K3+FvUU= # cache.jolharg.com:JSK2oHzlOOULEJXAM1sKG7+WvB3bZkO9DtlyljmjfH4=
   '';
 
   # Disable search indexing

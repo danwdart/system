@@ -11,12 +11,14 @@ with pkgs; [
     # alienarena # no desktop icon # segfaults
     # armagetronad # no desktop icon # failed with exit code 141
     dolphin-emu
-    pkgs-doomsday.doomsday-engine_3
+    pkgs-doomsday.doomsday-engine
     # extremetuxracer
+    fceux-qt6
     # frozen-bubble
     # golly # now broken?
     hhexen
     ioquake3
+    katawa-shoujo-re-engineered
     # lbreakout2
     # liberation-circuit # no desktop icon # wat
     # ltris
@@ -25,10 +27,11 @@ with pkgs; [
     # mupen64plus # no desktop icon
     nethack-qt # no desktop icon
     nexuiz # no desktop icon # BIG
-    openarena # no desktop icon # BIG
-    openmw
+    # openarena # no desktop icon # BIG # fails to build - https://github.com/OpenArena/engine/issues/94 https://github.com/NixOS/nixpkgs/issues/370954
+    # openmw # no longer builds
     # padman?
     # quakespasm # no desktop icon
+    # qwbfsmanager # TODO REQUEST
     # redeclipse # meh crazy controls now?
     sauerbraten # split into console/gui?
     # snes9x-gtk # has to compile now?

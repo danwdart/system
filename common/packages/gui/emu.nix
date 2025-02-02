@@ -7,16 +7,18 @@ let pkgs-x86_64 = import <nixos> {
     };
 in
 with pkgs; [
-    desmume
+    # desmume # no longer builds
     dosbox
     # epsxe # insecure openssl
     higan
     melonDS
     # pcsxr # depends on insecure ffmpeg
+    ppsspp
     #protontricks
     rpcs3
     ruffle
     virt-viewer
+    waydroid
     # winePackages.fonts
     # master.winePackages.staging
     # winetricks # depend on correct version

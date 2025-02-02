@@ -19,22 +19,22 @@ with pkgs; [
     logisim-evolution
     ngspice
     pcb
-    # python313Packages.cirq-web # presumably dependent on core
-    # python313Packages.cirq-rigetti # failing tests, no binary???
-    # python313Packages.cirq-pasqal # presumably dependent on core
-    # python313Packages.cirq-ionq # build failure
-    # python313Packages.cirq-google # build failure
-    # python313Packages.cirq-core # fails to build
-    # python313Packages.cirq-aqto # missing
-    # python313Packages.cirq # depends on rigetti
+    # python314Packages.cirq-web # presumably dependent on core
+    # python314Packages.cirq-rigetti # failing tests, no binary???
+    # python314Packages.cirq-pasqal # presumably dependent on core
+    # python314Packages.cirq-ionq # build failure
+    # python314Packages.cirq-google # build failure
+    # python314Packages.cirq-core # fails to build
+    # python314Packages.cirq-aqto # missing
+    # python314Packages.cirq # depends on rigetti
     # qucs
-    stlink
-    tkgate
+    # stlink # won't build
+    # tkgate # won't build
     vscode # insiders?
     # x11docker
-    xcircuit
+    # xcircuit # no longer builds
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
-    # androidStudioPackages.canary # dependent on android-tools?
+    androidStudioPackages.canary # dependent on android-tools?
     # xyce # broken on aarch64
     # xyce-parallel
 ] else [

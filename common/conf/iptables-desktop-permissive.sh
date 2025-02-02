@@ -3,7 +3,7 @@ set -euo pipefail
 trap pwd ERR
 
 # export NET6=$(/run/current-system/sw/bin/route -n6 | grep "/64" | grep ^2 | cut -d ' ' -f 1)
-export NET6=2a0a:5586:992::/64
+export NET6=2a0a:5581:30c:e200::/64
 
 export ALL_IL_AN=ff01::1
 export ALL_LL_AN=ff02::1
@@ -21,7 +21,6 @@ export IP6T=ip6tables-nft
 export LL6=fe80::/10
 export LOCAL_8=127.0.0.0/8
 export LOCAL_128=::1/128
-export MDNS6=ff02::fb # dealt with already by MULTICAST6_8
 export MULTICAST_4=224.0.0.0/4
 export MULTICAST6_8=ff00::/8
 export NET=192.168.1.0/24
@@ -73,6 +72,15 @@ $IPT -A INPUT -p udp --dport 28784 -j ACCEPT
 $IP6T -A INPUT -p udp --dport 28784 -j ACCEPT
 $IPT -A INPUT -p udp --dport 28786 -j ACCEPT
 $IP6T -A INPUT -p udp --dport 28786 -j ACCEPT
+
+# Doomsday
+$IPT -A INPUT -p udp --dport 13209 -j ACCEPT
+$IP6T -A INPUT -p udp --dport 13209 -j ACCEPT
+$IPT -A INPUT -p tcp --dport 13209 -j ACCEPT
+$IP6T -A INPUT -p tcp --dport 13209 -j ACCEPT
+
+# Game server discovery?
+$IPT -A INPUT -p udp -s $NET -d $BCAST_ALL -m multiport --dport 13210:13224 -j ACCEPT # --sport 29312
 
 # Internal networks
 $IPT -A INPUT -p tcp -s $PRIVNET_12 -d $PRIVNET_12 -j ACCEPT
@@ -158,6 +166,11 @@ $IPT -A INPUT -p udp -s $NET -d $SSDP --dport 1900 -j ACCEPT
 $IP6T -A INPUT -p udp -s $NET6 -d $SSDP6_LL --dport 1900 -j ACCEPT
 $IP6T -A INPUT -p udp -s $NET6 -d $SSDP6_SL --dport 1900 -j ACCEPT
 
+# TV
+$IPT -A INPUT -p udp -s $NET -d $SSDP --dport 15600 -j ACCEPT
+$IP6T -A INPUT -p udp -s $NET6 -d $SSDP6_LL --dport 15600 -j ACCEPT
+$IP6T -A INPUT -p udp -s $NET6 -d $SSDP6_SL --dport 15600 -j ACCEPT
+
 # KDE Connect
 $IPT -A INPUT -p tcp -s $NET -d $NET -m multiport --dport 1714:1764 -j ACCEPT
 $IP6T -A INPUT -p tcp -s $NET6 -d $NET6 -m multiport --dport 1714:1764 -j ACCEPT
@@ -196,6 +209,8 @@ $IP6T -A INPUT -s $NET6 -d $ALL_LL_AN -j ACCEPT
 
 # all local on ham
 $IPT -A INPUT -s $AMPR_NET -d $AMPR_HOME -j ACCEPT
+
+$IPT -A INPUT -i waydroid0 -j ACCEPT
 
 # except ssh/https/ircs
 $IPT -A INPUT -s $AMPR_NET -d $AMPR_HOME -p tcp -m multiport --dport 22,443,6697 -j DROP

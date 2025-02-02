@@ -1,4 +1,4 @@
 pkgs:
 with pkgs; [
-    xsane
+    # xsane # presumably sane-frontends dies
 ]

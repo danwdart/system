@@ -7,12 +7,12 @@ let pkgs-x86_64 = import <nixos> {
     };
 in
 with pkgs; [
-    etherape
+    # etherape # failed to build goocanvas
     # mysql-workbench
     networkmanager-openvpn
     nextcloud-client
     putty # no desktop icon
-    rdesktop # no gui without config
+    # rdesktop # no gui without config # fails to build
     # newman
     # protonvpn-gui
     # tightvnc # no gui without config # banned as insecure with no replacement suggested

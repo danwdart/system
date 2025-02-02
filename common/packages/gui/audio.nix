@@ -3,10 +3,11 @@ with pkgs;
 [
     a2jmidid # CLI
     AMB-plugins
-    ardour
+    # ardour # can't build raptor
     audacity
     autotalent
     # baudline # download link is down
+    # carla # also a plugin host # can't build python3.12-pyliblo
     caps
     clementine
     csa
@@ -16,21 +17,23 @@ with pkgs;
     gst_all_1.gst-plugins-good
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-ugly
-    helvum # like qjackctl but lines
+    helvum # like qjackctl but lines and also what gladish was
     hydrogen
     # ingen # build failed with raul-unstable
-    jack_rack
+    # jack_rack # won't build
     kapitonov-plugins-pack
     nova-filters
     pavucontrol
+    picard
+    # qarecord # TODO request
     qjackctl # the other one?
     qsynth
-    rosegarden
+    # rosegarden # dssi fails to build
     soundfont-fluid
     yoshimi
     zam-plugins
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
-    bristol # no desktop icon
+    # bristol # no desktop icon # can't compile
     plugin-torture # broken on aarch64
     polyphone # no desktop icon # broken on aarch64
     tuxguitar # no desktop icon # REALLY broken on aarch64

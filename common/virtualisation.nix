@@ -1,20 +1,24 @@
 {...}:
 {
-  # docker = {
-  #   enable = true;
-  #   daemon = {
-  #     settings = {
-  #       fixed-cidr-v6 = "fd00::/80";
-  #       ipv6 = true;
-  #     };
-  #   };
-  #   liveRestore = true;
-  #   # storageDriver = "btrfs";
-  #   autoPrune = {
-  #     enable = true;
-  #     dates = "weekly";
-  #   };
-  # };
+  waydroid = {
+    enable = true;
+  };
+  
+  docker = {
+    enable = true;
+    daemon = {
+      settings = {
+        fixed-cidr-v6 = "fd00::/80";
+        ipv6 = true;
+      };
+    };
+    liveRestore = true;
+    # storageDriver = "btrfs";
+    autoPrune = {
+      enable = true;
+      dates = "weekly";
+    };
+  };
 
   libvirtd.enable = true;
   libvirtd.onBoot = "start";
