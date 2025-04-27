@@ -50,19 +50,19 @@
       reload = "/run/current-system/sw/bin/pkill -SIGUSR2 postgrest";
     };
 
-    sauerbraten-server = let
-      sauerbratenAdminPassword = builtins.readFile "${privateDir}/sauerbraten/adminpass";
-    in
-    {
-      enable = true;
-      description = "Sauerbraten";
-      after = ["multi-user.target"];
-      script = ''
-        /run/wrappers/bin/su - dwd -c '
-          set -a; \
-          sauerbraten_server -n"Bobs Rocking Server" -c16 -p${sauerbratenAdminPassword} -o1'
-      '';
-      };
+    # sauerbraten-server = let
+    #   sauerbratenAdminPassword = builtins.readFile "${privateDir}/sauerbraten/adminpass";
+    # in
+    # {
+    #   enable = true;
+    #   description = "Sauerbraten";
+    #   after = ["multi-user.target"];
+    #   script = ''
+    #     /run/wrappers/bin/su - dwd -c '
+    #       set -a; \
+    #       sauerbraten_server -n"Bobs Rocking Server" -c16 -p${sauerbratenAdminPassword} -o1'
+    #   '';
+    #   };
   };
 
   tmpfiles.rules = [

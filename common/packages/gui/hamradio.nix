@@ -35,7 +35,7 @@ with pkgs; [
     # quisk # build failure but why build
     # tqsl # openssl too old now
     # rtlsdr
-    sdrangel # has to be built now for some reason
+    # sdrangel # has to be built now for some reason # fails to build
     soapyhackrf
     soapysdr-with-plugins
     tqsl

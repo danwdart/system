@@ -1,9 +1,6 @@
-let
-    pkgsMine = import /home/dwd/code/contrib/nixpkgs {};
-in
 pkgs:
 (with pkgs; [
-    pkgsMine.amarok
+    amarok
     qdirstat
     supergfxctl-plasmoid
     systemdgenie

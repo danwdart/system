@@ -15,7 +15,7 @@ with pkgs; [
     # pcsxr # depends on insecure ffmpeg
     ppsspp
     #protontricks
-    rpcs3
+    # rpcs3 # fails to build
     ruffle
     virt-viewer
     waydroid

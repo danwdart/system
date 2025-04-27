@@ -7,7 +7,7 @@ with pkgs;
     audacity
     autotalent
     # baudline # download link is down
-    # carla # also a plugin host # can't build python3.12-pyliblo
+    carla # also a plugin host # can't build python3.12-pyliblo
     caps
     clementine
     csa
@@ -22,7 +22,7 @@ with pkgs;
     # ingen # build failed with raul-unstable
     # jack_rack # won't build
     kapitonov-plugins-pack
-    nova-filters
+    # nova-filters # includes jack-rack?
     pavucontrol
     picard
     # qarecord # TODO request

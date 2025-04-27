@@ -45,26 +45,26 @@ in {
           <Multi_key> <l> <l> : "λ"
         '';
       };
-      # Current Discord avatar is at https://cdn.discordapp.com/avatars/303520548028416000/6ff43f8ea532dddc67822aa304244f8c.png?size=256
-      face = {
-        target = ".face";
-        source = builtins.fetchurl {
-          name = "discord_avatar.png";
-          # name = "hiro.png";
-          url = "https://cdn.discordapp.com/avatars/303520548028416000/6ff43f8ea532dddc67822aa304244f8c.png?size=256";
-          # url = "https://cdn.discordapp.com/attachments/570351784082800640/1232826038451704002/Picsart_24-04-24_23-50-10-473.png?ex=662ade38&is=66298cb8&hm=f9620e0be576f4d13ce9d9f9d4b63be71764339bb2c991746349ad2a59b702e3";
-        };
-      };
-      # for sddm
-      faceIcon = {
-        target = ".face.icon";
-        source = builtins.fetchurl {
-          name = "discord_avatar.png";
-          # name = "hiro.png";
-          url = "https://cdn.discordapp.com/avatars/303520548028416000/6ff43f8ea532dddc67822aa304244f8c.png?size=256";
-          # url = "https://cdn.discordapp.com/attachments/570351784082800640/1232826038451704002/Picsart_24-04-24_23-50-10-473.png?ex=662ade38&is=66298cb8&hm=f9620e0be576f4d13ce9d9f9d4b63be71764339bb2c991746349ad2a59b702e3";
-        };
-      };
+      # # Current Discord avatar is at https://cdn.discordapp.com/avatars/303520548028416000/6ff43f8ea532dddc67822aa304244f8c.png?size=256
+      # face = {
+      #   target = ".face";
+      #   source = builtins.fetchurl {
+      #     name = "discord_avatar.png";
+      #     # name = "hiro.png";
+      #     url = "https://cdn.discordapp.com/avatars/303520548028416000/6ff43f8ea532dddc67822aa304244f8c.png?size=256";
+      #     # url = "https://cdn.discordapp.com/attachments/570351784082800640/1232826038451704002/Picsart_24-04-24_23-50-10-473.png?ex=662ade38&is=66298cb8&hm=f9620e0be576f4d13ce9d9f9d4b63be71764339bb2c991746349ad2a59b702e3";
+      #   };
+      # };
+      # # for sddm
+      # faceIcon = {
+      #   target = ".face.icon";
+      #   source = builtins.fetchurl {
+      #     name = "discord_avatar.png";
+      #     # name = "hiro.png";
+      #     url = "https://cdn.discordapp.com/avatars/303520548028416000/6ff43f8ea532dddc67822aa304244f8c.png?size=256";
+      #     # url = "https://cdn.discordapp.com/attachments/570351784082800640/1232826038451704002/Picsart_24-04-24_23-50-10-473.png?ex=662ade38&is=66298cb8&hm=f9620e0be576f4d13ce9d9f9d4b63be71764339bb2c991746349ad2a59b702e3";
+      #   };
+      # };
       gpgmejson = {
         target = ".mozilla/native-messaging-hosts/gpgmejson.json";
         text = builtins.toJSON {
@@ -439,121 +439,126 @@ in {
     vscode = if isDesktop then {
       enable = true;
       package = pkgs.vscode;
-      extensions = with pkgs.vscode-extensions; [
-        justusadam.language-haskell
-        # This is broken for some reason?
-        # bbenoist.Nix
-        brettm12345.nixfmt-vscode
-        jock.svg
-        haskell.haskell
-      # https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/misc/vscode-extensions/update_installed_exts.sh
-      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-        {
-          name = "vscode-direnv";
-          publisher = "Rubymaniac";
-          version = "0.0.2";
-          sha256 = "1gml41bc77qlydnvk1rkaiv95rwprzqgj895kxllqy4ps8ly6nsd";
-        }
-        {
-          name = "haskell-formatter-vscode-extension";
-          publisher = "sergey-kintsel";
-          version = "0.0.2";
-          sha256 = "15mbk2ayvyswaqcr79jr9zwhfsx1nz5invgsw4naxma0m81cw33m";
-        }
-        {
-          name = "vscode-ghc-simple";
-          publisher = "dramforever";
-          version = "0.2.3";
-          sha256 = "1pd7p4xdvcgmp8m9aymw0ymja1qxvds7ikgm4jil7ffnzl17n6kp";
-        }
-        {
-          name = "phoityne-vscode";
-          publisher = "phoityne";
-          version = "0.0.27";
-          sha256 = "0xhywyf1cd942nh7y5kgjg3407v1k4wxy73x4r97h29sr3gv5sbg";
-        }
-        {
-          name = "Nix";
-          publisher = "bbenoist";
-          version = "1.0.1";
-          sha256 = "0zd0n9f5z1f0ckzfjr38xw2zzmcxg1gjrava7yahg5cvdcw6l35b";
-        }
-        {
-          name = "haskell-ghcid";
-          publisher = "ndmitchell";
-          version = "0.3.1";
-          sha256 = "1rivzlk32x7vq84ri426nhd6a4nv3h7zp7xcsq31d0kp8bqczvi9";
-        }
-        {
-          name = "haskell-linter";
-          publisher = "hoovercj";
-          version = "0.0.6";
-          sha256 = "0fb71cbjx1pyrjhi5ak29wj23b874b5hqjbh68njs61vkr3jlf1j";
-        }
-        {
-          name = "hlint";
-          publisher = "lunaryorn";
-          version = "0.5.1";
-          sha256 = "01s9iabnk1d9496f91q7wn3p0njzf7rr8rkkcparhj2ls1jmca6p";
-        }
-        {
-          name = "nix";
-          publisher = "martinring";
-          version = "0.0.1";
-          sha256 = "1vac56lc2j3q9d34jlw2m7pa59qybi3qam7b91y2xnakmsprrqdk";
-        }
-        {
-          name = "nix-env-selector";
-          publisher = "arrterian";
-          version = "1.0.7";
-          sha256 = "0mralimyzhyp4x9q98x3ck64ifbjqdp8cxcami7clvdvkmf8hxhf";
-        }
-        {
-          name = "nix-ide";
-          publisher = "jnoortheen";
-          version = "0.1.12";
-          sha256 = "1wkc5mvxv7snrpd0py6x83aci05b9fb9v4w9pl9d1hyaszqbfnif";
-        }
-        {
-          name = "nixpkgs-fmt";
-          publisher = "B4dM4n";
-          version = "0.0.1";
-          sha256 = "1gvjqy54myss4w1x55lnyj2l887xcnxc141df85ikmw1gr9s8gdz";
-        }
-        {
-          name = "stylish-haskell";
-          publisher = "vigoo";
-          version = "0.0.10";
-          sha256 = "1zkvcan7zmgkg3cbzw6qfrs3772i0dwhnywx1cgwhy39g1l62r0q";
-        }
-      ];
-      # needs repo
-      #haskell = {
-      #  enable = true;
-        # needs repo
-        #hie = {
-        #  enable = true;
-        #};
-      #};
-      userSettings = {};
-      keybindings = [];
-    } else {};
-    wpaperd = {
-      enable = true;
-      settings = {
+      profiles = {
         default = {
-          path = builtins.fetchurl "https://cdn.donmai.us/original/63/6f/__zero_two_and_hiro_darling_in_the_franxx__636f66c442802a72d18a8f0157d69712.jpg";
-          duration = "10m";
-          sorting = "random";
-          mode = "fit";
+          extensions = with pkgs.vscode-extensions; [
+            justusadam.language-haskell
+            # This is broken for some reason?
+            # bbenoist.Nix
+            brettm12345.nixfmt-vscode
+            jock.svg
+            haskell.haskell
+          # https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/misc/vscode-extensions/update_installed_exts.sh
+          ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+            {
+              name = "vscode-direnv";
+              publisher = "Rubymaniac";
+              version = "0.0.2";
+              sha256 = "1gml41bc77qlydnvk1rkaiv95rwprzqgj895kxllqy4ps8ly6nsd";
+            }
+            {
+              name = "haskell-formatter-vscode-extension";
+              publisher = "sergey-kintsel";
+              version = "0.0.2";
+              sha256 = "15mbk2ayvyswaqcr79jr9zwhfsx1nz5invgsw4naxma0m81cw33m";
+            }
+            {
+              name = "vscode-ghc-simple";
+              publisher = "dramforever";
+              version = "0.2.3";
+              sha256 = "1pd7p4xdvcgmp8m9aymw0ymja1qxvds7ikgm4jil7ffnzl17n6kp";
+            }
+            {
+              name = "phoityne-vscode";
+              publisher = "phoityne";
+              version = "0.0.27";
+              sha256 = "0xhywyf1cd942nh7y5kgjg3407v1k4wxy73x4r97h29sr3gv5sbg";
+            }
+            {
+              name = "Nix";
+              publisher = "bbenoist";
+              version = "1.0.1";
+              sha256 = "0zd0n9f5z1f0ckzfjr38xw2zzmcxg1gjrava7yahg5cvdcw6l35b";
+            }
+            {
+              name = "haskell-ghcid";
+              publisher = "ndmitchell";
+              version = "0.3.1";
+              sha256 = "1rivzlk32x7vq84ri426nhd6a4nv3h7zp7xcsq31d0kp8bqczvi9";
+            }
+            {
+              name = "haskell-linter";
+              publisher = "hoovercj";
+              version = "0.0.6";
+              sha256 = "0fb71cbjx1pyrjhi5ak29wj23b874b5hqjbh68njs61vkr3jlf1j";
+            }
+            {
+              name = "hlint";
+              publisher = "lunaryorn";
+              version = "0.5.1";
+              sha256 = "01s9iabnk1d9496f91q7wn3p0njzf7rr8rkkcparhj2ls1jmca6p";
+            }
+            {
+              name = "nix";
+              publisher = "martinring";
+              version = "0.0.1";
+              sha256 = "1vac56lc2j3q9d34jlw2m7pa59qybi3qam7b91y2xnakmsprrqdk";
+            }
+            {
+              name = "nix-env-selector";
+              publisher = "arrterian";
+              version = "1.0.7";
+              sha256 = "0mralimyzhyp4x9q98x3ck64ifbjqdp8cxcami7clvdvkmf8hxhf";
+            }
+            {
+              name = "nix-ide";
+              publisher = "jnoortheen";
+              version = "0.1.12";
+              sha256 = "1wkc5mvxv7snrpd0py6x83aci05b9fb9v4w9pl9d1hyaszqbfnif";
+            }
+            {
+              name = "nixpkgs-fmt";
+              publisher = "B4dM4n";
+              version = "0.0.1";
+              sha256 = "1gvjqy54myss4w1x55lnyj2l887xcnxc141df85ikmw1gr9s8gdz";
+            }
+            {
+              name = "stylish-haskell";
+              publisher = "vigoo";
+              version = "0.0.10";
+              sha256 = "1zkvcan7zmgkg3cbzw6qfrs3772i0dwhnywx1cgwhy39g1l62r0q";
+            }
+          ];
+          # needs repo
+          #haskell = {
+          #  enable = true;
+            # needs repo
+            #hie = {
+            #  enable = true;
+            #};
+          #};
+          userSettings = {};
+          keybindings = [];
         };
       };
-    };
+    } else {};
   };
 
   services.gpg-agent = {
     defaultCacheTtl = 1800;
     enableSshSupport = true;
+  };
+
+  services.wpaperd = {
+    enable = true;
+    settings = {
+      default = {
+        path = builtins.fetchurl "https://cdn.donmai.us/original/63/6f/__zero_two_and_hiro_darling_in_the_franxx__636f66c442802a72d18a8f0157d69712.jpg";
+        duration = "10m";
+        sorting = "random";
+        mode = "fit";
+      };
+    };
   };
 
   # services.code-server.enable = true;

@@ -33,7 +33,7 @@ with pkgs; [
     # quakespasm # no desktop icon
     # qwbfsmanager # TODO REQUEST
     # redeclipse # meh crazy controls now?
-    sauerbraten # split into console/gui?
+    # sauerbraten # split into console/gui? # fails to build in sdl2-compat
     # snes9x-gtk # has to compile now?
     # speed_dreams # no desktop icon # keeps compiling
     # stuntrally # BIG
@@ -43,7 +43,7 @@ with pkgs; [
     # tremulous # - broken
     # trenchbroom
     # trigger # no desktop icon
-    uhexen2
+    # uhexen2 # fails to build
     # urbanterror # BIG # weirdX
     # warsow # ehh... no desktop icon
     xonotic

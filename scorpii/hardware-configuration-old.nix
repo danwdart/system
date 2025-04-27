@@ -12,7 +12,7 @@ let
         # and also maybe ssh to let you in
         # boot.supportedFilesystems = [ "zfs" ];
         boot.kernelModules = [ "kvm-intel" ];
-        system.stateVersion = "25.05";
+        system.stateVersion = "24.11";
       }
     ];
   };
@@ -28,19 +28,19 @@ in {
   
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.xbootldrMountPoint = "/boot";
-  boot.loader.systemd-boot.extraEntries = {
-    "nixos-installer.conf" = ''
-      title NixOS Installer
-      version 25.05
-      linux rescue-kernel 
-      initrd rescue-initrd
-      options init=${netboot.config.system.build.toplevel}/init ${toString netboot.config.boot.kernelParams} i915.enable_gvt=1
-    '';
-  };
-  boot.loader.systemd-boot.extraFiles = {
-    "rescue-kernel" = "${netboot.config.system.build.kernel}/bzImage";
-    "rescue-initrd" = "${netboot.config.system.build.netbootRamdisk}/initrd";
-  };
+  # boot.loader.systemd-boot.extraEntries = {
+  #   "nixos-installer.conf" = ''
+  #     title NixOS Installer
+  #     version 24.11
+  #     linux ($drive1)/rescue-kernel init=${netboot.config.system.build.toplevel}/init ${toString netboot.config.boot.kernelParams}
+  #     initrd ($drive1)/rescue-initrd
+  #     options i915.enable_gvt=1
+  #   '';
+  # };
+  # boot.loader.systemd-boot.extraFiles = {
+  #   "rescue-kernel" = "${netboot.config.system.build.kernel}/bzImage";
+  #   "rescue-initrd" = "${netboot.config.system.build.netbootRamdisk}/initrd";
+  # };
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/efi";
 
@@ -59,19 +59,20 @@ in {
   # };
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/721b775b-a946-4440-ab24-1ee73692d024";
-      fsType = "ext4";
-      options = [ "noatime" ];
-    };
+  { device = "/dev/disk/by-uuid/b059e259-ff09-4abd-a8d2-7c009727977c";
+    fsType = "ext4";
+    neededForBoot = true;
+    options = [ "noatime" ];
+  };
 
   fileSystems."/efi" =
-    { device = "/dev/disk/by-uuid/502F-07A0";
+    { device = "/dev/disk/by-uuid/56AE-FA62";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/5879-7B8B";
+    { device = "/dev/disk/by-uuid/04D6-0D2D";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
@@ -114,20 +115,96 @@ in {
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    package = config.boot.kernelPackages.nvidiaPackages.production; # beta
 
-    prime = {
+    # dynamicBoost.enable = true; # only on 20xx SUPER +
+
+    prime = { 
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
-      # offload = {
-      #   enable = true;
+      offload = {
+        enable = false;
       #   enableOffloadCmd = true;
-      # };
+      };
       sync.enable = true;
     };
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  # wat
+  # boot.kernelParams = [ "module_blacklist=i915" ];
+
+  specialisation.rescue.configuration = {
+    boot.kernelParams = [ "rescue" ];
+  };
+
+  specialisation.emergency.configuration = {
+    boot.kernelParams = [ "emergency" ];
+  };
+
+  # pretty sure this doesn't work with non-sqfs stuffs
+  # specialisation.copytoram.configuration = {
+  #   boot.kernelParams = [ "copytoram" ];
+  # };
+
+  # specialisation.iso.configuration = {
+  #   boot.kernelParams = [
+  #     "img_dev=/dev/disk/by-uuid/b059e259-ff09-4abd-a8d2-7c009727977c"
+  #     "img_loop=/nix/store/bypmlcxd9drl57pjykrar95r6raprk6a-nixos-25.05beta714768.ac35b104800b-x86_64-linux.iso/iso/nixos-25.05beta714768.ac35b104800b-x86_64-linux.iso"
+  #   ];
+  # };
+# 
+  # specialisation.isofind.configuration = {
+  #   boot.kernelParams = [
+  #     "img_dev=/dev/disk/by-uuid/b059e259-ff09-4abd-a8d2-7c009727977c"
+  #     "findiso=/nix/store/bypmlcxd9drl57pjykrar95r6raprk6a-nixos-25.05beta714768.ac35b104800b-x86_64-linux.iso/iso/nixos-25.05beta714768.ac35b104800b-x86_64-linux.iso"
+  #     "img_loop=/nix/store/bypmlcxd9drl57pjykrar95r6raprk6a-nixos-25.05beta714768.ac35b104800b-x86_64-linux.iso/iso/nixos-25.05beta714768.ac35b104800b-x86_64-linux.iso"
+  #   ];
+  # };
+# 
+  # specialisation.isoram.configuration = {
+  #   boot.kernelParams = [
+  #     "img_dev=/dev/disk/by-uuid/b059e259-ff09-4abd-a8d2-7c009727977c"
+  #     "img_loop=/nix/store/bypmlcxd9drl57pjykrar95r6raprk6a-nixos-25.05beta714768.ac35b104800b-x86_64-linux.iso/iso/nixos-25.05beta714768.ac35b104800b-x86_64-linux.iso"
+  #     "copytoram"
+  #   ];
+  # };
+# 
+  # specialisation.isoramfind.configuration = {
+  #   boot.kernelParams = [
+  #     "img_dev=/dev/disk/by-uuid/b059e259-ff09-4abd-a8d2-7c009727977c"
+  #     "findiso=/nix/store/bypmlcxd9drl57pjykrar95r6raprk6a-nixos-25.05beta714768.ac35b104800b-x86_64-linux.iso/iso/nixos-25.05beta714768.ac35b104800b-x86_64-linux.iso"
+  #     "img_loop=/nix/store/bypmlcxd9drl57pjykrar95r6raprk6a-nixos-25.05beta714768.ac35b104800b-x86_64-linux.iso/iso/nixos-25.05beta714768.ac35b104800b-x86_64-linux.iso"
+  #     "copytoram"
+  #   ];
+  # };
+
+  # specialisation.iommu.configuration = {
+  #   hardware.graphics.enable = true;
+  #   virtualisation.spiceUSBRedirection.enable = true;
+  #   boot = {
+  #     kernelParams = [
+  #       "intel_iommu=on"
+  #       "kvm.ignore_msrs=1"
+  #     ] ++ (let gpuIDs = [
+  #           "10de:1f99" # video
+  #           "10de:10fa" # audio
+  #         ];
+  #       in [("vfio-pci.ids=" + lib.concatStringsSep "," gpuIDs)]);
+  #     initrd.kernelModules = [
+  #       "vfio_pci"
+  #       "vfio"
+  #       "vfio_iommu_type1"
+  #       # "vfio_virqfd"
+# 
+  #       "nvidia"
+  #       "nvidia_modeset"
+  #       "nvidia_uvm"
+  #       "nvidia_drm"
+  #     ];
+  #   };
+  # };
+
+  services.xserver.videoDrivers = ["nvidia" "modesetting"];
 
   # environment.persistence."/persist" = {
   #   hideMounts = true;

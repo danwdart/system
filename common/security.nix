@@ -30,9 +30,9 @@
           # "grocy.dandart.co.uk"
         ];
       };
-      # "dandart.geek" = {
-      #   server = "https://playground.acme.libre";
-      # };
+      "dandart.geek" = {
+        server = "https://playground.acme.libre";
+      };
     };
   };
 
