@@ -3,7 +3,7 @@ set -euo pipefail
 trap pwd ERR
 
 # export NET6=$(/run/current-system/sw/bin/route -n6 | grep "/64" | grep ^2 | cut -d ' ' -f 1)
-export NET6=2a0a:5581:31b:e700::/64
+export NET6=2a0a:5581:302:8b00::/64
 
 export ALL_IL_AN=ff01::1
 export ALL_LL_AN=ff02::1
