@@ -35,32 +35,32 @@
 
   # https://nixos.wiki/wiki/Linux_kernel
   kernelPatches = [
-    # {
-    #   name = "Amateur Radio support";
-    #   patch = null;
-    #   extraConfig = ''
-    #           HAMRADIO y
+    {
+      name = "Amateur Radio support";
+      patch = null;
+      extraConfig = ''
+              HAMRADIO y
 
-    #           #
-    #           # Packet Radio protocols
-    #           #
-    #           AX25 m
-    #           AX25_DAMA_SLAVE y
-    #           NETROM m
-    #           ROSE m
+              #
+              # Packet Radio protocols
+              #
+              AX25 m
+              AX25_DAMA_SLAVE y
+              NETROM m
+              ROSE m
 
-    #           #
-    #           # AX.25 network device drivers
-    #           #
-    #           MKISS m
-    #           6PACK m
-    #           BPQETHER m
-    #           BAYCOM_SER_FDX m
-    #           BAYCOM_SER_HDX m
-    #           YAM m
-    #           # end of AX.25 network device drivers
-    #   '';
-    # }
+              #
+              # AX.25 network device drivers
+              #
+              MKISS m
+              6PACK m
+              BPQETHER m
+              BAYCOM_SER_FDX m
+              BAYCOM_SER_HDX m
+              YAM m
+              # end of AX.25 network device drivers
+      '';
+    }
     # {
     #   name = "Realtime support";
     #   patch = null;

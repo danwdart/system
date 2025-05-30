@@ -54,10 +54,16 @@ with pkgs; [
     supergfxctl
     testdisk
     u3-tool
+    udftools
     unrar
     unzip
     usbutils
-    ventoy
+    #  - Ventoy uses binary blobs which can't be trusted to be free of malware or compliant to their licenses.
+    # https://github.com/NixOS/nixpkgs/issues/404663
+    # See the following Issues for context:
+    # https://github.com/ventoy/Ventoy/issues/2795
+    # https://github.com/ventoy/Ventoy/issues/3224
+    # ventoy
     vulkan-tools
     wayland-utils
     wget
