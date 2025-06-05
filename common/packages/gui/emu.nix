@@ -7,11 +7,15 @@ let pkgs-x86_64 = import <nixos> {
     };
 in
 with pkgs; [
+    chiaki-ng
     # desmume # no longer builds
     dosbox
+    duckstation
     # epsxe # insecure openssl
     higan
+    mednafen
     melonDS
+    mymcplus # yes no desktop entry
     # pcsxr # depends on insecure ffmpeg
     ppsspp
     #protontricks
