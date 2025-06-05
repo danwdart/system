@@ -6,11 +6,14 @@ in
 pkgs:
 with pkgs; [
     alacritty
+    cascadia-code
     clamtk
     #etcher
     pkgsMaster.ghostty
     gparted
+    iosevka
     kitty
+    # nerd-fonts.STUFFGOESHERE
     #rpi-imager
     stacer
     #unetbootin
@@ -23,6 +26,9 @@ with pkgs; [
     testdisk-qt
     timeshift
     turbovnc # from tightvnc
+    unifont
+    unifont-csur
+    unifont_upper
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
     # xorg.xf86videointel
 ] else [
