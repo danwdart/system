@@ -28,8 +28,9 @@ with pkgs; [
     nethack-qt # no desktop icon
     nexuiz # no desktop icon # BIG
     # openarena # no desktop icon # BIG # fails to build - https://github.com/OpenArena/engine/issues/94 https://github.com/NixOS/nixpkgs/issues/370954
-    # openmw # no longer builds
+    openmw
     # padman?
+    protonup-qt # for luxtorpeda
     # quakespasm # no desktop icon
     # qwbfsmanager # TODO REQUEST
     # redeclipse # meh crazy controls now?
