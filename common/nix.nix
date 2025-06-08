@@ -44,6 +44,7 @@
       "auto-allocate-uids"
       "ca-derivations"
       "cgroups"
+      "flakes"
       "nix-command"
     ];
 
