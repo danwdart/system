@@ -7,6 +7,7 @@ let pkgs-x86_64 = import <nixos> {
     };
 in
 with pkgs; [
+    dbeaver-bin
     # etherape # failed to build goocanvas
     # mysql-workbench
     networkmanager-openvpn
