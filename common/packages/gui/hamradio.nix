@@ -5,15 +5,12 @@ let pkgs-x86_64 = import <nixos> {
             allowUnfree = true;
         };
     };
-    pkgsMaster = import (builtins.fetchTarball 
-        "https://github.com/NixOS/nixpkgs/archive/refs/heads/master.tar.gz"
-    ) {};
     # pkgsIllDefinedFreeDVPre = import (builtins.fetchTarball 
     #     "https://github.com/illdefined/nixpkgs/archive/refs/heads/freedv-pre.tar.gz"
     # ) {};
 in
 with pkgs; [
-    pkgsMaster.chirp
+    chirp
     # cqrlog # github broken?
     cubicsdr
     dabtools
@@ -25,7 +22,7 @@ with pkgs; [
     # gnss-sdr
     # gnuradio # thrift-0.20.0 not supported for interpreter python3.12
     # gpredict # can't build goocanvas
-    gqrx
+    # gqrx # python3.11-scipy-1.16.0.drv' failed with exit code 1
     # guglielmo
     hackrf
     # inspectrum # 1 dependencies of derivation '/nix/store/k5r8bpbplh1kl5ffc3qcvzi955l81191-inspectrum-0.3.1.drv' failed to build
