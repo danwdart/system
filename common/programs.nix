@@ -83,7 +83,8 @@
       "browser.protections_panel.infoMessage.seen" = true;
       "browser.rights.3.shown" = true;
       "network.trr.mode" = 3;
-      "network.trr.custom_uri" = "https://doh.kekew.info/dns-query";
+      "network.trr.uri" = "https://doh.kekew.info/dns-query";
+      # these preferences not allowed for stability reasons?
       "privacy.donottrackheader.enabled" = true;
       "privacy.fingerprintingProtection" = true;
       "privacy.globalprivacycontrol.enabled" = true;
@@ -118,9 +119,27 @@
     '';
   };
 
-  wavemon = {
-    enable = true;
-  };
+
+# Traceback (most recent call last):
+#   File "/nix/store/n71x3269wc0h52as5pv2rmym4rymm4ay-meson-1.8.2/lib/python3.11/site-packages/mesonbuild/msetup.py", line 249, in _generate
+#     intr.run()
+#   File "/nix/store/n71x3269wc0h52as5pv2rmym4rymm4ay-meson-1.8.2/lib/python3.11/site-packages/mesonbuild/interpreter/interpreter.py", line 3051, in run
+#     super().run()
+#   File "/nix/store/n71x3269wc0h52as5pv2rmym4rymm4ay-meson-1.8.2/lib/python3.11/site-packages/mesonbuild/interpreterbase/interpreterbase.py", line 178, in run
+#     self.evaluate_codeblock(self.ast, start=1)
+#   File "/nix/store/n71x3269wc0h52as5pv2rmym4rymm4ay-meson-1.8.2/lib/python3.11/site-packages/mesonbuild/interpreterbase/interpreterbase.py", line 203, in evaluate_codeblock
+#     raise e
+#   File "/nix/store/n71x3269wc0h52as5pv2rmym4rymm4ay-meson-1.8.2/lib/python3.11/site-packages/mesonbuild/interpreterbase/interpreterbase.py", line 195, in evaluate_codeblock
+#     self.evaluate_statement(cur)
+#   File "/nix/store/n71x3269wc0h52as5pv2rmym4rymm4ay-meson-1.8.2/lib/python3.11/site-packages/mesonbuild/interpreterbase/interpreterbase.py", line 209, in evaluate_statement
+#     return self.function_call(cur)
+#            ^^^^^^^^^^^^^^^^^^^^^^^
+#   File "/nix/store/n71x3269wc0h52as5pv2rmym4rymm4ay-meson-1.8.2/lib/python3.11/site-packages/mesonbuild/interpreterbase/interpreterbase.py", line 536, in function_call
+#     res = func(node, func_args, kwargs)
+# error: builder for '/nix/store/08pkhv9fnzyls1rmiq0gw9n0n2qr776a-security-wrapper-wavemon-x86_64-unknown-linux-musl.drv' failed with exit code 1
+  # wavemon = {
+  #   enable = true;
+  # };
 
   xastir = {
     enable = true;
