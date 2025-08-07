@@ -31,6 +31,7 @@ with pkgs; [
     jmtpfs
     jnettop
     kexec-tools
+    linux_logo
     lm_sensors
     lshw
     lsof
