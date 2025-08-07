@@ -1,4 +1,4 @@
-{ lib, hostName, isDesktop, ... }:
+{ lib, hostName, isDesktop, pkgs, ... }:
 with builtins;
 with lib;
 let
@@ -23,11 +23,28 @@ in {
 
   networkmanager = {
     enable = true;
+    plugins = with pkgs; [
+      networkmanager-fortisslvpn
+      networkmanager-iodine
+      networkmanager-l2tp
+      networkmanager-openconnect
+      networkmanager-openvpn
+      networkmanager-sstp
+      networkmanager-strongswan
+      networkmanager-vpnc
+    ];
     # packages =
     #    dns = "
-    #insertNameservers = [
-    # extra stuff only
-    #];
+    insertNameservers = [
+      "2a01:239:2fd:b700::1"
+      "2001:4ba0:cafe:3d2::1"
+      "2a01:238:4231:5200::1"
+      "2a03:94e0:1804::1"
+      "217.160.70.42"
+      "213.202.211.221"
+      "81.169.136.222"
+      "185.181.61.24"
+    ];
   };
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
