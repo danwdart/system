@@ -3,12 +3,12 @@ with pkgs; [
     atinout
     gammu # CLI, needs wammu but doesn't exist
     heimdall
-    idevicerestore
+    # idevicerestore # error: builder for '/nix/store/ipq996c0kad95bky98nqdqvhvpnmkhsg-libirecovery-1.2.1.drv' failed with exit code 1
     ideviceinstaller
     ifuse
     ipatool
     libideviceactivation
-    libirecovery
+    # libirecovery # error: builder for '/nix/store/ipq996c0kad95bky98nqdqvhvpnmkhsg-libirecovery-1.2.1.drv' failed with exit code 1
     # lrzsz # dep # won't compile
     minicom # no lrzsz
     mnemonicode
