@@ -14,7 +14,7 @@ in
     _module.args.internalIPv4 = "192.168.1.73";
     _module.args.externalIPv4 = "141.195.162.79";
     _module.args.localIPv6 = "fe80::abc1:d831:8d0b:6152";
-    _module.args.globalIPv6 = "2a0a:5581:302:8b00::4";
+    _module.args.globalIPv6 = "2a0b:5f04:16e:1200::4";
     _module.args.fqdn = "scorpii.dandart.co.uk";
     imports = [
         "${impermanence}/nixos.nix"
