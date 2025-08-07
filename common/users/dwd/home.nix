@@ -156,14 +156,15 @@ in {
         };
       initExtra = ''
         source <(doctl completion bash)
-        echo Welcome to $(uname -n).
+        # echo Welcome to $(uname -n).
+        linux_logo -c
         echo NixOS version: $(nixos-version)
         # echo Nix version: $(nix --version | awk '{print $3}')
         echo OS: $(uname -o)
-        echo Kernel: $(uname -sr)
-        echo CPU: $(lscpu | grep "Vendor ID" | head -n1 | cut -d ':' -f 2 | sed 's/^\s\+//') $(lscpu | grep "Model name" | head -n1 | cut -d ':' -f 2 | sed 's/^\s\+//'), architecture: $(uname -m)
-        echo RAM: $(free -h | head -n2 | tail -n1 | awk '{print $7}')B available of $(free -h | head -n2 | tail -n1 | awk '{print $2}')B
-        echo Swap: $(free -h | head -n3 | tail -n1 | awk '{print $4}')B free of $(free -h | head -n3 | tail -n1 | awk '{print $2}')B
+        # echo Kernel: $(uname -sr)
+        # echo CPU: $(lscpu | grep "Vendor ID" | head -n1 | cut -d ':' -f 2 | sed 's/^\s\+//') $(lscpu | grep "Model name" | head -n1 | cut -d ':' -f 2 | sed 's/^\s\+//'), architecture: $(uname -m)
+        # echo RAM: $(free -h | head -n2 | tail -n1 | awk '{print $7}')B available of $(free -h | head -n2 | tail -n1 | awk '{print $2}')B
+        # echo Swap: $(free -h | head -n3 | tail -n1 | awk '{print $4}')B free of $(free -h | head -n3 | tail -n1 | awk '{print $2}')B
         echo "IPv4:"
         echo -e "\tPrivate: $(ip -4 addr show dev wlp3s0  | awk '/inet/{print $2}' | grep '\.' | cut -d / -f 1)"
         echo -e "\tPublic: $(curl https://api.ipify.org 2>/dev/null)"
