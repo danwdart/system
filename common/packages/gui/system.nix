@@ -1,18 +1,15 @@
-let
-    pkgsMaster = import (builtins.fetchTarball 
-        "https://github.com/NixOS/nixpkgs/archive/refs/heads/master.tar.gz"
-    ) {};
-in
 pkgs:
 with pkgs; [
     alacritty
     cascadia-code
     clamtk
     #etcher
-    pkgsMaster.ghostty
+    ghostty
     gparted
     iosevka
     kitty
+    linux-exploit-suggester
+    linux-wallpaperengine
     # nerd-fonts.STUFFGOESHERE
     #rpi-imager
     stacer
@@ -20,6 +17,7 @@ with pkgs; [
     wev
     #winusb
     #woeusb # -ng
+    wsysmon
     #xcruiser # no desktop icon
     #xorg.xev
     systembus-notify # make it autostart?
