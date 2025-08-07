@@ -18,11 +18,12 @@ with pkgs; [
     mymcplus # yes no desktop entry
     # pcsxr # depends on insecure ffmpeg
     ppsspp
-    #protontricks
+    #protontricks8
+    proton-caller
     # rpcs3 # fails to build
     ruffle
     virt-viewer
-    waydroid
+    # waydroid # cython-0.29.37.1 not supported for interpreter python3.13
     # winePackages.fonts
     # master.winePackages.staging
     # winetricks # depend on correct version
