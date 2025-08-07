@@ -1,6 +1,16 @@
+let
+    pkgsAmarok = import (builtins.fetchTarball {
+        url = "https://github.com/peterhoeg/nixpkgs/archive/u/amarok.tar.gz";
+    }) {};
+in
 pkgs:
 (with pkgs; [
-    amarok
+    libsForQt5.plasma-welcome
+    pkgsAmarok.amarok
+    plasma-overdose-kde-theme
+    plasma-panel-colorizer
+    plasma-plugin-blurredwallpaper
+    plasma-theme-switcher
     qdirstat
     supergfxctl-plasmoid
     systemdgenie
@@ -109,7 +119,7 @@ pkgs:
     kteatime
     ktorrent
     ktimer
-    # kwallet-pam
+    kwallet-pam
     kup
     # kwave # BROKEN
     # marble # BROKEN
@@ -118,9 +128,12 @@ pkgs:
     # neochat # No libolm
     okular
     # picmi # too addictive
+    # plasma-applet-commandoutput
     plasma-disks
-    plasma-firewall
+    # plasma-firewall # we are manually handling this for now
     plasma-browser-integration
+    # plasma-panel-spacer-extended
+    # plasma-pass
     # ``plasma-thunderbolt
     plasma-vault
     plasmatube
@@ -130,8 +143,9 @@ pkgs:
     step
     sweeper
     tokodon
-    yakuake
+    wallpaper-engine-plugin
     xdg-desktop-portal-kde # ???
+    yakuake
     # kdeconnect-kde # dealt with
     # plasma-hud # nose-1.3.7 not supported for interpreter python3.12
 ])
