@@ -12,9 +12,9 @@ in
       ./configuration-common.nix
     ];
 
-  environment = import ./environment.nix {pkgs = pkgs;  config = config; lib = lib; systemPackages = import ./packages/packages.nix pkgs;};
+  environment = import ./environment.nix { pkgs = pkgs;  config = config; lib = lib; systemPackages = import ./packages/packages.nix pkgs;};
   hardware = import ./hardware.nix { pkgs = pkgs; isDesktop = true; };
-  networking = import ./networking.nix { lib = lib; hostName = hostName; isDesktop = true; };
+  networking = import ./networking.nix { pkgs = pkgs; lib = lib; hostName = hostName; isDesktop = true; };
   programs = import ./programs.nix { pkgs = pkgs; isDesktop = true; };
   security = import ./security.nix { pkgs = pkgs; isDesktop = true; hostName = hostName; };
   services = import ./services.nix { pkgs = pkgs; hostName = hostName; hostDir = hostDir; privateDir = privateDir; internalIPv4 = internalIPv4; externalIPv4 = externalIPv4; localIPv6 = localIPv6; globalIPv6 = globalIPv6; fqdn = fqdn; isDesktop = true; };
