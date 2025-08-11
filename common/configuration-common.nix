@@ -5,6 +5,9 @@ let
   home-manager = builtins.fetchTarball {
     url = "https://github.com/nix-community/home-manager/archive/master.tar.gz";
   };
+  lanzaboote = import (builtins.fetchTarball {
+    url = "https://github.com/nix-community/lanzaboote/archive/refs/tags/v0.4.2.tar.gz";
+  });
   rootDir = "/home/dwd/code/mine/nix/system";
   hostDir = "${rootDir}/${hostName}";
   privateDir = "${hostDir}/private";
@@ -13,9 +16,10 @@ in {
     [
       "${home-manager}/nixos"
       (fetchTarball "https://github.com/nix-community/nixos-vscode-server/tarball/master")
+      lanzaboote.nixosModules.lanzaboote
     ];
 
-  boot = import ./boot.nix { pkgs = pkgs; };
+  boot = import ./boot.nix { pkgs = pkgs; lib = lib; };
   console = import ./console.nix {};
   i18n = import ./i18n.nix {};
   nix = import ./nix.nix { pkgs = pkgs; };
