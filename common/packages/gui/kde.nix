@@ -1,12 +1,7 @@
-let
-    pkgsAmarok = import (builtins.fetchTarball {
-        url = "https://github.com/peterhoeg/nixpkgs/archive/u/amarok.tar.gz";
-    }) {};
-in
 pkgs:
 (with pkgs; [
     libsForQt5.plasma-welcome
-    pkgsAmarok.amarok
+    amarok
     plasma-overdose-kde-theme
     plasma-panel-colorizer
     plasma-plugin-blurredwallpaper
