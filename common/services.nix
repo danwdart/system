@@ -20,18 +20,22 @@ in {
       "0 * * * * dwd  RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
       "0 * * * * root RESULT=$(nix-channel --update 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
       "0 */2 * * * root RESULT=$(cd ${rootDir}/${hostName} && $PWD/../common/scripts/upgrade.sh 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId} || echo System updated. | gpg -ae -r ${keyId}"
+      "0 2 * * * dwd RESULT=$(cd ~/code; ./build-cabal.sh; 2>&1); [ 0 != $? ] && echo $RESULT" #  | gpg -ae -r ${keyId}"
+      # TODO should we make this per project? per user?
       # "0 2 * * * dwd RESULT=$(cd ~/code; ./build-nix.sh; ./build-nix.sh 24; 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
       # Backup everything to USB hourly - TODO cloud backups but passwordless? Or take password from another service?
       # TODO also include .config/rclone once it exists
       "0 * * * * dwd RESULT=$(cd ~; if [ -d /run/media/dwd/Backup ]; then for i in Desktop/ Documents/ Music/ Pictures/ Public/ Videos/ .gnupg/ .ssh/; do rsync -auvP $i /run/media/dwd/Backup/$i 2>&1; done; else echo No disk present or not mounted.; fi); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
       # scorpii.home.dandart.co.uk
-      "0 1 * * * dwd IP=$(ip -6 addr show dev wlp3s0 scope global | awk '/inet6/{print $2}' | grep '::' | cut -d / -f 1); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1747775271 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
+      "0 * * * * dwd IP=$(ip -6 addr show dev wlp3s0 scope global | awk '/inet6/{print $2}' | grep '::' | cut -d / -f 1); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1747775271 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
       # home.dandart.co.uk
-      "0 1 * * * dwd IP=$(curl https://api.ipify.org 2>/dev/null); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1736676743 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
+      # "0 * * * * dwd IP=$(curl https://api.ipify.org 2>/dev/null); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1736676743 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
       # scorpii.dandart.co.uk (IPv6)
-      "0 1 * * * dwd IP=$(ip -6 addr show dev wlp3s0 scope global | awk '/inet6/{print $2}' | grep '::' | cut -d / -f 1); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1750535304 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
+      "0 * * * * dwd IP=$(ip -6 addr show dev wlp3s0 scope global | awk '/inet6/{print $2}' | grep '::' | cut -d / -f 1); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1750535304 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
       # scorpii.dandart.co.uk (IPv4)
-      "0 1 * * * dwd IP=$(curl https://api.ipify.org 2>/dev/null); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1750535231 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
+      # "0 * * * * dwd IP=$(curl https://api.ipify.org 2>/dev/null); RESULT=$(doctl compute domain records update dandart.co.uk --record-id 1750535231 --record-data $IP 2>&1); [ 0 != $? ] && echo $RESULT | gpg -ae -r ${keyId}"
+      # dandart.geek
+      "0 * * * * dwd IP=$(ip -6 addr show dev wlp3s0 scope global | awk '/inet6/{print $2}' | grep '::' | cut -d / -f 1); TOKEN=$(curl http://be.libre | grep token | cut -d \"'\" -f 6); curl -X POST -c /tmp/cookie -d \"token=$TOKEN&submit=Sign+in&user=${builtins.readFile "${privateDir}/belibre/user"}&pass=${builtins.readFile "${privateDir}/belibre/pass"})\" http://be.libre; TOKEN=$(curl -b /tmp/cookie http://be.libre | grep token | cut -d \"'\" -f 6); curl -X POST -b /tmp/cookie -d \"token=$TOKEN&submit=Update&submit_page=edit_domain&domain[dandart.geek][AAAA][0]=$IP\" \"http://be.libre/?dc=dandart,dc=geek\""
     ];
   };
 
@@ -191,6 +195,7 @@ in {
       ClientUseIPv4 = false;
       ClientUseIPv6 = true;
       ClientPreferIPv6ORPort = true;
+      HttpTunnelPort = 8118;
     };
   };
 
@@ -340,7 +345,7 @@ in {
   #    haskellPackages.xmonad-contrib
   #    haskellPackages.monad-logger
   #  ];
-  #  haskellPackages = pkgs.haskell.packages.ghc910;
+  #  haskellPackages = pkgs.haskell.packages.ghc912;
   #};
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -393,7 +398,7 @@ in {
         root = "${hostDir}/public_html";
       };
       "m0ori.ampr.org" = {
-        serverAliases = [
+        listenAddresses = [
           "44.63.0.51"
         ];
         root = "${hostDir}/radio_html";
@@ -425,17 +430,15 @@ in {
       };
       "dandart.geek" = {
         # todo fix
-        forceSSL = true;
+        # forceSSL = true;
         # addSSL = true;
         # enableACME = true;
-        useACMEHost = "dandart.geek"; # TODO force?
+        # useACMEHost = "dandart.geek"; # TODO force?
         listenAddresses = [
           "[::1]"
           "[${localIPv6}]"
           "[${globalIPv6}]"
           "[::]"
-        ];
-        serverAliases = [
         ];
         root = "${hostDir}/geek_html";
       };
@@ -449,8 +452,6 @@ in {
           # "[${localIPv6}]"
           # "[${globalIPv6}]"
           # "[::]"
-        ];
-        serverAliases = [
         ];
         root = "${hostDir}/tor_html";
       };
@@ -671,7 +672,8 @@ in {
         ];
         locations = {
           "/" = {
-            root = "${haskellSites}/jobfinder/src/ui/dist-newstyle/build/js-ghcjs/ghcjs-8.10.7/ui-0.1.0.0/x/ui/build/ui/ui.jsexe";
+            root = "${haskellSites}/jobfinder/src/ui/build/dev";
+            # root = "${haskellSites}/jobfinder/src/ui/dist-newstyle/build/javascript-ghcjs/ghc-9.12.2/ui-0.2.0.0/x/ui-dev/build/ui-dev/ui-dev.jsexe";
             proxyWebsockets = true;
           };
           "/api/" = {
@@ -691,7 +693,8 @@ in {
         '';
         locations = {
           "/" = {
-            root = "${haskellSites}/jobfinder/src/ui/result/exe/bin/ui.jsexe";
+            root = "${haskellSites}/jobfinder/src/ui/build/prod";
+            # root = "${haskellSites}/jobfinder/src/ui/dist-newstyle/build/javascript-ghcjs/ghc-9.12.2/ui-0.2.0.0/x/ui/build/ui/ui.jsexe";
             proxyWebsockets = true;
           };
           "/api/" = {
