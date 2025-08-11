@@ -10,7 +10,7 @@ with pkgs; [
     chiaki-ng
     # desmume # no longer builds
     dosbox
-    duckstation
+    # duckstation # unmaintained
     # epsxe # insecure openssl
     higan
     mednafen
