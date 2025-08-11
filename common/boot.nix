@@ -1,4 +1,4 @@
-{ pkgs, ...}:
+{ pkgs, lib, ...}:
 {
   kernel.sysctl = {
     # all magic sysrq keys
@@ -33,6 +33,12 @@
     options mt7921e disable_aspm=1
   '';
 
+  lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
+  };
+
+  loader.systemd-boot.enable = lib.mkForce false;
   # https://nixos.wiki/wiki/Linux_kernel
   # kernelPatches = [
   #   {
