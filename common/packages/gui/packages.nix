@@ -1,9 +1,6 @@
 pkgs:
 # Any defaults/must-haves go here
-[]
-# Any categorical apps go here
-# @TODO wildcard
-    ++ import ./astronomy.nix pkgs
+import ./astronomy.nix pkgs
     ++ import ./audio.nix pkgs
     ++ import ./backup.nix pkgs
     ++ import ./browser.nix pkgs
