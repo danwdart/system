@@ -1,6 +1,6 @@
 { pkgs, lib, config, systemPackages, ... }:
 {
-  systemPackages = systemPackages;
+  inherit systemPackages;
 
   pathsToLink = [
     "/share/nix-direnv"

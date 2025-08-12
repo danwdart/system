@@ -2034,10 +2034,10 @@ in {
 
   printing.enable = isDesktop;
 
-  openssh = {
-    enable = true;
-    openFirewall = true;
-  };
+  # openssh = {
+  #   enable = false;
+  #   openFirewall = false;
+  # };
 
   ulogd = {
     enable = true;

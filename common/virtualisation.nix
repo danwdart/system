@@ -1,4 +1,4 @@
-{...}:
+_:
 {
   # error: cython-0.29.37.1 not supported for interpreter python3.13
   # waydroid = {

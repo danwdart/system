@@ -1,4 +1,4 @@
-{...}:
+_:
 {
 
   # package = pkgs.nix;
