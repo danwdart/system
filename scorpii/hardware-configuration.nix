@@ -21,28 +21,39 @@ in {
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "uas" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" "ax25" "mkiss" "netrom" ];
-  boot.extraModulePackages = [ ];
-  
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.xbootldrMountPoint = "/boot";
-  boot.loader.systemd-boot.extraEntries = {
-    "nixos-installer.conf" = ''
-      title NixOS Installer
-      version 25.05
-      linux rescue-kernel 
-      initrd rescue-initrd
-      options init=${netboot.config.system.build.toplevel}/init ${toString netboot.config.boot.kernelParams} i915.enable_gvt=1
-    '';
+  boot = {
+    initrd = {
+      availableKernelModules = [ "xhci_pci" "ahci" "nvme" "uas" "usb_storage" "sd_mod" ];
+      kernelModules = [ ];
+    };
+
+    kernelModules = [ "kvm-intel" "ax25" "mkiss" "netrom" ];
+    extraModulePackages = [ ];
+    
+    loader = {
+      systemd-boot = {
+        enable = true;
+        xbootldrMountPoint = "/boot";
+        extraEntries = {
+          "nixos-installer.conf" = ''
+            title NixOS Installer
+            version 25.05
+            linux rescue-kernel 
+            initrd rescue-initrd
+            options init=${netboot.config.system.build.toplevel}/init ${toString netboot.config.boot.kernelParams} i915.enable_gvt=1
+          '';
+        };
+        extraFiles = {
+          "rescue-kernel" = "${netboot.config.system.build.kernel}/bzImage";
+          "rescue-initrd" = "${netboot.config.system.build.netbootRamdisk}/initrd";
+        };
+      };
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/efi";
+      };
+    };
   };
-  boot.loader.systemd-boot.extraFiles = {
-    "rescue-kernel" = "${netboot.config.system.build.kernel}/bzImage";
-    "rescue-initrd" = "${netboot.config.system.build.netbootRamdisk}/initrd";
-  };
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/efi";
 
   # fileSystems."/" = lib.mkDefault
   #   { device = "/dev/disk/by-uuid/1778de2b-8859-4988-9fed-cbd53b8fb7cf";
@@ -58,23 +69,25 @@ in {
   #   ];
   # };
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/721b775b-a946-4440-ab24-1ee73692d024";
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/721b775b-a946-4440-ab24-1ee73692d024";
       fsType = "ext4";
       options = [ "noatime" ];
     };
 
-  fileSystems."/efi" =
-    { device = "/dev/disk/by-uuid/502F-07A0";
+    "/efi" = {
+      device = "/dev/disk/by-uuid/502F-07A0";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/5879-7B8B";
+    "/boot" = {
+      device = "/dev/disk/by-uuid/5879-7B8B";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
+  };
 
   swapDevices = [ ];
   

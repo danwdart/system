@@ -21,10 +21,12 @@ _:
     };
   };
 
-  libvirtd.enable = true;
-  libvirtd.onBoot = "start";
-  libvirtd.qemu.ovmf.enable = true;
-  libvirtd.onShutdown = "suspend";
+  libvirtd = {
+    enable = true;
+    onBoot = "start";
+    qemu.ovmf.enable = true;
+    onShutdown = "suspend";
+  };
 
   # intel gen 5+
   kvmgt = {

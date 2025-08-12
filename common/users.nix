@@ -18,51 +18,53 @@ in
     # To generate a hash to put in initialHashedPassword
     # you can do this:
     # $ nix-shell --run 'mkpasswd -m SHA-512 -s' -p mkpasswd
-    users.root = {
-        initialHashedPassword = builtins.readFile "${privateDir}/users/root/hashed_password";
-        openssh.authorizedKeys.keys = dansKeys;
-    };  
-  
-    users.dwd = {
-        createHome = true;
-        # name = "Dan Dart";
-        description = "Dan Dart";
-        initialHashedPassword = builtins.readFile "${privateDir}/users/dwd/hashed_password";
-        isNormalUser = true;
-        extraGroups = [
-            "adbusers"
-            "dialout"
-            "docker"
-            "jackaudio"
-            "kvm"
-            "libvirtd"
-            "lp"
-            "networkmanager"
-            "plugdev"
-            "scanner"
-            "soundmodem"
-            "vboxusers"
-            "wheel"
-            "wireshark"
-        ];
-        openssh.authorizedKeys.keys = dansKeys;
-        linger = true;
-        homeMode = "755";
-    };
-  
-    users.raven = {
-       	createHome = true;
-        description = "Raven Bloodmoon";
-        initialHashedPassword = builtins.readFile "${privateDir}/users/raven/hashed_password";
-        isNormalUser = true;
-        extraGroups = [
-            "dialout"
-            "jackaudio"
-            "lp"
-            "networkmanager"
-            "plugdev"
-            "scanner"
-        ];
-        homeMode = "755";
+    users = {
+        root = {
+            initialHashedPassword = builtins.readFile "${privateDir}/users/root/hashed_password";
+            openssh.authorizedKeys.keys = dansKeys;
+        };  
+    
+        dwd = {
+            createHome = true;
+            # name = "Dan Dart";
+            description = "Dan Dart";
+            initialHashedPassword = builtins.readFile "${privateDir}/users/dwd/hashed_password";
+            isNormalUser = true;
+            extraGroups = [
+                "adbusers"
+                "dialout"
+                "docker"
+                "jackaudio"
+                "kvm"
+                "libvirtd"
+                "lp"
+                "networkmanager"
+                "plugdev"
+                "scanner"
+                "soundmodem"
+                "vboxusers"
+                "wheel"
+                "wireshark"
+            ];
+            openssh.authorizedKeys.keys = dansKeys;
+            linger = true;
+            homeMode = "755";
+        };
+    
+        raven = {
+            createHome = true;
+            description = "Raven Bloodmoon";
+            initialHashedPassword = builtins.readFile "${privateDir}/users/raven/hashed_password";
+            isNormalUser = true;
+            extraGroups = [
+                "dialout"
+                "jackaudio"
+                "lp"
+                "networkmanager"
+                "plugdev"
+                "scanner"
+            ];
+            homeMode = "755";
+        };
     };
 }
