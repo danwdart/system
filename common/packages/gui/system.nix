@@ -11,13 +11,13 @@ with pkgs; [
     linux-exploit-suggester
     linux-wallpaperengine
     # nerd-fonts.STUFFGOESHERE
-    #rpi-imager
+    rpi-imager
     stacer
     #unetbootin
     wev
     #winusb
     #woeusb # -ng
-    wsysmon
+    # wsysmon # sigsegv
     #xcruiser # no desktop icon
     #xorg.xev
     systembus-notify # make it autostart?
