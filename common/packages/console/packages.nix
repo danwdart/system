@@ -1,9 +1,6 @@
 pkgs:
 # Any defaults/must-haves go here
-[]
-# Any categorical apps go here
-# @TODO wildcard
-    ++ import ./backup.nix pkgs
+import ./backup.nix pkgs
     ++ import ./boot.nix pkgs
     ++ import ./code.nix pkgs
     ++ import ./emu.nix pkgs
