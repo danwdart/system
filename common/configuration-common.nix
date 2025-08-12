@@ -19,14 +19,14 @@ in {
       lanzaboote.nixosModules.lanzaboote
     ];
 
-  boot = import ./boot.nix { pkgs = pkgs; lib = lib; };
+  boot = import ./boot.nix { inherit pkgs; inherit lib; };
   console = import ./console.nix {};
   i18n = import ./i18n.nix {};
-  nix = import ./nix.nix { pkgs = pkgs; };
+  nix = import ./nix.nix { inherit pkgs; };
   nixpkgs = import ./nixpkgs.nix {};
-  system = import ./system.nix { hostName = hostName; };
+  system = import ./system.nix { inherit hostName; };
   time = import ./time.nix {};
-  users = import ./users.nix { privateDir = privateDir; };
+  users = import ./users.nix { inherit privateDir; };
   virtualisation = import ./virtualisation.nix {};
 
   home-manager.backupFileExtension = ".bak";
