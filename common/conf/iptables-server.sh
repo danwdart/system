@@ -25,6 +25,7 @@ export NET=10.0.0.0/24
 export NET6=fe80::/10
 export PRIVNET_8=10.0.0.0/8
 export PRIVNET_12=172.16.0.0/12
+export PRIVNET_16=192.168.0.0/16
 export ROUTER=10.0.0.1
 export ROUTER6=fe80::1
 export SSDP=239.255.255.250
@@ -405,7 +406,7 @@ $IPT -A OUTPUT -s $LOCAL_8 -d $LOCAL_8 -o lo -j ACCEPT
 $IP6T -A OUTPUT -s $LOCAL_128 -d $LOCAL_128 -o lo -j ACCEPT
 
 # all from VPN
-$IPT -A OUTPUT -s $PRIVNET_16 -d $PRIVNET_8 -j ACCEPT
+$IPT -A OUTPUT -s "$PRIVNET_16" -d $PRIVNET_8 -j ACCEPT
 
 # all local for now
 # $IPT -A OUTPUT -s $NET -d $NET -j ACCEPT

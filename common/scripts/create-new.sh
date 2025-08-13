@@ -1,17 +1,17 @@
 #!/bin/sh
 if [[ $1 == "" ]]
 then
-    echo Usage: $0 [hostname]
+    echo Usage: "$0" [hostname]
     exit 1
 fi
 
-mkdir $1
+mkdir "$1"
 echo Copying hardware config...
-cp /etc/nixos/hardware-configuration.nix $1
+cp /etc/nixos/hardware-configuration.nix "$1"
 echo Copying template config...
-cp sinistra/configuration.nix $1
+cp sinistra/configuration.nix "$1"
 echo Updating hostname...
-sed -i "s/sinistra/$1/g" $1/configuration.nix
+sed -i "s/sinistra/$1/g" "$1"/configuration.nix
 echo Creating private directories...
 mkdir -p common/private/{tt-rss,nextcloud,msf,users/{raven,dwd,root}}
 echo Creating private files...
