@@ -34,7 +34,7 @@ with pkgs; [
     # x11docker
     # xcircuit # no longer builds
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
-    androidStudioPackages.canary # dependent on android-tools?
+    # androidStudioPackages.canary # dependent on android-tools?
     # xyce # broken on aarch64
     # xyce-parallel
 ] else [
