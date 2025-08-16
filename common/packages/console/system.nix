@@ -20,7 +20,7 @@ with pkgs; [
     exfat
     exfatprogs
     file
-    # f3 # doesn't compile due to libudev.h missing
+    f3 # doesn't compile due to libudev.h missing
     glances
     glxinfo
     gptfdisk
@@ -42,6 +42,7 @@ with pkgs; [
     ntfs3g
     obexfs
     obexftp
+    ooniprobe-cli
     # opencorsairlink
     p7zip
     pciutils
