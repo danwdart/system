@@ -201,17 +201,40 @@ in {
             nixos.autoJoin = true;
           };
         };
-        megworld = {
+        liberachat = {
           nick = "dwd";
           server = {
-            address = "irc.megworld.co.uk";
+            address = "irc.libera.chat";
             port = 6697;
             autoConnect = true;
           };
           channels = {
-            megworld.autoJoin = true;
+            dcglug.autoJoin = true;
           };
         };
+        tildechat = {
+          nick = "dwd";
+          server = {
+            address = "tilde.chat";
+            port = 6697;
+            autoConnect = true;
+          };
+          channels = {
+            club.autoJoin = true;
+          };
+        };
+        # it ded :(
+        # megworld = {
+        #   nick = "dwd";
+        #   server = {
+        #     address = "irc.megworld.co.uk";
+        #     port = 6697;
+        #     autoConnect = true;
+        #   };
+        #   channels = {
+        #     megworld.autoJoin = true;
+        #   };
+        # };
       };
     };
     git = {
