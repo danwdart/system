@@ -10,6 +10,7 @@ with pkgs; [
     dbeaver-bin
     # comet-gog
     # etherape # failed to build goocanvas
+    freerdp
     # mysql-workbench
     nextcloud-client
     putty # no desktop icon
