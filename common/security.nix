@@ -27,12 +27,13 @@
           "jobfinder.jolharg.com"
           "api.jobfinder.jolharg.com"
           "news.dandart.co.uk"
-          # "grocy.dandart.co.uk"
+          "grocy.dandart.co.uk"
+          "degenerate.tsumikimikan.com"
         ];
       };
-      "dandart.geek" = {
-        server = "https://playground.acme.libre";
-      };
+      # "dandart.geek" = {
+      #   server = "https://playground.acme.libre";
+      # };
     };
   };
 
