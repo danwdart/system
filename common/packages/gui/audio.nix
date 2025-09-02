@@ -4,7 +4,7 @@ with pkgs;
     a2jmidid # CLI
     AMB-plugins
     # ardour # can't build raptor
-    # audacity # rapidjson problem
+    audacity # rapidjson problem
     autotalent
     # baudline # download link is down
     # carla # also a plugin host # can't build python3.12-pyliblo # cython-0.29.37.1 not supported for interpreter python3.13
