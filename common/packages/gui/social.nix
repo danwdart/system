@@ -54,6 +54,11 @@ with pkgs; [
         # withOpenASAR = true;
         nss = pkgs.nss_latest;
     })
+    discordchatexporter-cli
+    discordchatexporter-desktop
+    matrix-appservice-discord
+    # mautrix-discord # no libolm
+    mpris-discord-rpc
     # slack
     # skypeforlinux
     # zoom-us
