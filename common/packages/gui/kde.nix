@@ -1,11 +1,11 @@
 pkgs:
 (with pkgs; [
-    libsForQt5.plasma-welcome
+    # libsForQt5.plasma-welcome # doesn't exist
     amarok
     plasma-overdose-kde-theme
     plasma-panel-colorizer
     plasma-plugin-blurredwallpaper
-    plasma-theme-switcher
+    # plasma-theme-switcher # eol p5 only
     qdirstat
     supergfxctl-plasmoid
     systemdgenie
