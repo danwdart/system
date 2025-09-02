@@ -11,6 +11,7 @@ with pkgs;
 [
     armitage
     # authy # broken
+    burpsuite
     hashcat
-    plasma-pass
+    # plasma-pass # p5 eol
 ]
