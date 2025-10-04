@@ -14,10 +14,14 @@ in
         args = {
             inherit hostName;
             internalIPv4 = "192.168.1.73";
-            externalIPv4 = "141.195.162.79";
+            externalIPv4 = null;
             localIPv6 = "fe80::abc1:d831:8d0b:6152";
-            globalIPv6 = "2a0b:5f04:16e:1200::4";
+            globalIPv6 = "2a0b:5f04:16e:1200::9";
             fqdn = "scorpii.dandart.co.uk";
+            # wifiNetwork
+            # wifiPassword
+            # bssid24
+            # bssid5
         };
     };
     imports = [
