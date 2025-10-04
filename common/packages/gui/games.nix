@@ -50,7 +50,7 @@ with pkgs; [
     # exult # requires extra game data
     fceux-qt6
     flare # interesting top down rpg with lowish res
-    flightgear # big and takes a while to compile
+    # flightgear # big and takes a while to compile
     flight-of-the-amazon-queen
     # fltrator # all you do is die
     # freedroid # meh
@@ -100,7 +100,7 @@ with pkgs; [
     protonup-qt # for luxtorpeda
     # quakespasm # no desktop icon
     # qwbfsmanager # TODO REQUEST
-    racer
+    # racer # nah it's top down and doesn't allow to change keybinds
     # rebels-in-the-sky # meh complex
     # redeclipse # meh crazy controls now?
     ringracers
