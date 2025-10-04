@@ -2,7 +2,7 @@ pkgs:
 with pkgs; [
     aircrack-ng
     binwalk # python issues
-    chkrootkit
+    # chkrootkit # has been removed as it is unmaintained and archived upstream and didn't even work on NixOS
     gpgme
     hexedit
     john
