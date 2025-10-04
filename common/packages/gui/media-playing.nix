@@ -17,7 +17,7 @@ with pkgs; [
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
     # mplayer # no longer builds
     spotify
-    spotifywm
+    # spotifywm # spotifywm.cpp:12:10: fatal error: xcb/xproto.h: No such file or directory
 ] else [
    # pkgs-x86_64.mplayer
    # pkgs-x86_64.spotify
