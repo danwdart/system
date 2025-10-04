@@ -58,7 +58,7 @@ with pkgs; [
     discordchatexporter-desktop
     matrix-appservice-discord
     # mautrix-discord # no libolm
-    mpris-discord-rpc
+    music-discord-rpc
     # slack
     # skypeforlinux
     # zoom-us
