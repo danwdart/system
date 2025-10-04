@@ -3,7 +3,7 @@ with pkgs;
 [
     a2jmidid # CLI
     AMB-plugins
-    # ardour # can't build raptor
+    ardour
     audacity # rapidjson problem
     autotalent
     # baudline # download link is down
@@ -17,18 +17,18 @@ with pkgs;
     gst_all_1.gst-plugins-good
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-ugly
-    helvum # like qjackctl but lines and also what gladish was
+    helvum # like qjackctl but lines and also what gladish was 
     hydrogen
     # ingen # build failed with raul-unstable
     # jack_rack # won't build
-    kapitonov-plugins-pack
+    # kapitonov-plugins-pack # loads of weird errors
     # nova-filters # includes jack-rack?
     pavucontrol
     picard
     # qarecord # TODO request
     qjackctl # the other one?
     qsynth
-    # rosegarden # dssi fails to build
+    rosegarden # dssi fails to build
     soundfont-fluid
     yoshimi
     zam-plugins
