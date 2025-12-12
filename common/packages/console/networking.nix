@@ -16,6 +16,7 @@ with pkgs; [
     openvpn
     # postgrest
     # protonvpn-cli
+    protonvpn-gui
     # python314Packages.mitmproxy # fails to build in python3.14-msgspec
     # msgspec/_core.c:2148:7: error: ‘_Py_IMMORTAL_REFCNT’ undeclared here (not in a function)
     # 2148 |     { _Py_IMMORTAL_REFCNT },
@@ -23,4 +24,7 @@ with pkgs; [
     # ngrok
     # proxytunnel # insecure openssl
     slirp4netns
+    wireguard-go
+    wireguard-tools
+    wireguard-ui
 ]
