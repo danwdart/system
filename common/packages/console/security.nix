@@ -1,6 +1,7 @@
 pkgs:
 with pkgs; [
     aircrack-ng
+    airgeddon
     binwalk # python issues
     # chkrootkit # has been removed as it is unmaintained and archived upstream and didn't even work on NixOS
     gpgme
@@ -18,5 +19,7 @@ with pkgs; [
     sshuttle
     tcpdump
     thc-hydra
+    torsocks
     # tripwire - not yet available - unsure if any point?
+    wifite2
 ]
