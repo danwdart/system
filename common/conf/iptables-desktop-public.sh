@@ -2,8 +2,9 @@
 set -euo pipefail
 trap pwd ERR
 
-source ./common.sh
-source ../private/net/.env
+HERE=$(dirname $0)
+source $HERE/common.sh
+source $HERE/../private/net/.env
 
 export IP4T=iptables-nft
 

@@ -2,8 +2,9 @@
 set -euo pipefail
 trap pwd ERR
 
-source ./common.sh
-source ../private/net/.env
+HERE=$(dirname $0)
+source $HERE/common.sh
+source $HERE/../private/net/.env
 
 $IP4T -F
 $IP6T -F
@@ -228,4 +229,4 @@ $IP4T -A OUTPUT -p tcp --dport 443 -d 162.159.140.229 -j DROP # twtx's cloudflar
 $IP4T -A OUTPUT -p tcp --dport 443 -d 172.66.0.227 -j DROP # twtx's cloudflare
 
 # Mwahahaha
-../private/net/secret-firewall-entries.sh
+$HERE/../private/net/secret-firewall-entries.sh

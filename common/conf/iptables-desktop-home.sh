@@ -2,8 +2,9 @@
 set -euo pipefail
 trap pwd ERR
 
-source ./common.sh
-source ../private/net/.env
+HERE=$(dirname $0)
+source $HERE/common.sh
+source $HERE/../private/net/.env
 
 $IP4T -F
 $IP6T -F
@@ -452,4 +453,4 @@ $IP4T -A OUTPUT -j DROP
 $IP6T -A OUTPUT -j DROP
 
 # Mwahahaha
-../private/net/secret-firewall-entries.sh
+$HERE/../private/net/secret-firewall-entries.sh
