@@ -1,14 +1,20 @@
-{ pkgs, isDesktop, hostName, ... }:
+{ pkgs, isDesktop, hostName, privateDir, ... }:
 {
   acme = {
     defaults = {
       email = "acme@dandart.co.uk";
       group = "nginx";
-      webroot = "/var/lib/acme/acme-challenge";
+      # either dnsProvider, webroot, listenHTTP or s3Bucket.
+      # webroot = "/var/lib/acme/acme-challenge";
+      # dnsPropagationCheck = true;
     };
     acceptTerms = true;
     certs = {
       "${hostName}.${if isDesktop then "home." else ""}dandart.co.uk" = {
+        dnsProvider = "digitalocean";
+        credentialFiles = {
+          DO_AUTH_TOKEN_FILE = "${privateDir}/digitalocean/auth_token";
+        };
         extraDomainNames = [
           # these need to be real and pointing here, they can't be "just in case"
           # "nextcloud.dandart.co.uk"
@@ -26,14 +32,15 @@
           "api.dev.jobfinder.jolharg.com"
           "jobfinder.jolharg.com"
           "api.jobfinder.jolharg.com"
-          "news.dandart.co.uk"
-          "grocy.dandart.co.uk"
+          # "news.dandart.co.uk"
+          # "grocy.dandart.co.uk"
           "degenerate.tsumikimikan.com"
         ];
       };
-      # "dandart.geek" = {
-      #   server = "https://playground.acme.libre";
-      # };
+      "dandart.geek" = {
+        webroot = "/var/lib/acme/acme-challenge";
+        server = "https://playground.acme.libre";
+      };
     };
   };
 
@@ -61,12 +68,12 @@
       Certificate:
         Data:
             Version: 3 (0x2)
-            Serial Number: 26 (0x1a)
+            Serial Number: 36 (0x24)
             Signature Algorithm: sha256WithRSAEncryption
             Issuer: DC=libre, DC=acme, DC=playground, O=OpenNIC, OU=OpenNIC CA, CN=OpenNIC Root CA
             Validity
-                Not Before: Feb  1 20:08:33 2024 GMT
-                Not After : Aug  1 20:08:33 2024 GMT
+                Not Before: Oct 17 08:48:50 2025 GMT
+                Not After : Apr 17 08:48:50 2026 GMT
             Subject: DC=libre, DC=acme, DC=playground, O=OpenNIC, OU=OpenNIC CA, CN=OpenNIC Root CA
             Subject Public Key Info:
                 Public Key Algorithm: rsaEncryption
@@ -136,73 +143,75 @@
                       DNS:.pirate
         Signature Algorithm: sha256WithRSAEncryption
         Signature Value:
-            8e:a5:67:48:44:7e:70:8b:8e:18:bd:5b:73:71:5f:62:97:9f:
-            89:7f:56:f2:46:b0:c9:d8:d9:4d:94:27:56:fc:2e:19:2b:b9:
-            e4:1b:c1:a1:4a:68:a6:49:2c:06:b8:74:56:87:65:6a:90:84:
-            83:ab:3d:c2:c4:4a:b8:35:fc:c4:14:96:93:23:78:bb:af:6a:
-            2f:ad:54:33:53:36:c7:71:de:d7:28:ad:f6:c0:6f:57:72:03:
-            27:83:1b:77:47:4e:10:14:a2:f8:5f:58:50:1b:be:01:f9:34:
-            c5:77:b6:f0:60:c0:ea:2b:64:4f:08:ff:da:f3:ac:a2:3b:c8:
-            b8:d8:78:a8:e8:be:59:23:b3:74:d6:00:14:f0:d5:95:93:4e:
-            f6:6f:bb:60:c0:a5:85:51:4f:51:3d:45:02:1b:8b:84:74:78:
-            77:fa:43:52:13:f2:60:78:82:62:41:18:ce:9c:28:ba:d8:ed:
-            51:bd:d6:54:e3:a0:04:00:44:2b:dc:49:75:f3:d8:0b:29:52:
-            f1:28:31:d9:e0:79:eb:83:89:28:2c:06:da:6b:de:3f:65:85:
-            07:28:59:b3:1e:7f:1e:47:39:8a:9a:76:37:09:f8:09:28:0f:
-            d0:05:22:ac:38:b8:15:a5:cd:9f:12:70:82:02:f5:02:18:98:
-            fb:e4:06:47:2b:5a:78:8e:9f:80:3a:b8:81:81:8f:7d:89:8b:
-            5c:70:8a:d7:6f:b7:69:91:f5:42:1c:3d:a8:6d:2a:eb:9e:05:
-            c2:e3:5e:63:39:f8:a5:17:d4:bc:6c:43:dd:84:85:b4:ce:ae:
-            38:d3:b7:e6:cf:27:9a:7e:fe:36:be:f5:12:03:ad:dd:6e:1a:
-            1c:02:05:d5:9d:1a:d1:bd:9f:a1:6a:f9:60:18:4d:27:5e:98:
-            30:a3:53:7b:2f:c8:67:4c:43:e4:c2:4b:c1:d7:36:af:eb:86:
-            ed:69:1b:96:07:64:53:d5:ba:07:26:e7:d4:08:40:fd:37:3f:
-            d9:8a:01:99:a7:87:e9:79:30:6f:a1:14:f0:c4:ad:2f:a1:70:
-            b4:9a:90:f5:48:6b:dd:7b:1e:a8:8e:c2:52:5a:90:30:d1:d4:
-            30:19:75:12:36:fb:c2:61:cf:9f:63:61:fc:2f:47:8b:02:c8:
-            14:2b:03:d5:64:cd:91:7d:13:09:78:31:f7:92:f3:bc:bf:a2:
-            fd:9f:ec:12:38:e3:4f:e3:8a:e2:5e:b1:19:ce:4d:7b:f3:62:
-            72:c7:de:7e:a3:08:05:b3:9a:63:a6:ce:d2:43:aa:a9:f8:9f:
-            5a:02:7c:48:5e:8e:09:10:9d:bf:d2:f4:31:89:7c:0b:54:00:
-            03:32:4f:e5:05:b8:2f:5c
-      -----BEGIN CERTIFICATE-----
-      MIIGkTCCBHmgAwIBAgIBGjANBgkqhkiG9w0BAQsFADCBijEVMBMGCgmSJomT8ixk
-      ARkWBWxpYnJlMRQwEgYKCZImiZPyLGQBGRYEYWNtZTEaMBgGCgmSJomT8ixkARkW
-      CnBsYXlncm91bmQxEDAOBgNVBAoMB09wZW5OSUMxEzARBgNVBAsMCk9wZW5OSUMg
-      Q0ExGDAWBgNVBAMMD09wZW5OSUMgUm9vdCBDQTAeFw0yNDAyMDEyMDA4MzNaFw0y
-      NDA4MDEyMDA4MzNaMIGKMRUwEwYKCZImiZPyLGQBGRYFbGlicmUxFDASBgoJkiaJ
-      k/IsZAEZFgRhY21lMRowGAYKCZImiZPyLGQBGRYKcGxheWdyb3VuZDEQMA4GA1UE
-      CgwHT3Blbk5JQzETMBEGA1UECwwKT3Blbk5JQyBDQTEYMBYGA1UEAwwPT3Blbk5J
-      QyBSb290IENBMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAqg7QO+YI
-      7JHF2WYhRAszoPSbmfegW6X0EqGF3EyXY+4CB9JixkT0GcZoxx+i8VShdtCnQo2x
-      J0L+FQRI4Dht0xZhfSEH9Rahnl4IVRWDRkYduVvXaGWRxkQ1UflAJuSbibS4jOe/
-      t2Druaoj5VgqRRxsuakw/vBHpRBMXIZYv2TSKeSN5EaFxrYDJytEseAca4E9LxuR
-      TkAba4pdHstOqL7dCUv7I9X/0Mkf1AhpPhD3mWLT7wyqkulil8X/eTg/kvT2TLAN
-      +4Keusu+ORnkm9+C3mNVJaGaKOp/NysYrzFGs2kHUOMQbtN6wXdlvVd+KYU8MPHG
-      +RZijbRIy+h2G7v/K6xqXW+0u5VihxnbrZG58JjfThIvq+IQlEsaGkv4RmYbWRW8
-      OD4yw3/GTOj11X9gafVwWxIUcFDo93DyfrQbHT4Jpgc0Nl9UeIYT3AJTPP0UXcr1
-      lmpfbr0P29QQZNQ2s1Vq+Pbk8sCEULovW6ARD2q6BSngolPsmDp7ErQwcrXYX+hs
-      s9gLqUZ9yGN6+sNVSYmccED6ii8rfU29fHN7Oe4mikigPP8KCvzA1ABfrSpxnqNy
-      eO/4N9EFd6jltrvIZ4KRQSzV4GXmXXx/7vOZ7xDOmmQqaaGAVQlkOZBaW2p0PXYy
-      UyDMpc91pOrGj7urBIgupKpSC5BHN+e8EXUCAwEAAaOB/zCB/DAOBgNVHQ8BAf8E
-      BAMCAYYwEgYDVR0TAQH/BAgwBgEB/wIBATAdBgNVHQ4EFgQUoRCMm/RZOy/0irIZ
-      Ao+ClOfMa5MwHwYDVR0jBBgwFoAUoRCMm/RZOy/0irIZAo+ClOfMa5MwgZUGA1Ud
-      HgEB/wSBijCBh6CBhDAGggQuYmJzMAeCBS5jaGFuMAaCBC5jeWIwBoIELmR5bjAH
-      ggUuZ2VlazAJggcuZ29waGVyMAeCBS5pbmR5MAiCBi5saWJyZTAGggQubmVvMAeC
-      BS5udWxsMASCAi5vMAaCBC5vc3MwBYIDLm96MAmCBy5wYXJvZHkwCYIHLnBpcmF0
-      ZTANBgkqhkiG9w0BAQsFAAOCAgEAjqVnSER+cIuOGL1bc3FfYpefiX9W8kawydjZ
-      TZQnVvwuGSu55BvBoUpopkksBrh0VodlapCEg6s9wsRKuDX8xBSWkyN4u69qL61U
-      M1M2x3He1yit9sBvV3IDJ4Mbd0dOEBSi+F9YUBu+Afk0xXe28GDA6itkTwj/2vOs
-      ojvIuNh4qOi+WSOzdNYAFPDVlZNO9m+7YMClhVFPUT1FAhuLhHR4d/pDUhPyYHiC
-      YkEYzpwoutjtUb3WVOOgBABEK9xJdfPYCylS8Sgx2eB564OJKCwG2mveP2WFByhZ
-      sx5/Hkc5ipp2Nwn4CSgP0AUirDi4FaXNnxJwggL1AhiY++QGRytaeI6fgDq4gYGP
-      fYmLXHCK12+3aZH1Qhw9qG0q654FwuNeYzn4pRfUvGxD3YSFtM6uONO35s8nmn7+
-      Nr71EgOt3W4aHAIF1Z0a0b2foWr5YBhNJ16YMKNTey/IZ0xD5MJLwdc2r+uG7Wkb
-      lgdkU9W6Bybn1AhA/Tc/2YoBmaeH6Xkwb6EU8MStL6FwtJqQ9Uhr3XseqI7CUlqQ
-      MNHUMBl1Ejb7wmHPn2Nh/C9HiwLIFCsD1WTNkX0TCXgx95LzvL+i/Z/sEjjjT+OK
-      4l6xGc5Ne/NicsfefqMIBbOaY6bO0kOqqfifWgJ8SF6OCRCdv9L0MYl8C1QAAzJP
-      5QW4L1w=
-      -----END CERTIFICATE-----
+          22:33:86:af:81:98:21:de:b9:d2:4a:b7:d8:49:7e:29:02:52:
+          4a:59:fd:1b:30:a8:67:8d:e3:42:8b:aa:45:5f:20:2d:8f:f1:
+          23:1a:a5:61:fe:08:e7:47:f2:63:26:2b:9d:9d:db:d6:2e:45:
+          37:0a:a7:d9:97:57:7b:21:f8:78:77:92:84:b4:74:97:17:48:
+          d4:a2:58:1e:6f:f4:ce:9f:3c:3d:74:a7:e8:8d:24:5f:ec:0b:
+          f0:9f:a6:f5:b7:5a:91:5b:60:ae:5e:b1:49:f9:fa:3d:4d:c9:
+          3c:c6:e7:50:bb:e8:2f:fb:6c:e9:71:d1:da:19:04:01:6b:73:
+          05:f9:fa:cc:4d:da:f5:a2:d3:d6:ea:48:b7:aa:4f:e0:5b:73:
+          dc:46:e4:94:06:4b:8c:b1:04:d8:ce:32:98:89:07:01:11:1d:
+          69:df:6e:0d:c6:15:cf:95:3d:67:a0:28:e8:35:aa:7e:c3:db:
+          41:a2:4c:19:0c:6a:24:0c:4b:44:5a:1b:1b:f0:c3:f9:8c:f4:
+          9c:d4:29:64:73:05:6c:bb:44:07:c0:25:32:fa:4b:99:2b:f2:
+          77:20:98:69:84:42:12:67:ad:fe:99:62:9a:e3:f5:f5:b4:16:
+          b9:76:60:a6:e8:54:98:e0:cb:22:14:62:f5:d2:4e:36:f3:8b:
+          b6:09:bc:ca:70:e9:d8:1c:36:82:5e:7a:92:56:c0:dd:1e:78:
+          e3:77:db:dd:c9:9b:75:ff:b3:e4:65:a9:35:d7:80:4d:b0:cd:
+          87:a9:c0:55:55:12:0e:c4:df:04:32:ec:ba:0b:44:2b:77:5f:
+          a3:d7:8d:22:d4:e0:c7:86:3f:cc:ac:98:d7:c4:e8:a6:11:2a:
+          c8:32:38:23:38:f9:3a:25:a8:5a:60:19:7f:6a:3b:ba:03:ea:
+          46:ef:27:30:d5:0c:f5:1a:09:ff:76:12:03:a6:f2:49:0f:d6:
+          42:80:a6:18:77:9c:58:95:6b:63:ce:2b:bb:81:c5:f4:34:a5:
+          86:f4:de:cf:5c:b2:a6:56:d6:62:aa:64:c8:5f:31:28:85:0d:
+          87:49:a0:44:4c:08:3c:ea:75:12:f9:94:7f:da:df:af:1f:aa:
+          aa:82:f7:62:9f:d6:40:02:b9:0b:70:b9:2c:65:42:39:42:91:
+          d0:36:9d:86:e5:a2:70:8a:7d:80:0d:a8:f0:f6:9f:c6:e0:9a:
+          a4:4a:2d:d6:be:38:2c:00:53:b9:ef:6c:03:02:e6:71:ae:40:
+          58:10:8e:44:54:4f:dc:8c:df:53:7f:25:7a:3f:a2:bc:fe:4c:
+          c4:74:ef:ba:7a:dc:94:e3:82:68:53:a2:d0:68:aa:a2:c8:a3:
+          58:74:19:1d:5a:67:5c:fa
+    -----BEGIN CERTIFICATE-----
+    MIIGkTCCBHmgAwIBAgIBJDANBgkqhkiG9w0BAQsFADCBijEVMBMGCgmSJomT8ixk
+    ARkWBWxpYnJlMRQwEgYKCZImiZPyLGQBGRYEYWNtZTEaMBgGCgmSJomT8ixkARkW
+    CnBsYXlncm91bmQxEDAOBgNVBAoMB09wZW5OSUMxEzARBgNVBAsMCk9wZW5OSUMg
+    Q0ExGDAWBgNVBAMMD09wZW5OSUMgUm9vdCBDQTAeFw0yNTEwMTcwODQ4NTBaFw0y
+    NjA0MTcwODQ4NTBaMIGKMRUwEwYKCZImiZPyLGQBGRYFbGlicmUxFDASBgoJkiaJ
+    k/IsZAEZFgRhY21lMRowGAYKCZImiZPyLGQBGRYKcGxheWdyb3VuZDEQMA4GA1UE
+    CgwHT3Blbk5JQzETMBEGA1UECwwKT3Blbk5JQyBDQTEYMBYGA1UEAwwPT3Blbk5J
+    QyBSb290IENBMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAqg7QO+YI
+    7JHF2WYhRAszoPSbmfegW6X0EqGF3EyXY+4CB9JixkT0GcZoxx+i8VShdtCnQo2x
+    J0L+FQRI4Dht0xZhfSEH9Rahnl4IVRWDRkYduVvXaGWRxkQ1UflAJuSbibS4jOe/
+    t2Druaoj5VgqRRxsuakw/vBHpRBMXIZYv2TSKeSN5EaFxrYDJytEseAca4E9LxuR
+    TkAba4pdHstOqL7dCUv7I9X/0Mkf1AhpPhD3mWLT7wyqkulil8X/eTg/kvT2TLAN
+    +4Keusu+ORnkm9+C3mNVJaGaKOp/NysYrzFGs2kHUOMQbtN6wXdlvVd+KYU8MPHG
+    +RZijbRIy+h2G7v/K6xqXW+0u5VihxnbrZG58JjfThIvq+IQlEsaGkv4RmYbWRW8
+    OD4yw3/GTOj11X9gafVwWxIUcFDo93DyfrQbHT4Jpgc0Nl9UeIYT3AJTPP0UXcr1
+    lmpfbr0P29QQZNQ2s1Vq+Pbk8sCEULovW6ARD2q6BSngolPsmDp7ErQwcrXYX+hs
+    s9gLqUZ9yGN6+sNVSYmccED6ii8rfU29fHN7Oe4mikigPP8KCvzA1ABfrSpxnqNy
+    eO/4N9EFd6jltrvIZ4KRQSzV4GXmXXx/7vOZ7xDOmmQqaaGAVQlkOZBaW2p0PXYy
+    UyDMpc91pOrGj7urBIgupKpSC5BHN+e8EXUCAwEAAaOB/zCB/DAOBgNVHQ8BAf8E
+    BAMCAYYwEgYDVR0TAQH/BAgwBgEB/wIBATAdBgNVHQ4EFgQUoRCMm/RZOy/0irIZ
+    Ao+ClOfMa5MwHwYDVR0jBBgwFoAUoRCMm/RZOy/0irIZAo+ClOfMa5MwgZUGA1Ud
+    HgEB/wSBijCBh6CBhDAGggQuYmJzMAeCBS5jaGFuMAaCBC5jeWIwBoIELmR5bjAH
+    ggUuZ2VlazAJggcuZ29waGVyMAeCBS5pbmR5MAiCBi5saWJyZTAGggQubmVvMAeC
+    BS5udWxsMASCAi5vMAaCBC5vc3MwBYIDLm96MAmCBy5wYXJvZHkwCYIHLnBpcmF0
+    ZTANBgkqhkiG9w0BAQsFAAOCAgEAIjOGr4GYId650kq32El+KQJSSln9GzCoZ43j
+    QouqRV8gLY/xIxqlYf4I50fyYyYrnZ3b1i5FNwqn2ZdXeyH4eHeShLR0lxdI1KJY
+    Hm/0zp88PXSn6I0kX+wL8J+m9bdakVtgrl6xSfn6PU3JPMbnULvoL/ts6XHR2hkE
+    AWtzBfn6zE3a9aLT1upIt6pP4Ftz3EbklAZLjLEE2M4ymIkHAREdad9uDcYVz5U9
+    Z6Ao6DWqfsPbQaJMGQxqJAxLRFobG/DD+Yz0nNQpZHMFbLtEB8AlMvpLmSvydyCY
+    aYRCEmet/plimuP19bQWuXZgpuhUmODLIhRi9dJONvOLtgm8ynDp2Bw2gl56klbA
+    3R5443fb3cmbdf+z5GWpNdeATbDNh6nAVVUSDsTfBDLsugtEK3dfo9eNItTgx4Y/
+    zKyY18TophEqyDI4Izj5OiWoWmAZf2o7ugPqRu8nMNUM9RoJ/3YSA6bySQ/WQoCm
+    GHecWJVrY84ru4HF9DSlhvTez1yyplbWYqpkyF8xKIUNh0mgREwIPOp1EvmUf9rf
+    rx+qqoL3Yp/WQAK5C3C5LGVCOUKR0DadhuWicIp9gA2o8PafxuCapEot1r44LABT
+    ue9sAwLmca5AWBCORFRP3IzfU38lej+ivP5MxHTvunrclOOCaFOi0GiqosijWHQZ
+    HVpnXPo=
+    -----END CERTIFICATE-----
+
+
     '')
   ];
 
