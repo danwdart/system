@@ -38,8 +38,8 @@ in {
           :set +m
           :set prompt "\ESC[38;5;208m\STXλ>\ESC[m\STX "
           :set prompt-cont " | "
-          :def hoogle \x -> return $ ":!hoogle \"" ++ x ++ "\""
-          :def doc \x -> return $ ":!hoogle --info \"" ++ x ++ "\""
+          -- :def hoogle \x -> return $ ":!hoogle \"" ++ x ++ "\""
+          -- :def doc \x -> return $ ":!hoogle --info \"" ++ x ++ "\""
         '';
       };
 
@@ -109,25 +109,6 @@ in {
     ssh = {
       enable = true;
       matchBlocks = {
-        dev = {
-          hostname = "localhost";
-          user = "root";
-          port = 2222;
-          localForwards = [
-            {
-              bind.port = 4455;
-              host.address = "localhost";
-              host.port = 445;
-            }
-          ];
-        };
-        imac = {
-          hostname = "192.168.1.100";
-        };
-        windows = {
-          hostname = "192.168.1.113";
-          user = "micro";
-        };
         sn = {
           hostname = "synchro.net";
         };
@@ -152,11 +133,11 @@ in {
         "logout"
       ];
       shellAliases = {
-        ukbbs = "ztelnet ukbbs.zapto.org";
-        fenric = "ztelnet fenric.muppetwhore.net";
-        tardis = "ztelnet bbs.cortex-media.info";
-        nostromo = "ztelnet nostromo.synchro.net";
-        scn = "ztelnet scn.org";
+        ukbbs = "telnet ukbbs.zapto.org";
+        fenric = "telnet fenric.muppetwhore.net";
+        tardis = "telnet bbs.cortex-media.info";
+        nostromo = "telnet nostromo.synchro.net";
+        scn = "telnet scn.org";
         ll = "ls -l";
         ".." = "cd ..";
       };
@@ -193,9 +174,11 @@ in {
 
     programs.git = {
       enable = true;
-      userName = "Dan Dart";
-      userEmail = "git@dandart.co.uk";
-      extraConfig = {
+      settings = {
+        user = {
+          name = "Dan Dart";
+          email = "git@dandart.co.uk";
+        };
         pull = {
           rebase = false;
         };
