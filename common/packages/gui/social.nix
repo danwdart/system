@@ -61,6 +61,7 @@ with pkgs; [
     music-discord-rpc
     # slack
     # skypeforlinux
+    teams-for-linux
     # zoom-us
 ] else [
    # pkgs-x86_64.betterdiscordctl
