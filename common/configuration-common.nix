@@ -3,10 +3,10 @@
 { config, pkgs, lib, hostName, ... }:
 let
   home-manager = builtins.fetchTarball {
-    url = "https://github.com/nix-community/home-manager/archive/master.tar.gz";
+    url = "https://github.com/nix-community/home-manager/archive/release-25.11.tar.gz";
   };
   lanzaboote = import (builtins.fetchTarball {
-    url = "https://github.com/nix-community/lanzaboote/archive/refs/tags/v0.4.2.tar.gz";
+    url = "https://github.com/nix-community/lanzaboote/archive/refs/tags/v0.4.3.tar.gz";
   });
   rootDir = "/home/dwd/code/mine/nix/system";
   hostDir = "${rootDir}/${hostName}";
