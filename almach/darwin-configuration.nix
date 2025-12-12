@@ -16,10 +16,10 @@ in
     # clamav
     rclone
     # docker-compose
-    gitAndTools.gh
-    gitAndTools.gitFull
-    gitAndTools.git-hub
-    gitAndTools.hub
+    gh
+    gitFull
+    git-hub
+    hub
     git-crypt
     git-lfs
     gnupg
