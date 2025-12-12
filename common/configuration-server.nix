@@ -16,9 +16,9 @@ in
   hardware = import ./hardware.nix { inherit pkgs; isDesktop = false; };
   networking = import ./networking.nix { inherit pkgs; inherit lib; inherit hostName; isDesktop = false; };
   programs = import ./programs.nix { inherit pkgs; isDesktop = false; };
-  security = import ./security.nix { inherit pkgs; isDesktop = false; inherit hostName; };
+  security = import ./security.nix { inherit pkgs; isDesktop = false; inherit hostName; inherit privateDir; };
   services = import ./services.nix { inherit pkgs; inherit hostName; inherit hostDir; inherit privateDir; inherit internalIPv4; inherit externalIPv4; inherit localIPv6; inherit globalIPv6; inherit fqdn; isDesktop = false; };
-  systemd = import ./systemd.nix { inherit privateDir; isDesktop = false; };
+  systemd = import ./systemd.nix { inherit lib; inherit pkgs; inherit privateDir; isDesktop = false; };
   
   home-manager.users.dwd = import ./users/dwd/home.nix { inherit pkgs; isDesktop = false; };
 }
