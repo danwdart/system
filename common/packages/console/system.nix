@@ -15,6 +15,7 @@ with pkgs; [
     cdrtools
     clinfo
     cmatrix
+    comma
     egl-wayland
     enhanced-ctorrent
     exfat
@@ -22,7 +23,6 @@ with pkgs; [
     file
     f3 # doesn't compile due to libudev.h missing
     glances
-    glxinfo
     gptfdisk
     hdparm
     hidapi
@@ -35,10 +35,12 @@ with pkgs; [
     lm_sensors
     lshw
     lsof
+    mesa-demos
     mono
     # multibootusb # broken GUI, also broken
     ncdu
     networkmanager # possibly unneeded
+    nix-index
     ntfs3g
     obexfs
     obexftp
