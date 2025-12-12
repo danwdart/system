@@ -11,10 +11,10 @@ with pkgs; [
     python314Packages.android-backup
     # code-server # unneeded
     # docker-compose # doing the alias doesn't seem to be enough
-    gitAndTools.gh
-    gitAndTools.gitFull
-    gitAndTools.git-hub
-    gitAndTools.hub
+    gh
+    gitFull
+    git-hub
+    hub
     git-crypt
     git-lfs
     vim # plugins?
