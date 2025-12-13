@@ -19,6 +19,7 @@ with pkgs; [
     sshuttle
     tcpdump
     thc-hydra
+    thc-secure-delete
     torsocks
     # tripwire - not yet available - unsure if any point?
     wifite2
