@@ -121,6 +121,7 @@ in {
     };
     ssh = {
       enable = true;
+      enableDefaultConfig = false;
       matchBlocks = {
         sn = {
           hostname = "synchro.net";
@@ -131,6 +132,9 @@ in {
         we = {
           hostname = "warensemble.com";
           user = "dandart";
+        rpi = {
+          hostname = "192.168.1.82";
+        };
         };
       };
     };
@@ -239,9 +243,11 @@ in {
     };
     git = {
       enable = true;
-      userName = "Dan Dart";
-      userEmail = "git@dandart.co.uk";
-      extraConfig = {
+      settings = {
+        user = {
+          name = "Dan Dart";
+          email = "git@dandart.co.uk";
+        };
         pull = {
           rebase = false;
         };
