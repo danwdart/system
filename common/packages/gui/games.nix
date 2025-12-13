@@ -48,7 +48,7 @@ with pkgs; [
     endless-sky
     # extremetuxracer
     # exult # requires extra game data
-    fceux-qt6
+    # fceux-qt6 # no longer builds
     flare # interesting top down rpg with lowish res
     # flightgear # big and takes a while to compile
     flight-of-the-amazon-queen
@@ -82,7 +82,7 @@ with pkgs; [
     # mgba
     # minigalaxy # GOG client
     # mupen64plus # no desktop icon
-    naev # ay that's aight
+    # naev # ay that's aight # ERROR: Unhandled python exception
     nethack-qt # no desktop icon
     newtonwars
     nexuiz # no desktop icon # BIG
@@ -132,6 +132,7 @@ with pkgs; [
     # trenchbroom
     # trigger # no desktop icon
     # tumiki-fighters # prisms vs prisms
+    # dunno how to launch
     ue4demos.black_jack
     ue4demos.blueprint_examples_demo
     ue4demos.card_game
@@ -172,7 +173,7 @@ with pkgs; [
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
     steam
     steamcmd
-    steam-run-native
+    steam-run
     quake3e
     # vkquake # no desktop icon but needs dir
 ] else [
