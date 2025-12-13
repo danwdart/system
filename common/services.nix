@@ -192,7 +192,7 @@ in {
       };
     };
     settings = {
-      ClientUseIPv4 = false;
+      ClientUseIPv4 = true;
       ClientUseIPv6 = true;
       ClientPreferIPv6ORPort = true;
       HttpTunnelPort = 8118;
