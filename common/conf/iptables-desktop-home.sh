@@ -2,7 +2,8 @@
 set -euo pipefail
 trap pwd ERR
 
-HERE=$(dirname $0)
+# This script gets dumped into the system one instead of being called!
+HERE=/home/dwd/code/mine/nix/system/common/conf
 source $HERE/common.sh
 source $HERE/../private/net/.env
 
