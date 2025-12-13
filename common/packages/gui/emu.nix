@@ -19,7 +19,7 @@ with pkgs; [
     # pcsxr # depends on insecure ffmpeg
     ppsspp
     #protontricks8
-    proton-caller
+    # proton-caller # removed; unmaintained
     # rpcs3 # fails to build
     ruffle
     virt-viewer
