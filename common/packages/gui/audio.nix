@@ -36,7 +36,7 @@ with pkgs;
     # bristol # no desktop icon # can't compile
     plugin-torture # broken on aarch64
     polyphone # no desktop icon # broken on aarch64
-    tuxguitar # no desktop icon # REALLY broken on aarch64
+    # tuxguitar # swt: os.c:1759:9: error: 'gdk_pixbuf_loader_get_animation' is deprecated [-Werror=deprecated-declarations] # no desktop icon # REALLY broken on aarch64
     x42-gmsynth # broken on aarch64
 ] else [
 ])
