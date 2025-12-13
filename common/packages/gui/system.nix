@@ -12,7 +12,7 @@ with pkgs; [
     linux-wallpaperengine
     # nerd-fonts.STUFFGOESHERE
     rpi-imager
-    stacer
+    # stacer # removed since it was abandoned upstream and  relied on vulnerable software
     #unetbootin
     wev
     #winusb
@@ -27,6 +27,7 @@ with pkgs; [
     unifont
     unifont-csur
     unifont_upper
+    zap
 ] ++ (if builtins.currentSystem == "x86_64-linux" then [
     # xorg.xf86videointel
 ] else [
