@@ -113,9 +113,11 @@
 
   # If you want anything for this built by nixos, you have to use --argstr system X
   binfmt.emulatedSystems = [
-    "i686-linux"
-    # "x86_64-linux"
-    # "x86_64-windows"
+    # "i686-linux" # ehhh do we need this anymore i doubt it
+    "aarch64-linux" # mwuhahahaha - should allow cross compilation to be a bit easier...
+    "riscv64-linux" # even more mwuhahahaha
+    # "x86_64-linux" # duplication is pointless...
+    "x86_64-windows" # who's that :p
     "wasm32-wasi"
     "wasm64-wasi"
   ];
