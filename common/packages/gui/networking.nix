@@ -24,10 +24,10 @@ with pkgs; [
     # insomnia
     # postman
     scrcpy
-    tor-browser-bundle-bin
+    tor-browser
 ] else [
    # pkgs-x86_64.insomnia
    # pkgs-x86_64.postman
    # pkgs-x86_64.scrcpy
-   # pkgs-x86_64.tor-browser-bundle-bin
+   # pkgs-x86_64.tor-browser
 ])
