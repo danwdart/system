@@ -36,15 +36,173 @@ in {
     # packages =
     #    dns = "
     insertNameservers = [
-      "2a01:239:2fd:b700::1"
-      "2001:4ba0:cafe:3d2::1"
-      "2a01:238:4231:5200::1"
-      "2a03:94e0:1804::1"
-      "217.160.70.42"
-      "213.202.211.221"
-      "81.169.136.222"
-      "185.181.61.24"
+      # doesn't work when I connect to ipv4 only hotspots
+      # "2a01:239:2fd:b700::1"
+      # "2001:4ba0:cafe:3d2::1"
+      # "2a01:238:4231:5200::1"
+      # "2a03:94e0:1804::1"
+      # "217.160.70.42"
+      # "213.202.211.221"
+      # "81.169.136.222"
+      # "185.181.61.24"
     ];
+    # ensureProfiles = {
+    #   profiles = {
+    #       "${wifiNetwork}" = {
+    #         connection = {
+    #           id = "${wifiNetwork}";
+    #           uuid = "85476ebf-97b1-4089-860c-ad36f28966b8";
+    #           permissions = "";
+    #           type = "wifi";
+    #         };
+    #         ipv4 = {
+    #           dns-search = "";
+    #           may-fail = false;
+    #           method = "auto";
+    #           dns = "dns=213.202.211.221;81.169.136.222;185.181.61.24;";
+    #         };
+    #         ipv6 = {
+    #           addr-gen-mode = "stable-privacy";
+    #           ip6-privacy = false;
+    #           may-fail = false;
+    #           dns-search = "";
+    #           method = "auto";
+    #           dns = "2001:4ba0:cafe:3d2::1;2a01:238:4231:5200::1;2a03:94e0:1804::1;";
+    #         };
+    #         wifi = {
+    #           mode = "infrastructure";
+    #           ssid = "${wifiNetwork}";
+    #         };
+    #         wifi-security = {
+    #           auth-alg = "open";
+    #           key-mgmt = "sae";
+    #           psk = "${wifiPassword}";
+    #         };
+    #       };
+    #       "${wifiNetwork} (2.4GHz only)" = {
+    #         connection = {
+    #           id = "${wifiNetwork}";
+    #           uuid = "a825f5fd-1202-4674-a17d-68d86c6a7865";
+    #           permissions = "user:dwd:;";
+    #           type = "wifi";
+    #         };
+    #         ipv4 = {
+    #           may-fail = false;
+    #           dns-search = "";
+    #           method = "auto";
+    #           dns = "dns=213.202.211.221;81.169.136.222;185.181.61.24;";
+    #         };
+    #         ipv6 = {
+    #           addr-gen-mode = "stable-privacy";
+    #           ip6-privacy = false;
+    #           may-fail = false;
+    #           dns-search = "";
+    #           ignore-auto-dns = true;
+    #           method = "auto";
+    #           dns = "2001:4ba0:cafe:3d2::1;2a01:238:4231:5200::1;2a03:94e0:1804::1;";
+    #         };
+    #         wifi = {
+    #           bssid = "${bssid24}";
+    #           mode = "infrastructure";
+    #           ssid = "${wifiNetwork}";
+    #         };
+    #         wifi-security = {
+    #           auth-alg = "open";
+    #           key-mgmt = "sae";
+    #           psk = "${wifiPassword}";
+    #         };
+    #       };
+    #       "${wifiNetwork} (5GHz only)" = {
+    #         connection = {
+    #           id = "${wifiNetwork}";
+    #           uuid = "448eeece-905a-4a6c-b1ca-d57a17db0c26";
+    #           permissions = "user:dwd:;";
+    #           type = "wifi";
+    #         };
+    #         ipv4 = {
+    #           dns-search = "";
+    #           method = "auto";
+    #           may-fail = false;
+    #           dns = "dns=213.202.211.221;81.169.136.222;185.181.61.24;";
+    #         };
+    #         ipv6 = {
+    #           addr-gen-mode = "stable-privacy";
+    #           ip6-privacy = false;
+    #           may-fail = false;
+    #           dns-search = "";
+    #           ignore-auto-dns = true;
+    #           method = "auto";
+    #           dns = "2001:4ba0:cafe:3d2::1;2a01:238:4231:5200::1;2a03:94e0:1804::1;";
+    #         };
+    #         wifi = {
+    #           bssid = "${bssid5}";
+    #           mode = "infrastructure";
+    #           ssid = "${wifiNetwork}";
+    #         };
+    #         wifi-security = {
+    #           auth-alg = "open";
+    #           key-mgmt = "sae";
+    #           psk = "${wifiPassword}";
+    #         };
+    #       };
+    #       "${wifiNetwork} (default DNS)" = {
+    #         connection = {
+    #           id = "${wifiNetwork}";
+    #           uuid = "d6f1a9f3-c007-4008-9641-053d8f6dcf33";
+    #           permissions = "user:dwd:;";
+    #           type = "wifi";
+    #         };
+    #         ipv4 = {
+    #           dns-search = "";
+    #           method = "auto";
+    #           may-fail = false;
+    #         };
+    #         ipv6 = {
+    #           addr-gen-mode = "stable-privacy";
+    #           ip6-privacy = false;
+    #           may-fail = false;
+    #           dns-search = "";
+    #           ignore-auto-dns = true;
+    #           method = "auto";
+    #         };
+    #         wifi = {
+    #           mode = "infrastructure";
+    #           ssid = "${wifiNetwork}";
+    #         };
+    #         wifi-security = {
+    #           auth-alg = "open";
+    #           key-mgmt = "sae";
+    #           psk = "${wifiPassword}";
+    #         };
+    #       };
+    #       "${wifiNetwork} (IPv6 only)" = {
+    #         connection = {
+    #           id = "${wifiNetwork}";
+    #           uuid = "85476ebf-97b1-4089-860c-ad36f28966b8";
+    #           permissions = "";
+    #           type = "wifi";
+    #         };
+    #         ipv4 = {
+    #           dns-search = "";
+    #           may-fail = false;
+    #           method = "auto";
+    #           dns = "dns=213.202.211.221;81.169.136.222;185.181.61.24;";
+    #         };
+    #         ipv6 = {
+    #           method = "disabled";
+    #         };
+    #         wifi = {
+    #           mode = "infrastructure";
+    #           ssid = "${wifiNetwork}";
+    #         };
+    #         wifi-security = {
+    #           auth-alg = "open";
+    #           key-mgmt = "sae";
+    #           psk = "${wifiPassword}";
+    #         };
+    #       };
+    #   }
+    # }
   };
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
@@ -71,17 +229,61 @@ in {
     logRefusedConnections = true;
     # TODO to nftables
     extraCommands = (if isDesktop then
-      builtins.readFile "/home/dwd/code/mine/nix/system/common/conf/iptables-desktop-permissive.sh" else
+      builtins.readFile "/home/dwd/code/mine/nix/system/common/conf/iptables-desktop-home-permissive.sh" else
       builtins.readFile "/home/dwd/code/mine/nix/system/common/conf/iptables-server.sh"
     ) + "\n" + (lib.strings.concatStringsSep "\n" (map allowTelnet (attrValues telnetServers)));
     # Allow private IP ranges
     # extraCommands = ''
     # '';
     # iptables-nft -A INPUT -p tcp -s 10.0.0.0/8 -j ACCEPT
-    # iptables-nft -A INPUT -p tcp -s 172.16.0.0/12 -j ACCEPT
+    # iptables-nft -A INPUT -p tcp -s 172.17.0.0/12 -j ACCEPT
     # iptables-nft -A INPUT -p tcp -s 192.168.0.0/16 -j ACCEPT
   };
 
+  hosts = {
+    "192.168.1.254" = [
+      "dsldevice.lan"
+    ];
+    "fe80::1" = [
+      "dsldevice.lan"
+    ];
+    "127.0.0.1" = [
+      "${hostName}.home.dandart.co.uk"
+      # "dev.dandart.co.uk"
+      # "dev.jolharg.com"
+      # "dev.blog.jolharg.com"
+      # "dev.madhackerreviews.com"
+      # "dev.m0ori.com"
+      # "dev.blog.m0ori.com"
+      # "dev.blog.dandart.co.uk"
+      # "dev.jobfinder.jolharg.com"
+      # "api.dev.jobfinder.jolharg.com"
+      # "jobfinder.jolharg.com"
+      # "api.jobfinder.jolharg.com"
+      # "news.dandart.co.uk"
+      # "grocy.dandart.co.uk"
+      # "degenerate.tsumikimikan.com"
+      # "dandart.geek"
+    ];
+    "::1" = [
+      "${hostName}.home.dandart.co.uk"
+      # "dev.dandart.co.uk"
+      # "dev.jolharg.com"
+      # "dev.blog.jolharg.com"
+      # "dev.madhackerreviews.com"
+      # "dev.m0ori.com"
+      # "dev.blog.m0ori.com"
+      # "dev.blog.dandart.co.uk"
+      # "dev.jobfinder.jolharg.com"
+      # "api.dev.jobfinder.jolharg.com"
+      # "jobfinder.jolharg.com"
+      # "api.jobfinder.jolharg.com"
+      # "news.dandart.co.uk"
+      # "grocy.dandart.co.uk"
+      # "degenerate.tsumikimikan.com"
+      # "dandart.geek"
+    ];
+  };
   extraHosts = ''
     127.0.0.1      ${hostName}.home.dandart.co.uk
     ::1            ${hostName}.home.dandart.co.uk
