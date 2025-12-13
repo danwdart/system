@@ -1922,33 +1922,53 @@ in {
     msfPassword = builtins.readFile "${privateDir}/msf/dbpass";
     ttrssPassword = builtins.readFile "${privateDir}/tt-rss/dbpass";
     appBuilderPassword = builtins.readFile "${privateDir}/app-builder/dbpass";
+    jobfinderPassword = builtins.readFile "${privateDir}/jobfinder/dbpass";
     onlyofficeDBPassword = builtins.readFile "${privateDir}/onlyoffice/dbpass";
+    szuruPassword = builtins.readFile "${privateDir}/szuru/dbpass";
   in {
     enable = true;
-    package = pkgs.postgresql_16;
+    package = pkgs.postgresql_17;
     enableTCPIP = true;
     authentication = pkgs.lib.mkOverride 10 ''
       local all all trust
       host all all ::1/128 trust
     '';
+    extensions = ps: with ps; [ pgjwt pgsql-http ];
     initialScript = pkgs.writeText "backend-initScript" ''
       CREATE ROLE msf WITH LOGIN PASSWORD '${msfPassword}' CREATEDB;
       CREATE DATABASE msf;
       GRANT ALL PRIVILEGES ON DATABASE msf TO msf;
+
       CREATE ROLE nextcloud WITH LOGIN PASSWORD '${nextcloudPassword}' CREATEDB;
       CREATE DATABASE nextcloud;
       GRANT ALL PRIVILEGES ON DATABASE nextcloud TO nextcloud;
+
       CREATE ROLE tt_rss WITH LOGIN PASSWORD '${ttrssPassword}' CREATEDB;
       CREATE DATABASE tt_rss;
       GRANT ALL PRIVILEGES ON DATABASE tt_rss TO tt_rss;
-      create schema app_builder;
-      create role web_anon nologin;
-      grant usage on schema app_builder to web_anon;
-      create table app_builder.apps (id serial primary key, name text);
-      grant select on app_builder.apps to web_anon;
-      create role authenticator noinherit login password '${appBuilderPassword}';
-      grant web_anon to authenticator;
+
+      CREATE ROLE szurubooru WITH LOGIN PASSWORD '${szuruPassword}' CREATEDB;
+      CREATE DATABASE szuru;
+      GRANT ALL PRIVILEGES ON DATABASE szuru TO szurubooru;
+      GRANT CREATE, USAGE ON DATABASE szuru TO szurubooru;
+
+      CREATE ROLE jobfinder WITH LOGIN PASSWORD '${jobfinderPassword}' CREATEDB CREATEROLE;
+      CREATE DATABASE jobfinder;
+      GRANT ALL PRIVILEGES ON DATABASE jobfinder TO jobfinder;
     '';
+
+     # -- create schema app_builder;
+     # -- create role web_anon nologin;
+     # -- grant usage on schema app_builder to web_anon;
+     # -- create table app_builder.apps (id serial primary key, name text);
+     # -- grant select on app_builder.apps to web_anon;
+     # -- create role authenticator noinherit login password '${appBuilderPassword}';
+     # -- grant web_anon to authenticator; # 
+     # -- create schema jobfinder;
+     # -- create role web_anon nologin;
+     # -- grant usage on schema jobfinder to web_anon;
+     # -- create role authenticator noinherit login password '${jobfinderPassword}';
+     # -- grant web_anon to authenticator;
     # create role onlyoffice with login password '${onlyofficeDBPassword}' CREATEDB;
     # CREATE DATABASE onlyoffice;
     # GRANT ALL PRIVILEGES ON DATABASE onlyoffice TO onlyoffice;
