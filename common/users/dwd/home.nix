@@ -25,8 +25,8 @@ in {
           :set +m
           :set prompt "\ESC[38;5;208m\STXλ>\ESC[m\STX "
           :set prompt-cont " | "
-          :def hoogle \x -> return $ ":!hoogle \"" ++ x ++ "\""
-          :def doc \x -> return $ ":!hoogle --info \"" ++ x ++ "\""
+          -- :def hoogle \x -> return $ ":!hoogle \"" ++ x ++ "\""
+          -- :def hdoc \x -> return $ ":!hoogle --info \"" ++ x ++ "\""
         '';
       };
       vimBackup = {
