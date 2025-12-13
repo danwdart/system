@@ -82,8 +82,8 @@
       "browser.contentblocking.category" = "strict";
       "browser.protections_panel.infoMessage.seen" = true;
       "browser.rights.3.shown" = true;
-      "network.trr.mode" = 3;
-      "network.trr.uri" = "https://doh.kekew.info/dns-query";
+      # "network.trr.mode" = 3;
+      # "network.trr.uri" = "https://doh.kekew.info/dns-query";
       # these preferences not allowed for stability reasons?
       "privacy.donottrackheader.enabled" = true;
       "privacy.fingerprintingProtection" = true;
