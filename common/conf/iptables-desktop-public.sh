@@ -30,46 +30,46 @@ $IP4T -A INPUT -p udp -s $GATEWAY4 -d $BCAST4 --sport $DHCP4_SERVER_PORT --dport
 $IP4T -A INPUT -p tcp --dport 6881 -j ACCEPT
 $IP4T -A INPUT -p udp --dport 6881 -j ACCEPT
 $IP4T -A INPUT -p udp --sport 6881 -j ACCEPT
-# $IP4T -A INPUT -p udp -d $NET4 --dport 6881 -j ACCEPT
+# $IP4T -A INPUT -p udp -d $PRIVNET4_16 --dport 6881 -j ACCEPT
 
 # DHT
 $IP4T -A INPUT -p tcp --dport 7881 -j ACCEPT
 $IP4T -A INPUT -p udp --dport 7881 -j ACCEPT
 
 # Tracker
-# $IP4T -A INPUT -p tcp -d $NET4 --dport 8881 -j ACCEPT
-# $IP4T -A INPUT -p udp -d $NET4 --dport 8881 -j ACCEPT
+# $IP4T -A INPUT -p tcp -d $PRIVNET4_16 --dport 8881 -j ACCEPT
+# $IP4T -A INPUT -p udp -d $PRIVNET4_16 --dport 8881 -j ACCEPT
 
 # FTP responses
-$IP4T -A INPUT -p tcp -d $NET4 --sport 20 -j ACCEPT
+$IP4T -A INPUT -p tcp -d $PRIVNET4_16 --sport 20 -j ACCEPT
 
 # IGMP Multicast
 $IP4T -A INPUT -p igmp -s $GATEWAY4 -d $MULTICAST4_4 -j ACCEPT
 
 # mDNS
-$IP4T -A INPUT -p udp -s $NET4 -d $MULTICAST4_4 --sport 5353 --dport 5353 -j ACCEPT
+$IP4T -A INPUT -p udp -s $PRIVNET4_16 -d $MULTICAST4_4 --sport 5353 --dport 5353 -j ACCEPT
 
 # DLNA (TODO related?)
-$IP4T -A INPUT -p udp -s $GATEWAY4 -d $NET4 --sport 1900 -j ACCEPT
+$IP4T -A INPUT -p udp -s $GATEWAY4 -d $PRIVNET4_16 --sport 1900 -j ACCEPT
 
 # Plex
-$IP4T -A INPUT -p tcp -d $NET4 -m multiport --dport 32400,32401 -j ACCEPT
-$IP4T -A INPUT -p tcp -d $NET4 --sport 443 -j ACCEPT # psh?
+$IP4T -A INPUT -p tcp -d $PRIVNET4_16 -m multiport --dport 32400,32401 -j ACCEPT
+$IP4T -A INPUT -p tcp -d $PRIVNET4_16 --sport 443 -j ACCEPT # psh?
 
 # Plex network discovery
-$IP4T -A INPUT -p udp -s $NET4 -d $BCAST4 -m multiport --dport 32410,32412,34213,32414 -j ACCEPT
+$IP4T -A INPUT -p udp -s $PRIVNET4_16 -d $BCAST4 -m multiport --dport 32410,32412,34213,32414 -j ACCEPT
 
 # DLNA
-$IP4T -A INPUT -p udp -s $NET4 -d $SSDP4 --dport 1900 -j ACCEPT
+$IP4T -A INPUT -p udp -s $PRIVNET4_16 -d $SSDP4 --dport 1900 -j ACCEPT
 
 # Mail server
-# $IP4T -A INPUT -p tcp -d $NET4 --dport 25 -j ACCEPT
+# $IP4T -A INPUT -p tcp -d $PRIVNET4_16 --dport 25 -j ACCEPT
 
 # all local for now
-$IP4T -A INPUT -s $NET4 -d $NET4 -j ACCEPT
+$IP4T -A INPUT -s $PRIVNET4_16 -d $PRIVNET4_16 -j ACCEPT
 
 # and all local broadcast
-$IP4T -A INPUT -s $NET4 -d $BCAST4 -j ACCEPT
+$IP4T -A INPUT -s $PRIVNET4_16 -d $BCAST4 -j ACCEPT
 
 # all local on ham
 $IP4T -A INPUT -s $AMPR_NET4 -d $AMPR_IP4 -j ACCEPT
@@ -152,11 +152,11 @@ $IP4T -A OUTPUT -p udp --dport 53 -j ACCEPT
 $IP4T -A OUTPUT -p udp --dport $DHCP4_SERVER_PORT -j ACCEPT
 
 # SSDP4
-$IP4T -A OUTPUT -p udp -s $NET4 -d $SSDP4 --dport 1900 -j ACCEPT
-$IP4T -A OUTPUT -p udp -s $NET4 -d $BCAST4 --dport 1900 -j ACCEPT
+$IP4T -A OUTPUT -p udp -s $PRIVNET4_16 -d $SSDP4 --dport 1900 -j ACCEPT
+$IP4T -A OUTPUT -p udp -s $PRIVNET4_16 -d $BCAST4 --dport 1900 -j ACCEPT
 
 # NAT port mapping
-$IP4T -A OUTPUT -p udp -s $NET4 -d $GATEWAY4 --dport 5351 -j ACCEPT
+$IP4T -A OUTPUT -p udp -s $PRIVNET4_16 -d $GATEWAY4 --dport 5351 -j ACCEPT
 
 # NTP
 $IP4T -A OUTPUT -p udp --dport 123 -j ACCEPT
@@ -173,42 +173,42 @@ $IP4T -A OUTPUT -p tcp -d $PRIVNET4_12 --dport 80 -j ACCEPT # TODO related
 $IP4T -A OUTPUT -p tcp -d $PRIVNET4_12 --dport 8080 -j ACCEPT # TODO related
 
 # MDNS Out
-$IP4T -A OUTPUT -p udp -s $NET4 -d $MULTICAST4_4 --sport 5353 --dport 5353 -j ACCEPT
+$IP4T -A OUTPUT -p udp -s $PRIVNET4_16 -d $MULTICAST4_4 --sport 5353 --dport 5353 -j ACCEPT
 
 # NetBIOS
-$IP4T -A OUTPUT -p udp -s $NET4 -d $BCAST4 --sport 137 --dport 137 -j ACCEPT
+$IP4T -A OUTPUT -p udp -s $PRIVNET4_16 -d $BCAST4 --sport 137 --dport 137 -j ACCEPT
 
 # Plex network discovery - still gets blocked somehow
-$IP4T -A OUTPUT -p udp -s $NET4 -d $BCAST4 -m multiport --dport 32410,32412,34213,32414 -j ACCEPT
+$IP4T -A OUTPUT -p udp -s $PRIVNET4_16 -d $BCAST4 -m multiport --dport 32410,32412,34213,32414 -j ACCEPT
 
 # DLNA (SSDP4/UPnP)
-$IP4T -A OUTPUT -p udp -s $NET4 -d $SSDP4 --dport 1900 -j ACCEPT
+$IP4T -A OUTPUT -p udp -s $PRIVNET4_16 -d $SSDP4 --dport 1900 -j ACCEPT
 
 # BitTorrent
-$IP4T -A OUTPUT -p tcp -s $NET4 --sport 6881 -j ACCEPT # related?
-$IP4T -A OUTPUT -p tcp -s $NET4 --dport 6881 -j ACCEPT
-$IP4T -A OUTPUT -p udp -s $NET4 --sport 6881 -j ACCEPT # related?
+$IP4T -A OUTPUT -p tcp -s $PRIVNET4_16 --sport 6881 -j ACCEPT # related?
+$IP4T -A OUTPUT -p tcp -s $PRIVNET4_16 --dport 6881 -j ACCEPT
+$IP4T -A OUTPUT -p udp -s $PRIVNET4_16 --sport 6881 -j ACCEPT # related?
 
 # DHT
-$IP4T -A OUTPUT -p udp -s $NET4 --sport 7881 -j ACCEPT
+$IP4T -A OUTPUT -p udp -s $PRIVNET4_16 --sport 7881 -j ACCEPT
 
 # Tracker
-$IP4T -A OUTPUT -p udp -s $NET4 --sport 8881 -j ACCEPT
+$IP4T -A OUTPUT -p udp -s $PRIVNET4_16 --sport 8881 -j ACCEPT
 
 # irc
-$IP4T -A OUTPUT -p tcp -s $NET4 --dport 6697 -j ACCEPT
+$IP4T -A OUTPUT -p tcp -s $PRIVNET4_16 --dport 6697 -j ACCEPT
 
 # whois
-$IP4T -A OUTPUT -p tcp -s $NET4 --dport 43 -j ACCEPT
+$IP4T -A OUTPUT -p tcp -s $PRIVNET4_16 --dport 43 -j ACCEPT
 
 # FTP
-$IP4T -A OUTPUT -p tcp -s $NET4 --dport 21 -j ACCEPT
+$IP4T -A OUTPUT -p tcp -s $PRIVNET4_16 --dport 21 -j ACCEPT
 
 # SMB
-$IP4T -A OUTPUT -p tcp -s $NET4 --dport 445 -j ACCEPT
+$IP4T -A OUTPUT -p tcp -s $PRIVNET4_16 --dport 445 -j ACCEPT
 
 # websdr
-$IP4T -A OUTPUT -p tcp -s $NET4 -d 192.87.173.88 --dport 8901 -j ACCEPT
+$IP4T -A OUTPUT -p tcp -s $PRIVNET4_16 -d 192.87.173.88 --dport 8901 -j ACCEPT
 
 # all local on ham
 $IP4T -A OUTPUT -s $AMPR_IP4 -d $AMPR_NET4 -j ACCEPT
@@ -228,7 +228,7 @@ $IP4T -A OUTPUT -p tcp -s $PRIVNET4_8 -d $PRIVNET4_12 -j ACCEPT
 
 
 # all local for now
-$IP4T -A OUTPUT -s $NET4 -d $NET4 -j ACCEPT
+$IP4T -A OUTPUT -s $PRIVNET4_16 -d $PRIVNET4_16 -j ACCEPT
 
 # Existing
 $IP4T -A OUTPUT -p tcp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
