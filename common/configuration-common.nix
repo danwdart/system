@@ -6,7 +6,7 @@ let
     url = "https://github.com/nix-community/home-manager/archive/release-26.05.tar.gz";
   };
   lanzaboote = import (builtins.fetchTarball {
-    url = "https://github.com/nix-community/lanzaboote/archive/refs/tags/v1.0.0.tar.gz";
+    url = "https://github.com/nix-community/lanzaboote/archive/refs/tags/v1.1.0.tar.gz";
   }) {};
 
 in {
