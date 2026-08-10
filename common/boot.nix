@@ -40,6 +40,8 @@
       options mt7921e disable_aspm=1
     '';
 
+    initrd.systemd.enable = true;
+
     # no longer needs preinstalling
     lanzaboote = {
       enable = true;
@@ -50,6 +52,15 @@
       autoGenerateKeys.enable = true;
       allowUnsigned = true;
       pkiBundle = "/var/lib/sbctl";
+      measuredBoot = {
+        enable = true;
+        pcrs = [
+          0
+          4
+          7
+        ];
+      };
+      configurationLimit = 8;
     };
 
     loader.systemd-boot.enable = lib.mkForce false;
