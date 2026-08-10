@@ -40,6 +40,7 @@ in
                     "kvm"
                     "libvirtd"
                     "lp"
+                    "lpadmin"
                     "networkmanager"
                     "plugdev"
                     "scanner"
