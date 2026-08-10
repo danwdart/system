@@ -6,7 +6,7 @@
       "https://nixpkgs-update-cache.nix-community.org"
       "https://nix-community.cachix.org"
       # https://cache.jolharg.com
-      "https://dandart.cachix.org"
+      # "https://dandart.cachix.org"
       "https://nixcache.reflex-frp.org"
       "https://miso-haskell.cachix.org"
       "https://nixcache.webghc.org"
@@ -19,7 +19,7 @@
       "https://nixpkgs-update-cache.nix-community.org"
       "https://nix-community.cachix.org"
       # https://cache.jolharg.com
-      "https://dandart.cachix.org"
+      # "https://dandart.cachix.org"
       "https://nixcache.reflex-frp.org"
       "https://miso-haskell.cachix.org"
       "https://nixcache.webghc.org"
