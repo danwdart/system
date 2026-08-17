@@ -67,7 +67,7 @@ with pkgs; [
     ioquake3
     # katawa-shoujo-re-engineered # renpy: future-1.0.0 not supported for interpreter python3.13
     krabby
-    # lbreakout2
+    lbreakout2
     # legends-of-equestria # build takes too long without saying anything much.... :(
     liberal-crime-squad
     # liberation-circuit # no desktop icon # wat
@@ -86,6 +86,7 @@ with pkgs; [
     # mupen64plus # no desktop icon
     # naev # ay that's aight # ERROR: Unhandled python exception
     nethack-qt # no desktop icon
+    neverball
     newtonwars
     nexuiz # no desktop icon # BIG
     # openarena # no desktop icon # BIG # fails to build - https://github.com/OpenArena/engine/issues/94 https://github.com/NixOS/nixpkgs/issues/370954
